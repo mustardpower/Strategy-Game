@@ -4,17 +4,17 @@ namespace TYPES
 {
 	enum ACTION_LIST
 	{
-		START_GAME,
-		SUBTRACT,
-		MULTIPLY
+		MENU,
+		START_GAME, 
+		QUIT
 	};
 };
 
 class IReciever
 {
 public:
-	virtual void SetAction(TYPES::ACTION_LIST action) = 0;
-	virtual int GetResult() = 0;
+	virtual void setAction(TYPES::ACTION_LIST action) = 0;
+	virtual int getResult() = 0;
 };
 
 class MenuAction
@@ -44,15 +44,15 @@ public:
 
 	int Execute()
 	{
-		pReciever_->SetAction(TYPES::ACTION_LIST::START_GAME);
-		return pReciever_->GetResult();
+		pReciever_->setAction(TYPES::ACTION_LIST::START_GAME);
+		return pReciever_->getResult();
 	}
 };
 
-class SubtractCommand : public MenuAction
+class QuitGameAction : public MenuAction
 {
 public:
-	SubtractCommand(IReciever *reciever)
+	QuitGameAction(IReciever *reciever)
 		: MenuAction(reciever)
 	{
 
@@ -60,23 +60,7 @@ public:
 
 	int Execute()
 	{
-		pReciever_->SetAction(TYPES::ACTION_LIST::SUBTRACT);
-		return pReciever_->GetResult();
-	}
-};
-
-class MultiplyCommand : public MenuAction
-{
-public:
-	MultiplyCommand(IReciever *reciever)
-		: MenuAction(reciever)
-	{
-
-	}
-
-	int Execute()
-	{
-		pReciever_->SetAction(TYPES::ACTION_LIST::MULTIPLY);
-		return pReciever_->GetResult();
+		pReciever_->setAction(TYPES::ACTION_LIST::QUIT);
+		return pReciever_->getResult();
 	}
 };

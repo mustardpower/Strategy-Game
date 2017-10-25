@@ -7,4 +7,5 @@ string MenuItem::reportString() const
 
 void MenuItem::invokeAction() const
 {
+	action->Execute();
 }

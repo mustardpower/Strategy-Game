@@ -8,21 +8,24 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 
 using namespace std;
 
 struct MenuItem
 {
+	shared_ptr<MenuAction> action;
 	string text;
 	SDL_Color textColor;
 
 	string reportString() const; 
 	void invokeAction() const;
 
-	MenuItem(string someText)
+	MenuItem(string someText, shared_ptr<MenuAction> anAction)
 	{
 		text = someText;
+		action = anAction;
 	}
 };
 
@@ -45,6 +48,7 @@ public:
 	void nextMenuItem();
 	void previousMenuItem();
 	void renderMenu(SDL_Renderer* renderer);
+	void selectCurrentItem();
 	T selectedItem();
 	SDL_Rect textLocationForIndex(TTF_Font* font, const int menuItemIndex);
 };
@@ -88,7 +92,7 @@ inline bool SDLMenu<T>::containsPoint(SDL_Rect aRect, int x, int y)
 template<class T>
 inline void SDLMenu<T>::handleClick(int x, int y)
 {
-	for (int i = 0; i < menuItems.size(); i++)
+	for (unsigned int i = 0; i < menuItems.size(); i++)
 	{
 		SDL_Rect textLocation = textLocationForIndex(SDL_TextRenderer::getFont(), i);
 		// should already have cached text locations by this point??
@@ -145,6 +149,12 @@ void SDLMenu<T>::renderMenu(SDL_Renderer* renderer)
 	}
 
 	SDL_UpdateWindowSurface(parentWindow);
+}
+
+template<class T>
+inline void SDLMenu<T>::selectCurrentItem()
+{
+	selectedItem().invokeAction();
 }
 
 template<class T>

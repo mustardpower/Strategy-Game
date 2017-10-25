@@ -11,7 +11,7 @@ const int Game::WINDOW_HEIGHT = 480;
 
 Game::Game()
 {
-	gameState = Menu;
+	currentAction = TYPES::ACTION_LIST::MENU;
 
 	nations.push_back(Nation("Australia"));
 	nations.push_back(Nation("Germany"));
@@ -30,6 +30,11 @@ SDL_Rect Game::getClientArea() const
 	return clientArea;
 }
 
+int Game::getResult()
+{
+	return 0;
+}
+
 const int Game::getWindowHeight()
 {
 	return WINDOW_HEIGHT;
@@ -40,7 +45,7 @@ const int Game::getWindowWidth()
 	return WINDOW_WIDTH;
 }
 
-void Game::handleNationSelectionEvent(SDL_Event e)
+void Game::handleGameEvent(SDL_Event e)
 {
 	if (e.type == SDL_KEYDOWN)
 	{
@@ -55,7 +60,6 @@ void Game::handleNationSelectionEvent(SDL_Event e)
 		else if (e.key.keysym.sym == SDLK_RETURN)
 		{
 			selectedNation = make_unique<Nation>(nationSelectionMenu->selectedItem());
-			gameState = NewsBox;
 		}
 	}
 }
@@ -74,19 +78,7 @@ void Game::handleMenuEvent(SDL_Event e)
 		}
 		else if (e.key.keysym.sym == SDLK_RETURN)
 		{
-			switch (aMenu->getSelectedIndex())
-			{
-			case 0:
-			{
-				gameState = NationSelection;
-			}
-			break;
-			case 1:
-			{
-				gameState = Quiting;
-			}
-			break;
-			}
+			aMenu->selectCurrentItem();
 		}
 	}
 	else if (e.type == SDL_MOUSEBUTTONDOWN)
@@ -139,8 +131,8 @@ void Game::initializeMainMenu()
 {
 	SDL_Rect clientArea = getClientArea();
 	aMenu = make_unique<SDLMenu<MenuItem>>(window, clientArea);
-	aMenu->addMenuItem(MenuItem("PLAY!"));
-	aMenu->addMenuItem(MenuItem("QUIT!"));
+	aMenu->addMenuItem(MenuItem("PLAY!", make_shared<StartGameAction>(this)));
+	aMenu->addMenuItem(MenuItem("QUIT!", make_shared<QuitGameAction>(this)));
 }
 
 void Game::initializeNationSelectionMenu()
@@ -159,27 +151,22 @@ void Game::initializeNationSelectionMenu()
 
 void Game::render()
 {
-	switch (gameState)
+	switch (currentAction)
 	{
-		case Menu:
+		case TYPES::ACTION_LIST::MENU:
 		{
 			aMenu->renderMenu(renderer);
 		}
 		break;
-		case NationSelection:
+		case TYPES::ACTION_LIST::START_GAME:
 		{
-			renderNationSelection();
-		}
-		break;
-		case NewsBox:
-		{
-			renderNewsBox();
+			renderGame();
 		}
 		break;
 	}
 }
 
-void Game::renderNationSelection()
+void Game::renderGame()
 {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
 	SDL_RenderClear(renderer);
@@ -196,25 +183,18 @@ void Game::renderNationSelection()
 	SDL_UpdateWindowSurface(window);
 }
 
-void Game::renderNewsBox()
-{
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
-	SDL_RenderClear(renderer);
-
-	SDL_Rect darea = getClientArea();
-	SDL_Rect textLocationTitle = { (int)(darea.w * 0.25), (int)(darea.h * 0.05), 0, 0 };
-	SDL_TextRenderer::renderText(window, selectedNation->reportString(), textLocationTitle, { 0, 255, 0 });
-
-	SDL_UpdateWindowSurface(window);
-}
-
 void Game::runGameLoop()
 {
-	while (gameState != Quiting)
+	while (currentAction != TYPES::ACTION_LIST::QUIT)
 	{
 		update();
 		render();
 	}
+}
+
+void Game::setAction(TYPES::ACTION_LIST action)
+{
+	currentAction = action;
 }
 
 void Game::update()
@@ -223,25 +203,25 @@ void Game::update()
 
 	while (SDL_PollEvent(&e)) {
 		if (e.type == SDL_QUIT) {
-			gameState = Quiting;
+			currentAction = TYPES::ACTION_LIST::QUIT;
 			return;
 		}
 
 		if ((e.type == SDL_KEYDOWN) && (e.key.keysym.sym == SDLK_ESCAPE)) {
-			gameState = Quiting;
+			currentAction = TYPES::ACTION_LIST::QUIT;
 			return;
 		}
 
-		switch (gameState)
+		switch (currentAction)
 		{
-			case Menu:
+			case TYPES::ACTION_LIST::MENU:
 			{
 				handleMenuEvent(e);
 			}
 			break;
-			case NationSelection:
+			case TYPES::ACTION_LIST::START_GAME:
 			{
-				handleNationSelectionEvent(e);
+				handleGameEvent(e);
 			}
 			break;
 		}

@@ -9,15 +9,10 @@
 
 using namespace std;
 
-enum GameState
-{
-	Menu, NationSelection, NewsBox, Quiting
-};
-
-class Game
+class Game : public IReciever
 {
 private:
-	GameState gameState;
+	TYPES::ACTION_LIST currentAction;
 	SDL_Renderer *renderer;
 	SDL_Window* window;
 	static const int WINDOW_HEIGHT;
@@ -31,16 +26,17 @@ public:
 	Game();
 	~Game();
 	SDL_Rect getClientArea() const;
+	int getResult();
 	void initialize();
 	void initializeMainMenu();
 	void initializeNationSelectionMenu();
 	static const int getWindowWidth();
 	static const int getWindowHeight();
-	void handleNationSelectionEvent(SDL_Event anEvent);
+	void handleGameEvent(SDL_Event anEvent);
 	void handleMenuEvent(SDL_Event anEvent);
 	void render();
-	void renderNationSelection();
-	void renderNewsBox();
+	void renderGame();
 	void runGameLoop();
+	void setAction(TYPES::ACTION_LIST action);
 	void update();
 };
