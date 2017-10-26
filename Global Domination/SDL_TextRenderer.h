@@ -6,13 +6,9 @@
 
 namespace global_domination
 {
-	class SDL_TextRenderer
+	namespace text_renderer
 	{
-	private:
-		static TTF_Font* font;
-	public:
-		~SDL_TextRenderer();
-		static TTF_Font* getFont();
-		static void renderText(SDL_Window* window, std::string text, SDL_Rect textLocation, SDL_Color foregroundColor);
+		TTF_Font* getFont();
+		void renderText(SDL_Window* window, std::string text, SDL_Rect textLocation, SDL_Color foregroundColor);
 	};
 }

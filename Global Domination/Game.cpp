@@ -121,7 +121,6 @@ namespace global_domination {
 		}
 
 		/* Create window and renderer for given surface */
-		window = SDL_CreateWindow("Global Domination", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, 0);
 		if (!window) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Window creation fail : %s\n", SDL_GetError());
 			return;
@@ -192,10 +191,10 @@ namespace global_domination {
 
 		SDL_Rect darea = getClientArea();
 		SDL_Rect textLocationTitle = { (int)(darea.w * 0.25), (int)(darea.h * 0.05), 0, 0 };
-		SDL_TextRenderer::renderText(window, "GLOBAL DOMINATION!", textLocationTitle, { 0, 255, 0 });
+		text_renderer::renderText(window, "GLOBAL DOMINATION!", textLocationTitle, { 0, 255, 0 });
 
 		SDL_Rect textLocationSelectNation = { (int)(darea.w * 0.15), (int)(darea.h * 0.25), 0, 0 };
-		SDL_TextRenderer::renderText(window, "Select a nation:", textLocationSelectNation, { 0, 255, 0 });
+		text_renderer::renderText(window, "Select a nation:", textLocationSelectNation, { 0, 255, 0 });
 
 		nationSelectionMenu->renderMenu(renderer);
 

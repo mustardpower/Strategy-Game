@@ -7,7 +7,6 @@
 #include "SDL_ttf.h"
 
 #include "MenuItem.h"
-#include "SDL_TextRenderer.h"
 
 namespace global_domination
 {
@@ -76,7 +75,7 @@ namespace global_domination
 	{
 		for (unsigned int i = 0; i < menuItems.size(); i++)
 		{
-			SDL_Rect textLocation = textLocationForIndex(SDL_TextRenderer::getFont(), i);
+			SDL_Rect textLocation = textLocationForIndex(text_renderer::getFont(), i);
 			// should already have cached text locations by this point??
 
 			if (containsPoint(textLocation, x, y))
@@ -112,7 +111,7 @@ namespace global_domination
 		int index = 0;
 		SDL_Color textColor;
 
-		TTF_Font* font = SDL_TextRenderer::getFont();
+		TTF_Font* font = text_renderer::getFont();
 		if (!font) { return; }
 
 
@@ -127,7 +126,7 @@ namespace global_domination
 				textColor = { 255,0,0 };
 			}
 
-			SDL_TextRenderer::renderText(parentWindow, item->reportString(), textLocationForIndex(font, index), textColor);
+			text_renderer::renderText(parentWindow, item->reportString(), textLocationForIndex(font, index), textColor);
 			index++;
 		}
 
