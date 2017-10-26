@@ -2,6 +2,7 @@
 #include "SDL.h"
 #include "SDLMenu.h"
 #include "Nation.h"
+#include "MenuItem.h"
 
 #include <string>
 #include <memory>
@@ -17,7 +18,7 @@ private:
 	SDL_Window* window;
 	static const int WINDOW_HEIGHT;
 	static const int WINDOW_WIDTH;
-	std::unique_ptr<SDLMenu<MenuItem>> aMenu;
+	std::unique_ptr<SDLMenu<int>> aMenu;
 	std::unique_ptr<SDLMenu<Nation>> nationSelectionMenu;
 	std::vector<Nation> nations;
 	std::unique_ptr<Nation> selectedNation;

@@ -120,12 +120,12 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Nation.cpp" />
-    <ClCompile Include="SDLMenu.cpp" />
     <ClCompile Include="SDL_TextRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
     <ClInclude Include="MenuAction.h" />
+    <ClInclude Include="MenuItem.h" />
     <ClInclude Include="Nation.h" />
     <ClInclude Include="SDLMenu.h" />
     <ClInclude Include="SDL_TextRenderer.h" />

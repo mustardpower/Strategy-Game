@@ -5,6 +5,7 @@ namespace TYPES
 	enum ACTION_LIST
 	{
 		MENU,
+		NATION_SELECTION,
 		START_GAME, 
 		QUIT
 	};
@@ -61,6 +62,22 @@ public:
 	int Execute()
 	{
 		pReciever_->setAction(TYPES::ACTION_LIST::QUIT);
+		return pReciever_->getResult();
+	}
+};
+
+class NationSelectionAction : public MenuAction
+{
+public:
+	NationSelectionAction(IReciever *reciever)
+		: MenuAction(reciever)
+	{
+
+	}
+
+	int Execute()
+	{
+		pReciever_->setAction(TYPES::ACTION_LIST::NATION_SELECTION);
 		return pReciever_->getResult();
 	}
 };

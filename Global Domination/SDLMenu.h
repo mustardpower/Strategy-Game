@@ -4,30 +4,13 @@
 #include "SDL_ttf.h"
 #include "SDL_TextRenderer.h"
 
-#include "MenuAction.h"
+#include "MenuItem.h"
 
 #include <string>
 #include <vector>
-#include <memory>
 
 
 using namespace std;
-
-struct MenuItem
-{
-	shared_ptr<MenuAction> action;
-	string text;
-	SDL_Color textColor;
-
-	string reportString() const; 
-	void invokeAction() const;
-
-	MenuItem(string someText, shared_ptr<MenuAction> anAction)
-	{
-		text = someText;
-		action = anAction;
-	}
-};
 
 template <class T>
 class SDLMenu
@@ -35,14 +18,14 @@ class SDLMenu
 private:
 	int selectedMenuItemIndex;
 	SDL_Window* parentWindow;
-	vector<T> menuItems;
+	vector<MenuItem<T>> menuItems;
 	const int MENUITEM_POSX;
 	const int MENUITEM_POSY;
 	const int MENUITEM_HEIGHT;
 public:
 	SDLMenu(SDL_Window* parent, SDL_Rect clientArea);
 	int getSelectedIndex() const;
-	void addMenuItem(T aMenuItem);
+	void addMenuItem(MenuItem<T> aMenuItem);
 	bool containsPoint(SDL_Rect aRect, int x, int y);
 	void handleClick(int x, int y);
 	void nextMenuItem();
@@ -70,7 +53,7 @@ int SDLMenu<T>::getSelectedIndex() const
 }
 
 template <typename T>
-void SDLMenu<T>::addMenuItem(T aMenuItem)
+void SDLMenu<T>::addMenuItem(MenuItem<T> aMenuItem)
 {
 	menuItems.push_back(aMenuItem);
 }
@@ -99,6 +82,7 @@ inline void SDLMenu<T>::handleClick(int x, int y)
 
 		if (containsPoint(textLocation, x, y))
 		{
+			selectedMenuItemIndex = i;
 			menuItems.at(i).invokeAction();
 		}
 	}
@@ -133,7 +117,7 @@ void SDLMenu<T>::renderMenu(SDL_Renderer* renderer)
 	if (!font) { return; }
 
 
-	for (vector<T>::const_iterator item = menuItems.cbegin(); item != menuItems.cend(); item++)
+	for (vector<MenuItem<T>>::const_iterator item = menuItems.cbegin(); item != menuItems.cend(); item++)
 	{
 		if (index == selectedMenuItemIndex)
 		{
@@ -154,13 +138,13 @@ void SDLMenu<T>::renderMenu(SDL_Renderer* renderer)
 template<class T>
 inline void SDLMenu<T>::selectCurrentItem()
 {
-	selectedItem().invokeAction();
+	menuItems.at(selectedMenuItemIndex).invokeAction();
 }
 
 template<class T>
 inline T SDLMenu<T>::selectedItem()
 {
-	return menuItems.at(selectedMenuItemIndex);
+	return menuItems.at(selectedMenuItemIndex).getData();
 }
 
 template<class T>

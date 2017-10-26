@@ -32,6 +32,12 @@ SDL_Rect Game::getClientArea() const
 
 int Game::getResult()
 {
+	if (currentAction == TYPES::ACTION_LIST::NATION_SELECTION)
+	{
+		selectedNation = make_unique<Nation>(nationSelectionMenu->selectedItem());
+		currentAction = TYPES::ACTION_LIST::START_GAME;
+	}
+
 	return 0;
 }
 
@@ -59,7 +65,14 @@ void Game::handleGameEvent(SDL_Event e)
 		}
 		else if (e.key.keysym.sym == SDLK_RETURN)
 		{
-			selectedNation = make_unique<Nation>(nationSelectionMenu->selectedItem());
+			nationSelectionMenu->selectCurrentItem();
+		}
+	}
+	else if (e.type == SDL_MOUSEBUTTONDOWN)
+	{
+		if (e.button.button == SDL_BUTTON_LEFT)
+		{
+			nationSelectionMenu->handleClick(e.button.x, e.button.y);
 		}
 	}
 }
@@ -104,7 +117,7 @@ void Game::initialize()
 	}
 
 	/* Create window and renderer for given surface */
-	window = SDL_CreateWindow("Pong Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, 0);
+	window = SDL_CreateWindow("Global Domination", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, 0);
 	if (!window) {
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Window creation fail : %s\n", SDL_GetError());
 		return;
@@ -130,9 +143,9 @@ void Game::initialize()
 void Game::initializeMainMenu()
 {
 	SDL_Rect clientArea = getClientArea();
-	aMenu = make_unique<SDLMenu<MenuItem>>(window, clientArea);
-	aMenu->addMenuItem(MenuItem("PLAY!", make_shared<StartGameAction>(this)));
-	aMenu->addMenuItem(MenuItem("QUIT!", make_shared<QuitGameAction>(this)));
+	aMenu = make_unique<SDLMenu<int>>(window, clientArea);
+	aMenu->addMenuItem(MenuItem<int>("PLAY!", make_shared<StartGameAction>(this), 0));
+	aMenu->addMenuItem(MenuItem<int>("QUIT!", make_shared<QuitGameAction>(this), 1));
 }
 
 void Game::initializeNationSelectionMenu()
@@ -144,7 +157,9 @@ void Game::initializeNationSelectionMenu()
 	for (std::vector<Nation>::const_iterator nation = nations.cbegin(); nation != nations.end(); nation++)
 	{
 		SDL_Rect textLocation = { (int)(clientArea.w * 0.45), (int)(clientArea.h * textLocationY), 0, 0 };
-		nationSelectionMenu->addMenuItem(*nation);
+		std::shared_ptr<NationSelectionAction> nationSelectionAction = make_shared<NationSelectionAction>(this);
+		string nationName = nation->reportString();
+		nationSelectionMenu->addMenuItem(MenuItem<Nation>(nationName, nationSelectionAction, *nation));
 		textLocationY += 0.1f;
 	}
 }

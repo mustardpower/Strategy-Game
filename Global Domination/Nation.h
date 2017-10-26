@@ -9,6 +9,7 @@ private:
 	string name;
 
 public:
+	Nation() {};
 	Nation(string aName);
 	string getName() const;
 	string reportString() const;
