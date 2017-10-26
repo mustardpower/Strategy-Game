@@ -10,8 +10,6 @@
 #include "Nation.h"
 #include "SDLMenu.h"
 
-using namespace std;
-
 class Game : public IReciever
 {
 private:

@@ -7,24 +7,22 @@
 
 #include "MenuAction.h"
 
-using namespace std;
-
 template <class T>
 class MenuItem
 {
 
 private:
-	shared_ptr<MenuAction> action;
-	string text;
+	std::shared_ptr<MenuAction> action;
+	std::string text;
 	SDL_Color textColor;
 	T data;
 
 public:
-	string reportString() const;
+	std::string reportString() const;
 	void invokeAction() const;
 	T getData() const;
 
-	MenuItem(string someText, shared_ptr<MenuAction> anAction, T menuItemData)
+	MenuItem(std::string someText, std::shared_ptr<MenuAction> anAction, T menuItemData)
 	{
 		text = someText;
 		action = anAction;
@@ -33,7 +31,7 @@ public:
 };
 
 template <typename T>
-string MenuItem<T>::reportString() const
+std::string MenuItem<T>::reportString() const
 {
 	return text;
 }

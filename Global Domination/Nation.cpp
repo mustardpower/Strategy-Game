@@ -1,16 +1,16 @@
 #include "Nation.h"
 
-Nation::Nation(string aName)
+Nation::Nation(std::string aName)
 {
 	name = aName;
 }
 
-string Nation::getName() const
+std::string Nation::getName() const
 {
 	return name;
 }
 
-string Nation::reportString() const
+std::string Nation::reportString() const
 {
 	return name;
 }

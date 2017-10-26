@@ -36,7 +36,7 @@ int Game::getResult()
 {
 	if (currentAction == TYPES::ACTION_LIST::NATION_SELECTION)
 	{
-		selectedNation = make_unique<Nation>(nationSelectionMenu->selectedItem());
+		selectedNation = std::make_unique<Nation>(nationSelectionMenu->selectedItem());
 		currentAction = TYPES::ACTION_LIST::START_GAME;
 	}
 
@@ -145,22 +145,22 @@ void Game::initialize()
 void Game::initializeMainMenu()
 {
 	SDL_Rect clientArea = getClientArea();
-	aMenu = make_unique<SDLMenu<int>>(window, clientArea);
-	aMenu->addMenuItem(MenuItem<int>("PLAY!", make_shared<StartGameAction>(this), 0));
-	aMenu->addMenuItem(MenuItem<int>("QUIT!", make_shared<QuitGameAction>(this), 1));
+	aMenu = std::make_unique<SDLMenu<int>>(window, clientArea);
+	aMenu->addMenuItem(MenuItem<int>("PLAY!", std::make_shared<StartGameAction>(this), 0));
+	aMenu->addMenuItem(MenuItem<int>("QUIT!", std::make_shared<QuitGameAction>(this), 1));
 }
 
 void Game::initializeNationSelectionMenu()
 {
 	SDL_Rect clientArea = getClientArea();
-	nationSelectionMenu = make_unique<SDLMenu<Nation>>(window, clientArea);
+	nationSelectionMenu = std::make_unique<SDLMenu<Nation>>(window, clientArea);
 
 	float textLocationY = 0.05f;
 	for (std::vector<Nation>::const_iterator nation = nations.cbegin(); nation != nations.end(); nation++)
 	{
 		SDL_Rect textLocation = { (int)(clientArea.w * 0.45), (int)(clientArea.h * textLocationY), 0, 0 };
-		std::shared_ptr<NationSelectionAction> nationSelectionAction = make_shared<NationSelectionAction>(this);
-		string nationName = nation->reportString();
+		std::shared_ptr<NationSelectionAction> nationSelectionAction = std::make_shared<NationSelectionAction>(this);
+		std::string nationName = nation->reportString();
 		nationSelectionMenu->addMenuItem(MenuItem<Nation>(nationName, nationSelectionAction, *nation));
 		textLocationY += 0.1f;
 	}

@@ -9,16 +9,13 @@
 #include "MenuItem.h"
 #include "SDL_TextRenderer.h"
 
-
-using namespace std;
-
 template <class T>
 class SDLMenu
 {
 private:
 	int selectedMenuItemIndex;
 	SDL_Window* parentWindow;
-	vector<MenuItem<T>> menuItems;
+	std::vector<MenuItem<T>> menuItems;
 	const int MENUITEM_POSX;
 	const int MENUITEM_POSY;
 	const int MENUITEM_HEIGHT;
@@ -117,7 +114,7 @@ void SDLMenu<T>::renderMenu(SDL_Renderer* renderer)
 	if (!font) { return; }
 
 
-	for (vector<MenuItem<T>>::const_iterator item = menuItems.cbegin(); item != menuItems.cend(); item++)
+	for (std::vector<MenuItem<T>>::const_iterator item = menuItems.cbegin(); item != menuItems.cend(); item++)
 	{
 		if (index == selectedMenuItemIndex)
 		{
@@ -153,7 +150,7 @@ inline SDL_Rect SDLMenu<T>::textLocationForIndex(TTF_Font* font, const int menuI
 	int w = 0;
 	int h = 0;
 	
-	string text = (menuItems.at(menuItemIndex)).reportString();
+	std::string text = (menuItems.at(menuItemIndex)).reportString();
 	TTF_SizeText(font, text.c_str(), &w, &h);
 	return SDL_Rect { MENUITEM_POSX, MENUITEM_POSY + (MENUITEM_HEIGHT * menuItemIndex), w, h };
 }

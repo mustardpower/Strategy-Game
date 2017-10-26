@@ -4,8 +4,6 @@
 #include "SDL.h"
 #include "sdl_ttf.h"
 
-using namespace std;
-
 class SDL_TextRenderer
 {
 private:
@@ -13,5 +11,5 @@ private:
 public:
 	~SDL_TextRenderer();
 	static TTF_Font* getFont();
-	static void renderText(SDL_Window* window, string text, SDL_Rect textLocation, SDL_Color foregroundColor);
+	static void renderText(SDL_Window* window, std::string text, SDL_Rect textLocation, SDL_Color foregroundColor);
 };

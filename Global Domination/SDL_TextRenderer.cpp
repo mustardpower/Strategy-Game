@@ -19,7 +19,7 @@ TTF_Font * SDL_TextRenderer::getFont()
 	}
 }
 
-void SDL_TextRenderer::renderText(SDL_Window* window, string text, SDL_Rect textLocation, SDL_Color foregroundColor)
+void SDL_TextRenderer::renderText(SDL_Window* window, std::string text, SDL_Rect textLocation, SDL_Color foregroundColor)
 {	
 	SDL_Color backgroundColor = { 0, 0, 0 };
 	SDL_Surface* textSurface = TTF_RenderText_Shaded(getFont(), text.c_str(), foregroundColor, backgroundColor);
