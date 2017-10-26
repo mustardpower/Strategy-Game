@@ -1,16 +1,19 @@
 #include "Nation.h"
 
-Nation::Nation(std::string aName)
+namespace global_domination
 {
-	name = aName;
-}
+	Nation::Nation(std::string aName)
+	{
+		name = aName;
+	}
 
-std::string Nation::getName() const
-{
-	return name;
-}
+	std::string Nation::getName() const
+	{
+		return name;
+	}
 
-std::string Nation::reportString() const
-{
-	return name;
+	std::string Nation::reportString() const
+	{
+		return name;
+	}
 }

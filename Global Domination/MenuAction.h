@@ -1,83 +1,86 @@
 #pragma once
 
-namespace TYPES
+namespace global_domination
 {
-	enum ACTION_LIST
+	namespace TYPES
 	{
-		MENU,
-		NATION_SELECTION,
-		START_GAME, 
-		QUIT
+		enum ACTION_LIST
+		{
+			MENU,
+			NATION_SELECTION,
+			START_GAME,
+			QUIT
+		};
 	};
-};
 
-class IReciever
-{
-public:
-	virtual void setAction(TYPES::ACTION_LIST action) = 0;
-	virtual int getResult() = 0;
-};
-
-class MenuAction
-{
-protected:
-
-	IReciever *pReciever_;
-
-public:
-
-	MenuAction(IReciever *reciever)
-		:pReciever_(reciever)
+	class IReciever
 	{
-	}
+	public:
+		virtual void setAction(TYPES::ACTION_LIST action) = 0;
+		virtual int getResult() = 0;
+	};
 
-	virtual int Execute() = 0;
-};
-
-class StartGameAction : public MenuAction
-{
-public:
-	StartGameAction(IReciever *reciever)
-		: MenuAction(reciever)
+	class MenuAction
 	{
+	protected:
 
-	}
+		IReciever *pReciever_;
 
-	int Execute()
+	public:
+
+		MenuAction(IReciever *reciever)
+			:pReciever_(reciever)
+		{
+		}
+
+		virtual int Execute() = 0;
+	};
+
+	class StartGameAction : public MenuAction
 	{
-		pReciever_->setAction(TYPES::ACTION_LIST::START_GAME);
-		return pReciever_->getResult();
-	}
-};
+	public:
+		StartGameAction(IReciever *reciever)
+			: MenuAction(reciever)
+		{
 
-class QuitGameAction : public MenuAction
-{
-public:
-	QuitGameAction(IReciever *reciever)
-		: MenuAction(reciever)
+		}
+
+		int Execute()
+		{
+			pReciever_->setAction(TYPES::ACTION_LIST::START_GAME);
+			return pReciever_->getResult();
+		}
+	};
+
+	class QuitGameAction : public MenuAction
 	{
+	public:
+		QuitGameAction(IReciever *reciever)
+			: MenuAction(reciever)
+		{
 
-	}
+		}
 
-	int Execute()
+		int Execute()
+		{
+			pReciever_->setAction(TYPES::ACTION_LIST::QUIT);
+			return pReciever_->getResult();
+		}
+	};
+
+	class NationSelectionAction : public MenuAction
 	{
-		pReciever_->setAction(TYPES::ACTION_LIST::QUIT);
-		return pReciever_->getResult();
-	}
-};
+	public:
+		NationSelectionAction(IReciever *reciever)
+			: MenuAction(reciever)
+		{
 
-class NationSelectionAction : public MenuAction
-{
-public:
-	NationSelectionAction(IReciever *reciever)
-		: MenuAction(reciever)
-	{
+		}
 
-	}
-
-	int Execute()
-	{
-		pReciever_->setAction(TYPES::ACTION_LIST::NATION_SELECTION);
-		return pReciever_->getResult();
-	}
-};
+		int Execute()
+		{
+			pReciever_->setAction(TYPES::ACTION_LIST::NATION_SELECTION);
+			return pReciever_->getResult();
+		}
+	};
+}

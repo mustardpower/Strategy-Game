@@ -7,43 +7,46 @@
 
 #include "MenuAction.h"
 
-template <class T>
-class MenuItem
+namespace global_domination
 {
-
-private:
-	std::shared_ptr<MenuAction> action;
-	std::string text;
-	SDL_Color textColor;
-	T data;
-
-public:
-	std::string reportString() const;
-	void invokeAction() const;
-	T getData() const;
-
-	MenuItem(std::string someText, std::shared_ptr<MenuAction> anAction, T menuItemData)
+	template <class T>
+	class MenuItem
 	{
-		text = someText;
-		action = anAction;
-		data = menuItemData;
+
+	private:
+		std::shared_ptr<MenuAction> action;
+		std::string text;
+		SDL_Color textColor;
+		T data;
+
+	public:
+		std::string reportString() const;
+		void invokeAction() const;
+		T getData() const;
+
+		MenuItem(std::string someText, std::shared_ptr<MenuAction> anAction, T menuItemData)
+		{
+			text = someText;
+			action = anAction;
+			data = menuItemData;
+		}
+	};
+
+	template <typename T>
+	std::string MenuItem<T>::reportString() const
+	{
+		return text;
 	}
-};
 
-template <typename T>
-std::string MenuItem<T>::reportString() const
-{
-	return text;
-}
+	template <typename T>
+	void MenuItem<T>::invokeAction() const
+	{
+		action->Execute();
+	}
 
-template <typename T>
-void MenuItem<T>::invokeAction() const
-{
-	action->Execute();
-}
-
-template<class T>
-inline T MenuItem<T>::getData() const
-{
-	return data;
+	template<class T>
+	inline T MenuItem<T>::getData() const
+	{
+		return data;
+	}
 }
