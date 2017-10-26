@@ -1,12 +1,14 @@
 #pragma once
-#include "SDL.h"
-#include "SDLMenu.h"
-#include "Nation.h"
-#include "MenuItem.h"
 
-#include <string>
-#include <memory>
 #include <array>
+#include <memory>
+#include <string>
+
+#include "SDL.h"
+
+#include "MenuItem.h"
+#include "Nation.h"
+#include "SDLMenu.h"
 
 using namespace std;
 

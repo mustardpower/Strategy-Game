@@ -1,11 +1,11 @@
 #pragma once
 
-#include "MenuAction.h"
+#include <memory>
+#include <string>
 
 #include "SDL.h"
 
-#include <memory>
-#include <string>
+#include "MenuAction.h"
 
 using namespace std;
 

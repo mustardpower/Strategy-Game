@@ -1,13 +1,13 @@
 #pragma once
 
-#include "SDL.h"
-#include "SDL_ttf.h"
-#include "SDL_TextRenderer.h"
-
-#include "MenuItem.h"
-
 #include <string>
 #include <vector>
+
+#include "SDL.h"
+#include "SDL_ttf.h"
+
+#include "MenuItem.h"
+#include "SDL_TextRenderer.h"
 
 
 using namespace std;

@@ -1,10 +1,12 @@
-#include "Game.h"
-#include "SDL_TextRenderer.h"
+#include <algorithm>
+#include <string>
+
 #include "SDL.h"
 #include "SDL_ttf.h"
-#include <string>
-#include <algorithm>
+
+#include "Game.h"
 #include "MenuAction.h"
+#include "SDL_TextRenderer.h"
 
 const int Game::WINDOW_WIDTH = 640;
 const int Game::WINDOW_HEIGHT = 480;
