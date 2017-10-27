@@ -12,13 +12,6 @@ namespace global_domination
 	template <class T>
 	class MenuItem
 	{
-
-	private:
-		std::shared_ptr<MenuAction> action_;
-		std::string text_;
-		SDL_Color text_color_;
-		T data_;
-
 	public:
 		std::string reportString() const;
 		void invokeAction() const;
@@ -30,6 +23,12 @@ namespace global_domination
 			action_ = an_action;
 			data_ = menu_item_data;
 		}
+
+	private:
+		std::shared_ptr<MenuAction> action_;
+		std::string text_;
+		SDL_Color text_color_;
+		T data_;
 	};
 
 	template <typename T>

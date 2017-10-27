@@ -22,18 +22,11 @@ namespace global_domination
 
 	class MenuAction
 	{
-	protected:
-
-		IReciever *p_receiver_;
-
 	public:
-
-		MenuAction(IReciever *reciever)
-			:p_receiver_(reciever)
-		{
-		}
-
+		MenuAction(IReciever *reciever) :p_receiver_(reciever) {}
 		virtual int execute() = 0;
+	protected:
+		IReciever *p_receiver_;
 	};
 
 	class StartGameAction : public MenuAction

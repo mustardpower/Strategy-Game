@@ -13,13 +13,6 @@ namespace global_domination
 	template <class T>
 	class SDLMenu
 	{
-	private:
-		int selected_menu_item_index_;
-		SDL_Window* parent_window_;
-		std::vector<MenuItem<T>> menu_items_;
-		const int kMenuItemPosX;
-		const int kMenuItemPosY;
-		const int kMenuItemHeight;
 	public:
 		SDLMenu(SDL_Window* parent, SDL_Rect client_area);
 		int getSelectedIndex() const;
@@ -32,6 +25,13 @@ namespace global_domination
 		void selectCurrentItem();
 		T selectedItem();
 		SDL_Rect textLocationForIndex(TTF_Font* font, const int menu_item_index);
+	private:
+		int selected_menu_item_index_;
+		SDL_Window* parent_window_;
+		std::vector<MenuItem<T>> menu_items_;
+		const int kMenuItemPosX;
+		const int kMenuItemPosY;
+		const int kMenuItemHeight;
 	};
 
 	template <typename T>
