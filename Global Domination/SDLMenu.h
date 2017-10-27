@@ -14,16 +14,16 @@ namespace global_domination
 	class SDLMenu
 	{
 	private:
-		int selectedMenuItemIndex;
-		SDL_Window* parentWindow;
-		std::vector<MenuItem<T>> menuItems;
-		const int MENUITEM_POSX;
-		const int MENUITEM_POSY;
-		const int MENUITEM_HEIGHT;
+		int selected_menu_item_index_;
+		SDL_Window* parent_window_;
+		std::vector<MenuItem<T>> menu_items_;
+		const int kMenuItemPosX;
+		const int kMenuItemPosY;
+		const int kMenuItemHeight;
 	public:
-		SDLMenu(SDL_Window* parent, SDL_Rect clientArea);
+		SDLMenu(SDL_Window* parent, SDL_Rect client_area);
 		int getSelectedIndex() const;
-		void addMenuItem(MenuItem<T> aMenuItem);
+		void addMenuItem(MenuItem<T> menu_item);
 		bool containsPoint(SDL_Rect aRect, int x, int y);
 		void handleClick(int x, int y);
 		void nextMenuItem();
@@ -31,29 +31,29 @@ namespace global_domination
 		void renderMenu(SDL_Renderer* renderer);
 		void selectCurrentItem();
 		T selectedItem();
-		SDL_Rect textLocationForIndex(TTF_Font* font, const int menuItemIndex);
+		SDL_Rect textLocationForIndex(TTF_Font* font, const int menu_item_index);
 	};
 
 	template <typename T>
-	SDLMenu<T>::SDLMenu(SDL_Window*  parent, SDL_Rect clientArea) :
-		MENUITEM_POSX(clientArea.w * 0.2),
-		MENUITEM_POSY(clientArea.h * 0.3),
-		MENUITEM_HEIGHT(clientArea.h * 0.1)
+	SDLMenu<T>::SDLMenu(SDL_Window*  parent, SDL_Rect client_area) :
+		kMenuItemPosX(client_area.w * 0.2),
+		kMenuItemPosY(client_area.h * 0.3),
+		kMenuItemHeight(client_area.h * 0.1)
 	{
-		selectedMenuItemIndex = 0;
-		parentWindow = parent;
+		selected_menu_item_index_ = 0;
+		parent_window_ = parent;
 	}
 
 	template <typename T>
 	int SDLMenu<T>::getSelectedIndex() const
 	{
-		return selectedMenuItemIndex;
+		return selected_menu_item_index_;
 	}
 
 	template <typename T>
-	void SDLMenu<T>::addMenuItem(MenuItem<T> aMenuItem)
+	void SDLMenu<T>::addMenuItem(MenuItem<T> menu_item)
 	{
-		menuItems.push_back(aMenuItem);
+		menu_items_.push_back(menu_item);
 	}
 
 	template<class T>
@@ -73,15 +73,15 @@ namespace global_domination
 	template<class T>
 	inline void SDLMenu<T>::handleClick(int x, int y)
 	{
-		for (unsigned int i = 0; i < menuItems.size(); i++)
+		for (unsigned int i = 0; i < menu_items_.size(); i++)
 		{
-			SDL_Rect textLocation = textLocationForIndex(text_renderer::getFont(), i);
+			SDL_Rect text_location = textLocationForIndex(text_renderer::getFont(), i);
 			// should already have cached text locations by this point??
 
-			if (containsPoint(textLocation, x, y))
+			if (containsPoint(text_location, x, y))
 			{
-				selectedMenuItemIndex = i;
-				menuItems.at(i).invokeAction();
+				selected_menu_item_index_ = i;
+				menu_items_.at(i).invokeAction();
 			}
 		}
 	}
@@ -89,16 +89,16 @@ namespace global_domination
 	template <typename T>
 	void SDLMenu<T>::nextMenuItem()
 	{
-		selectedMenuItemIndex = (selectedMenuItemIndex + 1) % menuItems.size();
+		selected_menu_item_index_ = (selected_menu_item_index_ + 1) % menu_items_.size();
 	}
 
 	template <typename T>
 	void SDLMenu<T>::previousMenuItem()
 	{
-		selectedMenuItemIndex = (selectedMenuItemIndex - 1) % menuItems.size();
-		if (selectedMenuItemIndex < 0)
+		selected_menu_item_index_ = (selected_menu_item_index_ - 1) % menu_items_.size();
+		if (selected_menu_item_index_ < 0)
 		{
-			selectedMenuItemIndex = menuItems.size() - 1;
+			selected_menu_item_index_ = menu_items_.size() - 1;
 		}
 	}
 
@@ -109,50 +109,50 @@ namespace global_domination
 		SDL_RenderClear(renderer);
 
 		int index = 0;
-		SDL_Color textColor;
+		SDL_Color text_color;
 
 		TTF_Font* font = text_renderer::getFont();
 		if (!font) { return; }
 
 
-		for (std::vector<MenuItem<T>>::const_iterator item = menuItems.cbegin(); item != menuItems.cend(); item++)
+		for (std::vector<MenuItem<T>>::const_iterator item = menu_items_.cbegin(); item != menu_items_.cend(); item++)
 		{
-			if (index == selectedMenuItemIndex)
+			if (index == selected_menu_item_index_)
 			{
-				textColor = { 0,255,0 };
+				text_color = { 0,255,0 };
 			}
 			else
 			{
-				textColor = { 255,0,0 };
+				text_color = { 255,0,0 };
 			}
 
-			text_renderer::renderText(parentWindow, item->reportString(), textLocationForIndex(font, index), textColor);
+			text_renderer::renderText(parent_window_, item->reportString(), textLocationForIndex(font, index), text_color);
 			index++;
 		}
 
-		SDL_UpdateWindowSurface(parentWindow);
+		SDL_UpdateWindowSurface(parent_window_);
 	}
 
 	template<class T>
 	inline void SDLMenu<T>::selectCurrentItem()
 	{
-		menuItems.at(selectedMenuItemIndex).invokeAction();
+		menu_items_.at(selected_menu_item_index_).invokeAction();
 	}
 
 	template<class T>
 	inline T SDLMenu<T>::selectedItem()
 	{
-		return menuItems.at(selectedMenuItemIndex).getData();
+		return menu_items_.at(selected_menu_item_index_).getData();
 	}
 
 	template<class T>
-	inline SDL_Rect SDLMenu<T>::textLocationForIndex(TTF_Font* font, const int menuItemIndex)
+	inline SDL_Rect SDLMenu<T>::textLocationForIndex(TTF_Font* font, const int menu_item_index)
 	{
 		int w = 0;
 		int h = 0;
 
-		std::string text = (menuItems.at(menuItemIndex)).reportString();
+		std::string text = (menu_items_.at(menu_item_index)).reportString();
 		TTF_SizeText(font, text.c_str(), &w, &h);
-		return SDL_Rect{ MENUITEM_POSX, MENUITEM_POSY + (MENUITEM_HEIGHT * menuItemIndex), w, h };
+		return SDL_Rect{ kMenuItemPosX, kMenuItemPosY + (kMenuItemHeight * menu_item_index), w, h };
 	}
 }

@@ -4,16 +4,16 @@ namespace global_domination
 {
 	Nation::Nation(std::string aName)
 	{
-		name = aName;
+		name_ = aName;
 	}
 
 	std::string Nation::getName() const
 	{
-		return name;
+		return name_;
 	}
 
 	std::string Nation::reportString() const
 	{
-		return name;
+		return name_;
 	}
 }

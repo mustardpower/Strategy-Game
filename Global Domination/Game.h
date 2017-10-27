@@ -15,15 +15,17 @@ namespace global_domination {
 	class Game : public IReciever
 	{
 	private:
-		TYPES::ACTION_LIST currentAction;
-		SDL_Renderer *renderer;
-		SDL_Window* window;
-		static const int WINDOW_HEIGHT;
-		static const int WINDOW_WIDTH;
-		std::unique_ptr<SDLMenu<int>> aMenu;
-		std::unique_ptr<SDLMenu<Nation>> nationSelectionMenu;
-		std::vector<Nation> nations;
-		std::unique_ptr<Nation> selectedNation;
+
+		const int kWindowWidth = 640;
+		const int kWindowHeight = 480;
+
+		TYPES::ACTION_LIST current_action_;
+		std::unique_ptr<SDLMenu<int>> main_menu_;
+		std::unique_ptr<SDLMenu<Nation>> nation_selection_menu_;
+		std::vector<Nation> nations_;
+		SDL_Renderer *renderer_;
+		std::unique_ptr<Nation> selected_nation_;
+		SDL_Window* window_;
 
 	public:
 		Game();
@@ -33,10 +35,10 @@ namespace global_domination {
 		void initialize();
 		void initializeMainMenu();
 		void initializeNationSelectionMenu();
-		static const int getWindowWidth();
-		static const int getWindowHeight();
-		void handleGameEvent(SDL_Event anEvent);
-		void handleMenuEvent(SDL_Event anEvent);
+		const int getWindowWidth();
+		const int getWindowHeight();
+		void handleGameEvent(SDL_Event an_event);
+		void handleMenuEvent(SDL_Event an_event);
 		void render();
 		void renderGame();
 		void runGameLoop();

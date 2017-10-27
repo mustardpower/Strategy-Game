@@ -10,17 +10,14 @@
 
 namespace global_domination {
 
-	const int Game::WINDOW_WIDTH = 640;
-	const int Game::WINDOW_HEIGHT = 480;
-
 	Game::Game()
 	{
-		currentAction = TYPES::ACTION_LIST::MENU;
+		current_action_ = TYPES::ACTION_LIST::MENU;
 
-		nations.push_back(Nation("Australia"));
-		nations.push_back(Nation("Germany"));
-		nations.push_back(Nation("Japan"));
-		nations.push_back(Nation("USA"));
+		nations_.push_back(Nation("Australia"));
+		nations_.push_back(Nation("Germany"));
+		nations_.push_back(Nation("Japan"));
+		nations_.push_back(Nation("USA"));
 	}
 
 	Game::~Game()
@@ -29,30 +26,20 @@ namespace global_domination {
 
 	SDL_Rect Game::getClientArea() const
 	{
-		SDL_Rect clientArea;
-		SDL_RenderGetViewport(renderer, &clientArea);
-		return clientArea;
+		SDL_Rect client_area;
+		SDL_RenderGetViewport(renderer_, &client_area);
+		return client_area;
 	}
 
 	int Game::getResult()
 	{
-		if (currentAction == TYPES::ACTION_LIST::NATION_SELECTION)
+		if (current_action_ == TYPES::ACTION_LIST::NATION_SELECTION)
 		{
-			selectedNation = std::make_unique<Nation>(nationSelectionMenu->selectedItem());
-			currentAction = TYPES::ACTION_LIST::START_GAME;
+			selected_nation_ = std::make_unique<Nation>(nation_selection_menu_->selectedItem());
+			current_action_ = TYPES::ACTION_LIST::START_GAME;
 		}
 
 		return 0;
-	}
-
-	const int Game::getWindowHeight()
-	{
-		return WINDOW_HEIGHT;
-	}
-
-	const int Game::getWindowWidth()
-	{
-		return WINDOW_WIDTH;
 	}
 
 	void Game::handleGameEvent(SDL_Event e)
@@ -61,22 +48,22 @@ namespace global_domination {
 		{
 			if (e.key.keysym.sym == SDLK_DOWN)
 			{
-				nationSelectionMenu->nextMenuItem();
+				nation_selection_menu_->nextMenuItem();
 			}
 			else if (e.key.keysym.sym == SDLK_UP)
 			{
-				nationSelectionMenu->previousMenuItem();
+				nation_selection_menu_->previousMenuItem();
 			}
 			else if (e.key.keysym.sym == SDLK_RETURN)
 			{
-				nationSelectionMenu->selectCurrentItem();
+				nation_selection_menu_->selectCurrentItem();
 			}
 		}
 		else if (e.type == SDL_MOUSEBUTTONDOWN)
 		{
 			if (e.button.button == SDL_BUTTON_LEFT)
 			{
-				nationSelectionMenu->handleClick(e.button.x, e.button.y);
+				nation_selection_menu_->handleClick(e.button.x, e.button.y);
 			}
 		}
 	}
@@ -87,22 +74,22 @@ namespace global_domination {
 		{
 			if (e.key.keysym.sym == SDLK_DOWN)
 			{
-				aMenu->nextMenuItem();
+				main_menu_->nextMenuItem();
 			}
 			else if (e.key.keysym.sym == SDLK_UP)
 			{
-				aMenu->previousMenuItem();
+				main_menu_->previousMenuItem();
 			}
 			else if (e.key.keysym.sym == SDLK_RETURN)
 			{
-				aMenu->selectCurrentItem();
+				main_menu_->selectCurrentItem();
 			}
 		}
 		else if (e.type == SDL_MOUSEBUTTONDOWN)
 		{
 			if (e.button.button == SDL_BUTTON_LEFT)
 			{
-				aMenu->handleClick(e.button.x, e.button.y);
+				main_menu_->handleClick(e.button.x, e.button.y);
 			}
 		}
 	}
@@ -121,22 +108,22 @@ namespace global_domination {
 		}
 
 		/* Create window and renderer for given surface */
-		window = SDL_CreateWindow("Global Domination", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
-		if (!window) {
+		window_ = SDL_CreateWindow("Global Domination", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, kWindowWidth, kWindowHeight, 0);
+		if (!window_) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Window creation fail : %s\n", SDL_GetError());
 			return;
 		}
 
-		surface = SDL_GetWindowSurface(window);
-		renderer = SDL_CreateSoftwareRenderer(surface);
-		if (!renderer) {
+		surface = SDL_GetWindowSurface(window_);
+		renderer_ = SDL_CreateSoftwareRenderer(surface);
+		if (!renderer_) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Render creation for surface fail : %s\n", SDL_GetError());
 			return;
 		}
 
 		/* Clear the rendering surface with the specified color */
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
-		SDL_RenderClear(renderer);
+		SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 0xFF);
+		SDL_RenderClear(renderer_);
 
 		TTF_Init();
 
@@ -146,35 +133,45 @@ namespace global_domination {
 
 	void Game::initializeMainMenu()
 	{
-		SDL_Rect clientArea = getClientArea();
-		aMenu = std::make_unique<SDLMenu<int>>(window, clientArea);
-		aMenu->addMenuItem(MenuItem<int>("PLAY!", std::make_shared<StartGameAction>(this), 0));
-		aMenu->addMenuItem(MenuItem<int>("QUIT!", std::make_shared<QuitGameAction>(this), 1));
+		SDL_Rect client_area = getClientArea();
+		main_menu_ = std::make_unique<SDLMenu<int>>(window_, client_area);
+		main_menu_->addMenuItem(MenuItem<int>("PLAY!", std::make_shared<StartGameAction>(this), 0));
+		main_menu_->addMenuItem(MenuItem<int>("QUIT!", std::make_shared<QuitGameAction>(this), 1));
 	}
 
 	void Game::initializeNationSelectionMenu()
 	{
-		SDL_Rect clientArea = getClientArea();
-		nationSelectionMenu = std::make_unique<SDLMenu<Nation>>(window, clientArea);
+		SDL_Rect client_area = getClientArea();
+		nation_selection_menu_ = std::make_unique<SDLMenu<Nation>>(window_, client_area);
 
-		float textLocationY = 0.05f;
-		for (std::vector<Nation>::const_iterator nation = nations.cbegin(); nation != nations.end(); nation++)
+		float text_Location_y = 0.05f;
+		for (std::vector<Nation>::const_iterator nation = nations_.cbegin(); nation != nations_.end(); nation++)
 		{
-			SDL_Rect textLocation = { (int)(clientArea.w * 0.45), (int)(clientArea.h * textLocationY), 0, 0 };
+			SDL_Rect textLocation = { (int)(client_area.w * 0.45), (int)(client_area.h * text_Location_y), 0, 0 };
 			std::shared_ptr<NationSelectionAction> nationSelectionAction = std::make_shared<NationSelectionAction>(this);
 			std::string nationName = nation->reportString();
-			nationSelectionMenu->addMenuItem(MenuItem<Nation>(nationName, nationSelectionAction, *nation));
-			textLocationY += 0.1f;
+			nation_selection_menu_->addMenuItem(MenuItem<Nation>(nationName, nationSelectionAction, *nation));
+			text_Location_y += 0.1f;
 		}
+	}
+
+	const int Game::getWindowWidth()
+	{
+		return kWindowWidth;
+	}
+
+	const int Game::getWindowHeight()
+	{
+		return kWindowHeight;
 	}
 
 	void Game::render()
 	{
-		switch (currentAction)
+		switch (current_action_)
 		{
 		case TYPES::ACTION_LIST::MENU:
 		{
-			aMenu->renderMenu(renderer);
+			main_menu_->renderMenu(renderer_);
 		}
 		break;
 		case TYPES::ACTION_LIST::START_GAME:
@@ -187,24 +184,24 @@ namespace global_domination {
 
 	void Game::renderGame()
 	{
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
-		SDL_RenderClear(renderer);
+		SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 0xFF);
+		SDL_RenderClear(renderer_);
 
-		SDL_Rect darea = getClientArea();
-		SDL_Rect textLocationTitle = { (int)(darea.w * 0.25), (int)(darea.h * 0.05), 0, 0 };
-		text_renderer::renderText(window, "GLOBAL DOMINATION!", textLocationTitle, { 0, 255, 0 });
+		SDL_Rect client_area = getClientArea();
+		SDL_Rect textLocationTitle = { (int)(client_area.w * 0.25), (int)(client_area.h * 0.05), 0, 0 };
+		text_renderer::renderText(window_, "GLOBAL DOMINATION!", textLocationTitle, { 0, 255, 0 });
 
-		SDL_Rect textLocationSelectNation = { (int)(darea.w * 0.15), (int)(darea.h * 0.25), 0, 0 };
-		text_renderer::renderText(window, "Select a nation:", textLocationSelectNation, { 0, 255, 0 });
+		SDL_Rect textLocationSelectNation = { (int)(client_area.w * 0.15), (int)(client_area.h * 0.25), 0, 0 };
+		text_renderer::renderText(window_, "Select a nation:", textLocationSelectNation, { 0, 255, 0 });
 
-		nationSelectionMenu->renderMenu(renderer);
+		nation_selection_menu_->renderMenu(renderer_);
 
-		SDL_UpdateWindowSurface(window);
+		SDL_UpdateWindowSurface(window_);
 	}
 
 	void Game::runGameLoop()
 	{
-		while (currentAction != TYPES::ACTION_LIST::QUIT)
+		while (current_action_ != TYPES::ACTION_LIST::QUIT)
 		{
 			update();
 			render();
@@ -213,7 +210,7 @@ namespace global_domination {
 
 	void Game::setAction(TYPES::ACTION_LIST action)
 	{
-		currentAction = action;
+		current_action_ = action;
 	}
 
 	void Game::update()
@@ -222,16 +219,16 @@ namespace global_domination {
 
 		while (SDL_PollEvent(&e)) {
 			if (e.type == SDL_QUIT) {
-				currentAction = TYPES::ACTION_LIST::QUIT;
+				current_action_ = TYPES::ACTION_LIST::QUIT;
 				return;
 			}
 
 			if ((e.type == SDL_KEYDOWN) && (e.key.keysym.sym == SDLK_ESCAPE)) {
-				currentAction = TYPES::ACTION_LIST::QUIT;
+				current_action_ = TYPES::ACTION_LIST::QUIT;
 				return;
 			}
 
-			switch (currentAction)
+			switch (current_action_)
 			{
 			case TYPES::ACTION_LIST::MENU:
 			{

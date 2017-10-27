@@ -14,39 +14,39 @@ namespace global_domination
 	{
 
 	private:
-		std::shared_ptr<MenuAction> action;
-		std::string text;
-		SDL_Color textColor;
-		T data;
+		std::shared_ptr<MenuAction> action_;
+		std::string text_;
+		SDL_Color text_color_;
+		T data_;
 
 	public:
 		std::string reportString() const;
 		void invokeAction() const;
 		T getData() const;
 
-		MenuItem(std::string someText, std::shared_ptr<MenuAction> anAction, T menuItemData)
+		MenuItem(std::string some_text, std::shared_ptr<MenuAction> an_action, T menu_item_data)
 		{
-			text = someText;
-			action = anAction;
-			data = menuItemData;
+			text_ = some_text;
+			action_ = an_action;
+			data_ = menu_item_data;
 		}
 	};
 
 	template <typename T>
 	std::string MenuItem<T>::reportString() const
 	{
-		return text;
+		return text_;
 	}
 
 	template <typename T>
 	void MenuItem<T>::invokeAction() const
 	{
-		action->Execute();
+		action_->execute();
 	}
 
 	template<class T>
 	inline T MenuItem<T>::getData() const
 	{
-		return data;
+		return data_;
 	}
 }

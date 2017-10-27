@@ -47,8 +47,5 @@
     <ClInclude Include="MenuItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameGlobals.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

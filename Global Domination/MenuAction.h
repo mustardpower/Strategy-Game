@@ -24,16 +24,16 @@ namespace global_domination
 	{
 	protected:
 
-		IReciever *pReciever_;
+		IReciever *p_receiver_;
 
 	public:
 
 		MenuAction(IReciever *reciever)
-			:pReciever_(reciever)
+			:p_receiver_(reciever)
 		{
 		}
 
-		virtual int Execute() = 0;
+		virtual int execute() = 0;
 	};
 
 	class StartGameAction : public MenuAction
@@ -45,10 +45,10 @@ namespace global_domination
 
 		}
 
-		int Execute()
+		int execute()
 		{
-			pReciever_->setAction(TYPES::ACTION_LIST::START_GAME);
-			return pReciever_->getResult();
+			p_receiver_->setAction(TYPES::ACTION_LIST::START_GAME);
+			return p_receiver_->getResult();
 		}
 	};
 
@@ -61,10 +61,10 @@ namespace global_domination
 
 		}
 
-		int Execute()
+		int execute()
 		{
-			pReciever_->setAction(TYPES::ACTION_LIST::QUIT);
-			return pReciever_->getResult();
+			p_receiver_->setAction(TYPES::ACTION_LIST::QUIT);
+			return p_receiver_->getResult();
 		}
 	};
 
@@ -77,10 +77,10 @@ namespace global_domination
 
 		}
 
-		int Execute()
+		int execute()
 		{
-			pReciever_->setAction(TYPES::ACTION_LIST::NATION_SELECTION);
-			return pReciever_->getResult();
+			p_receiver_->setAction(TYPES::ACTION_LIST::NATION_SELECTION);
+			return p_receiver_->getResult();
 		}
 	};
 }
