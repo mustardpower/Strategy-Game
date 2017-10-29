@@ -127,14 +127,21 @@ namespace global_domination {
 
 		TTF_Init();
 
+		initializeStartButton();
 		initializeMainMenu();
 		initializeNationSelectionMenu();
+	}
+
+	void Game::initializeStartButton()
+	{
+		SDL_Rect client_area = getClientArea();
+		start_button_ = std::make_unique<SDLButton>(window_, client_area, "START", client_area.w * 0.8, client_area.h * 0.8);
 	}
 
 	void Game::initializeMainMenu()
 	{
 		SDL_Rect client_area = getClientArea();
-		main_menu_ = std::make_unique<SDLMenu<int>>(window_, client_area);
+		main_menu_ = std::make_unique<SDLMenu<int>>(window_, client_area.w * 0.2, client_area.h * 0.3, client_area.h * 0.1);
 		main_menu_->addMenuItem(MenuItem<int>("PLAY!", std::make_shared<StartGameAction>(this), 0));
 		main_menu_->addMenuItem(MenuItem<int>("QUIT!", std::make_shared<QuitGameAction>(this), 1));
 	}
@@ -142,16 +149,13 @@ namespace global_domination {
 	void Game::initializeNationSelectionMenu()
 	{
 		SDL_Rect client_area = getClientArea();
-		nation_selection_menu_ = std::make_unique<SDLMenu<Nation>>(window_, client_area);
+		nation_selection_menu_ = std::make_unique<SDLMenu<Nation>>(window_, client_area.w * 0.2, client_area.h * 0.4, client_area.h * 0.1);
 
-		float text_Location_y = 0.05f;
 		for (std::vector<Nation>::const_iterator nation = nations_.cbegin(); nation != nations_.end(); nation++)
 		{
-			SDL_Rect textLocation = { (int)(client_area.w * 0.45), (int)(client_area.h * text_Location_y), 0, 0 };
 			std::shared_ptr<NationSelectionAction> nationSelectionAction = std::make_shared<NationSelectionAction>(this);
 			std::string nationName = nation->reportString();
 			nation_selection_menu_->addMenuItem(MenuItem<Nation>(nationName, nationSelectionAction, *nation));
-			text_Location_y += 0.1f;
 		}
 	}
 
@@ -172,6 +176,7 @@ namespace global_domination {
 		case TYPES::ACTION_LIST::MENU:
 		{
 			main_menu_->renderMenu(renderer_);
+			SDL_UpdateWindowSurface(window_);
 		}
 		break;
 		case TYPES::ACTION_LIST::START_GAME:
@@ -195,6 +200,8 @@ namespace global_domination {
 		text_renderer::renderText(window_, "Select a nation:", textLocationSelectNation, { 0, 255, 0 });
 
 		nation_selection_menu_->renderMenu(renderer_);
+
+		start_button_->render(renderer_);
 
 		SDL_UpdateWindowSurface(window_);
 	}

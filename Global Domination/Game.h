@@ -8,6 +8,7 @@
 
 #include "MenuItem.h"
 #include "Nation.h"
+#include "SDLButton.h"
 #include "SDLMenu.h"
 
 namespace global_domination {
@@ -22,6 +23,7 @@ namespace global_domination {
 		void initialize();
 		void initializeMainMenu();
 		void initializeNationSelectionMenu();
+		void initializeStartButton();
 		const int getWindowWidth();
 		const int getWindowHeight();
 		void handleGameEvent(SDL_Event an_event);
@@ -43,6 +45,7 @@ namespace global_domination {
 		std::vector<Nation> nations_;
 		SDL_Renderer *renderer_;
 		std::unique_ptr<Nation> selected_nation_;
+		std::unique_ptr<SDLButton> start_button_;
 		SDL_Window* window_;
 	};
 

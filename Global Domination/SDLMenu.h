@@ -14,7 +14,7 @@ namespace global_domination
 	class SDLMenu
 	{
 	public:
-		SDLMenu(SDL_Window* parent, SDL_Rect client_area);
+		SDLMenu(SDL_Window* parent, int menu_pos_x, int menu_pos_y, int menu_item_height);
 		int getSelectedIndex() const;
 		void addMenuItem(MenuItem<T> menu_item);
 		bool containsPoint(SDL_Rect aRect, int x, int y);
@@ -35,10 +35,10 @@ namespace global_domination
 	};
 
 	template <typename T>
-	SDLMenu<T>::SDLMenu(SDL_Window*  parent, SDL_Rect client_area) :
-		kMenuItemPosX(client_area.w * 0.2),
-		kMenuItemPosY(client_area.h * 0.3),
-		kMenuItemHeight(client_area.h * 0.1)
+	SDLMenu<T>::SDLMenu(SDL_Window*  parent, int menu_pos_x, int menu_pos_y, int menu_item_height) :
+		kMenuItemPosX(menu_pos_x),
+		kMenuItemPosY(menu_pos_y),
+		kMenuItemHeight(menu_item_height)
 	{
 		selected_menu_item_index_ = 0;
 		parent_window_ = parent;
@@ -106,7 +106,6 @@ namespace global_domination
 	void SDLMenu<T>::renderMenu(SDL_Renderer* renderer)
 	{
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
-		SDL_RenderClear(renderer);
 
 		int index = 0;
 		SDL_Color text_color;
@@ -129,8 +128,6 @@ namespace global_domination
 			text_renderer::renderText(parent_window_, item->reportString(), textLocationForIndex(font, index), text_color);
 			index++;
 		}
-
-		SDL_UpdateWindowSurface(parent_window_);
 	}
 
 	template<class T>

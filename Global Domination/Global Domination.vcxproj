@@ -120,6 +120,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Nation.cpp" />
+    <ClCompile Include="SDLButton.cpp" />
     <ClCompile Include="SDL_TextRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +128,7 @@
     <ClInclude Include="MenuAction.h" />
     <ClInclude Include="MenuItem.h" />
     <ClInclude Include="Nation.h" />
+    <ClInclude Include="SDLButton.h" />
     <ClInclude Include="SDLMenu.h" />
     <ClInclude Include="SDL_TextRenderer.h" />
   </ItemGroup>
