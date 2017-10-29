@@ -6,7 +6,7 @@
 
 namespace global_domination
 {
-	SDLButton::SDLButton(SDL_Window * parent, SDL_Rect client_area, std::string button_text, int pos_x, int pos_y) : kPosX(pos_x), kPosY(pos_y)
+	SDLButton::SDLButton(SDL_Window * parent, std::string button_text, int pos_x, int pos_y) : kPosX(pos_x), kPosY(pos_y)
 	{
 		button_text_ = button_text;
 		parent_window_ = parent;

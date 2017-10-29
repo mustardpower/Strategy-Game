@@ -8,7 +8,7 @@ namespace global_domination
 	class SDLButton
 	{
 	public:
-		SDLButton(SDL_Window* parent, SDL_Rect client_area, std::string button_text, int pos_x, int pos_y);
+		SDLButton(SDL_Window* parent, std::string button_text, int pos_x, int pos_y);
 		void render(SDL_Renderer* renderer);
 	private:
 		const int kPosX;

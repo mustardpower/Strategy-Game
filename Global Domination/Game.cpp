@@ -135,7 +135,7 @@ namespace global_domination {
 	void Game::initializeStartButton()
 	{
 		SDL_Rect client_area = getClientArea();
-		start_button_ = std::make_unique<SDLButton>(window_, client_area, "START", client_area.w * 0.8, client_area.h * 0.8);
+		start_button_ = std::make_unique<SDLButton>(window_, "START", client_area.w * 0.8, client_area.h * 0.8);
 	}
 
 	void Game::initializeMainMenu()
