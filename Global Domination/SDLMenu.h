@@ -4,7 +4,6 @@
 #include <vector>
 
 #include "SDL.h"
-#include "SDL_ttf.h"
 
 #include "MenuItem.h"
 
@@ -24,7 +23,7 @@ namespace global_domination
 		void renderMenu(SDL_Renderer* renderer);
 		void selectCurrentItem();
 		T selectedItem();
-		SDL_Rect textLocationForIndex(TTF_Font* font, const int menu_item_index);
+		SDL_Rect textLocationForIndex(const int menu_item_index);
 	private:
 		int selected_menu_item_index_;
 		SDL_Window* parent_window_;
@@ -75,7 +74,7 @@ namespace global_domination
 	{
 		for (unsigned int i = 0; i < menu_items_.size(); i++)
 		{
-			SDL_Rect text_location = textLocationForIndex(text_renderer::getFont(), i);
+			SDL_Rect text_location = textLocationForIndex(i);
 			// should already have cached text locations by this point??
 
 			if (containsPoint(text_location, x, y))
@@ -110,10 +109,6 @@ namespace global_domination
 		int index = 0;
 		SDL_Color text_color;
 
-		TTF_Font* font = text_renderer::getFont();
-		if (!font) { return; }
-
-
 		for (std::vector<MenuItem<T>>::const_iterator item = menu_items_.cbegin(); item != menu_items_.cend(); item++)
 		{
 			if (index == selected_menu_item_index_)
@@ -124,8 +119,9 @@ namespace global_domination
 			{
 				text_color = { 255,0,0 };
 			}
-
-			text_renderer::renderText(parent_window_, item->reportString(), textLocationForIndex(font, index), text_color);
+			
+			SDL_Rect text_location = textLocationForIndex(index);
+			text_renderer::renderText(parent_window_, item->reportString(), text_location, text_color);
 			index++;
 		}
 	}
@@ -143,13 +139,16 @@ namespace global_domination
 	}
 
 	template<class T>
-	inline SDL_Rect SDLMenu<T>::textLocationForIndex(TTF_Font* font, const int menu_item_index)
+	inline SDL_Rect SDLMenu<T>::textLocationForIndex(const int menu_item_index)
 	{
 		int w = 0;
 		int h = 0;
 
 		std::string text = (menu_items_.at(menu_item_index)).reportString();
-		TTF_SizeText(font, text.c_str(), &w, &h);
+
+		// THE NEXT LINE SOMETIMES CANNOT FIND THE GLYPH 
+
+		text_renderer::getTextDimensions(text, w, h);
 		return SDL_Rect{ kMenuItemPosX, kMenuItemPosY + (kMenuItemHeight * menu_item_index), w, h };
 	}
 }

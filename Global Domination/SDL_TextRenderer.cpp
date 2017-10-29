@@ -5,9 +5,7 @@ namespace global_domination
 {
 	namespace text_renderer {
 
-		namespace {
-			TTF_Font* font = NULL;
-		}
+		TTF_Font* font = NULL;
 
 
 		TTF_Font * getFont()
@@ -23,6 +21,17 @@ namespace global_domination
 			}
 
 			return font;
+		}
+
+		void getTextDimensions(std::string text, int &w, int &h)
+		{
+			if(!font){font = getFont();}
+
+			int result = TTF_SizeText(font, text.c_str(), &w, &h);
+			if (result < 0)
+			{
+				SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Cannot calculate the resulting surface size of the text using font : %s\n", SDL_GetError());
+			}
 		}
 
 		void renderText(SDL_Window* window, std::string text, SDL_Rect text_location, SDL_Color foreground_color)
