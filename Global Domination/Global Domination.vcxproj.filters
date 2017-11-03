@@ -19,6 +19,12 @@
     <Filter Include="Header Files\Views">
       <UniqueIdentifier>{436a3bf5-1ebc-400b-9f61-34fb2695735c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\SDLControls">
+      <UniqueIdentifier>{b979c06d-7a24-4cc4-b213-2a2e2a754b77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Views">
+      <UniqueIdentifier>{9965327f-e1fe-4d6a-a6af-7f0ceddc8835}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -33,20 +39,23 @@
     <ClCompile Include="SDL_TextRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SDLButton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MainMenuView.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="View.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NationSelectionView.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="SDLButton.cpp">
+      <Filter>Source Files\SDLControls</Filter>
     </ClCompile>
     <ClCompile Include="SDLStaticText.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\SDLControls</Filter>
+    </ClCompile>
+    <ClCompile Include="InboxView.cpp">
+      <Filter>Source Files\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuView.cpp">
+      <Filter>Source Files\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="NationSelectionView.cpp">
+      <Filter>Source Files\Views</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="SDLStaticText.h">
       <Filter>Header Files\SDLControls</Filter>
+    </ClInclude>
+    <ClInclude Include="InboxView.h">
+      <Filter>Header Files\Views</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

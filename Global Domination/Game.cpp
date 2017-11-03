@@ -8,6 +8,7 @@
 #include "Action.h"
 #include "SDL_TextRenderer.h"
 
+#include "InboxView.h"
 #include "MainMenuView.h"
 #include "NationSelectionView.h"
 
@@ -60,7 +61,6 @@ namespace global_domination {
 		{
 			if (e.button.button == SDL_BUTTON_LEFT)
 			{
-				nation_selection_menu_->handleClick(e.button.x, e.button.y);
 				active_view_->handleClick(e.button.x, e.button.y);
 
 			}
@@ -88,7 +88,6 @@ namespace global_domination {
 		{
 			if (e.button.button == SDL_BUTTON_LEFT)
 			{
-				nation_selection_menu_->handleClick(e.button.x, e.button.y);
 				active_view_->handleClick(e.button.x, e.button.y);
 
 			}
@@ -155,7 +154,6 @@ namespace global_domination {
 		TTF_Init();
 
 		initializeMainMenu();
-		initializeNationSelectionMenu();
 	}
 
 	void Game::initializeMainMenu()
@@ -163,19 +161,6 @@ namespace global_domination {
 		std::unique_ptr<MainMenuView> main_menu_view = std::make_unique<MainMenuView>(this, window_, getClientArea());
 		main_menu_view->initialize();
 		active_view_ = std::move(main_menu_view);
-	}
-
-	void Game::initializeNationSelectionMenu()
-	{
-		SDL_Rect client_area = getClientArea();
-		nation_selection_menu_ = std::make_unique<SDLMenu<Nation>>(window_, client_area.w * 0.2, client_area.h * 0.4, client_area.h * 0.1);
-
-		for (std::vector<Nation>::const_iterator nation = nations_.cbegin(); nation != nations_.end(); nation++)
-		{
-			std::shared_ptr<NationSelectionAction> nationSelectionAction = std::make_shared<NationSelectionAction>(this);
-			std::string nationName = nation->reportString();
-			nation_selection_menu_->addMenuItem(MenuItem<Nation>(nationName, nationSelectionAction, *nation));
-		}
 	}
 
 	const int Game::getWindowWidth()
@@ -190,36 +175,7 @@ namespace global_domination {
 
 	void Game::render()
 	{
-		switch (current_action_)
-		{
-		case TYPES::ACTION_LIST::MENU:
-		{
-			active_view_->render(renderer_);
-		}
-		break;
-		case TYPES::ACTION_LIST::NATION_SELECTION:
-		{
-			active_view_->render(renderer_);
-		}
-		break;
-		case TYPES::ACTION_LIST::INBOX:
-		{
-			//renderInbox();
-		}
-		break;
-		}
-	}
-
-	void Game::renderInbox()
-	{
-		SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 0xFF);
-		SDL_RenderClear(renderer_);
-
-		SDL_Rect client_area = getClientArea();
-		SDL_Rect textLocationTitle = { (int)(client_area.w * 0.25), (int)(client_area.h * 0.05), 0, 0 };
-		text_renderer::renderText(window_, "INBOX", textLocationTitle, { 0, 255, 0 });
-
-		SDL_UpdateWindowSurface(window_);
+		active_view_->render(renderer_);
 	}
 
 	void Game::runGameLoop()
@@ -269,6 +225,10 @@ namespace global_domination {
 			break;
 			case TYPES::ACTION_LIST::INBOX:
 			{
+				std::unique_ptr<InboxView> inbox_view = std::make_unique<InboxView>(this, window_, getClientArea());
+				inbox_view->initialize();
+				active_view_ = std::move(inbox_view);
+
 				handleInboxEvent(e);
 			}
 			break;

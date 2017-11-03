@@ -118,6 +118,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="InboxView.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuView.cpp" />
     <ClCompile Include="Nation.cpp" />
@@ -130,6 +131,7 @@
   <ItemGroup>
     <ClInclude Include="Game.h" />
     <ClInclude Include="Action.h" />
+    <ClInclude Include="InboxView.h" />
     <ClInclude Include="MainMenuView.h" />
     <ClInclude Include="MenuItem.h" />
     <ClInclude Include="Nation.h" />

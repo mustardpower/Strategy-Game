@@ -23,7 +23,6 @@ namespace global_domination {
 		int getResult();
 		void initialize();
 		void initializeMainMenu();
-		void initializeNationSelectionMenu();
 		const int getWindowWidth();
 		const int getWindowHeight();
 		void handleInboxEvent(SDL_Event an_event);
