@@ -10,7 +10,7 @@ namespace global_domination
 	{
 		action_ = action;
 		button_text_ = button_text;
-		parent_window_ = parent;
+		parent_ = parent;
 	}
 
 	bool SDLButton::containsPoint(int x, int y)
@@ -50,8 +50,6 @@ namespace global_domination
 		if (!font) { return; }
 
 		SDL_Rect text_location = { kPosX, kPosY, kButtonWidth, kButtonHeight };
-		text_renderer::renderText(parent_window_, button_text_, text_location, text_color);
-
-		SDL_UpdateWindowSurface(parent_window_);
+		text_renderer::renderText(parent_, button_text_, text_location, text_color);
 	}
 }

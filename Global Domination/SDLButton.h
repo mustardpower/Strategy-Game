@@ -24,6 +24,6 @@ namespace global_domination
 		const int kPosY;
 		std::shared_ptr<Action> action_;
 		std::string button_text_;
-		SDL_Window* parent_window_;
+		SDL_Window* parent_;
 	};
 }

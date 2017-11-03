@@ -31,6 +31,9 @@ namespace global_domination
 
 	void View::render(SDL_Renderer* renderer)
 	{
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
+		SDL_RenderClear(renderer);
+
 		if (controls_.size())
 		{
 			for (std::vector<std::shared_ptr<SDLControl>>::iterator control = controls_.begin(); control != controls_.end(); control++)

@@ -42,6 +42,12 @@
     <ClCompile Include="View.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="NationSelectionView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDLStaticText.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -73,6 +79,12 @@
     </ClInclude>
     <ClInclude Include="MainMenuView.h">
       <Filter>Header Files\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="NationSelectionView.h">
+      <Filter>Header Files\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="SDLStaticText.h">
+      <Filter>Header Files\SDLControls</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -130,7 +130,7 @@ namespace global_domination
 	template<class T>
 	inline void SDLMenu<T>::selectCurrentItem()
 	{
-		menu_items_.at(selected_menu_item_index_).invokeAction();
+		//menu_items_.at(selected_menu_item_index_).invokeAction();
 	}
 
 	template<class T>

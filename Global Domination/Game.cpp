@@ -9,17 +9,13 @@
 #include "SDL_TextRenderer.h"
 
 #include "MainMenuView.h"
+#include "NationSelectionView.h"
 
 namespace global_domination {
 
 	Game::Game()
 	{
 		current_action_ = TYPES::ACTION_LIST::MENU;
-
-		nations_.push_back(Nation("Australia"));
-		nations_.push_back(Nation("Germany"));
-		nations_.push_back(Nation("Japan"));
-		nations_.push_back(Nation("USA"));
 	}
 
 	Game::~Game()
@@ -37,7 +33,6 @@ namespace global_domination {
 	{
 		if (current_action_ == TYPES::ACTION_LIST::NATION_SELECTION)
 		{
-			selected_nation_ = std::make_unique<Nation>(nation_selection_menu_->selectedItem());
 			current_action_ = TYPES::ACTION_LIST::NATION_SELECTION;
 		}
 
@@ -66,7 +61,7 @@ namespace global_domination {
 			if (e.button.button == SDL_BUTTON_LEFT)
 			{
 				nation_selection_menu_->handleClick(e.button.x, e.button.y);
-				start_button_->handleClick(e.button.x, e.button.y);
+				active_view_->handleClick(e.button.x, e.button.y);
 
 			}
 		}
@@ -94,7 +89,7 @@ namespace global_domination {
 			if (e.button.button == SDL_BUTTON_LEFT)
 			{
 				nation_selection_menu_->handleClick(e.button.x, e.button.y);
-				start_button_->handleClick(e.button.x, e.button.y);
+				active_view_->handleClick(e.button.x, e.button.y);
 
 			}
 		}
@@ -159,15 +154,8 @@ namespace global_domination {
 
 		TTF_Init();
 
-		initializeStartButton();
 		initializeMainMenu();
 		initializeNationSelectionMenu();
-	}
-
-	void Game::initializeStartButton()
-	{
-		SDL_Rect client_area = getClientArea();
-		start_button_ = std::make_unique<SDLButton>(window_, "START", std::make_shared<OpenInboxAction>(this), client_area.w * 0.8, client_area.h * 0.8, 200, 300);
 	}
 
 	void Game::initializeMainMenu()
@@ -211,12 +199,12 @@ namespace global_domination {
 		break;
 		case TYPES::ACTION_LIST::NATION_SELECTION:
 		{
-			renderNationSelection();
+			active_view_->render(renderer_);
 		}
 		break;
 		case TYPES::ACTION_LIST::INBOX:
 		{
-			renderInbox();
+			//renderInbox();
 		}
 		break;
 		}
@@ -230,25 +218,6 @@ namespace global_domination {
 		SDL_Rect client_area = getClientArea();
 		SDL_Rect textLocationTitle = { (int)(client_area.w * 0.25), (int)(client_area.h * 0.05), 0, 0 };
 		text_renderer::renderText(window_, "INBOX", textLocationTitle, { 0, 255, 0 });
-
-		SDL_UpdateWindowSurface(window_);
-	}
-
-	void Game::renderNationSelection()
-	{
-		SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 0xFF);
-		SDL_RenderClear(renderer_);
-
-		SDL_Rect client_area = getClientArea();
-		SDL_Rect textLocationTitle = { (int)(client_area.w * 0.25), (int)(client_area.h * 0.05), 0, 0 };
-		text_renderer::renderText(window_, "GLOBAL DOMINATION!", textLocationTitle, { 0, 255, 0 });
-
-		SDL_Rect textLocationSelectNation = { (int)(client_area.w * 0.15), (int)(client_area.h * 0.25), 0, 0 };
-		text_renderer::renderText(window_, "Select a nation:", textLocationSelectNation, { 0, 255, 0 });
-
-		nation_selection_menu_->render(renderer_);
-
-		start_button_->render(renderer_);
 
 		SDL_UpdateWindowSurface(window_);
 	}
@@ -291,6 +260,10 @@ namespace global_domination {
 			break;
 			case TYPES::ACTION_LIST::NATION_SELECTION:
 			{
+				std::unique_ptr<NationSelectionView> nation_selection_view = std::make_unique<NationSelectionView>(this, window_, getClientArea());
+				nation_selection_view->initialize();
+				active_view_ = std::move(nation_selection_view);
+
 				handleNationSelectionEvent(e);
 			}
 			break;
