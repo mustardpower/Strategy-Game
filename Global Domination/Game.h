@@ -26,10 +26,12 @@ namespace global_domination {
 		void initializeStartButton();
 		const int getWindowWidth();
 		const int getWindowHeight();
-		void handleGameEvent(SDL_Event an_event);
+		void handleInboxEvent(SDL_Event an_event);
+		void handleNationSelectionEvent(SDL_Event an_event);
 		void handleMenuEvent(SDL_Event an_event);
 		void render();
-		void renderGame();
+		void renderInbox();
+		void renderNationSelection();
 		void runGameLoop();
 		void setAction(TYPES::ACTION_LIST action);
 		void update();

@@ -125,7 +125,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
-    <ClInclude Include="MenuAction.h" />
+    <ClInclude Include="Action.h" />
     <ClInclude Include="MenuItem.h" />
     <ClInclude Include="Nation.h" />
     <ClInclude Include="SDLButton.h" />

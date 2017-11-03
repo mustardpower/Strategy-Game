@@ -8,7 +8,7 @@ namespace global_domination
 		{
 			MENU,
 			NATION_SELECTION,
-			START_GAME,
+			INBOX,
 			QUIT
 		};
 	};
@@ -20,36 +20,36 @@ namespace global_domination
 		virtual int getResult() = 0;
 	};
 
-	class MenuAction
+	class Action
 	{
 	public:
-		MenuAction(IReciever *reciever) :p_receiver_(reciever) {}
+		Action(IReciever *reciever) :p_receiver_(reciever) {}
 		virtual int execute() = 0;
 	protected:
 		IReciever *p_receiver_;
 	};
 
-	class StartGameAction : public MenuAction
+	class StartGameAction : public Action
 	{
 	public:
 		StartGameAction(IReciever *reciever)
-			: MenuAction(reciever)
+			: Action(reciever)
 		{
 
 		}
 
 		int execute()
 		{
-			p_receiver_->setAction(TYPES::ACTION_LIST::START_GAME);
+			p_receiver_->setAction(TYPES::ACTION_LIST::NATION_SELECTION);
 			return p_receiver_->getResult();
 		}
 	};
 
-	class QuitGameAction : public MenuAction
+	class QuitGameAction : public Action
 	{
 	public:
 		QuitGameAction(IReciever *reciever)
-			: MenuAction(reciever)
+			: Action(reciever)
 		{
 
 		}
@@ -61,11 +61,11 @@ namespace global_domination
 		}
 	};
 
-	class NationSelectionAction : public MenuAction
+	class NationSelectionAction : public Action
 	{
 	public:
 		NationSelectionAction(IReciever *reciever)
-			: MenuAction(reciever)
+			: Action(reciever)
 		{
 
 		}
@@ -73,6 +73,22 @@ namespace global_domination
 		int execute()
 		{
 			p_receiver_->setAction(TYPES::ACTION_LIST::NATION_SELECTION);
+			return p_receiver_->getResult();
+		}
+	};
+
+	class OpenInboxAction : public Action
+	{
+	public:
+		OpenInboxAction(IReciever *reciever)
+			: Action(reciever)
+		{
+
+		}
+
+		int execute()
+		{
+			p_receiver_->setAction(TYPES::ACTION_LIST::INBOX);
 			return p_receiver_->getResult();
 		}
 	};

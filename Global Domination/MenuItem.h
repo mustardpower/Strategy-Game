@@ -5,7 +5,7 @@
 
 #include "SDL.h"
 
-#include "MenuAction.h"
+#include "Action.h"
 
 namespace global_domination
 {
@@ -17,7 +17,7 @@ namespace global_domination
 		void invokeAction() const;
 		T getData() const;
 
-		MenuItem(std::string some_text, std::shared_ptr<MenuAction> an_action, T menu_item_data)
+		MenuItem(std::string some_text, std::shared_ptr<Action> an_action, T menu_item_data)
 		{
 			text_ = some_text;
 			action_ = an_action;
@@ -25,7 +25,7 @@ namespace global_domination
 		}
 
 	private:
-		std::shared_ptr<MenuAction> action_;
+		std::shared_ptr<Action> action_;
 		std::string text_;
 		SDL_Color text_color_;
 		T data_;

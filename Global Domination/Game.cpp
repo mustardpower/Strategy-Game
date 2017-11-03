@@ -5,7 +5,7 @@
 #include "SDL_ttf.h"
 
 #include "Game.h"
-#include "MenuAction.h"
+#include "Action.h"
 #include "SDL_TextRenderer.h"
 
 namespace global_domination {
@@ -36,13 +36,13 @@ namespace global_domination {
 		if (current_action_ == TYPES::ACTION_LIST::NATION_SELECTION)
 		{
 			selected_nation_ = std::make_unique<Nation>(nation_selection_menu_->selectedItem());
-			current_action_ = TYPES::ACTION_LIST::START_GAME;
+			current_action_ = TYPES::ACTION_LIST::NATION_SELECTION;
 		}
 
 		return 0;
 	}
 
-	void Game::handleGameEvent(SDL_Event e)
+	void Game::handleNationSelectionEvent(SDL_Event e)
 	{
 		if (e.type == SDL_KEYDOWN)
 		{
@@ -64,6 +64,36 @@ namespace global_domination {
 			if (e.button.button == SDL_BUTTON_LEFT)
 			{
 				nation_selection_menu_->handleClick(e.button.x, e.button.y);
+				start_button_->handleClick(e.button.x, e.button.y);
+
+			}
+		}
+	}
+
+	void Game::handleInboxEvent(SDL_Event e)
+	{
+		if (e.type == SDL_KEYDOWN)
+		{
+			if (e.key.keysym.sym == SDLK_DOWN)
+			{
+				nation_selection_menu_->nextMenuItem();
+			}
+			else if (e.key.keysym.sym == SDLK_UP)
+			{
+				nation_selection_menu_->previousMenuItem();
+			}
+			else if (e.key.keysym.sym == SDLK_RETURN)
+			{
+				nation_selection_menu_->selectCurrentItem();
+			}
+		}
+		else if (e.type == SDL_MOUSEBUTTONDOWN)
+		{
+			if (e.button.button == SDL_BUTTON_LEFT)
+			{
+				nation_selection_menu_->handleClick(e.button.x, e.button.y);
+				start_button_->handleClick(e.button.x, e.button.y);
+
 			}
 		}
 	}
@@ -135,7 +165,7 @@ namespace global_domination {
 	void Game::initializeStartButton()
 	{
 		SDL_Rect client_area = getClientArea();
-		start_button_ = std::make_unique<SDLButton>(window_, "START", client_area.w * 0.8, client_area.h * 0.8);
+		start_button_ = std::make_unique<SDLButton>(window_, "START", std::make_shared<OpenInboxAction>(this), client_area.w * 0.8, client_area.h * 0.8, 200, 300);
 	}
 
 	void Game::initializeMainMenu()
@@ -179,15 +209,32 @@ namespace global_domination {
 			SDL_UpdateWindowSurface(window_);
 		}
 		break;
-		case TYPES::ACTION_LIST::START_GAME:
+		case TYPES::ACTION_LIST::NATION_SELECTION:
 		{
-			renderGame();
+			renderNationSelection();
+		}
+		break;
+		case TYPES::ACTION_LIST::INBOX:
+		{
+			renderInbox();
 		}
 		break;
 		}
 	}
 
-	void Game::renderGame()
+	void Game::renderInbox()
+	{
+		SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 0xFF);
+		SDL_RenderClear(renderer_);
+
+		SDL_Rect client_area = getClientArea();
+		SDL_Rect textLocationTitle = { (int)(client_area.w * 0.25), (int)(client_area.h * 0.05), 0, 0 };
+		text_renderer::renderText(window_, "INBOX", textLocationTitle, { 0, 255, 0 });
+
+		SDL_UpdateWindowSurface(window_);
+	}
+
+	void Game::renderNationSelection()
 	{
 		SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 0xFF);
 		SDL_RenderClear(renderer_);
@@ -242,9 +289,14 @@ namespace global_domination {
 				handleMenuEvent(e);
 			}
 			break;
-			case TYPES::ACTION_LIST::START_GAME:
+			case TYPES::ACTION_LIST::NATION_SELECTION:
 			{
-				handleGameEvent(e);
+				handleNationSelectionEvent(e);
+			}
+			break;
+			case TYPES::ACTION_LIST::INBOX:
+			{
+				handleInboxEvent(e);
 			}
 			break;
 			}
