@@ -119,18 +119,23 @@
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenuView.cpp" />
     <ClCompile Include="Nation.cpp" />
     <ClCompile Include="SDLButton.cpp" />
     <ClCompile Include="SDL_TextRenderer.cpp" />
+    <ClCompile Include="View.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
     <ClInclude Include="Action.h" />
+    <ClInclude Include="MainMenuView.h" />
     <ClInclude Include="MenuItem.h" />
     <ClInclude Include="Nation.h" />
     <ClInclude Include="SDLButton.h" />
+    <ClInclude Include="SDLControl.h" />
     <ClInclude Include="SDLMenu.h" />
     <ClInclude Include="SDL_TextRenderer.h" />
+    <ClInclude Include="View.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

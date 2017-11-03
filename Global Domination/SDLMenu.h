@@ -4,13 +4,14 @@
 #include <vector>
 
 #include "SDL.h"
+#include "SDL_TextRenderer.h"
 
 #include "MenuItem.h"
 
 namespace global_domination
 {
 	template <class T>
-	class SDLMenu
+	class SDLMenu : public SDLControl
 	{
 	public:
 		SDLMenu(SDL_Window* parent, int menu_pos_x, int menu_pos_y, int menu_item_height);
@@ -20,7 +21,7 @@ namespace global_domination
 		void handleClick(int x, int y);
 		void nextMenuItem();
 		void previousMenuItem();
-		void renderMenu(SDL_Renderer* renderer);
+		void render(SDL_Renderer* renderer);
 		void selectCurrentItem();
 		T selectedItem();
 		SDL_Rect textLocationForIndex(const int menu_item_index);
@@ -102,7 +103,7 @@ namespace global_domination
 	}
 
 	template <typename T>
-	void SDLMenu<T>::renderMenu(SDL_Renderer* renderer)
+	void SDLMenu<T>::render(SDL_Renderer* renderer)
 	{
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
 
@@ -121,7 +122,7 @@ namespace global_domination
 			}
 			
 			SDL_Rect text_location = textLocationForIndex(index);
-			text_renderer::renderText(parent_window_, item->reportString(), text_location, text_color);
+			global_domination::text_renderer::renderText(parent_window_, item->reportString(), text_location, text_color);
 			index++;
 		}
 	}

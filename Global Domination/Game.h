@@ -10,6 +10,7 @@
 #include "Nation.h"
 #include "SDLButton.h"
 #include "SDLMenu.h"
+#include "View.h"
 
 namespace global_domination {
 
@@ -41,6 +42,7 @@ namespace global_domination {
 		const int kWindowWidth = 640;
 		const int kWindowHeight = 480;
 
+		std::unique_ptr<View> active_view_;
 		TYPES::ACTION_LIST current_action_;
 		std::unique_ptr<SDLMenu<int>> main_menu_;
 		std::unique_ptr<SDLMenu<Nation>> nation_selection_menu_;

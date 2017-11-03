@@ -8,6 +8,8 @@
 #include "Action.h"
 #include "SDL_TextRenderer.h"
 
+#include "MainMenuView.h"
+
 namespace global_domination {
 
 	Game::Game()
@@ -119,7 +121,7 @@ namespace global_domination {
 		{
 			if (e.button.button == SDL_BUTTON_LEFT)
 			{
-				main_menu_->handleClick(e.button.x, e.button.y);
+				active_view_->handleClick(e.button.x, e.button.y);
 			}
 		}
 	}
@@ -170,10 +172,9 @@ namespace global_domination {
 
 	void Game::initializeMainMenu()
 	{
-		SDL_Rect client_area = getClientArea();
-		main_menu_ = std::make_unique<SDLMenu<int>>(window_, client_area.w * 0.2, client_area.h * 0.3, client_area.h * 0.1);
-		main_menu_->addMenuItem(MenuItem<int>("PLAY!", std::make_shared<StartGameAction>(this), 0));
-		main_menu_->addMenuItem(MenuItem<int>("QUIT!", std::make_shared<QuitGameAction>(this), 1));
+		std::unique_ptr<MainMenuView> main_menu_view = std::make_unique<MainMenuView>(this, window_, getClientArea());
+		main_menu_view->initialize();
+		active_view_ = std::move(main_menu_view);
 	}
 
 	void Game::initializeNationSelectionMenu()
@@ -205,8 +206,7 @@ namespace global_domination {
 		{
 		case TYPES::ACTION_LIST::MENU:
 		{
-			main_menu_->renderMenu(renderer_);
-			SDL_UpdateWindowSurface(window_);
+			active_view_->render(renderer_);
 		}
 		break;
 		case TYPES::ACTION_LIST::NATION_SELECTION:
@@ -246,7 +246,7 @@ namespace global_domination {
 		SDL_Rect textLocationSelectNation = { (int)(client_area.w * 0.15), (int)(client_area.h * 0.25), 0, 0 };
 		text_renderer::renderText(window_, "Select a nation:", textLocationSelectNation, { 0, 255, 0 });
 
-		nation_selection_menu_->renderMenu(renderer_);
+		nation_selection_menu_->render(renderer_);
 
 		start_button_->render(renderer_);
 
