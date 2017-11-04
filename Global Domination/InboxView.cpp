@@ -4,7 +4,7 @@
 
 namespace global_domination {
 
-	InboxView::InboxView(IReciever * reciever, SDL_Window * parent, SDL_Rect client_area) : View(reciever, parent, client_area)
+	InboxView::InboxView(std::shared_ptr<IReciever> reciever, SDL_Window * parent, SDL_Rect client_area) : View(reciever, parent, client_area)
 	{
 	}
 
@@ -12,5 +12,8 @@ namespace global_domination {
 	{
 		std::shared_ptr<SDLStaticText> title_label = std::make_shared<SDLStaticText>(parent_, "INBOX", client_area_.w * 0.25, client_area_.h * 0.05);
 		addControl(title_label);
+	}
+	void InboxView::onKeyDown()
+	{
 	}
 }

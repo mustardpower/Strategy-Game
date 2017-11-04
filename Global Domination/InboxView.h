@@ -6,8 +6,9 @@ namespace global_domination
 	class InboxView : public View
 	{
 	public:
-		InboxView::InboxView(IReciever * reciever, SDL_Window * parent, SDL_Rect client_area);
+		InboxView::InboxView(std::shared_ptr<IReciever> reciever, SDL_Window * parent, SDL_Rect client_area);
 		void initialize();
+		void onKeyDown();
 	private:
 	};
 }

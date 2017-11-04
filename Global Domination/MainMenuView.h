@@ -7,7 +7,8 @@ namespace global_domination
 	class MainMenuView : public View
 	{
 	public:
-		MainMenuView(IReciever *reciever, SDL_Window* parent, SDL_Rect client_area);
+		MainMenuView(std::shared_ptr<IReciever> reciever, SDL_Window* parent, SDL_Rect client_area);
 		void initialize();
+		void onKeyDown();
 	};
 }

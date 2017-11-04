@@ -14,7 +14,7 @@
 
 namespace global_domination {
 
-	class Game : public IReciever
+	class Game : public IReciever, public std::enable_shared_from_this<Game>
 	{
 	public:
 		Game();
@@ -22,16 +22,15 @@ namespace global_domination {
 		SDL_Rect getClientArea() const;
 		int getResult();
 		void initialize();
-		void initializeMainMenu();
 		const int getWindowWidth();
 		const int getWindowHeight();
 		void handleInboxEvent(SDL_Event an_event);
 		void handleNationSelectionEvent(SDL_Event an_event);
 		void handleMenuEvent(SDL_Event an_event);
 		void render();
-		void renderInbox();
 		void runGameLoop();
 		void setAction(TYPES::ACTION_LIST action);
+		void switchActiveView(std::shared_ptr<View> view);
 		void update();
 
 	private:
@@ -39,7 +38,8 @@ namespace global_domination {
 		const int kWindowWidth = 640;
 		const int kWindowHeight = 480;
 
-		std::unique_ptr<View> active_view_;
+		std::shared_ptr<IReciever> viewReciever_;
+		std::shared_ptr<View> active_view_;
 		TYPES::ACTION_LIST current_action_;
 		std::unique_ptr<SDLMenu<int>> main_menu_;
 		std::unique_ptr<SDLMenu<Nation>> nation_selection_menu_;

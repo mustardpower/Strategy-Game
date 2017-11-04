@@ -57,6 +57,9 @@
     <ClCompile Include="NationSelectionView.cpp">
       <Filter>Source Files\Views</Filter>
     </ClCompile>
+    <ClCompile Include="SDLControl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -96,6 +99,9 @@
       <Filter>Header Files\SDLControls</Filter>
     </ClInclude>
     <ClInclude Include="InboxView.h">
+      <Filter>Header Files\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlResources.h">
       <Filter>Header Files\Views</Filter>
     </ClInclude>
   </ItemGroup>

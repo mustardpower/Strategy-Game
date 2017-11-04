@@ -16,7 +16,7 @@ namespace global_domination {
 
 	Game::Game()
 	{
-		current_action_ = TYPES::ACTION_LIST::MENU;
+		current_action_ = TYPES::ACTION_LIST::UNINITIALIZED;
 	}
 
 	Game::~Game()
@@ -32,9 +32,23 @@ namespace global_domination {
 
 	int Game::getResult()
 	{
-		if (current_action_ == TYPES::ACTION_LIST::NATION_SELECTION)
+		switch (current_action_)
 		{
-			current_action_ = TYPES::ACTION_LIST::NATION_SELECTION;
+			case TYPES::ACTION_LIST::MENU:
+			{
+				switchActiveView(std::make_unique<MainMenuView>(viewReciever_, window_, getClientArea()));
+			}
+			break;
+			case TYPES::ACTION_LIST::NATION_SELECTION:
+			{
+				switchActiveView(std::make_unique<NationSelectionView>(viewReciever_, window_, getClientArea()));
+			}
+			break;
+			case TYPES::ACTION_LIST::INBOX:
+			{
+				switchActiveView(std::make_unique<InboxView>(viewReciever_, window_, getClientArea()));
+			}
+			break;
 		}
 
 		return 0;
@@ -46,7 +60,7 @@ namespace global_domination {
 		{
 			if (e.key.keysym.sym == SDLK_DOWN)
 			{
-				nation_selection_menu_->nextMenuItem();
+				active_view_->onKeyDown();
 			}
 			else if (e.key.keysym.sym == SDLK_UP)
 			{
@@ -153,14 +167,13 @@ namespace global_domination {
 
 		TTF_Init();
 
-		initializeMainMenu();
-	}
+		/*Calling shared_from_this() requires that there is at least one shared_ptr instance already pointing to your object.
+		If you use it on an automatic object without a shared_ptr instance with a custom deleter then you will get bad stuff happening.*/
+		viewReciever_ = shared_from_this();
 
-	void Game::initializeMainMenu()
-	{
-		std::unique_ptr<MainMenuView> main_menu_view = std::make_unique<MainMenuView>(this, window_, getClientArea());
-		main_menu_view->initialize();
-		active_view_ = std::move(main_menu_view);
+		/* Fake an action trigger to initialize the first view */
+		setAction(TYPES::ACTION_LIST::MENU);
+		getResult();
 	}
 
 	const int Game::getWindowWidth()
@@ -189,7 +202,25 @@ namespace global_domination {
 
 	void Game::setAction(TYPES::ACTION_LIST action)
 	{
-		current_action_ = action;
+		if (current_action_ != action)
+		{
+			current_action_ = action;
+		}
+	}
+
+	void Game::switchActiveView(std::shared_ptr<View> view)
+	{
+		view->initialize();
+
+		if (active_view_)
+		{
+			// need to transfer reciever ptr so reference count is correct
+			// if not correct then the ptr will be destroyed and the reciever will
+			// be destroyed too!
+			view->setReciever(active_view_->getReciever());
+		}
+		
+		active_view_ = view;
 	}
 
 	void Game::update()
@@ -216,19 +247,11 @@ namespace global_domination {
 			break;
 			case TYPES::ACTION_LIST::NATION_SELECTION:
 			{
-				std::unique_ptr<NationSelectionView> nation_selection_view = std::make_unique<NationSelectionView>(this, window_, getClientArea());
-				nation_selection_view->initialize();
-				active_view_ = std::move(nation_selection_view);
-
 				handleNationSelectionEvent(e);
 			}
 			break;
 			case TYPES::ACTION_LIST::INBOX:
 			{
-				std::unique_ptr<InboxView> inbox_view = std::make_unique<InboxView>(this, window_, getClientArea());
-				inbox_view->initialize();
-				active_view_ = std::move(inbox_view);
-
 				handleInboxEvent(e);
 			}
 			break;

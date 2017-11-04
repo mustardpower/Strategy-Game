@@ -18,7 +18,7 @@ namespace global_domination
 		int getSelectedIndex() const;
 		void addMenuItem(MenuItem<T> menu_item);
 		bool containsPoint(SDL_Rect aRect, int x, int y);
-		void handleClick(int x, int y);
+		bool handleClick(int x, int y);
 		void nextMenuItem();
 		void previousMenuItem();
 		void render(SDL_Renderer* renderer);
@@ -70,8 +70,9 @@ namespace global_domination
 		return false;
 	}
 
+	/* Returns true if click is handled, false if not */
 	template<class T>
-	inline void SDLMenu<T>::handleClick(int x, int y)
+	inline bool SDLMenu<T>::handleClick(int x, int y)
 	{
 		for (unsigned int i = 0; i < menu_items_.size(); i++)
 		{
@@ -82,8 +83,11 @@ namespace global_domination
 			{
 				selected_menu_item_index_ = i;
 				menu_items_.at(i).invokeAction();
+				return true;
 			}
 		}
+
+		return false;
 	}
 
 	template <typename T>
@@ -146,9 +150,6 @@ namespace global_domination
 		int h = 0;
 
 		std::string text = (menu_items_.at(menu_item_index)).reportString();
-
-		// THE NEXT LINE SOMETIMES CANNOT FIND THE GLYPH 
-
 		text_renderer::getTextDimensions(text, w, h);
 		return SDL_Rect{ kMenuItemPosX, kMenuItemPosY + (kMenuItemHeight * menu_item_index), w, h };
 	}

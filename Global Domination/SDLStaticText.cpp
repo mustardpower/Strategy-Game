@@ -9,8 +9,9 @@ namespace global_domination
 		text_ = text;
 	}
 
-	void SDLStaticText::handleClick(int x, int y)
+	bool SDLStaticText::handleClick(int x, int y)
 	{
+		return false;
 	}
 
 	void SDLStaticText::render(SDL_Renderer * renderer)

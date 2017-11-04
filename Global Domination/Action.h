@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 namespace global_domination
 {
 	namespace TYPES
@@ -9,6 +11,7 @@ namespace global_domination
 			MENU,
 			NATION_SELECTION,
 			INBOX,
+			UNINITIALIZED,
 			QUIT
 		};
 	};
@@ -16,6 +19,7 @@ namespace global_domination
 	class IReciever
 	{
 	public:
+		virtual ~IReciever() { };
 		virtual void setAction(TYPES::ACTION_LIST action) = 0;
 		virtual int getResult() = 0;
 	};
@@ -23,32 +27,17 @@ namespace global_domination
 	class Action
 	{
 	public:
-		Action(IReciever *reciever) :p_receiver_(reciever) {}
+		Action(std::shared_ptr<IReciever> reciever) :p_receiver_(reciever) {}
+		~Action() { }
 		virtual int execute() = 0;
 	protected:
-		IReciever *p_receiver_;
-	};
-
-	class StartGameAction : public Action
-	{
-	public:
-		StartGameAction(IReciever *reciever)
-			: Action(reciever)
-		{
-
-		}
-
-		int execute()
-		{
-			p_receiver_->setAction(TYPES::ACTION_LIST::NATION_SELECTION);
-			return p_receiver_->getResult();
-		}
+		std::shared_ptr<IReciever> p_receiver_;
 	};
 
 	class QuitGameAction : public Action
 	{
 	public:
-		QuitGameAction(IReciever *reciever)
+		QuitGameAction(std::shared_ptr<IReciever> reciever)
 			: Action(reciever)
 		{
 
@@ -64,7 +53,7 @@ namespace global_domination
 	class NationSelectionAction : public Action
 	{
 	public:
-		NationSelectionAction(IReciever *reciever)
+		NationSelectionAction(std::shared_ptr<IReciever> reciever)
 			: Action(reciever)
 		{
 
@@ -72,24 +61,26 @@ namespace global_domination
 
 		int execute()
 		{
-			p_receiver_->setAction(TYPES::ACTION_LIST::NATION_SELECTION);
 			return p_receiver_->getResult();
 		}
 	};
 
-	class OpenInboxAction : public Action
+	class ChangeViewAction : public Action
 	{
 	public:
-		OpenInboxAction(IReciever *reciever)
+		ChangeViewAction(std::shared_ptr<IReciever> reciever, TYPES::ACTION_LIST new_view)
 			: Action(reciever)
 		{
-
+			new_view_ = new_view;
 		}
 
 		int execute()
 		{
-			p_receiver_->setAction(TYPES::ACTION_LIST::INBOX);
+			p_receiver_->setAction(new_view_);
 			return p_receiver_->getResult();
 		}
+
+	private:
+		TYPES::ACTION_LIST new_view_;
 	};
 }

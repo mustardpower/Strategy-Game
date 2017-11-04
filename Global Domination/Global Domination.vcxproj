@@ -124,11 +124,13 @@
     <ClCompile Include="Nation.cpp" />
     <ClCompile Include="NationSelectionView.cpp" />
     <ClCompile Include="SDLButton.cpp" />
+    <ClCompile Include="SDLControl.cpp" />
     <ClCompile Include="SDLStaticText.cpp" />
     <ClCompile Include="SDL_TextRenderer.cpp" />
     <ClCompile Include="View.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ControlResources.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Action.h" />
     <ClInclude Include="InboxView.h" />

@@ -26,12 +26,15 @@ namespace global_domination
 		return false;
 	}
 
-	void SDLButton::handleClick(int x, int y)
+	bool SDLButton::handleClick(int x, int y)
 	{
 		if (containsPoint(x, y))
 		{
 			invokeAction();
+			return true;
 		}
+
+		return false;
 	}
 
 	void SDLButton::invokeAction() const
