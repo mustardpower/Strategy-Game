@@ -9,6 +9,8 @@ namespace global_domination
 		InboxView::InboxView(std::shared_ptr<IReciever> reciever, SDL_Window * parent, SDL_Rect client_area);
 		void initialize();
 		void onKeyDown();
+		void onKeyUp();
+		void onKeyPress(int keyCode);
 	private:
 	};
 }

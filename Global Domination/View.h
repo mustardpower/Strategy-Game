@@ -23,6 +23,8 @@ namespace global_domination
 		void handleClick(int mouse_x, int mouse_y);
 		virtual void initialize() = 0;
 		virtual void onKeyDown() = 0;
+		virtual void onKeyUp() = 0;
+		virtual void onKeyPress(int keyCode) = 0;
 		void render(SDL_Renderer* renderer);
 
 	protected:

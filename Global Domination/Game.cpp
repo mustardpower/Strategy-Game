@@ -54,86 +54,6 @@ namespace global_domination {
 		return 0;
 	}
 
-	void Game::handleNationSelectionEvent(SDL_Event e)
-	{
-		if (e.type == SDL_KEYDOWN)
-		{
-			if (e.key.keysym.sym == SDLK_DOWN)
-			{
-				active_view_->onKeyDown();
-			}
-			else if (e.key.keysym.sym == SDLK_UP)
-			{
-				nation_selection_menu_->previousMenuItem();
-			}
-			else if (e.key.keysym.sym == SDLK_RETURN)
-			{
-				nation_selection_menu_->selectCurrentItem();
-			}
-		}
-		else if (e.type == SDL_MOUSEBUTTONDOWN)
-		{
-			if (e.button.button == SDL_BUTTON_LEFT)
-			{
-				active_view_->handleClick(e.button.x, e.button.y);
-
-			}
-		}
-	}
-
-	void Game::handleInboxEvent(SDL_Event e)
-	{
-		if (e.type == SDL_KEYDOWN)
-		{
-			if (e.key.keysym.sym == SDLK_DOWN)
-			{
-				nation_selection_menu_->nextMenuItem();
-			}
-			else if (e.key.keysym.sym == SDLK_UP)
-			{
-				nation_selection_menu_->previousMenuItem();
-			}
-			else if (e.key.keysym.sym == SDLK_RETURN)
-			{
-				nation_selection_menu_->selectCurrentItem();
-			}
-		}
-		else if (e.type == SDL_MOUSEBUTTONDOWN)
-		{
-			if (e.button.button == SDL_BUTTON_LEFT)
-			{
-				active_view_->handleClick(e.button.x, e.button.y);
-
-			}
-		}
-	}
-
-	void Game::handleMenuEvent(SDL_Event e)
-	{
-		if (e.type == SDL_KEYDOWN)
-		{
-			if (e.key.keysym.sym == SDLK_DOWN)
-			{
-				main_menu_->nextMenuItem();
-			}
-			else if (e.key.keysym.sym == SDLK_UP)
-			{
-				main_menu_->previousMenuItem();
-			}
-			else if (e.key.keysym.sym == SDLK_RETURN)
-			{
-				main_menu_->selectCurrentItem();
-			}
-		}
-		else if (e.type == SDL_MOUSEBUTTONDOWN)
-		{
-			if (e.button.button == SDL_BUTTON_LEFT)
-			{
-				active_view_->handleClick(e.button.x, e.button.y);
-			}
-		}
-	}
-
 	void Game::initialize()
 	{
 		SDL_Surface *surface;
@@ -238,23 +158,28 @@ namespace global_domination {
 				return;
 			}
 
-			switch (current_action_)
+			if (e.type == SDL_KEYDOWN)
 			{
-			case TYPES::ACTION_LIST::MENU:
-			{
-				handleMenuEvent(e);
+				if (e.key.keysym.sym == SDLK_DOWN)
+				{
+					active_view_->onKeyDown();
+				}
+				else if (e.key.keysym.sym == SDLK_UP)
+				{
+					active_view_->onKeyUp();
+				}
+				else if (e.key.keysym.sym == SDLK_RETURN)
+				{
+					active_view_->onKeyPress(SDLK_RETURN);
+				}
 			}
-			break;
-			case TYPES::ACTION_LIST::NATION_SELECTION:
+			else if (e.type == SDL_MOUSEBUTTONDOWN)
 			{
-				handleNationSelectionEvent(e);
-			}
-			break;
-			case TYPES::ACTION_LIST::INBOX:
-			{
-				handleInboxEvent(e);
-			}
-			break;
+				if (e.button.button == SDL_BUTTON_LEFT)
+				{
+					active_view_->handleClick(e.button.x, e.button.y);
+
+				}
 			}
 		}
 	}

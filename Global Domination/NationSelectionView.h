@@ -12,6 +12,8 @@ namespace global_domination
 		virtual ~NationSelectionView();
 		void initialize();
 		void onKeyDown();
+		void onKeyUp();
+		void onKeyPress(int keyCode);
 	private:
 		std::vector<Nation> nations_;
 	};

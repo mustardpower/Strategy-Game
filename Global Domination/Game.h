@@ -24,9 +24,6 @@ namespace global_domination {
 		void initialize();
 		const int getWindowWidth();
 		const int getWindowHeight();
-		void handleInboxEvent(SDL_Event an_event);
-		void handleNationSelectionEvent(SDL_Event an_event);
-		void handleMenuEvent(SDL_Event an_event);
 		void render();
 		void runGameLoop();
 		void setAction(TYPES::ACTION_LIST action);
@@ -41,9 +38,6 @@ namespace global_domination {
 		std::shared_ptr<IReciever> viewReciever_;
 		std::shared_ptr<View> active_view_;
 		TYPES::ACTION_LIST current_action_;
-		std::unique_ptr<SDLMenu<int>> main_menu_;
-		std::unique_ptr<SDLMenu<Nation>> nation_selection_menu_;
-		std::vector<Nation> nations_;
 		SDL_Renderer *renderer_;
 		std::unique_ptr<Nation> selected_nation_;
 		SDL_Window* window_;

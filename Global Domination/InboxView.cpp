@@ -16,4 +16,10 @@ namespace global_domination {
 	void InboxView::onKeyDown()
 	{
 	}
+	void InboxView::onKeyUp()
+	{
+	}
+	void InboxView::onKeyPress(int keyCode)
+	{
+	}
 }

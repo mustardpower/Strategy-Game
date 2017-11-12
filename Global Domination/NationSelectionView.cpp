@@ -53,4 +53,13 @@ namespace global_domination
 		std::shared_ptr<SDLMenu<Nation>> nation_selection_menu = std::dynamic_pointer_cast<SDLMenu<Nation>>(getControl(NATION_SELECTION_MENU));
 		nation_selection_menu->nextMenuItem();
 	}
+
+	void NationSelectionView::onKeyUp()
+	{
+		std::shared_ptr<SDLMenu<Nation>> nation_selection_menu = std::dynamic_pointer_cast<SDLMenu<Nation>>(getControl(NATION_SELECTION_MENU));
+		nation_selection_menu->previousMenuItem();
+	}
+	void NationSelectionView::onKeyPress(int keyCode)
+	{
+	}
 }
