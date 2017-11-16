@@ -34,17 +34,17 @@ namespace global_domination {
 	{
 		switch (current_action_)
 		{
-			case TYPES::ACTION_LIST::MENU:
+			case TYPES::ACTION_LIST::CHANGEVIEW_MENU:
 			{
 				switchActiveView(std::make_unique<MainMenuView>(viewReciever_, window_, getClientArea()));
 			}
 			break;
-			case TYPES::ACTION_LIST::NATION_SELECTION:
+			case TYPES::ACTION_LIST::CHANGEVIEW_NATIONSELECTION:
 			{
 				switchActiveView(std::make_unique<NationSelectionView>(viewReciever_, window_, getClientArea()));
 			}
 			break;
-			case TYPES::ACTION_LIST::INBOX:
+			case TYPES::ACTION_LIST::CHANGEVIEW_INBOX:
 			{
 				switchActiveView(std::make_unique<InboxView>(viewReciever_, window_, getClientArea()));
 			}
@@ -92,7 +92,7 @@ namespace global_domination {
 		viewReciever_ = shared_from_this();
 
 		/* Fake an action trigger to initialize the first view */
-		setAction(TYPES::ACTION_LIST::MENU);
+		setAction(TYPES::ACTION_LIST::CHANGEVIEW_MENU);
 		getResult();
 	}
 

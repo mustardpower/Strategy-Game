@@ -30,7 +30,7 @@ namespace global_domination
 		std::shared_ptr<SDLStaticText> title_label = std::make_shared<SDLStaticText>(parent_, "GLOBAL DOMINATION", client_area_.w * 0.25, client_area_.h * 0.05);
 		addControl(title_label);
 
-		std::shared_ptr<SDLButton> start_button = std::make_shared<SDLButton>(parent_, "START", std::make_shared<ChangeViewAction>(reciever_, TYPES::ACTION_LIST::INBOX), client_area_.w * 0.8, client_area_.h * 0.8, 200, 300);
+		std::shared_ptr<SDLButton> start_button = std::make_shared<SDLButton>(parent_, "START", std::make_shared<ChangeViewAction>(reciever_, TYPES::ACTION_LIST::CHANGEVIEW_INBOX), client_area_.w * 0.8, client_area_.h * 0.8, 200, 300);
 		addControl(start_button);
 
 		std::shared_ptr<SDLMenu<Nation>> nation_selection_menu = std::make_shared<SDLMenu<Nation>>(parent_, client_area_.w * 0.2, client_area_.h * 0.4, client_area_.h * 0.1);

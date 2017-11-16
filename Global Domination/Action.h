@@ -8,9 +8,10 @@ namespace global_domination
 	{
 		enum ACTION_LIST
 		{
-			MENU,
-			NATION_SELECTION,
-			INBOX,
+			CHANGEVIEW_MENU,
+			CHANGEVIEW_NATIONSELECTION,
+			CHANGEVIEW_INBOX,
+			SELECTING_NATION,
 			UNINITIALIZED,
 			QUIT
 		};
@@ -61,6 +62,7 @@ namespace global_domination
 
 		int execute()
 		{
+			p_receiver_->setAction(TYPES::ACTION_LIST::SELECTING_NATION);
 			return p_receiver_->getResult();
 		}
 	};
