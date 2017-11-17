@@ -31,6 +31,14 @@ namespace global_domination {
 
 	void Game::relayAction(TYPES::ACTION_LIST action)
 	{
+		if (action == TYPES::ACTION_LIST::QUIT)
+		{
+			SDL_Event quit_event;
+			quit_event.type = SDL_QUIT;
+			SDL_PushEvent(&quit_event);
+		}
+
+		game_model_->respondToAction(action);
 		ui_->respondToAction(action);
 	}
 

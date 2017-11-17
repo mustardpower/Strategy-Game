@@ -72,23 +72,14 @@
     <ClCompile Include="View.cpp">
       <Filter>Source Files\Views</Filter>
     </ClCompile>
-    <ClCompile Include="InboxViewModel.cpp">
-      <Filter>Source Files\ViewModels</Filter>
-    </ClCompile>
-    <ClCompile Include="MainMenuViewModel.cpp">
-      <Filter>Source Files\ViewModels</Filter>
-    </ClCompile>
     <ClCompile Include="ViewModel.cpp">
       <Filter>Source Files\ViewModels</Filter>
     </ClCompile>
-    <ClCompile Include="NationSelectionViewModel.cpp">
-      <Filter>Source Files\ViewModels</Filter>
-    </ClCompile>
-    <ClCompile Include="MainToolbarView.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Action.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainToolbarView.cpp">
+      <Filter>Source Files\Views</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -128,32 +119,23 @@
     <ClInclude Include="SDLStaticText.h">
       <Filter>Header Files\SDLControls</Filter>
     </ClInclude>
-    <ClInclude Include="InboxView.h">
-      <Filter>Header Files\Views</Filter>
-    </ClInclude>
     <ClInclude Include="ControlResources.h">
       <Filter>Header Files\Views</Filter>
     </ClInclude>
     <ClInclude Include="GameModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ViewModel.h">
-      <Filter>Header Files\Views</Filter>
-    </ClInclude>
-    <ClInclude Include="InboxViewModel.h">
-      <Filter>Header Files\ViewModels</Filter>
-    </ClInclude>
-    <ClInclude Include="MainMenuViewModel.h">
-      <Filter>Header Files\ViewModels</Filter>
-    </ClInclude>
-    <ClInclude Include="NationSelectionViewModel.h">
-      <Filter>Header Files\ViewModels</Filter>
-    </ClInclude>
     <ClInclude Include="MainToolbarView.h">
       <Filter>Header Files\Views</Filter>
     </ClInclude>
     <ClInclude Include="GameUserInterface.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InboxView.h">
+      <Filter>Header Files\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModel.h">
+      <Filter>Header Files\ViewModels</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

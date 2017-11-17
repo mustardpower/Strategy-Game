@@ -15,6 +15,7 @@ namespace global_domination
 			KEYPRESS_DOWN,
 			KEYPRESS_UP,
 			KEYPRESS_RETURN,
+			NEXT_TURN,
 			SELECTING_NATION,
 			UNINITIALIZED,
 			QUIT

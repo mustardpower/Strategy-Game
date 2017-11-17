@@ -7,6 +7,8 @@ namespace global_domination {
 	{
 	public:
 		GameModel();
+		void nextTurn();
+		void respondToAction(TYPES::ACTION_LIST action);
 	private:
 		unsigned int current_turn;
 	};

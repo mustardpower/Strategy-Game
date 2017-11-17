@@ -12,10 +12,12 @@
 
 namespace global_domination
 {
+	class Game;
+
 	class View
 	{
 	public:
-		View(SDL_Window* parent, SDL_Rect client_area, bool isVisible = true);
+		View(std::unique_ptr<ViewModel> reciever, SDL_Window* parent, SDL_Rect client_area, bool isVisible = true);
 		virtual ~View();
 		void addControl(std::shared_ptr<SDLControl> control);
 		std::shared_ptr<SDLControl> getControl(ControlID id);

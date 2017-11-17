@@ -120,6 +120,7 @@ namespace global_domination
 		{
 			case TYPES::ACTION_LIST::MOUSECLICK_LEFT:
 			{
+				toolbar_->handleClick(x, y);
 				active_view_->handleClick(x, y);
 			}
 			break;

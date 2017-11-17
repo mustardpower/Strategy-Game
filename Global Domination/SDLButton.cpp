@@ -17,7 +17,7 @@ namespace global_domination
 	{
 		if ((x >= kPosX) && (x <= (kPosX + kButtonWidth)))
 		{
-			if ((y >= kButtonHeight) && (y <= (kPosY + kButtonHeight)))
+			if ((y >= kPosY) && (y <= (kPosY + kButtonHeight)))
 			{
 				return true;
 			}

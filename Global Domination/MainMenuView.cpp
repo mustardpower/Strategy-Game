@@ -6,15 +6,14 @@
 
 #include "Action.h"
 #include "Game.h"
-#include "MainMenuViewModel.h"
+#include "ViewModel.h"
 #include "MenuItem.h"
 #include "SDLMenu.h"
 
 namespace global_domination
 {
-	MainMenuView::MainMenuView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : View(parent, client_area)
+	MainMenuView::MainMenuView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : View(std::make_unique<ViewModel>(the_game), parent, client_area)
 	{
-		reciever_ = std::make_unique<MainMenuViewModel>(the_game);
 	}
 
 	void MainMenuView::initialize()

@@ -10,7 +10,7 @@ namespace global_domination
 	{
 	public:
 		ViewModel(Game* the_game);
-		virtual void setAction(TYPES::ACTION_LIST action) = 0;
+		void setAction(TYPES::ACTION_LIST action);
 		void applyTo(GameModel gameModel);
 
 	protected:

@@ -5,8 +5,9 @@
 
 namespace global_domination
 {
-	View::View(SDL_Window* parent, SDL_Rect client_area, bool isVisible)
+	View::View(std::unique_ptr<ViewModel> reciever, SDL_Window* parent, SDL_Rect client_area, bool isVisible)
 	{
+		reciever_ = std::move(reciever);
 		client_area_ = client_area;
 		parent_ = parent;
 		isVisible_ = true;
@@ -50,12 +51,15 @@ namespace global_domination
 
 	void View::handleClick(int mouse_x, int mouse_y)
 	{
-		if (controls_.size())
+		if (isVisible_)
 		{
-			for (std::vector<std::shared_ptr<SDLControl>>::iterator control = controls_.begin(); control != controls_.end(); control++)
+			if (controls_.size())
 			{
-				bool clickHandled = (*control)->handleClick(mouse_x, mouse_y);
-				if (clickHandled) { return; }
+				for (std::vector<std::shared_ptr<SDLControl>>::iterator control = controls_.begin(); control != controls_.end(); control++)
+				{
+					bool clickHandled = (*control)->handleClick(mouse_x, mouse_y);
+					if (clickHandled) { return; }
+				}
 			}
 		}
 	}	

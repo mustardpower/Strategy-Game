@@ -4,17 +4,15 @@
 
 #include "Action.h"
 #include "ControlResources.h"
-#include "NationSelectionViewModel.h"
+#include "ViewModel.h"
 #include "SDLButton.h"
 #include "SDLMenu.h"
 #include "SDLStaticText.h"
 
 namespace global_domination
 {
-	NationSelectionView::NationSelectionView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : View(parent, client_area)
+	NationSelectionView::NationSelectionView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : View(std::make_unique<ViewModel>(the_game), parent, client_area)
 	{
-		reciever_ = std::make_unique<NationSelectionViewModel>(the_game);
-
 		nations_.push_back(Nation("Australia"));
 		nations_.push_back(Nation("Germany"));
 		nations_.push_back(Nation("Japan"));
