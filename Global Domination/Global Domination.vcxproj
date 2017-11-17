@@ -126,6 +126,7 @@
     <ClCompile Include="MainMenuView.cpp" />
     <ClCompile Include="MainToolbarView.cpp" />
     <ClCompile Include="Nation.cpp" />
+    <ClCompile Include="NationFactory.cpp" />
     <ClCompile Include="NationSelectionView.cpp" />
     <ClCompile Include="SDLButton.cpp" />
     <ClCompile Include="SDLControl.cpp" />
@@ -141,10 +142,12 @@
     <ClInclude Include="GameModel.h" />
     <ClInclude Include="GameUserInterface.h" />
     <ClInclude Include="InboxView.h" />
+    <ClInclude Include="json.hpp" />
     <ClInclude Include="MainMenuView.h" />
     <ClInclude Include="MainToolbarView.h" />
     <ClInclude Include="MenuItem.h" />
     <ClInclude Include="Nation.h" />
+    <ClInclude Include="NationFactory.h" />
     <ClInclude Include="NationSelectionView.h" />
     <ClInclude Include="SDLButton.h" />
     <ClInclude Include="SDLControl.h" />

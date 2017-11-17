@@ -9,14 +9,14 @@
 #include "SDLMenu.h"
 #include "SDLStaticText.h"
 
+#include "NationFactory.h"
+
 namespace global_domination
 {
 	NationSelectionView::NationSelectionView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : View(std::make_unique<ViewModel>(the_game), parent, client_area)
 	{
-		nations_.push_back(Nation("Australia"));
-		nations_.push_back(Nation("Germany"));
-		nations_.push_back(Nation("Japan"));
-		nations_.push_back(Nation("USA"));
+		NationFactory nationFactory;
+		nations_ = nationFactory.createNations("nations.json");
 	}
 
 	NationSelectionView::~NationSelectionView()

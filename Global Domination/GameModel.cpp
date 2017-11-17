@@ -3,12 +3,13 @@
 namespace global_domination {
 	GameModel::GameModel()
 	{
-		current_turn = 0;
+		current_turn_ = 0;
 	}
 
 	void GameModel::nextTurn()
 	{
-		current_turn++;
+		updateNations();
+		current_turn_++;
 	}
 
 	void GameModel::respondToAction(TYPES::ACTION_LIST action)
@@ -20,6 +21,14 @@ namespace global_domination {
 				nextTurn();
 			}
 			break;
+		}
+	}
+
+	void GameModel::updateNations()
+	{
+		for (std::vector<Nation>::iterator nation = nations_.begin(); nation != nations_.end(); nation++)
+		{
+			nation->update();
 		}
 	}
 }
