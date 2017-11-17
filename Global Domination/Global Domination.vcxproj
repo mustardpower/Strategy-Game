@@ -118,32 +118,44 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameModel.cpp" />
+    <ClCompile Include="GameUserInterface.cpp" />
     <ClCompile Include="InboxView.cpp" />
+    <ClCompile Include="InboxViewModel.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuView.cpp" />
+    <ClCompile Include="MainMenuViewModel.cpp" />
     <ClCompile Include="Nation.cpp" />
     <ClCompile Include="NationSelectionView.cpp" />
+    <ClCompile Include="NationSelectionViewModel.cpp" />
     <ClCompile Include="SDLButton.cpp" />
     <ClCompile Include="SDLControl.cpp" />
     <ClCompile Include="SDLStaticText.cpp" />
     <ClCompile Include="SDL_TextRenderer.cpp" />
     <ClCompile Include="View.cpp" />
+    <ClCompile Include="ViewModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ControlResources.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Action.h" />
+    <ClInclude Include="GameModel.h" />
+    <ClInclude Include="GameUserInterface.h" />
     <ClInclude Include="InboxView.h" />
+    <ClInclude Include="InboxViewModel.h" />
     <ClInclude Include="MainMenuView.h" />
+    <ClInclude Include="MainMenuViewModel.h" />
     <ClInclude Include="MenuItem.h" />
     <ClInclude Include="Nation.h" />
     <ClInclude Include="NationSelectionView.h" />
+    <ClInclude Include="NationSelectionViewModel.h" />
     <ClInclude Include="SDLButton.h" />
     <ClInclude Include="SDLControl.h" />
     <ClInclude Include="SDLMenu.h" />
     <ClInclude Include="SDLStaticText.h" />
     <ClInclude Include="SDL_TextRenderer.h" />
     <ClInclude Include="View.h" />
+    <ClInclude Include="ViewModel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

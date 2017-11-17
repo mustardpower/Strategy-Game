@@ -5,9 +5,8 @@
 
 namespace global_domination
 {
-	View::View(std::shared_ptr<IReciever> reciever, SDL_Window* parent, SDL_Rect client_area)
+	View::View(SDL_Window* parent, SDL_Rect client_area)
 	{
-		reciever_ = reciever;
 		client_area_ = client_area;
 		parent_ = parent;
 	}
@@ -38,12 +37,12 @@ namespace global_domination
 		return nullptr;
 	}
 
-	std::shared_ptr<IReciever> View::getReciever()
+	std::shared_ptr<ViewModel> View::getReciever()
 	{
 		return reciever_;
 	}
 
-	void View::setReciever(std::shared_ptr<IReciever> reciever)
+	void View::setReciever(std::shared_ptr<ViewModel> reciever)
 	{
 		reciever_ = reciever;
 	}

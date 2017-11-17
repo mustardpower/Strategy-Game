@@ -11,6 +11,10 @@ namespace global_domination
 			CHANGEVIEW_MENU,
 			CHANGEVIEW_NATIONSELECTION,
 			CHANGEVIEW_INBOX,
+			MOUSECLICK_LEFT,
+			KEYPRESS_DOWN,
+			KEYPRESS_UP,
+			KEYPRESS_RETURN,
 			SELECTING_NATION,
 			UNINITIALIZED,
 			QUIT
@@ -22,7 +26,6 @@ namespace global_domination
 	public:
 		virtual ~IReciever() { };
 		virtual void setAction(TYPES::ACTION_LIST action) = 0;
-		virtual int getResult() = 0;
 	};
 
 	class Action
@@ -30,7 +33,7 @@ namespace global_domination
 	public:
 		Action(std::shared_ptr<IReciever> reciever) :p_receiver_(reciever) {}
 		~Action() { }
-		virtual int execute() = 0;
+		virtual void execute() = 0;
 	protected:
 		std::shared_ptr<IReciever> p_receiver_;
 	};
@@ -44,10 +47,9 @@ namespace global_domination
 
 		}
 
-		int execute()
+		void execute()
 		{
 			p_receiver_->setAction(TYPES::ACTION_LIST::QUIT);
-			return p_receiver_->getResult();
 		}
 	};
 
@@ -60,10 +62,9 @@ namespace global_domination
 
 		}
 
-		int execute()
+		void execute()
 		{
 			p_receiver_->setAction(TYPES::ACTION_LIST::SELECTING_NATION);
-			return p_receiver_->getResult();
 		}
 	};
 
@@ -76,10 +77,9 @@ namespace global_domination
 			new_view_ = new_view;
 		}
 
-		int execute()
+		void execute()
 		{
 			p_receiver_->setAction(new_view_);
-			return p_receiver_->getResult();
 		}
 
 	private:

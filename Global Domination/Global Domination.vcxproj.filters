@@ -25,6 +25,12 @@
     <Filter Include="Source Files\Views">
       <UniqueIdentifier>{9965327f-e1fe-4d6a-a6af-7f0ceddc8835}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ViewModels">
+      <UniqueIdentifier>{18d109c1-d992-44cf-b4c4-ebd805237b75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ViewModels">
+      <UniqueIdentifier>{a2151838-299a-4390-8a10-37987b102204}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -37,9 +43,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SDL_TextRenderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="View.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SDLButton.cpp">
@@ -57,8 +60,29 @@
     <ClCompile Include="NationSelectionView.cpp">
       <Filter>Source Files\Views</Filter>
     </ClCompile>
-    <ClCompile Include="SDLControl.cpp">
+    <ClCompile Include="GameUserInterface.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDLControl.cpp">
+      <Filter>Source Files\SDLControls</Filter>
+    </ClCompile>
+    <ClCompile Include="View.cpp">
+      <Filter>Source Files\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="InboxViewModel.cpp">
+      <Filter>Source Files\ViewModels</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuViewModel.cpp">
+      <Filter>Source Files\ViewModels</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModel.cpp">
+      <Filter>Source Files\ViewModels</Filter>
+    </ClCompile>
+    <ClCompile Include="NationSelectionViewModel.cpp">
+      <Filter>Source Files\ViewModels</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +127,24 @@
     </ClInclude>
     <ClInclude Include="ControlResources.h">
       <Filter>Header Files\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="GameModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUserInterface.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModel.h">
+      <Filter>Header Files\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="InboxViewModel.h">
+      <Filter>Header Files\ViewModels</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuViewModel.h">
+      <Filter>Header Files\ViewModels</Filter>
+    </ClInclude>
+    <ClInclude Include="NationSelectionViewModel.h">
+      <Filter>Header Files\ViewModels</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,11 +1,13 @@
 #include "InboxView.h"
 
+#include "InboxViewModel.h"
 #include "SDLStaticText.h"
 
 namespace global_domination {
 
-	InboxView::InboxView(std::shared_ptr<IReciever> reciever, SDL_Window * parent, SDL_Rect client_area) : View(reciever, parent, client_area)
+	InboxView::InboxView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : View(parent, client_area)
 	{
+		reciever_ = std::make_unique<InboxViewModel>(the_game);
 	}
 
 	void InboxView::initialize()
