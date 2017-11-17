@@ -15,11 +15,12 @@
 
 namespace global_domination {
 
-	class Game
+	class Game : public IReciever
 	{
 	public:
 		Game();
 		~Game();
+		std::shared_ptr<GameModel> getGameModel();
 		void initialize();
 		void relayAction(TYPES::ACTION_LIST action);
 		void render();

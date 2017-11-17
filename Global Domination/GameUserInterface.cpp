@@ -78,6 +78,11 @@ namespace global_domination
 
 	void GameUserInterface::respondToAction(TYPES::ACTION_LIST action)
 	{
+		if(active_view_)
+		{
+			active_view_->respondToAction(action);
+		}
+
 		switch (action)
 		{
 			case TYPES::ACTION_LIST::CHANGEVIEW_MENU:
@@ -94,21 +99,6 @@ namespace global_domination
 			{
 				toolbar_->isVisible(true);
 				switchActiveView(std::make_unique<InboxView>(the_game_, window_, getClientArea()));
-			}
-			break;
-			case TYPES::ACTION_LIST::KEYPRESS_DOWN:
-			{
-				active_view_->onKeyDown();
-			}
-			break;
-			case TYPES::ACTION_LIST::KEYPRESS_UP:
-			{
-				active_view_->onKeyUp();
-			}
-			break;
-			case TYPES::ACTION_LIST::KEYPRESS_RETURN:
-			{
-				active_view_->onKeyPress(SDLK_RETURN);
 			}
 			break;
 		}
@@ -130,15 +120,6 @@ namespace global_domination
 	void GameUserInterface::switchActiveView(std::shared_ptr<View> view)
 	{
 		view->initialize();
-
-		if (active_view_)
-		{
-			// need to transfer reciever ptr so reference count is correct
-			// if not correct then the ptr will be destroyed and the reciever will
-			// be destroyed too!
-			view->setReciever(active_view_->getReciever());
-		}
-
 		active_view_ = view;
 	}
 }

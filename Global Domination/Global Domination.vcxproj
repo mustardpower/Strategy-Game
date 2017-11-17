@@ -133,7 +133,6 @@
     <ClCompile Include="SDLStaticText.cpp" />
     <ClCompile Include="SDL_TextRenderer.cpp" />
     <ClCompile Include="View.cpp" />
-    <ClCompile Include="ViewModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ControlResources.h" />
@@ -155,7 +154,6 @@
     <ClInclude Include="SDLStaticText.h" />
     <ClInclude Include="SDL_TextRenderer.h" />
     <ClInclude Include="View.h" />
-    <ClInclude Include="ViewModel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

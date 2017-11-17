@@ -6,21 +6,20 @@
 
 #include "Action.h"
 #include "Game.h"
-#include "ViewModel.h"
 #include "MenuItem.h"
 #include "SDLMenu.h"
 
 namespace global_domination
 {
-	MainMenuView::MainMenuView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : View(std::make_unique<ViewModel>(the_game), parent, client_area)
+	MainMenuView::MainMenuView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : View(the_game, parent, client_area)
 	{
 	}
 
 	void MainMenuView::initialize()
 	{
 		std::shared_ptr<SDLMenu<int>> main_menu = std::make_shared<SDLMenu<int>>(parent_, client_area_.w * 0.2, client_area_.h * 0.3, client_area_.h * 0.1);
-		main_menu->addMenuItem(MenuItem<int>("PLAY!", std::make_shared<Action>(reciever_, TYPES::ACTION_LIST::CHANGEVIEW_NATIONSELECTION), 0));
-		main_menu->addMenuItem(MenuItem<int>("QUIT!", std::make_shared<Action>(reciever_, TYPES::ACTION_LIST::QUIT), 1));
+		main_menu->addMenuItem(MenuItem<int>("PLAY!", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::CHANGEVIEW_NATIONSELECTION), 0));
+		main_menu->addMenuItem(MenuItem<int>("QUIT!", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::QUIT), 1));
 		addControl(main_menu);
 		main_menu->setId(MAIN_MENU);
 	}
@@ -44,6 +43,27 @@ namespace global_domination
 			{
 				std::shared_ptr<SDLMenu<int>> main_menu = std::dynamic_pointer_cast<SDLMenu<int>>(getControl(MAIN_MENU));
 				main_menu->selectCurrentItem();
+			}
+			break;
+		}
+	}
+	void MainMenuView::respondToAction(TYPES::ACTION_LIST action)
+	{
+		switch (action)
+		{
+			case TYPES::ACTION_LIST::KEYPRESS_UP:
+			{
+				onKeyUp();
+			}
+			break;
+			case TYPES::ACTION_LIST::KEYPRESS_DOWN:
+			{
+				onKeyDown();
+			}
+			break;
+			case TYPES::ACTION_LIST::KEYPRESS_RETURN:
+			{
+				onKeyPress(SDLK_RETURN);
 			}
 			break;
 		}

@@ -14,6 +14,7 @@ namespace global_domination
 		void onKeyDown();
 		void onKeyUp();
 		void onKeyPress(int keyCode);
+		void respondToAction(TYPES::ACTION_LIST action);
 	private:
 		std::vector<Nation> nations_;
 	};

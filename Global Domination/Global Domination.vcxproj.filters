@@ -25,12 +25,6 @@
     <Filter Include="Source Files\Views">
       <UniqueIdentifier>{9965327f-e1fe-4d6a-a6af-7f0ceddc8835}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\ViewModels">
-      <UniqueIdentifier>{18d109c1-d992-44cf-b4c4-ebd805237b75}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ViewModels">
-      <UniqueIdentifier>{a2151838-299a-4390-8a10-37987b102204}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -71,9 +65,6 @@
     </ClCompile>
     <ClCompile Include="View.cpp">
       <Filter>Source Files\Views</Filter>
-    </ClCompile>
-    <ClCompile Include="ViewModel.cpp">
-      <Filter>Source Files\ViewModels</Filter>
     </ClCompile>
     <ClCompile Include="Action.cpp">
       <Filter>Source Files</Filter>
@@ -136,9 +127,6 @@
     </ClInclude>
     <ClInclude Include="InboxView.h">
       <Filter>Header Files\Views</Filter>
-    </ClInclude>
-    <ClInclude Include="ViewModel.h">
-      <Filter>Header Files\ViewModels</Filter>
     </ClInclude>
     <ClInclude Include="NationFactory.h">
       <Filter>Header Files</Filter>

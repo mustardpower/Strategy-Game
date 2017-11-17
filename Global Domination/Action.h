@@ -1,7 +1,5 @@
 #pragma once
 
-#include <memory>
-
 namespace global_domination
 {
 	namespace TYPES
@@ -26,17 +24,17 @@ namespace global_domination
 	{
 	public:
 		virtual ~IReciever() { };
-		virtual void setAction(TYPES::ACTION_LIST action) = 0;
+		virtual void relayAction(TYPES::ACTION_LIST action) = 0;
 	};
 
 	class Action
 	{
 	public:
-		Action(std::shared_ptr<IReciever> reciever, TYPES::ACTION_LIST action) :p_receiver_(reciever), action_(action) {}
+		Action(IReciever* reciever, TYPES::ACTION_LIST action) :p_receiver_(reciever), action_(action) {}
 		~Action() { }
 		void execute();
 	protected:
-		std::shared_ptr<IReciever> p_receiver_;
+		IReciever* p_receiver_;
 		TYPES::ACTION_LIST action_;
 
 	};

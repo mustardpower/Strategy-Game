@@ -20,6 +20,11 @@ namespace global_domination {
 	{
 	}
 
+	std::shared_ptr<GameModel> Game::getGameModel()
+	{
+		return game_model_;
+	}
+
 	void Game::initialize()
 	{
 		ui_->initialize(this);
@@ -91,7 +96,6 @@ namespace global_domination {
 				if (e.button.button == SDL_BUTTON_LEFT)
 				{
 					ui_->respondToMouseClick(TYPES::ACTION_LIST::MOUSECLICK_LEFT, e.button.x, e.button.y);
-
 				}
 			}
 		}

@@ -4,6 +4,6 @@ namespace global_domination
 {
 	void Action::execute()
 	{
-		p_receiver_->setAction(action_);
+		p_receiver_->relayAction(action_);
 	}
 }

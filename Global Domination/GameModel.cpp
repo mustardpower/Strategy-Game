@@ -24,6 +24,22 @@ namespace global_domination {
 		}
 	}
 
+	std::string GameModel::getSelectedNationName()
+	{
+		std::string nation_name = selected_nation_.getName();
+		if (!nation_name.size())
+		{
+			return "Undefined Nation";
+		}
+
+		return nation_name;
+	}
+
+	void GameModel::setSelectedNation(Nation selected_nation)
+	{
+		selected_nation_ = selected_nation;
+	}
+
 	void GameModel::updateNations()
 	{
 		for (std::vector<Nation>::iterator nation = nations_.begin(); nation != nations_.end(); nation++)

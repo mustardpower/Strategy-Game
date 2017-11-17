@@ -12,9 +12,12 @@ namespace global_domination {
 		GameModel();
 		void nextTurn();
 		void respondToAction(TYPES::ACTION_LIST action);
+		std::string getSelectedNationName();
+		void setSelectedNation(Nation selected_nation);
 		void updateNations();
 	private:
 		unsigned int current_turn_;
+		Nation selected_nation_;
 		std::vector<Nation> nations_;
 	};
 }

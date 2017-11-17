@@ -5,9 +5,9 @@
 
 namespace global_domination
 {
-	View::View(std::unique_ptr<ViewModel> reciever, SDL_Window* parent, SDL_Rect client_area, bool isVisible)
+	View::View(Game* the_game, SDL_Window* parent, SDL_Rect client_area, bool isVisible)
 	{
-		reciever_ = std::move(reciever);
+		the_game_ = the_game;
 		client_area_ = client_area;
 		parent_ = parent;
 		isVisible_ = true;
@@ -37,16 +37,6 @@ namespace global_domination
 		}
 
 		return nullptr;
-	}
-
-	std::shared_ptr<ViewModel> View::getReciever()
-	{
-		return reciever_;
-	}
-
-	void View::setReciever(std::shared_ptr<ViewModel> reciever)
-	{
-		reciever_ = reciever;
 	}
 
 	void View::handleClick(int mouse_x, int mouse_y)

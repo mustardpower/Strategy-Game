@@ -10,9 +10,7 @@ namespace global_domination
 	public:
 		InboxView::InboxView(Game* the_game, SDL_Window * parent, SDL_Rect client_area);
 		void initialize();
-		void onKeyDown();
-		void onKeyUp();
-		void onKeyPress(int keyCode);
+		void respondToAction(TYPES::ACTION_LIST action);
 	private:
 	};
 }
