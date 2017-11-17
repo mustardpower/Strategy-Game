@@ -31,58 +31,12 @@ namespace global_domination
 	class Action
 	{
 	public:
-		Action(std::shared_ptr<IReciever> reciever) :p_receiver_(reciever) {}
+		Action(std::shared_ptr<IReciever> reciever, TYPES::ACTION_LIST action) :p_receiver_(reciever), action_(action) {}
 		~Action() { }
-		virtual void execute() = 0;
+		void execute();
 	protected:
 		std::shared_ptr<IReciever> p_receiver_;
-	};
+		TYPES::ACTION_LIST action_;
 
-	class QuitGameAction : public Action
-	{
-	public:
-		QuitGameAction(std::shared_ptr<IReciever> reciever)
-			: Action(reciever)
-		{
-
-		}
-
-		void execute()
-		{
-			p_receiver_->setAction(TYPES::ACTION_LIST::QUIT);
-		}
-	};
-
-	class NationSelectionAction : public Action
-	{
-	public:
-		NationSelectionAction(std::shared_ptr<IReciever> reciever)
-			: Action(reciever)
-		{
-
-		}
-
-		void execute()
-		{
-			p_receiver_->setAction(TYPES::ACTION_LIST::SELECTING_NATION);
-		}
-	};
-
-	class ChangeViewAction : public Action
-	{
-	public:
-		ChangeViewAction(std::shared_ptr<IReciever> reciever, TYPES::ACTION_LIST new_view)
-			: Action(reciever)
-		{
-			new_view_ = new_view;
-		}
-
-		void execute()
-		{
-			p_receiver_->setAction(new_view_);
-		}
-
-	private:
-		TYPES::ACTION_LIST new_view_;
 	};
 }

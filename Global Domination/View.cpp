@@ -5,10 +5,11 @@
 
 namespace global_domination
 {
-	View::View(SDL_Window* parent, SDL_Rect client_area)
+	View::View(SDL_Window* parent, SDL_Rect client_area, bool isVisible)
 	{
 		client_area_ = client_area;
 		parent_ = parent;
+		isVisible_ = true;
 	}
 
 	View::~View()
@@ -61,17 +62,19 @@ namespace global_domination
 
 	void View::render(SDL_Renderer* renderer)
 	{
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
-		SDL_RenderClear(renderer);
-
-		if (controls_.size())
+		if (isVisible_)
 		{
-			for (std::vector<std::shared_ptr<SDLControl>>::iterator control = controls_.begin(); control != controls_.end(); control++)
+			if (controls_.size())
 			{
-				(*control)->render(renderer);
+				for (std::vector<std::shared_ptr<SDLControl>>::iterator control = controls_.begin(); control != controls_.end(); control++)
+				{
+					(*control)->render(renderer);
+				}
 			}
 		}
-		
-		SDL_UpdateWindowSurface(parent_);
+	}
+	void View::isVisible(bool isVisible)
+	{
+		isVisible_ = isVisible;
 	}
 }

@@ -84,6 +84,12 @@
     <ClCompile Include="NationSelectionViewModel.cpp">
       <Filter>Source Files\ViewModels</Filter>
     </ClCompile>
+    <ClCompile Include="MainToolbarView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Action.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -131,9 +137,6 @@
     <ClInclude Include="GameModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameUserInterface.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="ViewModel.h">
       <Filter>Header Files\Views</Filter>
     </ClInclude>
@@ -145,6 +148,12 @@
     </ClInclude>
     <ClInclude Include="NationSelectionViewModel.h">
       <Filter>Header Files\ViewModels</Filter>
+    </ClInclude>
+    <ClInclude Include="MainToolbarView.h">
+      <Filter>Header Files\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="GameUserInterface.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

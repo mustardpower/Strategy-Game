@@ -4,6 +4,7 @@
 #include "SDL.h"
 
 #include "View.h"
+#include "MainToolbarView.h"
 
 namespace global_domination {
 
@@ -24,6 +25,7 @@ namespace global_domination {
 		Game* the_game_;
 		const int kWindowWidth = 640;
 		const int kWindowHeight = 480;
+		std::unique_ptr<MainToolbarView> toolbar_;
 		std::shared_ptr<View> active_view_;
 		SDL_Renderer *renderer_;
 		SDL_Window* window_;

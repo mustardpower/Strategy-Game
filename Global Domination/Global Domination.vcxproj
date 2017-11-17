@@ -117,6 +117,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Action.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameModel.cpp" />
     <ClCompile Include="GameUserInterface.cpp" />
@@ -125,6 +126,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuView.cpp" />
     <ClCompile Include="MainMenuViewModel.cpp" />
+    <ClCompile Include="MainToolbarView.cpp" />
     <ClCompile Include="Nation.cpp" />
     <ClCompile Include="NationSelectionView.cpp" />
     <ClCompile Include="NationSelectionViewModel.cpp" />
@@ -145,6 +147,7 @@
     <ClInclude Include="InboxViewModel.h" />
     <ClInclude Include="MainMenuView.h" />
     <ClInclude Include="MainMenuViewModel.h" />
+    <ClInclude Include="MainToolbarView.h" />
     <ClInclude Include="MenuItem.h" />
     <ClInclude Include="Nation.h" />
     <ClInclude Include="NationSelectionView.h" />

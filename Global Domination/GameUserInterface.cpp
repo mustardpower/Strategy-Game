@@ -58,12 +58,22 @@ namespace global_domination
 		SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 0xFF);
 		SDL_RenderClear(renderer_);
 
+		toolbar_ = std::make_unique<MainToolbarView>(the_game_, window_, getClientArea());
+		toolbar_->initialize();
+		toolbar_->isVisible(false);
+
 		TTF_Init();
 	}
 
 	void GameUserInterface::render()
 	{
+		SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 0xFF);
+		SDL_RenderClear(renderer_);
+
+		toolbar_->render(renderer_);
 		active_view_->render(renderer_);
+
+		SDL_UpdateWindowSurface(window_);
 	}
 
 	void GameUserInterface::respondToAction(TYPES::ACTION_LIST action)
@@ -82,6 +92,7 @@ namespace global_domination
 			break;
 			case TYPES::ACTION_LIST::CHANGEVIEW_INBOX:
 			{
+				toolbar_->isVisible(true);
 				switchActiveView(std::make_unique<InboxView>(the_game_, window_, getClientArea()));
 			}
 			break;
