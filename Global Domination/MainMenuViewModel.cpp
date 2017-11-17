@@ -16,12 +16,14 @@ namespace global_domination
 			{
 				the_game_->relayAction(action);
 			}
+			break;
 			case TYPES::ACTION_LIST::QUIT:
 			{
 				SDL_Event quit_event;
 				quit_event.type = SDL_QUIT;
 				SDL_PushEvent(&quit_event);
 			}
+			break;
 		}
 	}
 }
