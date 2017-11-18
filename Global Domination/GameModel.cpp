@@ -1,5 +1,7 @@
 #include "GameModel.h"
 
+#include <sstream>
+
 namespace global_domination {
 	GameModel::GameModel()
 	{
@@ -8,6 +10,7 @@ namespace global_domination {
 
 	void GameModel::nextTurn()
 	{
+		updateMessages();
 		updateNations();
 		current_turn_++;
 	}
@@ -35,9 +38,24 @@ namespace global_domination {
 		return nation_name;
 	}
 
+	std::vector<Message> GameModel::getInboxMessages()
+	{
+		return inbox_messages_;
+	}
+
 	void GameModel::setSelectedNation(Nation selected_nation)
 	{
 		selected_nation_ = selected_nation;
+	}
+
+	void GameModel::updateMessages()
+	{
+		std::stringstream ss;
+		ss << current_turn_;
+		std::string current_turn_string = ss.str();
+
+		Message aMessage("Turn " + current_turn_string, "Welcome to turn: " + current_turn_string);
+		inbox_messages_.push_back(aMessage);
 	}
 
 	void GameModel::updateNations()

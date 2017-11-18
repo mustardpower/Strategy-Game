@@ -125,6 +125,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuView.cpp" />
     <ClCompile Include="MainToolbarView.cpp" />
+    <ClCompile Include="Message.cpp" />
     <ClCompile Include="Nation.cpp" />
     <ClCompile Include="NationFactory.cpp" />
     <ClCompile Include="NationSelectionView.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="MainMenuView.h" />
     <ClInclude Include="MainToolbarView.h" />
     <ClInclude Include="MenuItem.h" />
+    <ClInclude Include="Message.h" />
     <ClInclude Include="Nation.h" />
     <ClInclude Include="NationFactory.h" />
     <ClInclude Include="NationSelectionView.h" />

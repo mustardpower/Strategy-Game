@@ -3,6 +3,7 @@
 
 #include "Action.h"
 #include "Nation.h"
+#include "Message.h"
 
 namespace global_domination {
 
@@ -10,14 +11,17 @@ namespace global_domination {
 	{
 	public:
 		GameModel();
+		std::string getSelectedNationName();
+		std::vector<Message> getInboxMessages();
 		void nextTurn();
 		void respondToAction(TYPES::ACTION_LIST action);
-		std::string getSelectedNationName();
 		void setSelectedNation(Nation selected_nation);
+		void updateMessages();
 		void updateNations();
 	private:
 		unsigned int current_turn_;
 		Nation selected_nation_;
 		std::vector<Nation> nations_;
+		std::vector<Message> inbox_messages_;
 	};
 }

@@ -17,6 +17,7 @@ namespace global_domination
 		SDLMenu(SDL_Window* parent, int menu_pos_x, int menu_pos_y, int menu_item_height);
 		int getSelectedIndex() const;
 		void addMenuItem(MenuItem<T> menu_item);
+		void clearItems();
 		bool containsPoint(SDL_Rect aRect, int x, int y);
 		bool handleClick(int x, int y);
 		void nextMenuItem();
@@ -54,6 +55,12 @@ namespace global_domination
 	void SDLMenu<T>::addMenuItem(MenuItem<T> menu_item)
 	{
 		menu_items_.push_back(menu_item);
+	}
+
+	template<class T>
+	inline void SDLMenu<T>::clearItems()
+	{
+		menu_items_.clear();
 	}
 
 	template<class T>

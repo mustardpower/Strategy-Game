@@ -23,14 +23,11 @@ namespace global_domination {
 		std::shared_ptr<GameModel> getGameModel();
 		void initialize();
 		void relayAction(TYPES::ACTION_LIST action);
-		void render();
 		void runGameLoop();
-		void update();
 
 	private:
 		std::unique_ptr<GameUserInterface> ui_;
 		std::shared_ptr<GameModel> game_model_;
-		TYPES::ACTION_LIST current_action_;
 	};
 
 }

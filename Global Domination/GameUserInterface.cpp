@@ -8,6 +8,11 @@
 namespace global_domination
 {
 
+	GameUserInterface::GameUserInterface()
+	{
+		is_quiting_ = false;
+	}
+
 	SDL_Rect GameUserInterface::getClientArea() const
 	{
 		SDL_Rect client_area;
@@ -63,6 +68,11 @@ namespace global_domination
 		toolbar_->isVisible(false);
 
 		TTF_Init();
+	}
+
+	bool GameUserInterface::isQuiting()
+	{
+		return is_quiting_;
 	}
 
 	void GameUserInterface::render()
@@ -122,6 +132,48 @@ namespace global_domination
 		view->initialize();
 		active_view_ = view;
 	}
+
+	void GameUserInterface::update()
+	{
+		SDL_Event e;
+
+		while (SDL_PollEvent(&e)) {
+			if (e.type == SDL_QUIT) {
+				is_quiting_ = true;
+				return;
+			}
+
+			if ((e.type == SDL_KEYDOWN) && (e.key.keysym.sym == SDLK_ESCAPE)) {
+				is_quiting_ = true;
+				return;
+			}
+
+			if (e.type == SDL_KEYDOWN)
+			{
+				if (e.key.keysym.sym == SDLK_DOWN)
+				{
+					respondToAction(TYPES::ACTION_LIST::KEYPRESS_DOWN);
+				}
+				else if (e.key.keysym.sym == SDLK_UP)
+				{
+					respondToAction(TYPES::ACTION_LIST::KEYPRESS_UP);
+				}
+				else if (e.key.keysym.sym == SDLK_RETURN)
+				{
+					respondToAction(TYPES::ACTION_LIST::KEYPRESS_RETURN);
+				}
+			}
+			else if (e.type == SDL_MOUSEBUTTONDOWN)
+			{
+				if (e.button.button == SDL_BUTTON_LEFT)
+				{
+					respondToMouseClick(TYPES::ACTION_LIST::MOUSECLICK_LEFT, e.button.x, e.button.y);
+				}
+			}
+		}
+	}
+
+
 }
 
 
