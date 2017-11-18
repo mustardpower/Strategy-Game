@@ -31,7 +31,6 @@ namespace global_domination {
 		std::unique_ptr<GameUserInterface> ui_;
 		std::shared_ptr<GameModel> game_model_;
 		TYPES::ACTION_LIST current_action_;
-		std::unique_ptr<Nation> selected_nation_;
 	};
 
 }
