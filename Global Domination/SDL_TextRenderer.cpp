@@ -8,11 +8,10 @@ namespace global_domination
 		TTF_Font* font = NULL;
 
 
-		TTF_Font * getFont()
+		TTF_Font * getFont(int font_size)
 		{
-			if (font) { return font; }
+			if (font) { TTF_CloseFont(font); }
 
-			const int font_size = 30;
 			font = TTF_OpenFont(".\\fonts\\ARIAL.TTF", font_size);
 			if (!font)
 			{
@@ -25,7 +24,8 @@ namespace global_domination
 
 		void getTextDimensions(std::string text, int &w, int &h)
 		{
-			if(!font){font = getFont();}
+			const int default_font_size = 30;
+			if(!font){font = getFont(default_font_size);}
 
 			int result = TTF_SizeText(font, text.c_str(), &w, &h);
 			if (result < 0)
@@ -34,10 +34,10 @@ namespace global_domination
 			}
 		}
 
-		void renderText(SDL_Window* window, std::string text, SDL_Rect text_location, SDL_Color foreground_color)
+		void renderText(SDL_Window* window, std::string text, SDL_Rect text_location, SDL_Color foreground_color, int font_size)
 		{
 			SDL_Color background_color = { 0, 0, 0 };
-			SDL_Surface* text_surface = TTF_RenderText_Shaded(getFont(), text.c_str(), foreground_color, background_color);
+			SDL_Surface* text_surface = TTF_RenderText_Shaded(getFont(font_size), text.c_str(), foreground_color, background_color);
 
 			// Pass zero for width and height to draw the whole surface
 			SDL_Surface* screen = SDL_GetWindowSurface(window);

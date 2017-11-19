@@ -17,11 +17,18 @@ namespace global_domination {
 		
 		std::string nation_name = the_game_->getGameModel()->getSelectedNationName();
 		std::shared_ptr<SDLStaticText> name_label = std::make_shared<SDLStaticText>(parent_, nation_name, client_area_.w * 0.25, client_area_.h * 0.25);
+		name_label->setFontSize(12);
 		addControl(name_label);
 
 		std::shared_ptr<SDLMenu<Message>> message_list = std::make_shared<SDLMenu<Message>>(parent_, client_area_.w * 0.2, client_area_.h * 0.4, client_area_.h * 0.1);
 		message_list->setId(INBOX_LIST);
 		addControl(message_list);
+
+		std::string message_text = "";
+		std::shared_ptr<SDLStaticText> message_text_label = std::make_shared<SDLStaticText>(parent_, message_text, client_area_.w * 0.6, client_area_.h * 0.4);
+		message_text_label->setId(SELECTED_MESSAGE_TEXT_LABEL);
+		message_text_label->setFontSize(12);
+		addControl(message_text_label);
 
 		updateMessageList();
 		
@@ -35,6 +42,15 @@ namespace global_domination {
 			{
 				updateMessageList();
 			}
+			break;
+			case TYPES::ACTION_LIST::SELECTING_MESSAGE:
+			{
+				std::shared_ptr<SDLMenu<Message>> message_list = std::dynamic_pointer_cast<SDLMenu<Message>>(getControl(INBOX_LIST));
+				Message selected_message = message_list->selectedItem();
+				std::shared_ptr<SDLStaticText> message_text_label = std::dynamic_pointer_cast<SDLStaticText>(getControl(SELECTED_MESSAGE_TEXT_LABEL));
+				message_text_label->setText(selected_message.getMessageText());
+			}
+			break;
 		}
 	}
 

@@ -49,7 +49,7 @@ namespace global_domination
 		int index = 0;
 		SDL_Color text_color = { 0,255,0 };
 
-		TTF_Font* font = text_renderer::getFont();
+		TTF_Font* font = text_renderer::getFont(font_size_);
 		if (!font) { return; }
 
 		SDL_Rect text_location = { kPosX, kPosY, kButtonWidth, kButtonHeight };

@@ -1,11 +1,28 @@
 #include "SDLControl.h"
 
-unsigned int global_domination::SDLControl::getId()
+#include <assert.h>
+
+namespace global_domination
 {
-	return id_;
+	SDLControl::SDLControl()
+	{
+		id_ = UNDEFINED_CONTROL_ID;
+	}
+
+	unsigned int SDLControl::getId()
+	{
+		return id_;
+	}
+
+	void SDLControl::setFontSize(int font_size)
+	{
+		font_size_ = font_size;
+	}
+
+	void SDLControl::setId(ControlID id)
+	{
+		assert(id_ == UNDEFINED_CONTROL_ID);
+		id_ = id;
+	}
 }
 
-void global_domination::SDLControl::setId(ControlID id)
-{
-	id_ = id;
-}

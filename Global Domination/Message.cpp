@@ -16,3 +16,8 @@ std::string Message::getTitle() const
 {
 	return message_title_;
 }
+
+std::string Message::getMessageText() const
+{
+	return message_text_;
+}
