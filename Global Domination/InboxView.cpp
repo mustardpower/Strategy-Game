@@ -2,6 +2,7 @@
 
 #include "ControlResources.h"
 #include "Game.h"
+#include "SDLListBox.h"
 #include "SDLStaticText.h"
 
 namespace global_domination {
@@ -20,7 +21,8 @@ namespace global_domination {
 		name_label->setFontSize(12);
 		addControl(name_label);
 
-		std::shared_ptr<SDLMenu<Message>> message_list = std::make_shared<SDLMenu<Message>>(parent_, client_area_.w * 0.2, client_area_.h * 0.4, client_area_.h * 0.1);
+		SDL_Rect list_box_client_area{ client_area_.w * 0.2, client_area_.h * 0.4, 100, client_area_.h * 0.5 };
+		std::shared_ptr<SDLListBox<Message>> message_list = std::make_shared<SDLListBox<Message>>(parent_, list_box_client_area, list_box_client_area.h * 0.2);
 		message_list->setId(INBOX_LIST);
 		addControl(message_list);
 
@@ -55,13 +57,13 @@ namespace global_domination {
 	{
 		std::vector<Message> messages = the_game_->getGameModel()->getInboxMessages();
 		std::shared_ptr<Action> messageSelectionAction = std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::SELECTING_MESSAGE);
-		std::shared_ptr<SDLMenu<Message>> message_list = std::dynamic_pointer_cast<SDLMenu<Message>>(getControl(INBOX_LIST));
+		std::shared_ptr<SDLListBox<Message>> message_list = std::dynamic_pointer_cast<SDLListBox<Message>>(getControl(INBOX_LIST));
 		
 		message_list->clearItems();
 
 		for (std::vector<Message>::const_iterator message = messages.cbegin(); message != messages.end(); message++)
 		{
-			message_list->addMenuItem(MenuItem<Message>(message->getTitle(), messageSelectionAction, *message));
+			message_list->addItem(ListItem<Message>(message->getTitle(), messageSelectionAction, *message));
 		}
 
 		updateSelectedMessageText();
@@ -69,7 +71,7 @@ namespace global_domination {
 
 	void InboxView::updateSelectedMessageText()
 	{
-		std::shared_ptr<SDLMenu<Message>> message_list = std::dynamic_pointer_cast<SDLMenu<Message>>(getControl(INBOX_LIST));
+		std::shared_ptr<SDLListBox<Message>> message_list = std::dynamic_pointer_cast<SDLListBox<Message>>(getControl(INBOX_LIST));
 		Message* selected_message = message_list->selectedItem();
 		if (selected_message)
 		{

@@ -6,7 +6,7 @@
 
 #include "Action.h"
 #include "Game.h"
-#include "MenuItem.h"
+#include "ListItem.h"
 #include "SDLMenu.h"
 
 namespace global_domination
@@ -18,8 +18,8 @@ namespace global_domination
 	void MainMenuView::initialize()
 	{
 		std::shared_ptr<SDLMenu<int>> main_menu = std::make_shared<SDLMenu<int>>(parent_, client_area_.w * 0.2, client_area_.h * 0.3, client_area_.h * 0.1);
-		main_menu->addMenuItem(MenuItem<int>("PLAY!", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::CHANGEVIEW_NATIONSELECTION), 0));
-		main_menu->addMenuItem(MenuItem<int>("QUIT!", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::QUIT), 1));
+		main_menu->addMenuItem(ListItem<int>("PLAY!", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::CHANGEVIEW_NATIONSELECTION), 0));
+		main_menu->addMenuItem(ListItem<int>("QUIT!", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::QUIT), 1));
 		addControl(main_menu);
 		main_menu->setId(MAIN_MENU);
 	}

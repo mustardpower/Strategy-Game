@@ -10,14 +10,14 @@
 namespace global_domination
 {
 	template <class T>
-	class MenuItem
+	class ListItem
 	{
 	public:
 		std::string reportString() const;
 		void invokeAction() const;
 		T* getData();
 
-		MenuItem(std::string some_text, std::shared_ptr<Action> an_action, T menu_item_data)
+		ListItem(std::string some_text, std::shared_ptr<Action> an_action, T menu_item_data)
 		{
 			text_ = some_text;
 			action_ = an_action;
@@ -32,19 +32,19 @@ namespace global_domination
 	};
 
 	template <typename T>
-	std::string MenuItem<T>::reportString() const
+	std::string ListItem<T>::reportString() const
 	{
 		return text_;
 	}
 
 	template <typename T>
-	void MenuItem<T>::invokeAction() const
+	void ListItem<T>::invokeAction() const
 	{
 		action_->execute();
 	}
 
 	template<class T>
-	inline T* MenuItem<T>::getData()
+	inline T* ListItem<T>::getData()
 	{
 		return &data_;
 	}

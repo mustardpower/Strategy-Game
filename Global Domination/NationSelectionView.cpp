@@ -41,7 +41,7 @@ namespace global_domination
 		for (std::vector<Nation>::const_iterator nation = nations_.cbegin(); nation != nations_.end(); nation++)
 		{
 			std::string nationName = nation->reportString();
-			nation_selection_menu->addMenuItem(MenuItem<Nation>(nationName, nationSelectionAction, *nation));
+			nation_selection_menu->addMenuItem(ListItem<Nation>(nationName, nationSelectionAction, *nation));
 		}	
 
 		addControl(nation_selection_menu);

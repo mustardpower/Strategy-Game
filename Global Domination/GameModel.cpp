@@ -10,9 +10,10 @@ namespace global_domination {
 
 	void GameModel::nextTurn()
 	{
+		current_turn_++;
+
 		updateMessages();
 		updateNations();
-		current_turn_++;
 	}
 
 	void GameModel::respondToAction(TYPES::ACTION_LIST action)

@@ -1,17 +1,9 @@
 #pragma once
 
-#include <array>
 #include <memory>
-#include <string>
-
-#include "SDL.h"
 
 #include "GameModel.h"
 #include "GameUserInterface.h"
-#include "MenuItem.h"
-#include "Nation.h"
-#include "SDLButton.h"
-#include "SDLMenu.h"
 
 namespace global_domination {
 

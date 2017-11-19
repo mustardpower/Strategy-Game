@@ -6,7 +6,7 @@
 #include "SDL.h"
 #include "SDL_TextRenderer.h"
 
-#include "MenuItem.h"
+#include "ListItem.h"
 
 namespace global_domination
 {
@@ -16,7 +16,7 @@ namespace global_domination
 	public:
 		SDLMenu(SDL_Window* parent, int menu_pos_x, int menu_pos_y, int menu_item_height);
 		int getSelectedIndex() const;
-		void addMenuItem(MenuItem<T> menu_item);
+		void addMenuItem(ListItem<T> menu_item);
 		void clearItems();
 		bool containsPoint(SDL_Rect aRect, int x, int y);
 		bool handleClick(int x, int y);
@@ -29,7 +29,7 @@ namespace global_domination
 	private:
 		int selected_menu_item_index_;
 		SDL_Window* parent_window_;
-		std::vector<MenuItem<T>> menu_items_;
+		std::vector<ListItem<T>> menu_items_;
 		const int kMenuItemPosX;
 		const int kMenuItemPosY;
 		const int kMenuItemHeight;
@@ -52,7 +52,7 @@ namespace global_domination
 	}
 
 	template <typename T>
-	void SDLMenu<T>::addMenuItem(MenuItem<T> menu_item)
+	void SDLMenu<T>::addMenuItem(ListItem<T> menu_item)
 	{
 		menu_items_.push_back(menu_item);
 	}
@@ -121,7 +121,7 @@ namespace global_domination
 		int index = 0;
 		SDL_Color text_color;
 
-		for (std::vector<MenuItem<T>>::const_iterator item = menu_items_.cbegin(); item != menu_items_.cend(); item++)
+		for (std::vector<ListItem<T>>::const_iterator item = menu_items_.cbegin(); item != menu_items_.cend(); item++)
 		{
 			if (index == selected_menu_item_index_)
 			{
