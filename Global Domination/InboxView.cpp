@@ -45,10 +45,7 @@ namespace global_domination {
 			break;
 			case TYPES::ACTION_LIST::SELECTING_MESSAGE:
 			{
-				std::shared_ptr<SDLMenu<Message>> message_list = std::dynamic_pointer_cast<SDLMenu<Message>>(getControl(INBOX_LIST));
-				Message selected_message = message_list->selectedItem();
-				std::shared_ptr<SDLStaticText> message_text_label = std::dynamic_pointer_cast<SDLStaticText>(getControl(SELECTED_MESSAGE_TEXT_LABEL));
-				message_text_label->setText(selected_message.getMessageText());
+				updateSelectedMessageText();
 			}
 			break;
 		}
@@ -65,6 +62,19 @@ namespace global_domination {
 		for (std::vector<Message>::const_iterator message = messages.cbegin(); message != messages.end(); message++)
 		{
 			message_list->addMenuItem(MenuItem<Message>(message->getTitle(), messageSelectionAction, *message));
+		}
+
+		updateSelectedMessageText();
+	}
+
+	void InboxView::updateSelectedMessageText()
+	{
+		std::shared_ptr<SDLMenu<Message>> message_list = std::dynamic_pointer_cast<SDLMenu<Message>>(getControl(INBOX_LIST));
+		Message* selected_message = message_list->selectedItem();
+		if (selected_message)
+		{
+			std::shared_ptr<SDLStaticText> message_text_label = std::dynamic_pointer_cast<SDLStaticText>(getControl(SELECTED_MESSAGE_TEXT_LABEL));
+			message_text_label->setText(selected_message->getMessageText());
 		}
 	}
 }

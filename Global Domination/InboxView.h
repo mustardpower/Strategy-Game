@@ -12,6 +12,7 @@ namespace global_domination
 		void initialize();
 		void respondToAction(TYPES::ACTION_LIST action);
 		void updateMessageList();
+		void updateSelectedMessageText();
 	private:
 	};
 }

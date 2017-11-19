@@ -15,7 +15,7 @@ namespace global_domination
 	public:
 		std::string reportString() const;
 		void invokeAction() const;
-		T getData() const;
+		T* getData();
 
 		MenuItem(std::string some_text, std::shared_ptr<Action> an_action, T menu_item_data)
 		{
@@ -44,8 +44,8 @@ namespace global_domination
 	}
 
 	template<class T>
-	inline T MenuItem<T>::getData() const
+	inline T* MenuItem<T>::getData()
 	{
-		return data_;
+		return &data_;
 	}
 }

@@ -67,8 +67,8 @@ namespace global_domination
 		if (action == TYPES::ACTION_LIST::CHANGEVIEW_INBOX)
 		{
 			std::shared_ptr<SDLMenu<Nation>> nation_selection_menu = std::dynamic_pointer_cast<SDLMenu<Nation>>(getControl(NATION_SELECTION_MENU));
-			Nation selected_nation = nation_selection_menu->selectedItem();
-			the_game_->getGameModel()->setSelectedNation(selected_nation);
+			Nation* selected_nation = nation_selection_menu->selectedItem();
+			the_game_->getGameModel()->setSelectedNation(*selected_nation);
 		}
 	}
 }

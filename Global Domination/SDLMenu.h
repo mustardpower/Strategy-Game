@@ -24,7 +24,7 @@ namespace global_domination
 		void previousMenuItem();
 		void render(SDL_Renderer* renderer);
 		void selectCurrentItem();
-		T selectedItem();
+		T* selectedItem();
 		SDL_Rect textLocationForIndex(const int menu_item_index);
 	private:
 		int selected_menu_item_index_;
@@ -145,8 +145,9 @@ namespace global_domination
 	}
 
 	template<class T>
-	inline T SDLMenu<T>::selectedItem()
+	inline T* SDLMenu<T>::selectedItem()
 	{
+		if(!menu_items_.size()) { return nullptr; }
 		return menu_items_.at(selected_menu_item_index_).getData();
 	}
 
