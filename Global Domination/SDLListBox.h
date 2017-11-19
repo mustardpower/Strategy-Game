@@ -34,6 +34,7 @@ namespace global_domination
 		SDL_Window* parent_window_;
 		std::vector<ListItem<T>> items_;
 		const int kItemHeight;
+		SDL_Color background_color_;
 	};
 
 	template <typename T>
@@ -43,6 +44,7 @@ namespace global_domination
 		client_area_ = client_area;
 		selected_item_index_ = 0;
 		parent_window_ = parent;
+		background_color_ = SDL_Color{ 115, 115, 115 };
 	}
 
 	template <typename T>
@@ -80,9 +82,6 @@ namespace global_domination
 	template<class T>
 	inline void SDLListBox<T>::drawSliderBar(SDL_Renderer* renderer)
 	{
-		SDL_SetRenderDrawColor(renderer, 134, 136, 140, 0xFF);
-		SDL_RenderFillRect(renderer, &client_area_);
-
 		SDL_Rect slider_bar_client_area{ client_area_.x + (client_area_.w * 0.90), client_area_.y, client_area_.w * 0.1, client_area_.h };
 		SDL_SetRenderDrawColor(renderer, 255, 136, 140, 0xFF);
 		SDL_RenderFillRect(renderer, &slider_bar_client_area);
@@ -150,6 +149,9 @@ namespace global_domination
 		int index = 0;
 		SDL_Color text_color;
 
+		SDL_SetRenderDrawColor(renderer, background_color_.r, background_color_.g, background_color_.b, 0xFF);
+		SDL_RenderFillRect(renderer, &client_area_);
+
 		drawSliderBar(renderer);
 
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
@@ -166,7 +168,7 @@ namespace global_domination
 			}
 
 			SDL_Rect text_location = textLocationForIndex(index);
-			global_domination::text_renderer::renderText(parent_window_, item->reportString(), text_location, text_color);
+			global_domination::text_renderer::renderText(parent_window_, item->reportString(), text_location, text_color, 30, background_color_);
 			index++;
 		}
 	}

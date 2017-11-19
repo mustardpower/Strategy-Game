@@ -34,9 +34,8 @@ namespace global_domination
 			}
 		}
 
-		void renderText(SDL_Window* window, std::string text, SDL_Rect text_location, SDL_Color foreground_color, int font_size)
+		void renderText(SDL_Window* window, std::string text, SDL_Rect text_location, SDL_Color foreground_color, int font_size, SDL_Color background_color)
 		{
-			SDL_Color background_color = { 0, 0, 0 };
 			SDL_Surface* text_surface = TTF_RenderText_Shaded(getFont(font_size), text.c_str(), foreground_color, background_color);
 
 			// Pass zero for width and height to draw the whole surface
