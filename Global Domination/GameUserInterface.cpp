@@ -67,7 +67,6 @@ namespace global_domination
 		toolbar_client_area.h = toolbar_client_area.h * 0.1;
 		toolbar_ = std::make_unique<MainToolbarView>(the_game_, window_, toolbar_client_area);
 		toolbar_->initialize();
-		toolbar_->setBackgroundColor(SDL_Color{ 255,255,0,0xFF });
 		toolbar_->isVisible(false);
 
 		TTF_Init();

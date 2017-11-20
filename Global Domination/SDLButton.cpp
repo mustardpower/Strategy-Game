@@ -6,11 +6,11 @@
 
 namespace global_domination
 {
-	SDLButton::SDLButton(SDL_Window * parent, std::string button_text, std::shared_ptr<Action> action, int pos_x, int pos_y, int width, int height) : kButtonWidth(width), kButtonHeight(height), kPosX(pos_x), kPosY(pos_y)
+	SDLButton::SDLButton(SDL_Window * parent, std::string button_text, std::shared_ptr<Action> action, int pos_x, int pos_y, int width, int height, SDL_Color background_color) : SDLControl(parent, background_color),
+		kButtonWidth(width), kButtonHeight(height), kPosX(pos_x), kPosY(pos_y)
 	{
 		action_ = action;
 		button_text_ = button_text;
-		parent_ = parent;
 	}
 
 	bool SDLButton::containsPoint(int x, int y)
@@ -53,6 +53,6 @@ namespace global_domination
 		if (!font) { return; }
 
 		SDL_Rect text_location = { kPosX, kPosY, kButtonWidth, kButtonHeight };
-		text_renderer::renderText(parent_, button_text_, text_location, text_color);
+		text_renderer::renderText(parent_, button_text_, text_location, text_color, 30, background_color_);
 	}
 }

@@ -13,11 +13,11 @@ namespace global_domination {
 
 	void InboxView::initialize()
 	{
-		std::shared_ptr<SDLStaticText> title_label = std::make_shared<SDLStaticText>(parent_, "INBOX", client_area_.w * 0.25, client_area_.h * 0.05);
+		std::shared_ptr<SDLStaticText> title_label = std::make_shared<SDLStaticText>(parent_, "INBOX", client_area_.w * 0.25, client_area_.h * 0.05, background_color_);
 		addControl(title_label);
 		
 		std::string nation_name = the_game_->getGameModel()->getSelectedNationName();
-		std::shared_ptr<SDLStaticText> name_label = std::make_shared<SDLStaticText>(parent_, nation_name, client_area_.w * 0.25, client_area_.h * 0.25);
+		std::shared_ptr<SDLStaticText> name_label = std::make_shared<SDLStaticText>(parent_, nation_name, client_area_.w * 0.25, client_area_.h * 0.25, background_color_);
 		name_label->setFontSize(12);
 		addControl(name_label);
 
@@ -27,7 +27,7 @@ namespace global_domination {
 		addControl(message_list);
 
 		std::string message_text = "";
-		std::shared_ptr<SDLStaticText> message_text_label = std::make_shared<SDLStaticText>(parent_, message_text, client_area_.w * 0.6, client_area_.h * 0.4);
+		std::shared_ptr<SDLStaticText> message_text_label = std::make_shared<SDLStaticText>(parent_, message_text, client_area_.w * 0.6, client_area_.h * 0.4, background_color_);
 		message_text_label->setId(SELECTED_MESSAGE_TEXT_LABEL);
 		message_text_label->setFontSize(12);
 		addControl(message_text_label);

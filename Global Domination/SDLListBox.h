@@ -37,7 +37,6 @@ namespace global_domination
 	private:
 		SDL_Rect client_area_;
 		std::vector<ListItem<T>> items_;
-		SDL_Window* parent_window_;
 		int selected_item_index_;
 		int top_visible_index_;
 		const int kItemHeight;
@@ -47,13 +46,12 @@ namespace global_domination
 	};
 
 	template <typename T>
-	SDLListBox<T>::SDLListBox(SDL_Window*  parent, SDL_Rect client_area, int item_height) :
+	SDLListBox<T>::SDLListBox(SDL_Window*  parent, SDL_Rect client_area, int item_height) : SDLControl(parent),
 		kItemHeight(item_height)
 	{
 		client_area_ = client_area;
 		selected_item_index_ = 0;
 		top_visible_index_ = 0;
-		parent_window_ = parent;
 	}
 
 	template <typename T>
@@ -109,7 +107,7 @@ namespace global_domination
 				}
 
 				SDL_Rect text_location = textLocationForIndex(index);
-				global_domination::text_renderer::renderText(parent_window_, item->reportString(), text_location, text_color, 30, background_color_);
+				global_domination::text_renderer::renderText(parent_, item->reportString(), text_location, text_color, 30, background_color_);
 			}
 			index++;
 		}

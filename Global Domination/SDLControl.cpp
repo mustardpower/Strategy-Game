@@ -4,10 +4,11 @@
 
 namespace global_domination
 {
-	SDLControl::SDLControl()
+	SDLControl::SDLControl(SDL_Window* parent, SDL_Color background_color)
 	{
 		id_ = UNDEFINED_CONTROL_ID;
-		background_color_ = SDL_Color{ 115, 115, 115 };
+		parent_ = parent;
+		background_color_ = background_color;
 	}
 
 	unsigned int SDLControl::getId()

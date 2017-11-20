@@ -14,7 +14,7 @@ namespace global_domination
 	class SDLMenu : public SDLControl
 	{
 	public:
-		SDLMenu(SDL_Window* parent, int menu_pos_x, int menu_pos_y, int menu_item_height);
+		SDLMenu(SDL_Window* parent, int menu_pos_x, int menu_pos_y, int menu_item_height, SDL_Color background_color);
 		int getSelectedIndex() const;
 		void addMenuItem(ListItem<T> menu_item);
 		void clearItems();
@@ -28,7 +28,6 @@ namespace global_domination
 		SDL_Rect textLocationForIndex(const int menu_item_index);
 	private:
 		int selected_menu_item_index_;
-		SDL_Window* parent_window_;
 		std::vector<ListItem<T>> menu_items_;
 		const int kMenuItemPosX;
 		const int kMenuItemPosY;
@@ -36,13 +35,12 @@ namespace global_domination
 	};
 
 	template <typename T>
-	SDLMenu<T>::SDLMenu(SDL_Window*  parent, int menu_pos_x, int menu_pos_y, int menu_item_height) :
+	SDLMenu<T>::SDLMenu(SDL_Window* parent, int menu_pos_x, int menu_pos_y, int menu_item_height, SDL_Color background_color) : SDLControl(parent, background_color),
 		kMenuItemPosX(menu_pos_x),
 		kMenuItemPosY(menu_pos_y),
 		kMenuItemHeight(menu_item_height)
 	{
 		selected_menu_item_index_ = 0;
-		parent_window_ = parent;
 	}
 
 	template <typename T>
@@ -133,7 +131,7 @@ namespace global_domination
 			}
 			
 			SDL_Rect text_location = textLocationForIndex(index);
-			global_domination::text_renderer::renderText(parent_window_, item->reportString(), text_location, text_color, 30, background_color_);
+			global_domination::text_renderer::renderText(parent_, item->reportString(), text_location, text_color, 30, background_color_);
 			index++;
 		}
 	}

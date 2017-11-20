@@ -12,7 +12,8 @@ namespace global_domination
 
 	void MainToolbarView::initialize()
 	{
-		std::shared_ptr<SDLButton> next_button = std::make_shared<SDLButton>(parent_, "NEXT", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::NEXT_TURN), client_area_.w * 0.8, client_area_.h * 0.05, 200, 300);
+		setBackgroundColor(SDL_Color{ 255,255,0,0xFF });
+		std::shared_ptr<SDLButton> next_button = std::make_shared<SDLButton>(parent_, "NEXT", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::NEXT_TURN), client_area_.w * 0.8, client_area_.h * 0.05, 200, 300, background_color_);
 		addControl(next_button);
 	}
 
