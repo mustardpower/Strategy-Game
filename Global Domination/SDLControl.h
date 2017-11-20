@@ -15,6 +15,7 @@ namespace global_domination
 		void setFontSize(int font_size);
 		void setId(ControlID id);
 	protected:
+		SDL_Color background_color_;
 		int font_size_;
 	private:
 		ControlID id_;

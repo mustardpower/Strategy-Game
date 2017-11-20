@@ -11,6 +11,7 @@ namespace global_domination
 		client_area_ = client_area;
 		parent_ = parent;
 		isVisible_ = true;
+		background_color_ = SDL_Color{ 133, 143, 231 };
 	}
 
 	View::~View()
@@ -58,6 +59,9 @@ namespace global_domination
 	{
 		if (isVisible_)
 		{
+			SDL_SetRenderDrawColor(renderer, background_color_.r, background_color_.g, background_color_.b, 0xFF);
+			SDL_RenderFillRect(renderer, &client_area_);
+
 			if (controls_.size())
 			{
 				for (std::vector<std::shared_ptr<SDLControl>>::iterator control = controls_.begin(); control != controls_.end(); control++)
@@ -67,6 +71,12 @@ namespace global_domination
 			}
 		}
 	}
+
+	void View::setBackgroundColor(SDL_Color background_color)
+	{
+		background_color_ = background_color;
+	}
+
 	void View::isVisible(bool isVisible)
 	{
 		isVisible_ = isVisible;

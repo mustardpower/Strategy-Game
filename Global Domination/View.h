@@ -24,13 +24,15 @@ namespace global_domination
 		virtual void initialize() = 0;
 		virtual void respondToAction(TYPES::ACTION_LIST action) = 0;
 		void render(SDL_Renderer* renderer);
+		void setBackgroundColor(SDL_Color background_color);
 		void isVisible(bool isVisible);
 
 	protected:
-		Game* the_game_;
+		SDL_Color background_color_;
 		SDL_Rect client_area_;
-		SDL_Window* parent_;
 		bool isVisible_;
+		Game* the_game_;
+		SDL_Window* parent_;
 	private:
 		std::vector<std::shared_ptr<SDLControl>> controls_;
 	};

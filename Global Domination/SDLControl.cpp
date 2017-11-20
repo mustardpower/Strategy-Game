@@ -7,6 +7,7 @@ namespace global_domination
 	SDLControl::SDLControl()
 	{
 		id_ = UNDEFINED_CONTROL_ID;
+		background_color_ = SDL_Color{ 115, 115, 115 };
 	}
 
 	unsigned int SDLControl::getId()

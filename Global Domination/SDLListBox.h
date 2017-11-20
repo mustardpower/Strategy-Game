@@ -20,6 +20,7 @@ namespace global_domination
 		void addItem(ListItem<T> menu_item);
 		void clearItems();
 		bool containsPoint(SDL_Rect aRect, int x, int y);
+		void drawMessages(SDL_Renderer* renderer);
 		void drawSliderBar(SDL_Renderer* renderer);
 		void drawSliderBarUpArrow(SDL_Renderer* renderer);
 		void drawSliderBarDownArrow(SDL_Renderer* renderer);
@@ -34,7 +35,6 @@ namespace global_domination
 		SDL_Rect sliderBarUpArrowClientArea();
 		SDL_Rect textLocationForIndex(const int item_index);
 	private:
-		SDL_Color background_color_;
 		SDL_Rect client_area_;
 		std::vector<ListItem<T>> items_;
 		SDL_Window* parent_window_;
@@ -54,7 +54,6 @@ namespace global_domination
 		selected_item_index_ = 0;
 		top_visible_index_ = 0;
 		parent_window_ = parent;
-		background_color_ = SDL_Color{ 115, 115, 115 };
 	}
 
 	template <typename T>
@@ -87,6 +86,33 @@ namespace global_domination
 		}
 
 		return false;
+	}
+
+	template <class T>
+	inline void SDLListBox<T>::drawMessages(SDL_Renderer* renderer)
+	{
+		int index = 0;
+		SDL_Color text_color;
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
+
+		for (std::vector<ListItem<T>>::const_iterator item = items_.cbegin(); item != items_.cend(); item++)
+		{
+			if (index >= top_visible_index_ && (index < top_visible_index_ + kNumberOfVisibleItems))
+			{
+				if (index == selected_item_index_)
+				{
+					text_color = { 0,255,0 };
+				}
+				else
+				{
+					text_color = { 255,0,0 };
+				}
+
+				SDL_Rect text_location = textLocationForIndex(index);
+				global_domination::text_renderer::renderText(parent_window_, item->reportString(), text_location, text_color, 30, background_color_);
+			}
+			index++;
+		}
 	}
 
 	template<class T>
@@ -184,34 +210,11 @@ namespace global_domination
 	template <typename T>
 	void SDLListBox<T>::render(SDL_Renderer* renderer)
 	{
-		int index = 0;
-		SDL_Color text_color;
-
 		SDL_SetRenderDrawColor(renderer, background_color_.r, background_color_.g, background_color_.b, 0xFF);
 		SDL_RenderFillRect(renderer, &client_area_);
 
 		drawSliderBar(renderer);
-
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
-
-		for (std::vector<ListItem<T>>::const_iterator item = items_.cbegin(); item != items_.cend(); item++)
-		{
-			if (index >= top_visible_index_ && (index < top_visible_index_ + kNumberOfVisibleItems))
-			{
-				if (index == selected_item_index_)
-				{
-					text_color = { 0,255,0 };
-				}
-				else
-				{
-					text_color = { 255,0,0 };
-				}
-
-				SDL_Rect text_location = textLocationForIndex(index);
-				global_domination::text_renderer::renderText(parent_window_, item->reportString(), text_location, text_color, 30, background_color_);
-			}
-			index++;
-		}
+		drawMessages(renderer);
 	}
 
 	template<class T>

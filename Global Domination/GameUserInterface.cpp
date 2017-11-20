@@ -63,8 +63,11 @@ namespace global_domination
 		SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 0xFF);
 		SDL_RenderClear(renderer_);
 
-		toolbar_ = std::make_unique<MainToolbarView>(the_game_, window_, getClientArea());
+		SDL_Rect toolbar_client_area = getClientArea();
+		toolbar_client_area.h = toolbar_client_area.h * 0.1;
+		toolbar_ = std::make_unique<MainToolbarView>(the_game_, window_, toolbar_client_area);
 		toolbar_->initialize();
+		toolbar_->setBackgroundColor(SDL_Color{ 255,255,0,0xFF });
 		toolbar_->isVisible(false);
 
 		TTF_Init();
@@ -80,8 +83,8 @@ namespace global_domination
 		SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 0xFF);
 		SDL_RenderClear(renderer_);
 
-		toolbar_->render(renderer_);
 		active_view_->render(renderer_);
+		toolbar_->render(renderer_);
 
 		SDL_UpdateWindowSurface(window_);
 	}
