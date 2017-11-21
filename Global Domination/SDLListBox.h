@@ -117,8 +117,12 @@ namespace global_domination
 	template<class T>
 	inline void SDLListBox<T>::drawSliderBar(SDL_Renderer* renderer)
 	{
-		SDL_SetRenderDrawColor(renderer, 255, 136, 140, 0xFF);
+		SDL_Color slider_arrow_color = ColorPreferences::getPrimaryBackgroundColor();
+		SDL_SetRenderDrawColor(renderer, slider_arrow_color.r, slider_arrow_color.g, slider_arrow_color.b, 0xFF);
 		SDL_RenderFillRect(renderer, &sliderBarClientArea());
+
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
+		SDL_RenderDrawRect(renderer, &sliderBarClientArea());
 
 		drawSliderBarUpArrow(renderer);
 		drawSliderBarDownArrow(renderer);
@@ -128,28 +132,36 @@ namespace global_domination
 	inline void SDLListBox<T>::drawSliderBarUpArrow(SDL_Renderer * renderer)
 	{
 		SDL_Rect up_arrow_client_area = sliderBarUpArrowClientArea();
-		SDL_SetRenderDrawColor(renderer, 134, 255, 140, 0xFF);
+		SDL_Color slider_arrow_color = ColorPreferences::getPrimaryBackgroundColor();
+		SDL_SetRenderDrawColor(renderer, slider_arrow_color.r, slider_arrow_color.g, slider_arrow_color.b, 0xFF);
 		SDL_RenderFillRect(renderer, &up_arrow_client_area);
 
+		SDL_SetRenderDrawColor(renderer, 0,0,0, 0xFF);
+		SDL_RenderDrawRect(renderer, &up_arrow_client_area);
+
 		filledTrigonRGBA(renderer,
-			up_arrow_client_area.x, up_arrow_client_area.y + up_arrow_client_area.h,
+			up_arrow_client_area.x + (up_arrow_client_area.w * 0.05), up_arrow_client_area.y + up_arrow_client_area.h,
 			up_arrow_client_area.x + (up_arrow_client_area.w / 2), up_arrow_client_area.y,
-			up_arrow_client_area.x + up_arrow_client_area.w, up_arrow_client_area.y + up_arrow_client_area.h,
-			0, 0, 255, 255);
+			up_arrow_client_area.x + (up_arrow_client_area.w * 0.95), up_arrow_client_area.y + up_arrow_client_area.h,
+			0, 0, 0, 255);
 	}
 
 	template<class T>
 	inline void SDLListBox<T>::drawSliderBarDownArrow(SDL_Renderer * renderer)
 	{
 		SDL_Rect down_arrow_client_area = sliderBarDownArrowClientArea();
-		SDL_SetRenderDrawColor(renderer, 134, 255, 140, 0xFF);
+		SDL_Color slider_arrow_color = ColorPreferences::getPrimaryBackgroundColor();
+		SDL_SetRenderDrawColor(renderer, slider_arrow_color.r, slider_arrow_color.g, slider_arrow_color.b, 0xFF);
 		SDL_RenderFillRect(renderer, &down_arrow_client_area);
 
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
+		SDL_RenderDrawRect(renderer, &down_arrow_client_area);
+
 		filledTrigonRGBA(renderer,
-			down_arrow_client_area.x, down_arrow_client_area.y,
+			down_arrow_client_area.x + +(down_arrow_client_area.w * 0.05), down_arrow_client_area.y,
 			down_arrow_client_area.x + (down_arrow_client_area.w / 2), down_arrow_client_area.y + down_arrow_client_area.h,
-			down_arrow_client_area.x + down_arrow_client_area.w, down_arrow_client_area.y,
-			0, 0, 255, 255);
+			down_arrow_client_area.x + (down_arrow_client_area.w * 0.95), down_arrow_client_area.y,
+			0, 0, 0, 255);
 	}
 
 	/* Returns true if click is handled, false if not */
@@ -180,11 +192,11 @@ namespace global_domination
 
 		if (containsPoint(sliderBarDownArrowClientArea(), x, y))
 		{
-			if (top_visible_index_ < kNumberOfVisibleItems)
+			if (!items_.empty() && (top_visible_index_ < items_.size() - 1))
 			{
 				top_visible_index_++;
+				return true;
 			}
-			return true;
 		}
 
 		return false;
