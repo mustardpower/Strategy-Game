@@ -2,11 +2,12 @@
 
 #include "SDL_ttf.h"
 
+#include "ColorPreferences.h"
 #include "SDL_TextRenderer.h"
 
 namespace global_domination
 {
-	SDLButton::SDLButton(SDL_Window * parent, std::string button_text, std::shared_ptr<Action> action, int pos_x, int pos_y, int width, int height, SDL_Color background_color) : SDLControl(parent, background_color),
+	SDLButton::SDLButton(SDL_Window * parent, std::string button_text, std::shared_ptr<Action> action, int pos_x, int pos_y, int width, int height) : SDLControl(parent),
 		kButtonWidth(width), kButtonHeight(height), kPosX(pos_x), kPosY(pos_y)
 	{
 		action_ = action;
@@ -47,12 +48,11 @@ namespace global_domination
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
 
 		int index = 0;
-		SDL_Color text_color = { 0,255,0 };
 
 		TTF_Font* font = text_renderer::getFont(font_size_);
 		if (!font) { return; }
 
 		SDL_Rect text_location = { kPosX, kPosY, kButtonWidth, kButtonHeight };
-		text_renderer::renderText(parent_, button_text_, text_location, text_color, 30, background_color_);
+		text_renderer::renderText(parent_, button_text_, text_location, getTextColor(), getBackgroundColor(), 30);
 	}
 }

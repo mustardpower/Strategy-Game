@@ -5,9 +5,10 @@
 
 #include "SDL.h"
 #include "SDL2_gfxPrimitives.h"
-#include "SDL_TextRenderer.h"
 
+#include "ColorPreferences.h"
 #include "ListItem.h"
+#include "SDL_TextRenderer.h"
 
 namespace global_domination
 {
@@ -99,15 +100,15 @@ namespace global_domination
 			{
 				if (index == selected_item_index_)
 				{
-					text_color = { 0,255,0 };
+					text_color = ColorPreferences::getSelectedTextColor();
 				}
 				else
 				{
-					text_color = { 255,0,0 };
+					text_color = ColorPreferences::getPrimaryTextColor();
 				}
 
 				SDL_Rect text_location = textLocationForIndex(index);
-				global_domination::text_renderer::renderText(parent_, item->reportString(), text_location, text_color, 30, background_color_);
+				global_domination::text_renderer::renderText(parent_, item->reportString(), text_location, text_color, SDL_Color{ 0,0,0,0xFF }, 30);
 			}
 			index++;
 		}
@@ -208,7 +209,7 @@ namespace global_domination
 	template <typename T>
 	void SDLListBox<T>::render(SDL_Renderer* renderer)
 	{
-		SDL_SetRenderDrawColor(renderer, background_color_.r, background_color_.g, background_color_.b, 0xFF);
+		SDL_SetRenderDrawColor(renderer, 0,0,0, 0xFF);
 		SDL_RenderFillRect(renderer, &client_area_);
 
 		drawSliderBar(renderer);

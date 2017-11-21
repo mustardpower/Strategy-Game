@@ -25,13 +25,13 @@ namespace global_domination
 
 	void NationSelectionView::initialize()
 	{
-		std::shared_ptr<SDLStaticText> prompt_label = std::make_shared<SDLStaticText>(parent_, "Select a nation:", client_area_.w * 0.15, client_area_.h * 0.25, background_color_);
+		std::shared_ptr<SDLStaticText> prompt_label = std::make_shared<SDLStaticText>(parent_, "Select a nation:", client_area_.w * 0.15, client_area_.h * 0.25);
 		addControl(prompt_label);
 
-		std::shared_ptr<SDLButton> start_button = std::make_shared<SDLButton>(parent_, "START", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::CHANGEVIEW_INBOX), client_area_.w * 0.8, client_area_.h * 0.8, 200, 300, background_color_);
+		std::shared_ptr<SDLButton> start_button = std::make_shared<SDLButton>(parent_, "START", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::CHANGEVIEW_INBOX), client_area_.w * 0.8, client_area_.h * 0.8, 200, 300);
 		addControl(start_button);
 
-		std::shared_ptr<SDLMenu<Nation>> nation_selection_menu = std::make_shared<SDLMenu<Nation>>(parent_, client_area_.w * 0.2, client_area_.h * 0.4, client_area_.h * 0.1, background_color_);
+		std::shared_ptr<SDLMenu<Nation>> nation_selection_menu = std::make_shared<SDLMenu<Nation>>(parent_, client_area_.w * 0.2, client_area_.h * 0.4, client_area_.h * 0.1);
 		nation_selection_menu->setId(NATION_SELECTION_MENU);
 
 		// Share the same action between menu items

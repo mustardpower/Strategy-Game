@@ -20,15 +20,14 @@ namespace global_domination
 		virtual ~View();
 		void addControl(std::shared_ptr<SDLControl> control);
 		std::shared_ptr<SDLControl> getControl(ControlID id);
+		virtual SDL_Color getBackgroundColor();
 		void handleClick(int mouse_x, int mouse_y);
 		virtual void initialize() = 0;
 		virtual void respondToAction(TYPES::ACTION_LIST action) = 0;
 		void render(SDL_Renderer* renderer);
-		void setBackgroundColor(SDL_Color background_color);
 		void isVisible(bool isVisible);
 
 	protected:
-		SDL_Color background_color_;
 		SDL_Rect client_area_;
 		bool isVisible_;
 		Game* the_game_;

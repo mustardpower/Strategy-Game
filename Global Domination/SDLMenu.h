@@ -4,9 +4,10 @@
 #include <vector>
 
 #include "SDL.h"
-#include "SDL_TextRenderer.h"
 
+#include "ColorPreferences.h"
 #include "ListItem.h"
+#include "SDL_TextRenderer.h"
 
 namespace global_domination
 {
@@ -14,7 +15,7 @@ namespace global_domination
 	class SDLMenu : public SDLControl
 	{
 	public:
-		SDLMenu(SDL_Window* parent, int menu_pos_x, int menu_pos_y, int menu_item_height, SDL_Color background_color);
+		SDLMenu(SDL_Window* parent, int menu_pos_x, int menu_pos_y, int menu_item_height);
 		int getSelectedIndex() const;
 		void addMenuItem(ListItem<T> menu_item);
 		void clearItems();
@@ -35,7 +36,7 @@ namespace global_domination
 	};
 
 	template <typename T>
-	SDLMenu<T>::SDLMenu(SDL_Window* parent, int menu_pos_x, int menu_pos_y, int menu_item_height, SDL_Color background_color) : SDLControl(parent, background_color),
+	SDLMenu<T>::SDLMenu(SDL_Window* parent, int menu_pos_x, int menu_pos_y, int menu_item_height) : SDLControl(parent),
 		kMenuItemPosX(menu_pos_x),
 		kMenuItemPosY(menu_pos_y),
 		kMenuItemHeight(menu_item_height)
@@ -123,15 +124,15 @@ namespace global_domination
 		{
 			if (index == selected_menu_item_index_)
 			{
-				text_color = { 0,255,0 };
+				text_color = ColorPreferences::getSelectedTextColor();
 			}
 			else
 			{
-				text_color = { 255,0,0 };
+				text_color = ColorPreferences::getPrimaryTextColor();
 			}
 			
 			SDL_Rect text_location = textLocationForIndex(index);
-			global_domination::text_renderer::renderText(parent_, item->reportString(), text_location, text_color, 30, background_color_);
+			global_domination::text_renderer::renderText(parent_, item->reportString(), text_location, text_color, ColorPreferences::getPrimaryBackgroundColor(), 30);
 			index++;
 		}
 	}

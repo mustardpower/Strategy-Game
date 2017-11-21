@@ -1,6 +1,7 @@
 #include "MainToolbarView.h"
 
 #include "Action.h"
+#include "ColorPreferences.h"
 #include "Game.h"
 #include "SDLButton.h"
 
@@ -10,10 +11,15 @@ namespace global_domination
 	{
 	}
 
+	SDL_Color MainToolbarView::getBackgroundColor()
+	{
+		return ColorPreferences::getSecondaryBackgroundColor();
+	}
+
 	void MainToolbarView::initialize()
 	{
-		setBackgroundColor(SDL_Color{ 255,255,0,0xFF });
-		std::shared_ptr<SDLButton> next_button = std::make_shared<SDLButton>(parent_, "NEXT", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::NEXT_TURN), client_area_.w * 0.8, client_area_.h * 0.05, 200, 300, background_color_);
+		std::shared_ptr<SDLButton> next_button = std::make_shared<SDLButton>(parent_, "NEXT", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::NEXT_TURN), client_area_.w * 0.8, client_area_.h * 0.05, 200, 300);
+		next_button->useSecondaryColorScheme();
 		addControl(next_button);
 	}
 

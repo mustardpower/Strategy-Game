@@ -1,9 +1,11 @@
 #include "SDLStaticText.h"
 #include "SDL_TextRenderer.h"
 
+#include "ColorPreferences.h"
+
 namespace global_domination
 {
-	SDLStaticText::SDLStaticText(SDL_Window * parent, std::string text, int pos_x, int pos_y, SDL_Color background_color) : SDLControl(parent, background_color),
+	SDLStaticText::SDLStaticText(SDL_Window * parent, std::string text, int pos_x, int pos_y) : SDLControl(parent),
 		kPosX(pos_x), kPosY(pos_y)
 	{
 		text_ = text;
@@ -17,7 +19,7 @@ namespace global_domination
 	void SDLStaticText::render(SDL_Renderer * renderer)
 	{
 		SDL_Rect textLocationTitle = { kPosX, kPosY, 0, 0 };
-		text_renderer::renderText(parent_, text_, textLocationTitle, { 0, 255, 0 }, font_size_, background_color_);
+		text_renderer::renderText(parent_, text_, textLocationTitle, getTextColor(), getBackgroundColor(), font_size_);
 	}
 	void SDLStaticText::setText(std::string text)
 	{

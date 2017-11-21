@@ -12,7 +12,7 @@ namespace global_domination
 	class SDLButton : public SDLControl
 	{
 	public:
-		SDLButton(SDL_Window* parent, std::string button_text, std::shared_ptr<Action> action, int pos_x, int pos_y, int width, int height, SDL_Color background_color);
+		SDLButton(SDL_Window* parent, std::string button_text, std::shared_ptr<Action> action, int pos_x, int pos_y, int width, int height);
 		bool containsPoint(int x, int y);
 		bool handleClick(int x, int y);
 		void invokeAction() const;

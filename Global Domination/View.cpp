@@ -3,6 +3,8 @@
 #include <memory>
 #include <vector>
 
+#include "ColorPreferences.h"
+
 namespace global_domination
 {
 	View::View(Game* the_game, SDL_Window* parent, SDL_Rect client_area, bool isVisible)
@@ -11,7 +13,6 @@ namespace global_domination
 		client_area_ = client_area;
 		parent_ = parent;
 		isVisible_ = true;
-		background_color_ = SDL_Color{ 133, 143, 231 };
 	}
 
 	View::~View()
@@ -40,6 +41,11 @@ namespace global_domination
 		return nullptr;
 	}
 
+	SDL_Color View::getBackgroundColor()
+	{
+		return ColorPreferences::getPrimaryBackgroundColor();
+	}
+
 	void View::handleClick(int mouse_x, int mouse_y)
 	{
 		if (isVisible_)
@@ -59,7 +65,8 @@ namespace global_domination
 	{
 		if (isVisible_)
 		{
-			SDL_SetRenderDrawColor(renderer, background_color_.r, background_color_.g, background_color_.b, 0xFF);
+			SDL_Color background_color = getBackgroundColor();
+			SDL_SetRenderDrawColor(renderer, background_color.r, background_color.g, background_color.b, 0xFF);
 			SDL_RenderFillRect(renderer, &client_area_);
 
 			if (controls_.size())
@@ -70,11 +77,6 @@ namespace global_domination
 				}
 			}
 		}
-	}
-
-	void View::setBackgroundColor(SDL_Color background_color)
-	{
-		background_color_ = background_color;
 	}
 
 	void View::isVisible(bool isVisible)

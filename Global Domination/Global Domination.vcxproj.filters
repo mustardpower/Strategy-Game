@@ -78,6 +78,9 @@
     <ClCompile Include="Message.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ColorPreferences.cpp">
+      <Filter>Source Files\SDLControls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -141,6 +144,9 @@
       <Filter>Header Files\SDLControls</Filter>
     </ClInclude>
     <ClInclude Include="ListItem.h">
+      <Filter>Header Files\SDLControls</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorPreferences.h">
       <Filter>Header Files\SDLControls</Filter>
     </ClInclude>
   </ItemGroup>
