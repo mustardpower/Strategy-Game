@@ -55,8 +55,11 @@ namespace global_domination {
 		ss << current_turn_;
 		std::string current_turn_string = ss.str();
 
-		Message aMessage("Turn " + current_turn_string, "Welcome to turn: " + current_turn_string);
-		inbox_messages_.push_back(aMessage);
+		if (current_turn_ == 1)
+		{
+			Message aMessage("Welcome to " + selected_nation_.getName(), "You have arrived in " + selected_nation_.getName() + ". Please wipe your feet and make our country glorious.");
+			inbox_messages_.push_back(aMessage);
+		}
 	}
 
 	void GameModel::updateNations()

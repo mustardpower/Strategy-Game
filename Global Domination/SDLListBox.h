@@ -108,7 +108,7 @@ namespace global_domination
 				}
 
 				SDL_Rect text_location = textLocationForIndex(index);
-				global_domination::text_renderer::renderText(parent_, item->reportString(), text_location, text_color, SDL_Color{ 0,0,0,0xFF }, 30);
+				global_domination::text_renderer::renderText(parent_, item->reportString(), text_location, text_color, SDL_Color{ 0,0,0,0xFF }, 15);
 			}
 			index++;
 		}

@@ -15,13 +15,8 @@ namespace global_domination {
 	{
 		std::shared_ptr<SDLStaticText> title_label = std::make_shared<SDLStaticText>(parent_, "INBOX", client_area_.w * 0.25, client_area_.h * 0.05);
 		addControl(title_label);
-		
-		std::string nation_name = the_game_->getGameModel()->getSelectedNationName();
-		std::shared_ptr<SDLStaticText> name_label = std::make_shared<SDLStaticText>(parent_, nation_name, client_area_.w * 0.25, client_area_.h * 0.25);
-		name_label->setFontSize(12);
-		addControl(name_label);
 
-		SDL_Rect list_box_client_area{ client_area_.w * 0.2, client_area_.h * 0.4, 100, client_area_.h * 0.5 };
+		SDL_Rect list_box_client_area{ client_area_.w * 0.05, client_area_.h * 0.15, client_area_.w * 0.25, client_area_.h * 0.8 };
 		std::shared_ptr<SDLListBox<Message>> message_list = std::make_shared<SDLListBox<Message>>(parent_, list_box_client_area, list_box_client_area.h * 0.2);
 		message_list->setId(INBOX_LIST);
 		addControl(message_list);
