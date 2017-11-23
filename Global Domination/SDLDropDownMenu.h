@@ -20,6 +20,7 @@ namespace global_domination
 	template<class T>
 	inline SDLDropDownMenu<T>::SDLDropDownMenu(SDL_Window * parent, int menu_pos_x, int menu_pos_y, int menu_item_height): SDLMenu<T>(parent, menu_pos_x, menu_pos_y, menu_item_height)
 	{
+		is_expanded_ = false;
 	}
 
 	template<class T>
