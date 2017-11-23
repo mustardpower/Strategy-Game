@@ -5,6 +5,7 @@
 
 #include "SDL.h"
 
+#include "Action.h"
 #include "ColorPreferences.h"
 #include "ListItem.h"
 #include "SDL_TextRenderer.h"
@@ -20,16 +21,17 @@ namespace global_domination
 		void addMenuItem(ListItem<T> menu_item);
 		void clearItems();
 		bool containsPoint(SDL_Rect aRect, int x, int y);
-		bool handleClick(int x, int y);
+		virtual bool handleClick(int x, int y);
 		void nextMenuItem();
 		void previousMenuItem();
-		void render(SDL_Renderer* renderer);
+		virtual void render(SDL_Renderer* renderer);
 		void selectCurrentItem();
 		T* selectedItem();
 		SDL_Rect textLocationForIndex(const int menu_item_index);
-	private:
-		int selected_menu_item_index_;
+	protected:
 		std::vector<ListItem<T>> menu_items_;
+		int selected_menu_item_index_;
+	private:
 		const int kMenuItemPosX;
 		const int kMenuItemPosY;
 		const int kMenuItemHeight;

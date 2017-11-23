@@ -149,5 +149,8 @@
     <ClInclude Include="ColorPreferences.h">
       <Filter>Header Files\SDLControls</Filter>
     </ClInclude>
+    <ClInclude Include="SDLDropDownMenu.h">
+      <Filter>Header Files\SDLControls</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

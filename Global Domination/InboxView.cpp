@@ -21,8 +21,11 @@ namespace global_domination {
 		message_list->setId(INBOX_LIST);
 		addControl(message_list);
 
-		std::string message_text = "";
-		std::shared_ptr<SDLStaticText> message_text_label = std::make_shared<SDLStaticText>(parent_, message_text, client_area_.w * 0.6, client_area_.h * 0.4);
+		std::shared_ptr<SDLStaticText> message_title_label = std::make_shared<SDLStaticText>(parent_, "", client_area_.w * 0.6, client_area_.h * 0.3);
+		message_title_label->setId(SELECTED_MESSAGE_TITLE_LABEL);
+		addControl(message_title_label);
+
+		std::shared_ptr<SDLStaticText> message_text_label = std::make_shared<SDLStaticText>(parent_, "", client_area_.w * 0.6, client_area_.h * 0.4);
 		message_text_label->setId(SELECTED_MESSAGE_TEXT_LABEL);
 		message_text_label->setFontSize(12);
 		addControl(message_text_label);
@@ -72,6 +75,9 @@ namespace global_domination {
 		{
 			std::shared_ptr<SDLStaticText> message_text_label = std::dynamic_pointer_cast<SDLStaticText>(getControl(SELECTED_MESSAGE_TEXT_LABEL));
 			message_text_label->setText(selected_message->getMessageText());
+
+			std::shared_ptr<SDLStaticText> message_title_label = std::dynamic_pointer_cast<SDLStaticText>(getControl(SELECTED_MESSAGE_TITLE_LABEL));
+			message_title_label->setText(selected_message->getTitle());
 		}
 	}
 }

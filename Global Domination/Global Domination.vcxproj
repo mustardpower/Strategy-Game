@@ -154,6 +154,7 @@
     <ClInclude Include="NationSelectionView.h" />
     <ClInclude Include="SDLButton.h" />
     <ClInclude Include="SDLControl.h" />
+    <ClInclude Include="SDLDropDownMenu.h" />
     <ClInclude Include="SDLListBox.h" />
     <ClInclude Include="SDLMenu.h" />
     <ClInclude Include="SDLStaticText.h" />

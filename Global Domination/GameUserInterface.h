@@ -15,8 +15,6 @@ namespace global_domination {
 	public:
 		GameUserInterface();
 		SDL_Rect getClientArea() const;
-		const int getWindowWidth();
-		const int getWindowHeight();
 		void initialize(Game* the_game);
 		bool isQuiting();
 		void render();
@@ -25,8 +23,6 @@ namespace global_domination {
 		void switchActiveView(std::shared_ptr<View> view);
 		void update();
 	private:
-		const int kWindowWidth = 640;
-		const int kWindowHeight = 480;
 		bool is_quiting_;
 		Game* the_game_;
 		std::unique_ptr<MainToolbarView> toolbar_;
