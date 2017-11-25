@@ -18,23 +18,24 @@ namespace global_domination
 	public:
 		SDLMenu(SDL_Window* parent, int menu_pos_x, int menu_pos_y, int menu_item_height);
 		int getSelectedIndex() const;
-		void addMenuItem(ListItem<T> menu_item);
+		virtual void addMenuItem(ListItem<T> menu_item);
 		void clearItems();
 		bool containsPoint(SDL_Rect aRect, int x, int y);
+		SDL_Color getMenuItemTextColor(int index);
 		virtual bool handleClick(int x, int y);
 		void nextMenuItem();
 		void previousMenuItem();
 		virtual void render(SDL_Renderer* renderer);
 		void selectCurrentItem();
 		T* selectedItem();
-		SDL_Rect textLocationForIndex(const int menu_item_index);
+		virtual SDL_Rect textLocationForIndex(const int menu_item_index);
 	protected:
 		std::vector<ListItem<T>> menu_items_;
 		int selected_menu_item_index_;
-	private:
 		const int kMenuItemPosX;
 		const int kMenuItemPosY;
 		const int kMenuItemHeight;
+	private:
 	};
 
 	template <typename T>
@@ -76,6 +77,17 @@ namespace global_domination
 		}
 
 		return false;
+	}
+
+	template<class T>
+	inline SDL_Color SDLMenu<T>::getMenuItemTextColor(int index)
+	{
+		if (index == selected_menu_item_index_)
+		{
+			return ColorPreferences::getSelectedTextColor();
+		}
+
+		return ColorPreferences::getPrimaryTextColor();
 	}
 
 	/* Returns true if click is handled, false if not */
@@ -124,15 +136,7 @@ namespace global_domination
 
 		for (std::vector<ListItem<T>>::const_iterator item = menu_items_.cbegin(); item != menu_items_.cend(); item++)
 		{
-			if (index == selected_menu_item_index_)
-			{
-				text_color = ColorPreferences::getSelectedTextColor();
-			}
-			else
-			{
-				text_color = ColorPreferences::getPrimaryTextColor();
-			}
-			
+			text_color = getMenuItemTextColor(index);
 			SDL_Rect text_location = textLocationForIndex(index);
 			global_domination::text_renderer::renderText(parent_, item->reportString(), text_location, text_color, ColorPreferences::getPrimaryBackgroundColor(), 30);
 			index++;

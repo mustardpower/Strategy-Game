@@ -13,9 +13,10 @@ namespace global_domination
 	class ListItem
 	{
 	public:
-		std::string reportString() const;
-		void invokeAction() const;
+		std::shared_ptr<Action> getAction();
 		T* getData();
+		void invokeAction() const;
+		std::string reportString() const;
 
 		ListItem(std::string some_text, std::shared_ptr<Action> an_action, T menu_item_data)
 		{
@@ -41,6 +42,12 @@ namespace global_domination
 	void ListItem<T>::invokeAction() const
 	{
 		action_->execute();
+	}
+
+	template<class T>
+	inline std::shared_ptr<Action> ListItem<T>::getAction()
+	{
+		return action_;
 	}
 
 	template<class T>
