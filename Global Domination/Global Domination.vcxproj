@@ -119,6 +119,7 @@
   <ItemGroup>
     <ClCompile Include="Action.cpp" />
     <ClCompile Include="ColorPreferences.cpp" />
+    <ClCompile Include="FinancesView.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameModel.cpp" />
     <ClCompile Include="GameUserInterface.cpp" />
@@ -139,6 +140,7 @@
   <ItemGroup>
     <ClInclude Include="ColorPreferences.h" />
     <ClInclude Include="ControlResources.h" />
+    <ClInclude Include="FinancesView.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Action.h" />
     <ClInclude Include="GameModel.h" />

@@ -62,6 +62,7 @@ namespace global_domination
 			{
 				selected_menu_item_index_ = i;
 				menu_items_.at(i).invokeAction();
+				toggleExpanded();
 				return true;
 			}
 		}
@@ -81,19 +82,20 @@ namespace global_domination
 
 		if (is_expanded_)
 		{
+			SDL_Rect menu_client_area{ kMenuItemPosX, kMenuItemPosY, 150, kMenuItemHeight * menu_items_.size() };
+
+			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0xFF);
+			SDL_RenderFillRect(renderer, &menu_client_area);
+
+			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
+			SDL_RenderDrawRect(renderer, &menu_client_area);
+
 			for (std::vector<ListItem<T>>::const_iterator item = menu_items_.cbegin(); item != menu_items_.cend(); item++)
 			{
-				SDL_Rect menu_client_area{ kMenuItemPosX, kMenuItemPosY, 150, kMenuItemHeight * menu_items_.size() };
-				
-				SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0xFF);
-				SDL_RenderFillRect(renderer, &menu_client_area);
-
-				SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
-				SDL_RenderDrawRect(renderer, &menu_client_area);
-
 				text_color = getMenuItemTextColor(index);
 				SDL_Rect text_location = textLocationForIndex(index);
 				global_domination::text_renderer::renderText(parent_, item->reportString(), text_location, text_color, ColorPreferences::getPrimaryBackgroundColor(), 30);
+				index++;
 			}
 		}
 	}

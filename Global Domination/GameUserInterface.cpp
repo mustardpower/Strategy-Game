@@ -1,6 +1,7 @@
 #include "GameUserInterface.h"
 #include "SDL_ttf.h"
 
+#include "FinancesView.h"
 #include "InboxView.h"
 #include "MainMenuView.h"
 #include "NationSelectionView.h"
@@ -101,6 +102,11 @@ namespace global_domination
 			{
 				toolbar_->isVisible(true);
 				switchActiveView(std::make_unique<InboxView>(the_game_, window_, getClientArea()));
+			}
+			break;
+			case TYPES::ACTION_LIST::CHANGEVIEW_FINANCES:
+			{
+				switchActiveView(std::make_unique<FinancesView>(the_game_, window_, getClientArea()));
 			}
 			break;
 		}
