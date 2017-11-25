@@ -159,11 +159,15 @@ namespace global_domination
 	template<class T>
 	inline SDL_Rect SDLMenu<T>::textLocationForIndex(const int menu_item_index)
 	{
+		ListItem<T> list_item = menu_items_.at(menu_item_index);
+		std::shared_ptr<SDL_Rect> cached_text_location = list_item.getTextLocation();
+		if (cached_text_location) { return *cached_text_location; }
+
 		int w = 0;
 		int h = 0;
-
-		std::string text = (menu_items_.at(menu_item_index)).reportString();
-		text_renderer::getTextDimensions(text, w, h);
-		return SDL_Rect{ kMenuItemPosX, kMenuItemPosY + (kMenuItemHeight * menu_item_index), w, h };
+		text_renderer::getTextDimensions(list_item.reportString(), w, h);
+		SDL_Rect text_location = SDL_Rect{ kMenuItemPosX, kMenuItemPosY + (kMenuItemHeight * menu_item_index), w, h };
+		list_item.setTextLocation(text_location);
+		return text_location;
 	}
 }

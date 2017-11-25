@@ -54,6 +54,8 @@ namespace global_domination {
 	void InboxView::updateMessageList()
 	{
 		std::vector<Message> messages = the_game_->getGameModel()->getInboxMessages();
+		if (messages.empty()) { return; }
+
 		std::shared_ptr<Action> messageSelectionAction = std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::SELECTING_MESSAGE);
 		std::shared_ptr<SDLListBox<Message>> message_list = std::dynamic_pointer_cast<SDLListBox<Message>>(getControl(INBOX_LIST));
 		
