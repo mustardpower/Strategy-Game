@@ -8,21 +8,23 @@ namespace global_domination
 	class SDLDropDownMenu : public SDLMenu<T>
 	{
 	public:
-		SDLDropDownMenu(SDL_Window* parent, int menu_pos_x, int menu_pos_y, int menu_item_height);
+		SDLDropDownMenu(SDL_Window* parent, int top_level_button_pos_x, int top_level_button_pos_y, int sub_menu_pos_x, int sub_menu_pos_y, int menu_item_height);
 		void addMenuItem(ListItem<T> menu_item);
 		bool handleClick(int x, int y);
 		void render(SDL_Renderer* renderer);
-		SDL_Rect textLocationForIndex(const int menu_item_index);
 		void toggleExpanded();
 
 
 	private:
+		const int kTopLevelButtonPosX;
+		const int kTopLevelButtonPosY;
 		std::unique_ptr<SDLButton> top_level_button;
 		bool is_expanded_;
 	};
 
 	template<class T>
-	inline SDLDropDownMenu<T>::SDLDropDownMenu(SDL_Window * parent, int menu_pos_x, int menu_pos_y, int menu_item_height): SDLMenu<T>(parent, menu_pos_x, menu_pos_y, menu_item_height)
+	inline SDLDropDownMenu<T>::SDLDropDownMenu(SDL_Window* parent, int top_level_button_pos_x, int top_level_button_pos_y, int sub_menu_pos_x, int sub_menu_pos_y, int menu_item_height): 
+		SDLMenu<T>(parent, sub_menu_pos_x, sub_menu_pos_y, menu_item_height), kTopLevelButtonPosX(top_level_button_pos_x), kTopLevelButtonPosY(top_level_button_pos_y)
 	{
 		is_expanded_ = false;
 	}
@@ -32,7 +34,7 @@ namespace global_domination
 	{
 		if (top_level_button == nullptr)
 		{
-			top_level_button = std::make_unique<SDLButton>(parent_, menu_item.reportString(), menu_item.getAction(), kMenuItemPosX, kMenuItemPosY, 200, 300);
+			top_level_button = std::make_unique<SDLButton>(parent_, menu_item.reportString(), menu_item.getAction(), kTopLevelButtonPosX, kTopLevelButtonPosY, 150, kMenuItemHeight);
 			top_level_button->useSecondaryColorScheme();
 		}
 		else
@@ -81,22 +83,19 @@ namespace global_domination
 		{
 			for (std::vector<ListItem<T>>::const_iterator item = menu_items_.cbegin(); item != menu_items_.cend(); item++)
 			{
+				SDL_Rect menu_client_area{ kMenuItemPosX, kMenuItemPosY, 150, kMenuItemHeight * menu_items_.size() };
+				
+				SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0xFF);
+				SDL_RenderFillRect(renderer, &menu_client_area);
+
+				SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
+				SDL_RenderDrawRect(renderer, &menu_client_area);
+
 				text_color = getMenuItemTextColor(index);
 				SDL_Rect text_location = textLocationForIndex(index);
 				global_domination::text_renderer::renderText(parent_, item->reportString(), text_location, text_color, ColorPreferences::getPrimaryBackgroundColor(), 30);
 			}
 		}
-	}
-
-	template<class T>
-	inline SDL_Rect SDLDropDownMenu<T>::textLocationForIndex(const int menu_item_index)
-	{
-		int w = 0;
-		int h = 0;
-
-		std::string text = (menu_items_.at(menu_item_index)).reportString();
-		text_renderer::getTextDimensions(text, w, h);
-		return SDL_Rect{ kMenuItemPosX, kMenuItemPosY + (kMenuItemHeight * (menu_item_index + 1)), w, h };
 	}
 
 	template<class T>

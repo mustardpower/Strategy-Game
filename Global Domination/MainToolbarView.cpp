@@ -20,7 +20,7 @@ namespace global_domination
 
 	void MainToolbarView::initialize()
 	{
-		std::shared_ptr<SDLDropDownMenu<int>> settings_menu = std::make_shared<SDLDropDownMenu<int>>(parent_, client_area_.w * 0.7, client_area_.h * 0.4, client_area_.h * 0.4);
+		std::shared_ptr<SDLDropDownMenu<int>> settings_menu = std::make_shared<SDLDropDownMenu<int>>(parent_, client_area_.w * 0.7, client_area_.h * 0.4, client_area_.w * 0.7, client_area_.h, client_area_.h * 0.4);
 		settings_menu->addMenuItem(ListItem<int>("SETTINGS", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::OPEN_MENU), 0));
 		settings_menu->addMenuItem(ListItem<int>("QUIT", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::QUIT), 1));
 		settings_menu->useSecondaryColorScheme();
