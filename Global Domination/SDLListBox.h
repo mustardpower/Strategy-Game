@@ -170,10 +170,7 @@ namespace global_domination
 	{
 		for (unsigned int i = 0; i < items_.size(); i++)
 		{
-			SDL_Rect text_location = textLocationForIndex(i);
-			// should already have cached text locations by this point??
-
-			if (containsPoint(text_location, x, y))
+			if (containsPoint(textLocationForIndex(i), x, y))
 			{
 				selected_item_index_ = i;
 				items_.at(i).invokeAction();
@@ -266,12 +263,15 @@ namespace global_domination
 	template<class T>
 	inline SDL_Rect SDLListBox<T>::textLocationForIndex(const int menu_item_index)
 	{
+		ListItem<T> list_item = items_.at(menu_item_index);
+		std::shared_ptr<SDL_Rect> cached_text_location = list_item.getTextLocation();
+		if (cached_text_location) { return *cached_text_location; }
+
 		int w = 0;
 		int h = 0;
-
-		std::string text = items_.at(menu_item_index).reportString();
-		text_renderer::getTextDimensions(text, w, h);
-		
-		return SDL_Rect{ client_area_.x, client_area_.y + (kItemHeight * (menu_item_index - top_visible_index_)), w, h };
+		text_renderer::getTextDimensions(list_item.reportString(), w, h);
+		SDL_Rect text_location = SDL_Rect{ client_area_.x, client_area_.y + (kItemHeight * (menu_item_index - top_visible_index_)), w, h };
+		list_item.setTextLocation(text_location);
+		return text_location;
 	}
 }

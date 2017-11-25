@@ -15,8 +15,10 @@ namespace global_domination
 	public:
 		std::shared_ptr<Action> getAction();
 		T* getData();
+		std::shared_ptr<SDL_Rect> getTextLocation();
 		void invokeAction() const;
 		std::string reportString() const;
+		void setTextLocation(SDL_Rect text_location);
 
 		ListItem(std::string some_text, std::shared_ptr<Action> an_action, T menu_item_data)
 		{
@@ -29,6 +31,7 @@ namespace global_domination
 		std::shared_ptr<Action> action_;
 		std::string text_;
 		SDL_Color text_color_;
+		std::shared_ptr<SDL_Rect> text_location_;
 		T data_;
 	};
 
@@ -36,6 +39,12 @@ namespace global_domination
 	std::string ListItem<T>::reportString() const
 	{
 		return text_;
+	}
+
+	template<class T>
+	inline void ListItem<T>::setTextLocation(SDL_Rect text_location)
+	{
+		text_location_ = std::make_shared<SDL_Rect>(text_location);
 	}
 
 	template <typename T>
@@ -54,5 +63,11 @@ namespace global_domination
 	inline T* ListItem<T>::getData()
 	{
 		return &data_;
+	}
+
+	template<class T>
+	inline std::shared_ptr<SDL_Rect> ListItem<T>::getTextLocation()
+	{
+		return text_location_;
 	}
 }

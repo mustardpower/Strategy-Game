@@ -46,7 +46,7 @@ namespace global_domination
 		return ColorPreferences::getPrimaryBackgroundColor();
 	}
 
-	void View::handleClick(int mouse_x, int mouse_y)
+	bool View::handleClick(int mouse_x, int mouse_y)
 	{
 		if (isVisible_)
 		{
@@ -55,10 +55,12 @@ namespace global_domination
 				for (std::vector<std::shared_ptr<SDLControl>>::iterator control = controls_.begin(); control != controls_.end(); control++)
 				{
 					bool clickHandled = (*control)->handleClick(mouse_x, mouse_y);
-					if (clickHandled) { return; }
+					if (clickHandled) { return true; }
 				}
 			}
 		}
+
+		return false;
 	}	
 
 	void View::render(SDL_Renderer* renderer)

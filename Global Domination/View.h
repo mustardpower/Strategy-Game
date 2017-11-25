@@ -21,7 +21,7 @@ namespace global_domination
 		void addControl(std::shared_ptr<SDLControl> control);
 		std::shared_ptr<SDLControl> getControl(ControlID id);
 		virtual SDL_Color getBackgroundColor();
-		void handleClick(int mouse_x, int mouse_y);
+		bool handleClick(int mouse_x, int mouse_y);
 		virtual void initialize() = 0;
 		virtual void respondToAction(TYPES::ACTION_LIST action) = 0;
 		void render(SDL_Renderer* renderer);
