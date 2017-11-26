@@ -69,6 +69,12 @@ namespace global_domination
 			std::shared_ptr<SDLMenu<Nation>> nation_selection_menu = std::dynamic_pointer_cast<SDLMenu<Nation>>(getControl(NATION_SELECTION_MENU));
 			Nation* selected_nation = nation_selection_menu->selectedItem();
 			the_game_->getGameModel()->setSelectedNation(*selected_nation);
+			
+			Message welcome_message("Welcome to " + selected_nation->getName(), "You have arrived in " + selected_nation->getName() + ". Please wipe your feet and make our country glorious.");
+			the_game_->getGameModel()->pushMessage(welcome_message);
+
+			Message aMessage("Assistant Report", "I am your assistant. Have a look at these reports I have compiled for you.");
+			the_game_->getGameModel()->pushMessage(aMessage);
 		}
 	}
 }

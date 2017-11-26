@@ -17,8 +17,12 @@ namespace global_domination {
 	{
 		current_turn_++;
 
-		updateMessages();
 		updateNations();
+	}
+
+	void GameModel::pushMessage(Message new_message)
+	{
+		inbox_messages_.push_back(new_message);
 	}
 
 	void GameModel::respondToAction(TYPES::ACTION_LIST action)
@@ -52,22 +56,6 @@ namespace global_domination {
 	void GameModel::setSelectedNation(Nation selected_nation)
 	{
 		selected_nation_ = selected_nation;
-	}
-
-	void GameModel::updateMessages()
-	{
-		std::stringstream ss;
-		ss << current_turn_;
-		std::string current_turn_string = ss.str();
-
-		if (current_turn_ == 1)
-		{
-			Message welcome_message("Welcome to " + selected_nation_.getName(), "You have arrived in " + selected_nation_.getName() + ". Please wipe your feet and make our country glorious.");
-			inbox_messages_.push_back(welcome_message);
-
-			Message aMessage("Assistant Report", "I am your assistant. Have a look at these reports I have compiled for you.");
-			inbox_messages_.push_back(aMessage);
-		}
 	}
 
 	void GameModel::updateNations()

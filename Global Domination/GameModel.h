@@ -15,9 +15,9 @@ namespace global_domination {
 		std::string getSelectedNationName();
 		std::vector<Message> getInboxMessages();
 		void nextTurn();
+		void pushMessage(Message new_message);
 		void respondToAction(TYPES::ACTION_LIST action);
 		void setSelectedNation(Nation selected_nation);
-		void updateMessages();
 		void updateNations();
 	private:
 		unsigned int current_turn_;
