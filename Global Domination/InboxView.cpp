@@ -13,22 +13,13 @@ namespace global_domination {
 
 	void InboxView::initialize()
 	{
-		std::shared_ptr<SDLStaticText> title_label = std::make_shared<SDLStaticText>(parent_, "INBOX", client_area_.w * 0.25, client_area_.h * 0.05);
-		addControl(title_label);
-
 		SDL_Rect list_box_client_area{ client_area_.w * 0.05, client_area_.h * 0.15, client_area_.w * 0.25, client_area_.h * 0.8 };
 		std::shared_ptr<SDLListBox<Message>> message_list = std::make_shared<SDLListBox<Message>>(parent_, list_box_client_area, list_box_client_area.h * 0.2);
 		message_list->setId(INBOX_LIST);
 		addControl(message_list);
 
-		std::shared_ptr<SDLStaticText> message_title_label = std::make_shared<SDLStaticText>(parent_, "", client_area_.w * 0.6, client_area_.h * 0.3);
-		message_title_label->setId(SELECTED_MESSAGE_TITLE_LABEL);
-		addControl(message_title_label);
-
-		std::shared_ptr<SDLStaticText> message_text_label = std::make_shared<SDLStaticText>(parent_, "", client_area_.w * 0.6, client_area_.h * 0.4);
-		message_text_label->setId(SELECTED_MESSAGE_TEXT_LABEL);
-		message_text_label->setFontSize(12);
-		addControl(message_text_label);
+		addLabel("", client_area_.w * 0.6, client_area_.h * 0.3, SELECTED_MESSAGE_TITLE_LABEL);
+		addLabel("", client_area_.w * 0.6, client_area_.h * 0.4, SELECTED_MESSAGE_TEXT_LABEL, 12);
 
 		updateMessageList();
 		
@@ -75,11 +66,8 @@ namespace global_domination {
 		Message* selected_message = message_list->selectedItem();
 		if (selected_message)
 		{
-			std::shared_ptr<SDLStaticText> message_text_label = std::dynamic_pointer_cast<SDLStaticText>(getControl(SELECTED_MESSAGE_TEXT_LABEL));
-			message_text_label->setText(selected_message->getMessageText());
-
-			std::shared_ptr<SDLStaticText> message_title_label = std::dynamic_pointer_cast<SDLStaticText>(getControl(SELECTED_MESSAGE_TITLE_LABEL));
-			message_title_label->setText(selected_message->getTitle());
+			setLabelText(SELECTED_MESSAGE_TEXT_LABEL, selected_message->getMessageText());
+			setLabelText(SELECTED_MESSAGE_TITLE_LABEL, selected_message->getTitle());
 		}
 	}
 }

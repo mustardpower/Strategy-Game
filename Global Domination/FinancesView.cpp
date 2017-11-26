@@ -16,9 +16,7 @@ namespace global_domination
 
 	void FinancesView::initialize()
 	{
-		std::shared_ptr<SDLStaticText> bank_balance_label = std::make_shared<SDLStaticText>(parent_, "GDP: " + std::to_string(nation_.getGDP()), client_area_.w * 0.25, client_area_.h * 0.4);
-		bank_balance_label->setFontSize(18);
-		addControl(bank_balance_label);
+		addLabel("GDP: " + std::to_string(nation_.getGDP()), client_area_.w * 0.25, client_area_.h * 0.4, FINANCES_BALANCE_LABEL, 18);
 	}
 
 	void FinancesView::respondToAction(TYPES::ACTION_LIST action)

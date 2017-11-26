@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "ColorPreferences.h"
+#include "SDLStaticText.h"
 
 namespace global_domination
 {
@@ -23,6 +24,14 @@ namespace global_domination
 	void View::addControl(std::shared_ptr<SDLControl> control)
 	{
 		controls_.push_back(control);
+	}
+
+	void View::addLabel(std::string text, int pos_x, int pos_y, ControlID id, int font_size)
+	{
+		std::shared_ptr<SDLStaticText> title_label = std::make_shared<SDLStaticText>(parent_, text, pos_x, pos_y);
+		title_label->setId(id);
+		title_label->setFontSize(font_size);
+		addControl(title_label);
 	}
 
 	std::shared_ptr<SDLControl> View::getControl(ControlID id)
@@ -62,6 +71,12 @@ namespace global_domination
 
 		return false;
 	}	
+
+	void View::setLabelText(ControlID id, std::string text)
+	{
+		std::shared_ptr<SDLStaticText> population_label = std::dynamic_pointer_cast<SDLStaticText>(getControl(id));
+		population_label->setText(text);
+	}
 
 	void View::render(SDL_Renderer* renderer)
 	{

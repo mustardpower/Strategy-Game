@@ -40,6 +40,11 @@ namespace global_domination
 		return 0;
 	}
 
+	int Nation::getPopulation() const
+	{
+		return population_;
+	}
+
 	std::string Nation::reportString() const
 	{
 		return name_;

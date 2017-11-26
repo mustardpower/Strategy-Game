@@ -17,6 +17,7 @@ namespace global_domination
 		std::string getName() const;
 		unsigned int getNumberOfDeathsInTurn() const;
 		unsigned int getNumberOfBirthsInTurn() const;
+		int getPopulation() const;
 		std::string reportString() const;
 		void update();
 		void updateFinances();
