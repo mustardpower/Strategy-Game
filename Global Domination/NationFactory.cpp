@@ -7,11 +7,11 @@
 namespace global_domination
 {
 	void to_json(nlohmann::json& j, const Nation& nation) {
-		j = nlohmann::json{ { "name", nation.getName() },{ "GDP", nation.getGDP() } };
+		j = nlohmann::json{ { "name", nation.getName() },{ "GDP", nation.getGDP() }, { "population", nation.getGDP() } };
 	}
 
 	void from_json(const nlohmann::json& j, Nation& nation) {
-		nation = Nation(j.at("name").get<std::string>(), j.at("GDP").get<double>());
+		nation = Nation(j.at("name").get<std::string>(), j.at("GDP").get<double>(), j.at("population").get<int>());
 	}
 
 	std::vector<Nation> NationFactory::createNations(std::string file_path)

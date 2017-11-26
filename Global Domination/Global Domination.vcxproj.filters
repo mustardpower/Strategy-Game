@@ -81,8 +81,14 @@
     <ClCompile Include="ColorPreferences.cpp">
       <Filter>Source Files\SDLControls</Filter>
     </ClCompile>
-    <ClCompile Include="FinancesView.cpp">
+    <ClCompile Include="TradeResource.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TradeView.cpp">
+      <Filter>Source Files\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="FinancesView.cpp">
+      <Filter>Source Files\Views</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +162,12 @@
       <Filter>Header Files\SDLControls</Filter>
     </ClInclude>
     <ClInclude Include="FinancesView.h">
+      <Filter>Header Files\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="TradeResource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TradeView.h">
       <Filter>Header Files\Views</Filter>
     </ClInclude>
   </ItemGroup>

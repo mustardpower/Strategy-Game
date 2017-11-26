@@ -3,10 +3,11 @@
 
 namespace global_domination
 {
-	Nation::Nation(std::string aName, double GDP)
+	Nation::Nation(std::string aName, double GDP, int population)
 	{
 		GDP_ = GDP;
 		name_ = aName;
+		population_ = population;
 	}
 
 	double Nation::calculateExpenses()

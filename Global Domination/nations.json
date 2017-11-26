@@ -2,61 +2,76 @@
 
 {
 "name":"Australia", 
-"GDP": 1261645
+"GDP": 1261645,
+"population": 24125848
 },
 {
 "name":"Brazil", 
-"GDP": 1798622
+"GDP": 1798622,
+"population": 207652865
 },
 {
 "name":"Canada", 
-"GDP": 1529760
+"GDP": 1529760,
+"population": 36624199
 },
 {
 "name":"China", 
-"GDP": 11232108
+"GDP": 11232108,
+"population": 1403500365
 },
 {
 "name":"France",
-"GDP": 2466472
+"GDP": 2466472,
+"population": 64720690
 },
 {
 "name":"Germany",
-"GDP": 3479232
+"GDP": 3479232,
+"population": 81914672
 },
 {
 "name":"India",
-"GDP": 2263792
+"GDP": 2263792,
+"population": 1324171354
 },
 {
 "name":"Italy",
-"GDP": 1850735
+"GDP": 1850735,
+"population": 59359900
 },
 {
 "name":"Japan",
-"GDP": 4936543
+"GDP": 4936543,
+"population": 127484450
 },
 {
 "name":"Moldova",
-"GDP": 6750
+"GDP": 6750,
+"population": 4051212
 },
 {
 "name":"Monaco",
-"GDP": 7060
+"GDP": 7060,
+"population": 38695
 },
 {
 "name":"Turkey",
-"GDP": 863390
+"GDP": 863390,
+"population": 80745020
 },
 {
 "name":"Tuvalu",
-"GDP": 38
+"GDP": 38,
+"population": 11192
 },
 {
 "name":"United Kingdom",
-"GDP": 2629188
+"GDP": 2629188,
+"population": 66181585
 },
 {
 "name":"USA",
-"GDP": 18624450
+"GDP": 18624450,
+"population": 324459463
 }]

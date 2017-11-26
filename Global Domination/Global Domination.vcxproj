@@ -141,6 +141,8 @@
     <ClCompile Include="SDLControl.cpp" />
     <ClCompile Include="SDLStaticText.cpp" />
     <ClCompile Include="SDL_TextRenderer.cpp" />
+    <ClCompile Include="TradeResource.cpp" />
+    <ClCompile Include="TradeView.cpp" />
     <ClCompile Include="View.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +169,8 @@
     <ClInclude Include="SDLMenu.h" />
     <ClInclude Include="SDLStaticText.h" />
     <ClInclude Include="SDL_TextRenderer.h" />
+    <ClInclude Include="TradeResource.h" />
+    <ClInclude Include="TradeView.h" />
     <ClInclude Include="View.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

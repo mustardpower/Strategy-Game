@@ -1,5 +1,8 @@
 #pragma once
 #include <string>
+#include <map>
+
+#include "TradeResource.h"
 
 namespace global_domination
 {
@@ -7,7 +10,7 @@ namespace global_domination
 	{
 	public:
 		Nation() {};
-		Nation(std::string a_name, double bank_balance);
+		Nation(std::string a_name, double bank_balance, int population);
 		double calculateExpenses();
 		double calculateIncome();
 		double getGDP() const;
@@ -22,5 +25,6 @@ namespace global_domination
 		double GDP_;
 		std::string name_;
 		int population_;
+		std::map<TradeResource, int> resources_;
 	};
 }

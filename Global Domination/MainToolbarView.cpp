@@ -45,6 +45,7 @@ namespace global_domination
 		home_menu->addMenuItem(ListItem<int>("HOME", nullptr, 0));
 		home_menu->addMenuItem(ListItem<int>("INBOX", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::CHANGEVIEW_INBOX), 1));
 		home_menu->addMenuItem(ListItem<int>("FINANCES", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::CHANGEVIEW_FINANCES), 2));
+		home_menu->addMenuItem(ListItem<int>("TRADE", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::CHANGEVIEW_TRADE), 3));
 		home_menu->setId(TOOLBAR_MENU_HOME);
 		home_menu->useSecondaryColorScheme();
 		addControl(home_menu);
