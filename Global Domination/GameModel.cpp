@@ -8,6 +8,11 @@ namespace global_domination {
 		current_turn_ = 0;
 	}
 
+	Nation GameModel::getSelectedNation()
+	{
+		return selected_nation_;
+	}
+
 	void GameModel::nextTurn()
 	{
 		current_turn_++;

@@ -1,6 +1,8 @@
 #pragma once
 #include "View.h"
 
+#include "Nation.h"
+
 namespace global_domination
 {
 	class FinancesView : public View
@@ -11,5 +13,6 @@ namespace global_domination
 		void initialize();
 		void respondToAction(TYPES::ACTION_LIST action);
 	private:
+		Nation nation_;
 	};
 }

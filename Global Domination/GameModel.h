@@ -11,6 +11,7 @@ namespace global_domination {
 	{
 	public:
 		GameModel();
+		Nation getSelectedNation();
 		std::string getSelectedNationName();
 		std::vector<Message> getInboxMessages();
 		void nextTurn();

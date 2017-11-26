@@ -5,6 +5,7 @@ namespace global_domination
 {
 	Nation::Nation(std::string aName)
 	{
+		bank_balance_ = 0.0;
 		name_ = aName;
 	}
 
@@ -16,6 +17,11 @@ namespace global_domination
 	double Nation::calculateIncome()
 	{
 		return 0.0;
+	}
+
+	double Nation::getBankBalance() const
+	{
+		return bank_balance_;
 	}
 
 	std::string Nation::getName() const

@@ -10,6 +10,7 @@ namespace global_domination
 		Nation(std::string a_name);
 		double calculateExpenses();
 		double calculateIncome();
+		double getBankBalance() const;
 		std::string getName() const;
 		unsigned int getNumberOfDeathsInTurn() const;
 		unsigned int getNumberOfBirthsInTurn() const;
