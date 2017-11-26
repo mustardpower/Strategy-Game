@@ -8,7 +8,7 @@ namespace global_domination
 		TTF_Font* font = NULL;
 
 
-		TTF_Font * getFont(int font_size)
+		TTF_Font * getFont(unsigned int font_size)
 		{
 			if (font) { TTF_CloseFont(font); }
 

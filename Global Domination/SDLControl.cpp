@@ -11,6 +11,7 @@ namespace global_domination
 		id_ = UNDEFINED_CONTROL_ID;
 		parent_ = parent;
 		use_secondary_color_scheme_ = false;
+		font_size_ = 30;
 	}
 
 	unsigned int SDLControl::getId()

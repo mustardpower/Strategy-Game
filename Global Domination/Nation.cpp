@@ -8,6 +8,16 @@ namespace global_domination
 		name_ = aName;
 	}
 
+	double Nation::calculateExpenses()
+	{
+		return 0.0;
+	}
+
+	double Nation::calculateIncome()
+	{
+		return 0.0;
+	}
+
 	std::string Nation::getName() const
 	{
 		return name_;
@@ -31,11 +41,19 @@ namespace global_domination
 
 	void Nation::update()
 	{
+		updateFinances();
 		updatePopulation();
+	}
+
+	void Nation::updateFinances()
+	{
+		bank_balance_ += calculateIncome() - calculateExpenses();
 	}
 
 	void Nation::updatePopulation()
 	{
 		population_+= getNumberOfDeathsInTurn() + getNumberOfBirthsInTurn();
 	}
+
+
 }

@@ -60,7 +60,7 @@ namespace global_domination {
 			Message welcome_message("Welcome to " + selected_nation_.getName(), "You have arrived in " + selected_nation_.getName() + ". Please wipe your feet and make our country glorious.");
 			inbox_messages_.push_back(welcome_message);
 
-			Message aMessage("Assistant Report", "I am your assistant. Have a look at these reports I have compiled for you");
+			Message aMessage("Assistant Report", "I am your assistant. Have a look at these reports I have compiled for you.");
 			inbox_messages_.push_back(aMessage);
 		}
 	}
