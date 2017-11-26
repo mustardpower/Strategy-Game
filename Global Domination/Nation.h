@@ -14,6 +14,7 @@ namespace global_domination
 		double calculateExpenses();
 		double calculateIncome();
 		double getGDP() const;
+		double getGDPPerCapita() const;
 		std::string getName() const;
 		unsigned int getNumberOfDeathsInTurn() const;
 		unsigned int getNumberOfBirthsInTurn() const;

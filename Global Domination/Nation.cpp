@@ -25,6 +25,12 @@ namespace global_domination
 		return GDP_;
 	}
 
+	double Nation::getGDPPerCapita() const
+	{
+		if (population_ == 0) { return 0; }
+		return (GDP_ / population_) * 1000000;
+	}
+
 	std::string Nation::getName() const
 	{
 		return name_;

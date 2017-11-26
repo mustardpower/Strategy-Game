@@ -34,6 +34,7 @@ namespace global_domination
 		addLabel("Select a nation:", client_area_.w * 0.15, client_area_.h * 0.25, NATION_SELECTION_PROMPT_LABEL);
 		addLabel("", client_area_.w * 0.6, client_area_.h * 0.25, NATION_SELECTION_POPULATION_LABEL, 12);
 		addLabel("", client_area_.w * 0.6, client_area_.h * 0.30, NATION_SELECTION_GDP_LABEL, 12);
+		addLabel("", client_area_.w * 0.6, client_area_.h * 0.35, NATION_SELECTION_GDP_PER_CAPITA_LABEL, 12);
 
 		std::shared_ptr<SDLButton> start_button = std::make_shared<SDLButton>(parent_, "START", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::CHANGEVIEW_INBOX), client_area_.w * 0.8, client_area_.h * 0.8, 200, 300);
 		addControl(start_button);
@@ -78,8 +79,7 @@ namespace global_domination
 		{
 			case TYPES::ACTION_LIST::CHANGEVIEW_INBOX:
 			{
-				std::shared_ptr<SDLListBox<Nation>> nation_selection_menu = std::dynamic_pointer_cast<SDLListBox<Nation>>(getControl(NATION_SELECTION_MENU));
-				Nation* selected_nation = nation_selection_menu->selectedItem();
+				Nation* selected_nation = getSelectedNation();
 				the_game_->getGameModel()->setSelectedNation(*selected_nation);
 
 				Message welcome_message("Welcome to " + selected_nation->getName(), "You have arrived in " + selected_nation->getName() + ". Please wipe your feet and make our country glorious.");
@@ -102,8 +102,9 @@ namespace global_domination
 		Nation* selected_nation = getSelectedNation();
 		if (selected_nation)
 		{
-			setLabelText(NATION_SELECTION_GDP_LABEL, "GDP: " + std::to_string(selected_nation->getGDP()));
 			setLabelText(NATION_SELECTION_POPULATION_LABEL, "Population: " + std::to_string(selected_nation->getPopulation()));
+			setLabelText(NATION_SELECTION_GDP_LABEL, "GDP: " + std::to_string(selected_nation->getGDP()));
+			setLabelText(NATION_SELECTION_GDP_PER_CAPITA_LABEL, "GDP per capita: " + std::to_string(selected_nation->getGDPPerCapita()));
 		}
 	}
 }
