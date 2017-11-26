@@ -7,10 +7,10 @@ namespace global_domination
 	{
 	public:
 		Nation() {};
-		Nation(std::string a_name);
+		Nation(std::string a_name, double bank_balance);
 		double calculateExpenses();
 		double calculateIncome();
-		double getBankBalance() const;
+		double getGDP() const;
 		std::string getName() const;
 		unsigned int getNumberOfDeathsInTurn() const;
 		unsigned int getNumberOfBirthsInTurn() const;
@@ -19,7 +19,7 @@ namespace global_domination
 		void updateFinances();
 		void updatePopulation();
 	private:
-		double bank_balance_;
+		double GDP_;
 		std::string name_;
 		int population_;
 	};

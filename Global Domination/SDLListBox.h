@@ -207,16 +207,16 @@ namespace global_domination
 	template <typename T>
 	void SDLListBox<T>::nextItem()
 	{
-		selected_item_index_ = (selected_item_index_ + 1) % menu_items_.size();
+		selected_item_index_ = (selected_item_index_ + 1) % items_.size();
 	}
 
 	template <typename T>
 	void SDLListBox<T>::previousItem()
 	{
-		selected_menu_item_index_ = (selected_menu_item_index_ - 1) % menu_items_.size();
-		if (selected_menu_item_index_ < 0)
+		selected_item_index_ = (selected_item_index_ - 1) % items_.size();
+		if (selected_item_index_ < 0)
 		{
-			selected_menu_item_index_ = menu_items_.size() - 1;
+			selected_item_index_ = items_.size() - 1;
 		}
 	}
 

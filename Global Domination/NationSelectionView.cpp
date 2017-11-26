@@ -6,7 +6,7 @@
 #include "ControlResources.h"
 #include "Game.h"
 #include "SDLButton.h"
-#include "SDLMenu.h"
+#include "SDLListBox.h"
 #include "SDLStaticText.h"
 
 #include "NationFactory.h"
@@ -31,7 +31,8 @@ namespace global_domination
 		std::shared_ptr<SDLButton> start_button = std::make_shared<SDLButton>(parent_, "START", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::CHANGEVIEW_INBOX), client_area_.w * 0.8, client_area_.h * 0.8, 200, 300);
 		addControl(start_button);
 
-		std::shared_ptr<SDLMenu<Nation>> nation_selection_menu = std::make_shared<SDLMenu<Nation>>(parent_, client_area_.w * 0.2, client_area_.h * 0.4, client_area_.h * 0.1);
+		SDL_Rect menu_client_area { client_area_.w * 0.2, client_area_.h * 0.4, client_area_.w * 0.3, client_area_.h * 0.5 };
+		std::shared_ptr<SDLListBox<Nation>> nation_selection_menu = std::make_shared<SDLListBox<Nation>>(parent_, menu_client_area, client_area_.h * 0.1);
 		nation_selection_menu->setId(NATION_SELECTION_MENU);
 
 		// Share the same action between menu items
@@ -41,7 +42,7 @@ namespace global_domination
 		for (std::vector<Nation>::const_iterator nation = nations_.cbegin(); nation != nations_.end(); nation++)
 		{
 			std::string nationName = nation->reportString();
-			nation_selection_menu->addMenuItem(ListItem<Nation>(nationName, nationSelectionAction, *nation));
+			nation_selection_menu->addItem(ListItem<Nation>(nationName, nationSelectionAction, *nation));
 		}	
 
 		addControl(nation_selection_menu);
@@ -49,14 +50,14 @@ namespace global_domination
 
 	void NationSelectionView::onKeyDown()
 	{
-		std::shared_ptr<SDLMenu<Nation>> nation_selection_menu = std::dynamic_pointer_cast<SDLMenu<Nation>>(getControl(NATION_SELECTION_MENU));
-		nation_selection_menu->nextMenuItem();
+		std::shared_ptr<SDLListBox<Nation>> nation_selection_menu = std::dynamic_pointer_cast<SDLListBox<Nation>>(getControl(NATION_SELECTION_MENU));
+		nation_selection_menu->nextItem();
 	}
 
 	void NationSelectionView::onKeyUp()
 	{
-		std::shared_ptr<SDLMenu<Nation>> nation_selection_menu = std::dynamic_pointer_cast<SDLMenu<Nation>>(getControl(NATION_SELECTION_MENU));
-		nation_selection_menu->previousMenuItem();
+		std::shared_ptr<SDLListBox<Nation>> nation_selection_menu = std::dynamic_pointer_cast<SDLListBox<Nation>>(getControl(NATION_SELECTION_MENU));
+		nation_selection_menu->previousItem();
 	}
 	void NationSelectionView::onKeyPress(int keyCode)
 	{
@@ -66,7 +67,7 @@ namespace global_domination
 		// Only apply changes in this view once the game set up is confirmed
 		if (action == TYPES::ACTION_LIST::CHANGEVIEW_INBOX)
 		{
-			std::shared_ptr<SDLMenu<Nation>> nation_selection_menu = std::dynamic_pointer_cast<SDLMenu<Nation>>(getControl(NATION_SELECTION_MENU));
+			std::shared_ptr<SDLListBox<Nation>> nation_selection_menu = std::dynamic_pointer_cast<SDLListBox<Nation>>(getControl(NATION_SELECTION_MENU));
 			Nation* selected_nation = nation_selection_menu->selectedItem();
 			the_game_->getGameModel()->setSelectedNation(*selected_nation);
 			

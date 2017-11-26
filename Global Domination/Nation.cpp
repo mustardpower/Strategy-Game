@@ -3,9 +3,9 @@
 
 namespace global_domination
 {
-	Nation::Nation(std::string aName)
+	Nation::Nation(std::string aName, double GDP)
 	{
-		bank_balance_ = 0.0;
+		GDP_ = GDP;
 		name_ = aName;
 	}
 
@@ -19,9 +19,9 @@ namespace global_domination
 		return 0.0;
 	}
 
-	double Nation::getBankBalance() const
+	double Nation::getGDP() const
 	{
-		return bank_balance_;
+		return GDP_;
 	}
 
 	std::string Nation::getName() const
@@ -53,7 +53,7 @@ namespace global_domination
 
 	void Nation::updateFinances()
 	{
-		bank_balance_ += calculateIncome() - calculateExpenses();
+		GDP_ += calculateIncome() - calculateExpenses();
 	}
 
 	void Nation::updatePopulation()
