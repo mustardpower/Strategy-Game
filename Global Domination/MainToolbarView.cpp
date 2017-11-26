@@ -13,9 +13,30 @@ namespace global_domination
 	{
 	}
 
+	void MainToolbarView::collapseMenus()
+	{
+		std::shared_ptr<SDLDropDownMenu<int>> home_menu = std::dynamic_pointer_cast<SDLDropDownMenu<int>>(getControl(TOOLBAR_MENU_HOME));
+		home_menu->collapseMenu();
+
+		std::shared_ptr<SDLDropDownMenu<int>> settings_menu = std::dynamic_pointer_cast<SDLDropDownMenu<int>>(getControl(TOOLBAR_MENU_SETTINGS));
+		settings_menu->collapseMenu();
+
+	}
+
 	SDL_Color MainToolbarView::getBackgroundColor()
 	{
 		return ColorPreferences::getSecondaryBackgroundColor();
+	}
+
+	bool MainToolbarView::handleClick(int x, int y)
+	{
+		if (isVisible_)
+		{
+			collapseMenus();
+			View::handleClick(x, y);
+		}
+
+		return false;
 	}
 
 	void MainToolbarView::initialize()
@@ -24,12 +45,14 @@ namespace global_domination
 		home_menu->addMenuItem(ListItem<int>("HOME", nullptr, 0));
 		home_menu->addMenuItem(ListItem<int>("INBOX", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::CHANGEVIEW_INBOX), 1));
 		home_menu->addMenuItem(ListItem<int>("FINANCES", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::CHANGEVIEW_FINANCES), 2));
+		home_menu->setId(TOOLBAR_MENU_HOME);
 		home_menu->useSecondaryColorScheme();
 		addControl(home_menu);
 
 		std::shared_ptr<SDLDropDownMenu<int>> settings_menu = std::make_shared<SDLDropDownMenu<int>>(parent_, client_area_.w * 0.7, client_area_.h * 0.4, client_area_.w * 0.7, client_area_.h, client_area_.h * 0.4);
 		settings_menu->addMenuItem(ListItem<int>("SETTINGS", nullptr, 0));
 		settings_menu->addMenuItem(ListItem<int>("QUIT", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::QUIT), 1));
+		settings_menu->setId(TOOLBAR_MENU_SETTINGS);
 		settings_menu->useSecondaryColorScheme();
 		addControl(settings_menu);
 

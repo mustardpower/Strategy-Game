@@ -38,7 +38,7 @@ namespace global_domination
 			}
 		}
 
-		return nullptr;
+		throw std::exception("No control defined with the id:" + id);
 	}
 
 	SDL_Color View::getBackgroundColor()
