@@ -141,6 +141,7 @@
     <ClCompile Include="SDLControl.cpp" />
     <ClCompile Include="SDLStaticText.cpp" />
     <ClCompile Include="SDL_TextRenderer.cpp" />
+    <ClCompile Include="TradeDeal.cpp" />
     <ClCompile Include="TradeResource.cpp" />
     <ClCompile Include="TradeView.cpp" />
     <ClCompile Include="View.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="GameModel.h" />
     <ClInclude Include="GameUserInterface.h" />
     <ClInclude Include="InboxView.h" />
+    <ClInclude Include="IReciever.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="MainMenuView.h" />
     <ClInclude Include="MainToolbarView.h" />
@@ -169,6 +171,7 @@
     <ClInclude Include="SDLMenu.h" />
     <ClInclude Include="SDLStaticText.h" />
     <ClInclude Include="SDL_TextRenderer.h" />
+    <ClInclude Include="TradeDeal.h" />
     <ClInclude Include="TradeResource.h" />
     <ClInclude Include="TradeView.h" />
     <ClInclude Include="View.h" />

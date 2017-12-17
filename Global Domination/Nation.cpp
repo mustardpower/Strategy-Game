@@ -3,11 +3,12 @@
 
 namespace global_domination
 {
-	Nation::Nation(std::string aName, double GDP, int population)
+	Nation::Nation(std::string aName, double GDP, int population, std::vector<TradeDeal> deals)
 	{
 		GDP_ = GDP;
 		name_ = aName;
 		population_ = population;
+		trade_deals_ = deals;
 	}
 
 	double Nation::calculateExpenses()
@@ -51,6 +52,11 @@ namespace global_domination
 		return population_;
 	}
 
+	std::vector<TradeDeal> Nation::getTradeDeals() const
+	{
+		return trade_deals_;
+	}
+
 	std::string Nation::reportString() const
 	{
 		return name_;
@@ -71,6 +77,11 @@ namespace global_domination
 	void Nation::updatePopulation()
 	{
 		population_+= getNumberOfDeathsInTurn() + getNumberOfBirthsInTurn();
+	}
+
+	bool Nation::operator==(const Nation & another)
+	{
+		return name_ == another.name_;
 	}
 
 

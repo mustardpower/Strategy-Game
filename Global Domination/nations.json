@@ -3,75 +3,121 @@
 {
 "name":"Australia", 
 "GDP": 1261645,
-"population": 24125848
+"population": 24125848,
+"trade deals": [
+{"payee" : "India"},
+{"payee" : "Japan"}
+]
 },
 {
 "name":"Brazil", 
 "GDP": 1798622,
-"population": 207652865
+"population": 207652865,
+"trade deals": [
+{"payee" : "Canada"},
+{"payee" : "USA"}]
 },
 {
 "name":"Canada", 
 "GDP": 1529760,
-"population": 36624199
+"population": 36624199,
+"trade deals": [
+{"payee" : "Brazil"},
+{"payee" : "USA"}]
 },
 {
 "name":"China", 
 "GDP": 11232108,
-"population": 1403500365
+"population": 1403500365,
+"trade deals": [
+{"payee" : "Japan"},
+{"payee" : "USA"}]
 },
 {
 "name":"France",
 "GDP": 2466472,
-"population": 64720690
+"population": 64720690,
+"trade deals": [
+{"payee" : "Germany"},
+{"payee" : "United Kingdom"}]
 },
 {
 "name":"Germany",
 "GDP": 3479232,
-"population": 81914672
+"population": 81914672,
+"trade deals": [
+{"payee" : "France"},
+{"payee" : "Italy"}]
 },
 {
 "name":"India",
 "GDP": 2263792,
-"population": 1324171354
+"population": 1324171354,
+"trade deals": [
+{"payee" : "Japan"},
+{"payee" : "USA"}]
 },
 {
 "name":"Italy",
 "GDP": 1850735,
-"population": 59359900
+"population": 59359900,
+"trade deals": [
+{"payee" : "France"},
+{"payee" : "Germany"}]
 },
 {
 "name":"Japan",
 "GDP": 4936543,
-"population": 127484450
+"population": 127484450,
+"trade deals": [
+{"payee" : "China"},
+{"payee" : "USA"}]
 },
 {
 "name":"Moldova",
 "GDP": 6750,
-"population": 4051212
+"population": 4051212,
+"trade deals": [
+{"payee" : "Germany"}]
 },
 {
 "name":"Monaco",
 "GDP": 7060,
-"population": 38695
+"population": 38695,
+"trade deals": [
+{"payee" : "France"}]
 },
 {
 "name":"Turkey",
 "GDP": 863390,
-"population": 80745020
+"population": 80745020,
+"trade deals": [
+{"payee" : "China"},
+{"payee" : "USA"}]
 },
 {
 "name":"Tuvalu",
 "GDP": 38,
-"population": 11192
+"population": 11192,
+"trade deals": [
+{"payee" : "Australia"}]
 },
 {
 "name":"United Kingdom",
 "GDP": 2629188,
-"population": 66181585
+"population": 66181585,
+"trade deals": [
+{"payee" : "France"},
+{"payee" : "USA"}]
 },
 {
 "name":"USA",
 "GDP": 18624450,
-"population": 324459463
+"population": 324459463,
+"trade deals": [
+{"payee" : "Brazil"},
+{"payee" : "Canada"},
+{"payee" : "China"},
+{"payee" : "Germany"},
+{"payee" : "United Kingdom"}]
 }]
