@@ -1,5 +1,7 @@
 #include "TradeResource.h"
 
+#include <fstream>
+
 namespace global_domination
 {
 	void to_json(nlohmann::json & j, const TradeResource & resource)
@@ -11,6 +13,7 @@ namespace global_domination
 	{
 		resource = TradeResource(j.at("name").get<std::string>(), j.at("price per unit").get<double>(), j.at("edible").get<bool>());
 	}
+	
 	TradeResource::TradeResource(std::string name, double unit_price, bool is_edible)
 	{
 		name_ = name;
@@ -31,4 +34,34 @@ namespace global_domination
 	{
 		return is_edible_;
 	}
+
+	std::vector<TradeResource*> TradeResource::createTradeResources(std::string file_path)
+	{
+		std::ifstream i(file_path);
+
+		TradeResource resource;
+		std::vector<TradeResource*> resources;
+
+		if (i.is_open())
+		{
+			nlohmann::json j;
+			i >> j;
+			for (nlohmann::json::iterator it = j.begin(); it != j.end(); ++it)
+			{
+				from_json(*it, resource);
+				resources.push_back(new TradeResource(resource));
+			}
+
+			i.close();
+		}
+
+		return resources;
+	}
+
+	bool TradeResource::operator<(const TradeResource & another) const
+	{
+		return name_ < another.name_;
+	}
+	
+
 }

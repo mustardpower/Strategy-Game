@@ -3,15 +3,37 @@
 #include <fstream>
 #include <string>
 
-
 namespace global_domination
 {
 	void to_json(nlohmann::json& j, const Nation& nation) {
-		j = nlohmann::json{ { "name", nation.getName() },{ "GDP", nation.getGDP() }, { "population", nation.getGDP() },{ "trade deals", nation.getTradeDeals() } };
+		j = nlohmann::json{ { "name", nation.getName() },{ "GDP", nation.getGDP() }, { "population", nation.getGDP() }, { "resources", nation.getTradeResources()}};
 	}
 
 	void from_json(const nlohmann::json& j, Nation& nation) {
-		nation = Nation(j.at("name").get<std::string>(), j.at("GDP").get<double>(), j.at("population").get<int>(), j.at("trade deals").get<std::vector<TradeDeal>>());
+
+		std::map<TradeResource, int> resources;
+		std::map<std::string, int> json_resources = j.at("resources").get<std::map<std::string, int>>();
+		TradeResource* matching_resource = nullptr;
+
+		std::vector<TradeResource*> trade_resources = TradeResource::createTradeResources("trade resources.json");
+		for (std::map<std::string, int>::iterator pair = json_resources.begin(); pair != json_resources.end(); pair++)
+		{
+			for (std::vector<TradeResource*>::iterator resource = trade_resources.begin(); resource != trade_resources.end(); resource++)
+			{
+				if ((*resource)->getName() == pair->first)
+				{
+					matching_resource = *resource;
+				}
+				// find the resource with the name pair->first
+			}
+
+			if (matching_resource)
+			{
+				resources.emplace(std::pair<TradeResource, int>(*matching_resource, pair->second));
+			}
+		}
+
+		nation = Nation(j.at("name").get<std::string>(), j.at("GDP").get<double>(), j.at("population").get<int>(), resources);
 	}
 
 	std::vector<Nation> NationFactory::createNations(std::string file_path)

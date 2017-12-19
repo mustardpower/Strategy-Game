@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Oil",
+	"price per unit" : 54,
+	"edible" : false
+  },
+  {
+    "name": "Gold",
+	"price per unit" : 80,
+	"edible" : false
+  }
+]
