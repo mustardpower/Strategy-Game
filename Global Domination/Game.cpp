@@ -26,10 +26,8 @@ namespace global_domination {
 
 	void Game::initialize()
 	{
-		ui_->initialize(this);
-
 		game_model_ = std::make_shared<GameModel>();
-
+		ui_->initialize(this);
 		ui_->respondToAction(TYPES::ACTION_LIST::CHANGEVIEW_MENU);
 	}
 

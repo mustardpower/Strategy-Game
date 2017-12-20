@@ -26,11 +26,16 @@ namespace global_domination
 		controls_.push_back(control);
 	}
 
-	void View::addLabel(std::string text, int pos_x, int pos_y, ControlID id, int font_size)
+	void View::addLabel(std::string text, int pos_x, int pos_y, ControlID id, int font_size, bool use_secondary_color_scheme)
 	{
 		std::shared_ptr<SDLStaticText> title_label = std::make_shared<SDLStaticText>(parent_, text, pos_x, pos_y);
 		title_label->setId(id);
 		title_label->setFontSize(font_size);
+
+		if (use_secondary_color_scheme)
+		{
+			title_label->useSecondaryColorScheme();
+		}
 		addControl(title_label);
 	}
 

@@ -84,6 +84,7 @@ namespace global_domination
 	{
 		if(active_view_)
 		{
+			toolbar_->respondToAction(action);
 			active_view_->respondToAction(action);
 		}
 

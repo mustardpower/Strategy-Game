@@ -19,7 +19,7 @@ namespace global_domination
 		View(Game* the_game, SDL_Window* parent, SDL_Rect client_area, bool isVisible = true);
 		virtual ~View();
 		void addControl(std::shared_ptr<SDLControl> control);
-		void addLabel(std::string text, int pos_x, int pos_y, ControlID id, int font_size = 30);
+		void addLabel(std::string text, int pos_x, int pos_y, ControlID id, int font_size = 30, bool use_secondary_color_scheme = false);
 		std::shared_ptr<SDLControl> getControl(ControlID id);
 		virtual SDL_Color getBackgroundColor();
 		bool handleClick(int mouse_x, int mouse_y);

@@ -41,6 +41,8 @@ namespace global_domination
 
 	void MainToolbarView::initialize()
 	{
+		addLabel(the_game_->getGameModel()->getDateString(), client_area_.w * 0.05, client_area_.h * 0.4, TOOLBAR_DATE_LABEL, 18, true);
+		
 		std::shared_ptr<SDLDropDownMenu<int>> home_menu = std::make_shared<SDLDropDownMenu<int>>(parent_, client_area_.w * 0.4, client_area_.h * 0.4, client_area_.w * 0.4, client_area_.h, client_area_.h * 0.4);
 		home_menu->addMenuItem(ListItem<int>("HOME", nullptr, 0));
 		home_menu->addMenuItem(ListItem<int>("INBOX", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::CHANGEVIEW_INBOX), 1));
@@ -64,6 +66,13 @@ namespace global_domination
 
 	void MainToolbarView::respondToAction(TYPES::ACTION_LIST action)
 	{
-
+		switch (action)
+		{
+			case TYPES::ACTION_LIST::NEXT_TURN:
+			{
+				setLabelText(TOOLBAR_DATE_LABEL, the_game_->getGameModel()->getDateString());
+			}
+			break;
+		}
 	}
 }

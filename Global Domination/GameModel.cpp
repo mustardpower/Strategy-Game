@@ -1,11 +1,24 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "GameModel.h"
 
 #include <sstream>
+#include <ctime>
 
 namespace global_domination {
 	GameModel::GameModel()
 	{
+		date = std::chrono::system_clock::now();
 		current_turn_ = 0;
+	}
+
+	std::string GameModel::getDateString()
+	{
+		std::stringstream ss;
+		std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
+		std::time_t now_c = std::chrono::system_clock::to_time_t(date);
+		ss << std::put_time(localtime(&now_c), "%F %T");
+		return ss.str();
 	}
 
 	Nation GameModel::getSelectedNation()
@@ -13,8 +26,17 @@ namespace global_domination {
 		return selected_nation_;
 	}
 
+	std::string GameModel::getSummaryReport()
+	{
+		return "Everything is superb!";
+	}
+
 	void GameModel::nextTurn()
 	{
+		date += std::chrono::hours(24);
+		Message turn_summary_message("Progress report", getSummaryReport());
+		pushMessage(turn_summary_message);
+
 		current_turn_++;
 
 		updateNations();

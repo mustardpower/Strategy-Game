@@ -1,4 +1,5 @@
 #pragma once
+#include <chrono>
 #include <vector>
 
 #include "Action.h"
@@ -11,8 +12,10 @@ namespace global_domination {
 	{
 	public:
 		GameModel();
+		std::string getDateString();
 		Nation getSelectedNation();
 		std::string getSelectedNationName();
+		std::string getSummaryReport();
 		std::vector<Message> getInboxMessages();
 		void nextTurn();
 		void pushMessage(Message new_message);
@@ -21,6 +24,7 @@ namespace global_domination {
 		void updateNations();
 	private:
 		unsigned int current_turn_;
+		std::chrono::system_clock::time_point date;
 		Nation selected_nation_;
 		std::vector<Nation> nations_;
 		std::vector<Message> inbox_messages_;
