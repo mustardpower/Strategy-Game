@@ -20,11 +20,15 @@ namespace global_domination
 	}
 	void TradeView::initialize()
 	{
-		addLabel("Trade deals:", client_area_.w * 0.15, client_area_.h * 0.25, NATION_SELECTION_PROMPT_LABEL);
-
-		SDL_Rect menu_client_area{ client_area_.w * 0.2, client_area_.h * 0.4, client_area_.w * 0.3, client_area_.h * 0.5 };
-		std::shared_ptr<SDLListBox<TradeDeal>> trade_deal_list = std::make_shared<SDLListBox<TradeDeal>>(parent_, menu_client_area, client_area_.h * 0.1);
+		addLabel("Trade deals:", client_area_.w * 0.08, client_area_.h * 0.15, TRADEVIEW_TRADEDEALS_LABEL);
+		SDL_Rect trade_deal_list_area{ client_area_.w * 0.08, client_area_.h * 0.2, client_area_.w * 0.25, client_area_.h * 0.5 };
+		std::shared_ptr<SDLListBox<TradeDeal>> trade_deal_list = std::make_shared<SDLListBox<TradeDeal>>(parent_, trade_deal_list_area, client_area_.h * 0.1);
 		trade_deal_list->setId(TRADE_DEAL_LIST);
+
+		addLabel("Existing deals:", client_area_.w * 0.35, client_area_.h * 0.15, TRADEVIEW_TRADEDEALS_LABEL);
+		SDL_Rect existing_trade_deal_list_area{ client_area_.w * 0.35, client_area_.h * 0.2, client_area_.w * 0.25, client_area_.h * 0.5 };
+		std::shared_ptr<SDLListBox<TradeDeal>> existing_trade_deal_list = std::make_shared<SDLListBox<TradeDeal>>(parent_, existing_trade_deal_list_area, client_area_.h * 0.1);
+		existing_trade_deal_list->setId(TRADE_DEAL_LIST_EXISTING);
 
 		std::shared_ptr<Action> trade_deal_selection_action = std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::SELECTING_TRADE_DEAL);
 
@@ -34,6 +38,7 @@ namespace global_domination
 			trade_deal_list->addItem(ListItem<TradeDeal>(deal->getPayee(), trade_deal_selection_action, *deal));
 		}
 
+		addControl(existing_trade_deal_list);
 		addControl(trade_deal_list);
 	}
 	void TradeView::respondToAction(TYPES::ACTION_LIST action)
