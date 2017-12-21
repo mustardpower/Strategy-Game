@@ -179,5 +179,11 @@
     <ClInclude Include="IReciever.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SDLStackGrid.h">
+      <Filter>Header Files\SDLControls</Filter>
+    </ClInclude>
+    <ClInclude Include="StackGridItem.h">
+      <Filter>Header Files\SDLControls</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

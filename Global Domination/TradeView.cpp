@@ -7,6 +7,7 @@
 #include "Game.h"
 #include "SDLButton.h"
 #include "SDLListBox.h"
+#include "SDLStackGrid.h"
 #include "TradeDeal.h"
 
 namespace global_domination
@@ -30,6 +31,11 @@ namespace global_domination
 		std::shared_ptr<SDLListBox<TradeDeal>> existing_trade_deal_list = std::make_shared<SDLListBox<TradeDeal>>(parent_, existing_trade_deal_list_area, client_area_.h * 0.1);
 		existing_trade_deal_list->setId(TRADE_DEAL_LIST_EXISTING);
 
+		addLabel("Resources:", client_area_.w * 0.08, client_area_.h * 0.7, TRADEVIEW_TRADEDEALS_LABEL);
+		SDL_Rect resource_list_area{ client_area_.w * 0.06, client_area_.h * 0.75, client_area_.w * 0.88, client_area_.h * 0.2 };
+		std::shared_ptr<SDLStackGrid<TradeDeal>> resource_list = std::make_shared<SDLStackGrid<TradeDeal>>(parent_, resource_list_area, 10, 2);
+		resource_list->setId(TRADE_RESOURCE_LIST);
+
 		std::shared_ptr<Action> trade_deal_selection_action = std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::SELECTING_TRADE_DEAL);
 
 		std::vector<TradeDeal> trade_deals = nation_.getTradeDeals();
@@ -38,6 +44,7 @@ namespace global_domination
 			trade_deal_list->addItem(ListItem<TradeDeal>(deal->getPayee(), trade_deal_selection_action, *deal));
 		}
 
+		addControl(resource_list);
 		addControl(existing_trade_deal_list);
 		addControl(trade_deal_list);
 	}

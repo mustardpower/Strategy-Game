@@ -169,8 +169,10 @@
     <ClInclude Include="SDLDropDownMenu.h" />
     <ClInclude Include="SDLListBox.h" />
     <ClInclude Include="SDLMenu.h" />
+    <ClInclude Include="SDLStackGrid.h" />
     <ClInclude Include="SDLStaticText.h" />
     <ClInclude Include="SDL_TextRenderer.h" />
+    <ClInclude Include="StackGridItem.h" />
     <ClInclude Include="TradeDeal.h" />
     <ClInclude Include="TradeResource.h" />
     <ClInclude Include="TradeView.h" />
