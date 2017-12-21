@@ -3,21 +3,31 @@
 #include "GameModel.h"
 
 #include <sstream>
-#include <ctime>
+#include <iomanip>
 
 namespace global_domination {
+	
 	GameModel::GameModel()
 	{
-		date = std::chrono::system_clock::now();
+		date = new tm();
+		date->tm_mon = 1;
+		date->tm_mday = 1;
+		date->tm_year = 118;
+
 		current_turn_ = 0;
+
+	}
+
+	GameModel::~GameModel()
+	{
+		delete date;
+		date = nullptr;
 	}
 
 	std::string GameModel::getDateString()
 	{
 		std::stringstream ss;
-		std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
-		std::time_t now_c = std::chrono::system_clock::to_time_t(date);
-		ss << std::put_time(localtime(&now_c), "%F %T");
+		ss << std::put_time(date, "%d %b %Y");
 		return ss.str();
 	}
 
@@ -33,7 +43,7 @@ namespace global_domination {
 
 	void GameModel::nextTurn()
 	{
-		date += std::chrono::hours(24);
+		date->tm_mday += 1;
 		Message turn_summary_message("Progress report", getSummaryReport());
 		pushMessage(turn_summary_message);
 
