@@ -24,7 +24,7 @@ namespace global_domination {
 		void updateNations();
 	private:
 		unsigned int current_turn_;
-		struct tm *date;
+		time_t date;
 		Nation selected_nation_;
 		std::vector<Nation> nations_;
 		std::vector<Message> inbox_messages_;
