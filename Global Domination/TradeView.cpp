@@ -19,8 +19,18 @@ namespace global_domination
 	TradeView::~TradeView()
 	{
 	}
+	TradeDeal* TradeView::getSelectedTradeDeal()
+	{
+		std::shared_ptr<SDLListBox<TradeDeal>> trade_deal_list = std::dynamic_pointer_cast<SDLListBox<TradeDeal>>(getControl(TRADE_DEAL_LIST_EXISTING));
+		return trade_deal_list->selectedItem();
+	}
 	void TradeView::initialize()
 	{
+		addLabel("Resource:", client_area_.w * 0.7, client_area_.h * 0.2, TRADEVIEW_DEAL_RESOURCE_LABEL, 15);
+		addLabel("Value per annum:", client_area_.w * 0.7, client_area_.h * 0.25, TRADEVIEW_DEAL_RESOURCE_LABEL, 15);
+		addLabel("Total value:", client_area_.w * 0.7, client_area_.h * 0.3, TRADEVIEW_DEAL_RESOURCE_LABEL, 15);
+		addLabel("Expiry date:", client_area_.w * 0.7, client_area_.h * 0.35, TRADEVIEW_DEAL_RESOURCE_LABEL, 15);
+
 		addLabel("Trade offers:", client_area_.w * 0.08, client_area_.h * 0.15, TRADEVIEW_TRADEDEALS_LABEL);
 		SDL_Rect trade_deal_list_area{ client_area_.w * 0.08, client_area_.h * 0.2, client_area_.w * 0.25, client_area_.h * 0.5 };
 		std::shared_ptr<SDLListBox<TradeDeal>> trade_deal_list = std::make_shared<SDLListBox<TradeDeal>>(parent_, trade_deal_list_area, client_area_.h * 0.1);
@@ -48,7 +58,7 @@ namespace global_domination
 		std::vector<TradeDeal> trade_deals = nation_.getTradeDeals();
 		for (std::vector<TradeDeal>::const_iterator deal = trade_deals.cbegin(); deal != trade_deals.end(); deal++)
 		{
-			trade_deal_list->addItem(ListItem<TradeDeal>(deal->getPayee(), trade_deal_selection_action, *deal));
+			existing_trade_deal_list->addItem(ListItem<TradeDeal>(deal->reportString(), trade_deal_selection_action, *deal));
 		}
 
 		addControl(resource_list);
@@ -57,5 +67,14 @@ namespace global_domination
 	}
 	void TradeView::respondToAction(TYPES::ACTION_LIST action)
 	{
+		switch (action)
+		{
+			case TYPES::ACTION_LIST::SELECTING_TRADE_DEAL:
+			{
+				TradeResource selected_resource = getSelectedTradeDeal()->getResource();
+				setLabelText(TRADEVIEW_DEAL_RESOURCE_LABEL, "Resource: " + selected_resource.reportString());
+			}
+			break;
+		}
 	}
 }

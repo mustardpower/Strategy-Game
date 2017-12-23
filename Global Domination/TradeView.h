@@ -10,6 +10,7 @@ namespace global_domination
 	public:
 		TradeView::TradeView(Game* the_game, SDL_Window * parent, SDL_Rect client_area);
 		virtual ~TradeView();
+		TradeDeal* getSelectedTradeDeal();
 		void initialize();
 		void respondToAction(TYPES::ACTION_LIST action);
 	private:

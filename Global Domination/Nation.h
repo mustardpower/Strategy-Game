@@ -11,7 +11,7 @@ namespace global_domination
 	{
 	public:
 		Nation() {};
-		Nation(std::string a_name, double bank_balance, int population, std::map<TradeResource, int> resources);
+		Nation(std::string a_name, double bank_balance, int population, std::map<TradeResource, int> resources, std::vector<TradeDeal> trade_deals);
 		double calculateExpenses();
 		double calculateIncome();
 		double getGDP() const;
@@ -22,6 +22,7 @@ namespace global_domination
 		int getPopulation() const;
 		std::vector<TradeDeal> getTradeDeals() const;
 		std::map<TradeResource, int> getTradeResources() const;
+		void makeTradeDeals();
 		std::string reportString() const;
 		void update();
 		void updateFinances();

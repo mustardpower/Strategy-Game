@@ -13,27 +13,20 @@ namespace global_domination
 
 		std::map<TradeResource, int> resources;
 		std::map<std::string, int> json_resources = j.at("resources").get<std::map<std::string, int>>();
-		TradeResource* matching_resource = nullptr;
 
-		std::vector<TradeResource*> trade_resources = TradeResource::createTradeResources("trade resources.json");
+		TradeResource resource;
+		TradeResource::createTradeResources("trade resources.json");
 		for (std::map<std::string, int>::iterator pair = json_resources.begin(); pair != json_resources.end(); pair++)
 		{
-			for (std::vector<TradeResource*>::iterator resource = trade_resources.begin(); resource != trade_resources.end(); resource++)
-			{
-				if ((*resource)->getName() == pair->first)
-				{
-					matching_resource = *resource;
-				}
-				// find the resource with the name pair->first
-			}
-
+			
+			bool matching_resource = TradeResource::find(pair->first, resource);
 			if (matching_resource)
 			{
-				resources.emplace(std::pair<TradeResource, int>(*matching_resource, pair->second));
+				resources.emplace(std::pair<TradeResource, int>(resource, pair->second));
 			}
 		}
 
-		nation = Nation(j.at("name").get<std::string>(), j.at("GDP").get<double>(), j.at("population").get<int>(), resources);
+		nation = Nation(j.at("name").get<std::string>(), j.at("GDP").get<double>(), j.at("population").get<int>(), resources, j.at("trade deals").get<std::vector<TradeDeal>>());
 	}
 
 	std::vector<Nation> NationFactory::createNations(std::string file_path)

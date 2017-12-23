@@ -32,9 +32,9 @@ namespace global_domination
 	void NationSelectionView::initialize()
 	{
 		addLabel("Select a nation:", client_area_.w * 0.15, client_area_.h * 0.25, NATION_SELECTION_PROMPT_LABEL);
-		addLabel("", client_area_.w * 0.6, client_area_.h * 0.25, NATION_SELECTION_POPULATION_LABEL, 12);
-		addLabel("", client_area_.w * 0.6, client_area_.h * 0.30, NATION_SELECTION_GDP_LABEL, 12);
-		addLabel("", client_area_.w * 0.6, client_area_.h * 0.35, NATION_SELECTION_GDP_PER_CAPITA_LABEL, 12);
+		addLabel("", client_area_.w * 0.6, client_area_.h * 0.25, NATION_SELECTION_POPULATION_LABEL, 15);
+		addLabel("", client_area_.w * 0.6, client_area_.h * 0.30, NATION_SELECTION_GDP_LABEL, 15);
+		addLabel("", client_area_.w * 0.6, client_area_.h * 0.35, NATION_SELECTION_GDP_PER_CAPITA_LABEL, 15);
 
 		std::shared_ptr<SDLButton> start_button = std::make_shared<SDLButton>(parent_, "START", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::CHANGEVIEW_INBOX), client_area_.w * 0.8, client_area_.h * 0.8, 200, 300);
 		addControl(start_button);

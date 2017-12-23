@@ -8,7 +8,24 @@
       "Oil": 4,
       "Gold": 5,
       "Potatoes": 7
-    }
+    },
+    "trade deals": [
+      {
+        "trader": "China",
+        "resource": "Potatoes",
+        "quantity": 14
+      },
+      {
+        "trader": "China",
+        "resource": "Gold",
+        "quantity": 14
+      },
+      {
+        "trader": "USA",
+        "resource": "Potatoes",
+        "quantity": 7
+      }
+    ]
   },
   {
     "name": "Brazil",
@@ -18,7 +35,19 @@
       "Oil": 4,
       "Gold": 5,
       "Iron":  12
-    }
+    },
+	"trade deals": [
+		{
+			"trader": "China",
+			"resource": "Potatoes",
+			"quantity": 14
+		},
+		{
+			"trader": "USA",
+			"resource": "Potatoes",
+			"quantity": 7
+		}
+	]
   },
   {
     "name": "Canada",
@@ -27,7 +56,19 @@
     "resources": {
       "Oil": 4,
       "Gold": 5
-    }
+    },
+	"trade deals": [
+		{
+			"trader": "China",
+			"resource": "Potatoes",
+			"quantity": 14
+		},
+		{
+			"trader": "USA",
+			"resource": "Potatoes",
+			"quantity": 7
+		}
+	]
   },
   {
     "name": "China",
@@ -36,7 +77,19 @@
     "resources": {
       "Oil": 4,
       "Gold": 5
-    }
+    },
+	"trade deals": [
+		{
+			"trader": "Japan",
+			"resource": "Potatoes",
+			"quantity": 14
+		},
+		{
+			"trader": "USA",
+			"resource": "Potatoes",
+			"quantity": 7
+		}
+	]
   },
   {
     "name": "France",
@@ -45,7 +98,19 @@
     "resources": {
       "Oil": 4,
       "Gold": 5
-    }
+    },
+	"trade deals": [
+		{
+			"trader": "China",
+			"resource": "Potatoes",
+			"quantity": 14
+		},
+		{
+			"trader": "USA",
+			"resource": "Potatoes",
+			"quantity": 7
+		}
+	]
   },
   {
     "name": "Germany",
@@ -54,7 +119,19 @@
     "resources": {
       "Oil": 4,
       "Gold": 5
-    }
+    },
+	"trade deals": [
+		{
+			"trader": "China",
+			"resource": "Potatoes",
+			"quantity": 14
+		},
+		{
+			"trader": "USA",
+			"resource": "Potatoes",
+			"quantity": 7
+		}
+	]
   },
   {
     "name": "India",
@@ -63,7 +140,19 @@
     "resources": {
       "Oil": 4,
       "Gold": 5
-    }
+    },
+	"trade deals": [
+		{
+			"trader": "China",
+			"resource": "Potatoes",
+			"quantity": 14
+		},
+		{
+			"trader": "USA",
+			"resource": "Potatoes",
+			"quantity": 7
+		}
+	]
   },
   {
     "name": "Italy",
@@ -72,7 +161,19 @@
     "resources": {
       "Oil": 4,
       "Gold": 5
-    }
+    },
+	"trade deals": [
+		{
+			"trader": "China",
+			"resource": "Potatoes",
+			"quantity": 14
+		},
+		{
+			"trader": "USA",
+			"resource": "Potatoes",
+			"quantity": 7
+		}
+	]
   },
   {
     "name": "Japan",
@@ -81,7 +182,19 @@
     "resources": {
       "Oil": 4,
       "Gold": 5
-    }
+    },
+	"trade deals": [
+		{
+			"trader": "China",
+			"resource": "Potatoes",
+			"quantity": 14
+		},
+		{
+			"trader": "USA",
+			"resource": "Potatoes",
+			"quantity": 7
+		}
+	]
   },
   {
     "name": "Moldova",
@@ -90,7 +203,19 @@
     "resources": {
       "Oil": 4,
       "Gold": 5
-    }
+    },
+	"trade deals": [
+		{
+			"trader": "China",
+			"resource": "Potatoes",
+			"quantity": 14
+		},
+		{
+			"trader": "USA",
+			"resource": "Potatoes",
+			"quantity": 7
+		}
+	]
   },
   {
     "name": "Monaco",
@@ -99,7 +224,19 @@
     "resources": {
       "Oil": 4,
       "Gold": 5
-    }
+    },
+	"trade deals": [
+		{
+			"trader": "China",
+			"resource": "Potatoes",
+			"quantity": 14
+		},
+		{
+			"trader": "USA",
+			"resource": "Potatoes",
+			"quantity": 7
+		}
+	]
   },
   {
     "name": "Turkey",
@@ -108,7 +245,19 @@
     "resources": {
       "Oil": 4,
       "Gold": 5
-    }
+    },
+	"trade deals": [
+		{
+			"trader": "China",
+			"resource": "Potatoes",
+			"quantity": 14
+		},
+		{
+			"trader": "USA",
+			"resource": "Potatoes",
+			"quantity": 7
+		}
+	]
   },
   {
     "name": "Tuvalu",
@@ -117,7 +266,19 @@
     "resources": {
       "Oil": 4,
       "Gold": 5
-    }
+    },
+	"trade deals": [
+		{
+			"trader": "China",
+			"resource": "Potatoes",
+			"quantity": 14
+		},
+		{
+			"trader": "USA",
+			"resource": "Potatoes",
+			"quantity": 7
+		}
+	]
   },
   {
     "name": "United Kingdom",
@@ -126,7 +287,19 @@
     "resources": {
       "Oil": 4,
       "Gold": 5
-    }
+    },
+	"trade deals": [
+		{
+			"trader": "China",
+			"resource": "Potatoes",
+			"quantity": 14
+		},
+		{
+			"trader": "USA",
+			"resource": "Potatoes",
+			"quantity": 7
+		}
+	]
   },
   {
     "name": "USA",
@@ -135,6 +308,18 @@
     "resources": {
       "Oil": 4,
       "Gold": 5
-    }
+    },
+	"trade deals": [
+		{
+			"trader": "Canada",
+			"resource": "Potatoes",
+			"quantity": 14
+		},
+		{
+			"trader": "China",
+			"resource": "Potatoes",
+			"quantity": 7
+		}
+	]
   }
 ]

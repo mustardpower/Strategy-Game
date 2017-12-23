@@ -4,6 +4,8 @@
 
 namespace global_domination
 {
+	std::vector<TradeResource> TradeResource::resources_;
+
 	void to_json(nlohmann::json & j, const TradeResource & resource)
 	{
 		j = nlohmann::json{ { "name", resource.getName() },{ "price per unit", resource.getUnitPrice() },{ "edible", resource.isEdible() } };
@@ -13,7 +15,7 @@ namespace global_domination
 	{
 		resource = TradeResource(j.at("name").get<std::string>(), j.at("price per unit").get<double>(), j.at("edible").get<bool>());
 	}
-	
+
 	TradeResource::TradeResource(std::string name, double unit_price, bool is_edible)
 	{
 		name_ = name;
@@ -40,12 +42,25 @@ namespace global_domination
 		return getName();
 	}
 
-	std::vector<TradeResource*> TradeResource::createTradeResources(std::string file_path)
+	// returns true if resource found and false if not
+	bool TradeResource::find(std::string resource_name, TradeResource &matched_resource)
+	{
+		for (std::vector<TradeResource>::iterator resource = resources_.begin(); resource != resources_.end(); resource++)
+		{
+			if(resource->getName() == resource_name)
+			{
+				matched_resource = *resource;
+				return true;
+			}
+		}
+		return false;
+	}
+
+	void TradeResource::createTradeResources(std::string file_path)
 	{
 		std::ifstream i(file_path);
 
-		TradeResource resource;
-		std::vector<TradeResource*> resources;
+		TradeResource resource;	
 
 		if (i.is_open())
 		{
@@ -54,13 +69,11 @@ namespace global_domination
 			for (nlohmann::json::iterator it = j.begin(); it != j.end(); ++it)
 			{
 				from_json(*it, resource);
-				resources.push_back(new TradeResource(resource));
+				resources_.push_back(resource);
 			}
 
 			i.close();
 		}
-
-		return resources;
 	}
 
 	bool TradeResource::operator<(const TradeResource & another) const

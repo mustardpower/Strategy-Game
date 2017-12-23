@@ -17,9 +17,11 @@ namespace global_domination
 		bool isEdible() const;
 		std::string reportString() const;
 
-		static std::vector<TradeResource*> createTradeResources(std::string file_path);
+		static bool find(std::string resource_name, TradeResource& resource);
+		static void createTradeResources(std::string file_path);
 		bool operator <(const TradeResource& another) const;
 	private:
+		static std::vector<TradeResource> resources_;
 		std::string name_;
 		double price_per_unit_;
 		bool is_edible_;
