@@ -35,6 +35,11 @@ namespace global_domination
 		return is_edible_;
 	}
 
+	std::string TradeResource::reportString() const
+	{
+		return getName();
+	}
+
 	std::vector<TradeResource*> TradeResource::createTradeResources(std::string file_path)
 	{
 		std::ifstream i(file_path);
