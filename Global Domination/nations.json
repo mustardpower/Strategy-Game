@@ -6,7 +6,8 @@
     "population": 24125848,
     "resources": {
       "Oil": 4,
-      "Gold": 5
+      "Gold": 5,
+      "Potatoes": 7
     }
   },
   {
@@ -15,7 +16,8 @@
     "population": 207652865,
     "resources": {
       "Oil": 4,
-      "Gold": 5
+      "Gold": 5,
+      "Iron":  12
     }
   },
   {

@@ -41,13 +41,7 @@ namespace global_domination
 		for (std::map<TradeResource, int>::const_iterator resource = trade_resources.cbegin(); resource != trade_resources.end(); resource++)
 		{
 			TradeResource trade_resource = (*resource).first;
-			for (int i = 0; i < 10; i++)
-			{
-				for (int j = 0; j < 2; j++)
-				{
-					resource_list->addItem(StackGridItem<TradeResource>(trade_deal_selection_action, trade_resource), i, j);
-				}
-			}
+			resource_list->addItemAtNextFreeSlot(StackGridItem<TradeResource>(trade_deal_selection_action, trade_resource));
 		}
 
 		std::vector<TradeDeal> trade_deals = nation_.getTradeDeals();

@@ -8,5 +8,20 @@
     "name": "Gold",
 	"price per unit" : 80,
 	"edible" : false
+  },
+  {
+    "name": "Iron",
+	"price per unit" : 13,
+	"edible" : false
+  },
+  {
+    "name": "Cars",
+	"price per unit" : 4000,
+	"edible" : false
+  },
+  {
+    "name": "Potatoes",
+	"price per unit" : 6,
+	"edible" : true
   }
 ]

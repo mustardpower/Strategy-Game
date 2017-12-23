@@ -12,6 +12,7 @@ namespace global_domination
 	public:
 		SDLStackGrid(SDL_Window* parent, SDL_Rect client_area);
 		void addItem(StackGridItem<T> item, int location_x, int location_y);
+		void addItemAtNextFreeSlot(StackGridItem<T> item);
 		bool containsPoint(SDL_Rect aRect, int x, int y);
 		bool handleClick(int x, int y);
 		void render(SDL_Renderer* renderer);
@@ -33,6 +34,22 @@ namespace global_domination
 	inline void SDLStackGrid<T, X, Y>::addItem(StackGridItem<T> item, int location_x, int location_y)
 	{
 		items_[location_x][location_y] = item;
+	}
+
+	template<class T, int X, int Y>
+	inline void SDLStackGrid<T, X, Y>::addItemAtNextFreeSlot(StackGridItem<T> item)
+	{
+		for (int j = 0; j < Y; j++)
+		{
+			for (int i = 0; i < X; i++)
+			{
+				if (items_[i][j].reportString().empty())
+				{
+					items_[i][j] = item;
+					return;
+				}
+			}
+		}
 	}
 
 	template <class T, int X, int Y>
