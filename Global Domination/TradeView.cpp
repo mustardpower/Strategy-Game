@@ -37,13 +37,14 @@ namespace global_domination
 		resource_list->setId(TRADE_RESOURCE_LIST);
 
 		std::map<TradeResource, int> trade_resources = nation_.getTradeResources();
-		std::shared_ptr<Action> trade_deal_selection_action = std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::SELECTING_TRADE_DEAL);
+		std::shared_ptr<Action> resource_selection_action = std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::SELECTING_RESOURCE);
 		for (std::map<TradeResource, int>::const_iterator resource = trade_resources.cbegin(); resource != trade_resources.end(); resource++)
 		{
 			TradeResource trade_resource = (*resource).first;
-			resource_list->addItemAtNextFreeSlot(StackGridItem<TradeResource>(trade_deal_selection_action, trade_resource));
+			resource_list->addItemAtNextFreeSlot(StackGridItem<TradeResource>(resource_selection_action, trade_resource));
 		}
 
+		std::shared_ptr<Action> trade_deal_selection_action = std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::SELECTING_TRADE_DEAL);
 		std::vector<TradeDeal> trade_deals = nation_.getTradeDeals();
 		for (std::vector<TradeDeal>::const_iterator deal = trade_deals.cbegin(); deal != trade_deals.end(); deal++)
 		{
