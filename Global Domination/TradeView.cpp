@@ -27,9 +27,9 @@ namespace global_domination
 	void TradeView::initialize()
 	{
 		addLabel("Resource:", client_area_.w * 0.7, client_area_.h * 0.2, TRADEVIEW_DEAL_RESOURCE_LABEL, 15);
-		addLabel("Value per annum:", client_area_.w * 0.7, client_area_.h * 0.25, TRADEVIEW_DEAL_RESOURCE_LABEL, 15);
-		addLabel("Total value:", client_area_.w * 0.7, client_area_.h * 0.3, TRADEVIEW_DEAL_RESOURCE_LABEL, 15);
-		addLabel("Expiry date:", client_area_.w * 0.7, client_area_.h * 0.35, TRADEVIEW_DEAL_RESOURCE_LABEL, 15);
+		addLabel("Value per annum:", client_area_.w * 0.7, client_area_.h * 0.25, TRADEVIEW_DEAL_VALUEPERANNUM_LABEL, 15);
+		addLabel("Total value:", client_area_.w * 0.7, client_area_.h * 0.3, TRADEVIEW_DEAL_TOTALVALUE_LABEL, 15);
+		addLabel("Expiry date:", client_area_.w * 0.7, client_area_.h * 0.35, TRADEVIEW_DEAL_EXPIRYDATE_LABEL, 15);
 
 		addLabel("Trade offers:", client_area_.w * 0.08, client_area_.h * 0.15, TRADEVIEW_TRADEDEALS_LABEL);
 		SDL_Rect trade_deal_list_area{ client_area_.w * 0.08, client_area_.h * 0.2, client_area_.w * 0.25, client_area_.h * 0.5 };
@@ -71,8 +71,15 @@ namespace global_domination
 		{
 			case TYPES::ACTION_LIST::SELECTING_TRADE_DEAL:
 			{
-				TradeResource selected_resource = getSelectedTradeDeal()->getResource();
-				setLabelText(TRADEVIEW_DEAL_RESOURCE_LABEL, "Resource: " + selected_resource.reportString());
+				TradeDeal* trade_deal = getSelectedTradeDeal();
+				if (trade_deal)
+				{
+					TradeResource selected_resource = trade_deal->getResource();
+					setLabelText(TRADEVIEW_DEAL_RESOURCE_LABEL, "Resource: " + selected_resource.reportString());
+					setLabelText(TRADEVIEW_DEAL_VALUEPERANNUM_LABEL, "Value per annum: " + trade_deal->reportValuePerAnnum());
+					setLabelText(TRADEVIEW_DEAL_TOTALVALUE_LABEL, "Total value: " + trade_deal->reportTotalValue());
+					setLabelText(TRADEVIEW_DEAL_EXPIRYDATE_LABEL, "Expiry date: " + trade_deal->reportExpiryDate());
+				}
 			}
 			break;
 		}

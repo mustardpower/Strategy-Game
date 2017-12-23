@@ -14,13 +14,13 @@ namespace global_domination {
 		time->tm_mday = 1;
 		time->tm_year = 118;
 		date = mktime(time);
+		delete time;
 		current_turn_ = 0;
 
 	}
 
 	GameModel::~GameModel()
 	{
-		
 	}
 
 	std::string GameModel::getDateString()
