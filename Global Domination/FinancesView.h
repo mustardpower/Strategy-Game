@@ -13,6 +13,6 @@ namespace global_domination
 		void initialize();
 		void respondToAction(TYPES::ACTION_LIST action);
 	private:
-		Nation nation_;
+		Nation* nation_;
 	};
 }

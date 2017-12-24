@@ -13,19 +13,21 @@ namespace global_domination {
 		GameModel();
 		~GameModel();
 		std::string getDateString();
-		Nation getSelectedNation();
+		Nation* getNation(std::string name);
+		Nation* getSelectedNation();
 		std::string getSelectedNationName();
 		std::string getSummaryReport();
 		std::vector<Message> getInboxMessages();
 		void nextTurn();
 		void pushMessage(Message new_message);
 		void respondToAction(TYPES::ACTION_LIST action);
-		void setSelectedNation(Nation selected_nation);
+		void setNations(std::vector<Nation> nations);
+		void setSelectedNation(Nation* selected_nation);
 		void updateNations();
 	private:
 		unsigned int current_turn_;
 		time_t date;
-		Nation selected_nation_;
+		Nation* selected_nation_;
 		std::vector<Nation> nations_;
 		std::vector<Message> inbox_messages_;
 	};

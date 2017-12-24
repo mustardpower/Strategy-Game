@@ -59,7 +59,7 @@ namespace global_domination
 		std::shared_ptr<SDLStackGrid<TradeResource, 10, 2>> resource_list = std::make_shared<SDLStackGrid<TradeResource, 10, 2>>(parent_, resource_list_area);
 		resource_list->setId(TRADE_RESOURCE_LIST);
 
-		std::map<TradeResource, int> trade_resources = nation_.getTradeResources();
+		std::map<TradeResource, int> trade_resources = nation_->getTradeResources();
 		std::shared_ptr<Action> resource_selection_action = std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::SELECTING_RESOURCE);
 		for (std::map<TradeResource, int>::const_iterator resource = trade_resources.cbegin(); resource != trade_resources.end(); resource++)
 		{
@@ -96,7 +96,7 @@ namespace global_domination
 		{
 			std::shared_ptr<SDLListBox<TradeDeal>> trade_deal_list = std::dynamic_pointer_cast<SDLListBox<TradeDeal>>(getControl(TRADE_DEAL_LIST_EXISTING));
 			trade_deal_list->clearItems();
-			std::vector<TradeDeal> trade_deals_for_resource = nation_.getTradeDealsForResource(*trade_resource);
+			std::vector<TradeDeal> trade_deals_for_resource = nation_->getTradeDealsForResource(*trade_resource);
 			for (std::vector<TradeDeal>::const_iterator deal = trade_deals_for_resource.cbegin(); deal != trade_deals_for_resource.end(); deal++)
 			{
 				trade_deal_list->addItem(ListItem<TradeDeal>(deal->reportString(), getTradeDealSelectionAction(), *deal));

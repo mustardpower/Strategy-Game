@@ -30,7 +30,18 @@ namespace global_domination {
 		return ss.str();
 	}
 
-	Nation GameModel::getSelectedNation()
+	Nation * GameModel::getNation(std::string name)
+	{
+		for (std::vector<Nation>::iterator nation = nations_.begin(); nation != nations_.end(); nation++)
+		{
+			if (nation->getName() == name)
+			{
+				return &(*nation);
+			}
+		}
+	}
+
+	Nation* GameModel::getSelectedNation()
 	{
 		return selected_nation_;
 	}
@@ -71,9 +82,14 @@ namespace global_domination {
 		}
 	}
 
+	void GameModel::setNations(std::vector<Nation> nations)
+	{
+		nations_ = nations;
+	}
+
 	std::string GameModel::getSelectedNationName()
 	{
-		std::string nation_name = selected_nation_.getName();
+		std::string nation_name = selected_nation_->getName();
 		if (!nation_name.size())
 		{
 			return "Undefined Nation";
@@ -87,7 +103,7 @@ namespace global_domination {
 		return inbox_messages_;
 	}
 
-	void GameModel::setSelectedNation(Nation selected_nation)
+	void GameModel::setSelectedNation(Nation* selected_nation)
 	{
 		selected_nation_ = selected_nation;
 	}

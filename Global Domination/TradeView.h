@@ -18,6 +18,6 @@ namespace global_domination
 		void updateForSelectedResource();
 		void updateForSelectedTradeDeal();
 	private:
-		Nation nation_;
+		Nation* nation_;
 	};
 }

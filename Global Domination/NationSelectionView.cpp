@@ -17,6 +17,7 @@ namespace global_domination
 	{
 		NationFactory nationFactory;
 		nations_ = nationFactory.createNations("nations.json");
+		the_game->getGameModel()->setNations(nations_);
 	}
 
 	NationSelectionView::~NationSelectionView()
@@ -26,7 +27,9 @@ namespace global_domination
 	Nation* NationSelectionView::getSelectedNation()
 	{
 		std::shared_ptr<SDLListBox<Nation>> nation_selection_menu = std::dynamic_pointer_cast<SDLListBox<Nation>>(getControl(NATION_SELECTION_MENU));
-		return nation_selection_menu->selectedItem();
+		std::string nation_name = nation_selection_menu->selectedItem()->getName();
+		return the_game_->getGameModel()->getNation(nation_name);
+		
 	}
 
 	void NationSelectionView::initialize()
@@ -80,7 +83,7 @@ namespace global_domination
 			case TYPES::ACTION_LIST::CHANGEVIEW_INBOX:
 			{
 				Nation* selected_nation = getSelectedNation();
-				the_game_->getGameModel()->setSelectedNation(*selected_nation);
+				the_game_->getGameModel()->setSelectedNation(selected_nation);
 
 				Message welcome_message("Welcome to " + selected_nation->getName(), "You have arrived in " + selected_nation->getName() + ". Please wipe your feet and make our country glorious.");
 				the_game_->getGameModel()->pushMessage(welcome_message);
