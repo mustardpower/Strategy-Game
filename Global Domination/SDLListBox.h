@@ -240,6 +240,7 @@ namespace global_domination
 	inline T* SDLListBox<T>::selectedItem()
 	{
 		if (!items_.size()) { return nullptr; }
+		if (items_.size() <= selected_item_index_) { selected_item_index_ = 0; }
 		return items_.at(selected_item_index_).getData();
 	}
 
