@@ -19,7 +19,12 @@ namespace global_domination
 
 	double Nation::calculateIncome()
 	{
-		return 0.0;
+		double income = 0.0;
+		for (std::vector<TradeDeal>::iterator deal = trade_deals_.begin(); deal != trade_deals_.end(); deal++)
+		{
+			income += deal->getValuePerAnnum();
+		}
+		return income;
 	}
 
 	double Nation::getGDP() const
