@@ -11,11 +11,13 @@ namespace global_domination
 	{
 	public:
 		SDLStackGrid(SDL_Window* parent, SDL_Rect client_area);
+		~SDLStackGrid();
 		void addItem(StackGridItem<T> item, int location_x, int location_y);
 		void addItemAtNextFreeSlot(StackGridItem<T> item);
 		bool containsPoint(SDL_Rect aRect, int x, int y);
 		bool handleClick(int x, int y);
 		void render(SDL_Renderer* renderer);
+		T* selectedItem();
 	private:
 		SDL_Rect client_area_;
 		std::array<std::array<StackGridItem<T>, Y>, X> items_;
@@ -28,6 +30,13 @@ namespace global_domination
 	inline SDLStackGrid<T, X, Y>::SDLStackGrid(SDL_Window * parent, SDL_Rect client_area) : SDLControl(parent)
 	{
 		client_area_ = client_area;
+		selected_item_index_x_ = 0;
+		selected_item_index_y_ = 0;
+	}
+
+	template<class T, int X, int Y>
+	inline SDLStackGrid<T, X, Y>::~SDLStackGrid()
+	{
 	}
 
 	template <class T, int X, int Y>
@@ -120,5 +129,11 @@ namespace global_domination
 				global_domination::text_renderer::renderText(parent_, item.reportString(), text_location, text_color, SDL_Color{ 0,0,0,0xFF }, 15);
 			}
 		}
+	}
+	template<class T, int X, int Y>
+	inline T * SDLStackGrid<T, X, Y>::selectedItem()
+	{
+		int a = selected_item_index_x_;
+		return (items_[selected_item_index_x_][selected_item_index_y_]).getData();
 	}
 }

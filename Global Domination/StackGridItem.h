@@ -9,12 +9,9 @@ namespace global_domination
 	{
 	public:
 		StackGridItem() {};
-		std::shared_ptr<Action> getAction();
 		T* getData();
-		std::shared_ptr<SDL_Rect> getTextLocation();
 		void invokeAction() const;
 		std::string reportString() const;
-		void setTextLocation(SDL_Rect text_location);
 
 		StackGridItem(std::shared_ptr<Action> an_action, T menu_item_data)
 		{
@@ -30,33 +27,21 @@ namespace global_domination
 	};
 
 	template<class T>
-	inline std::shared_ptr<Action> StackGridItem<T>::getAction()
-	{
-		return std::shared_ptr<Action>();
-	}
-
-	template<class T>
 	inline T * StackGridItem<T>::getData()
 	{
-		return NULL;
+		return &data_;
 	}
 
-	template<class T>
-	inline std::shared_ptr<SDL_Rect> StackGridItem<T>::getTextLocation()
-	{
-		return std::shared_ptr<SDL_Rect>();
-	}
 	template<class T>
 	inline void StackGridItem<T>::invokeAction() const
 	{
+		action_->execute();
 	}
+
 	template<class T>
 	inline std::string StackGridItem<T>::reportString() const
 	{
 		return data_.reportString();
 	}
-	template<class T>
-	inline void StackGridItem<T>::setTextLocation(SDL_Rect text_location)
-	{
-	}
+
 }

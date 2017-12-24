@@ -80,6 +80,11 @@ namespace global_domination
 	{
 		return name_ < another.name_;
 	}
+
+	bool TradeResource::operator==(const TradeResource & another) const
+	{
+		return name_ == another.name_;
+	}
 	
 
 }

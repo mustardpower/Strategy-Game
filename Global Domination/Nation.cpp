@@ -58,6 +58,20 @@ namespace global_domination
 		return trade_deals_;
 	}
 
+	std::vector<TradeDeal> Nation::getTradeDealsForResource(TradeResource resource)
+	{
+		std::vector<TradeDeal> matching_deals;
+		for (std::vector<TradeDeal>::iterator deal = trade_deals_.begin(); deal != trade_deals_.end(); deal++)
+		{
+			if (deal->getResource() == resource)
+			{
+				matching_deals.push_back(*deal);
+			}
+		}
+
+		return matching_deals;
+	}
+
 	std::map<TradeResource, int> Nation::getTradeResources() const
 	{
 		return resources_;

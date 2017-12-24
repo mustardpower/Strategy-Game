@@ -21,6 +21,7 @@ namespace global_domination
 		unsigned int getNumberOfBirthsInTurn() const;
 		int getPopulation() const;
 		std::vector<TradeDeal> getTradeDeals() const;
+		std::vector<TradeDeal> getTradeDealsForResource(TradeResource resource);
 		std::map<TradeResource, int> getTradeResources() const;
 		void makeTradeDeals();
 		std::string reportString() const;

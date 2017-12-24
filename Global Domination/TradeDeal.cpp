@@ -44,7 +44,7 @@ namespace global_domination
 
 	std::string TradeDeal::reportString() const
 	{
-		return getPayee() + " - " + resource_.getName();
+		return getPayee();
 	}
 
 	std::string TradeDeal::reportTotalValue() const
