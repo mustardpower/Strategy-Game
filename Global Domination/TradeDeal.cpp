@@ -58,6 +58,11 @@ namespace global_domination
 		return std::to_string(getValuePerAnnum());
 	}
 
+	bool TradeDeal::operator<(const TradeDeal & another) const
+	{
+		return reportString() < another.reportString();
+	}
+
 	void to_json(nlohmann::json& j, const TradeDeal& trade_deal) {
 		j = nlohmann::json{ { "payee", trade_deal.getPayee() } };
 	}

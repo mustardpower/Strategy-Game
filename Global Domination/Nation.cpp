@@ -102,7 +102,7 @@ namespace global_domination
 	std::vector<TradeDeal> Nation::getTradeOffersForResource(TradeResource resource)
 	{
 		std::vector<TradeDeal> matching_offers;
-		for (std::vector<TradeDeal>::iterator offer = trade_offers_.begin(); offer != trade_offers_.end(); offer++)
+		for (std::set<TradeDeal>::iterator offer = trade_offers_.begin(); offer != trade_offers_.end(); offer++)
 		{
 			if (offer->getResource() == resource)
 			{
@@ -142,7 +142,7 @@ namespace global_domination
 
 	void Nation::recieveTradeOffer(TradeDeal prospective_deal)
 	{
-		trade_offers_.push_back(prospective_deal);
+		trade_offers_.emplace(prospective_deal);
 	}
 
 	std::string Nation::reportString() const

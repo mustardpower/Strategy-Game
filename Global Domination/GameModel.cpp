@@ -31,6 +31,11 @@ namespace global_domination {
 		return ss.str();
 	}
 
+	std::vector<Message> GameModel::getInboxMessages()
+	{
+		return inbox_messages_;
+	}
+
 	Nation * GameModel::getNation(std::string name)
 	{
 		for (std::vector<Nation>::iterator nation = nations_.begin(); nation != nations_.end(); nation++)
@@ -139,11 +144,6 @@ namespace global_domination {
 		}
 
 		return nation_name;
-	}
-
-	std::vector<Message> GameModel::getInboxMessages()
-	{
-		return inbox_messages_;
 	}
 
 	void GameModel::setSelectedNation(Nation* selected_nation)

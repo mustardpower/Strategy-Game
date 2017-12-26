@@ -168,6 +168,11 @@ namespace global_domination
 	template<class T>
 	inline bool SDLListBox<T>::handleClick(int x, int y)
 	{
+		if (!is_visible_)
+		{
+			return false;
+		}
+
 		if (!containsPoint(client_area_, x, y))
 		{
 			return false;

@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <map>
+#include <set>
 
 #include "TradeDeal.h"
 #include "TradeResource.h"
@@ -41,7 +42,7 @@ namespace global_domination
 		std::map<Nation*, double> nation_friendships;
 		int population_;
 		std::map<TradeResource, int> resources_;
-		std::vector<TradeDeal> trade_offers_;
+		std::set<TradeDeal> trade_offers_;
 		std::vector<TradeDeal> trade_deals_;
 	};
 }
