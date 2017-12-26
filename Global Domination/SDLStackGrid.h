@@ -92,10 +92,13 @@ namespace global_domination
 				SDL_Rect text_location = SDL_Rect{ client_area_.x + (i * width_per_item), client_area_.y + (j * height_per_item), width_per_item, height_per_item };
 				if (containsPoint(text_location, x, y))
 				{
-					selected_item_index_x_ = i;
-					selected_item_index_y_ = j;
-					items_[i][j].invokeAction();
-					return true;
+					if (!items_[i][j].reportString().empty())
+					{
+						selected_item_index_x_ = i;
+						selected_item_index_y_ = j;
+						items_[i][j].invokeAction();
+						return true;
+					}
 				}
 			}
 		}

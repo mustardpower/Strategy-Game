@@ -22,6 +22,8 @@ namespace global_domination {
 		void pushMessage(Message new_message);
 		void respondToAction(TYPES::ACTION_LIST action);
 		void setNations(std::vector<Nation> nations);
+		void setNationalRelationships();
+		void setRelationshipsFromJSON(nlohmann::json& j, Nation& nation);
 		void setSelectedNation(Nation* selected_nation);
 		void updateNations();
 	private:

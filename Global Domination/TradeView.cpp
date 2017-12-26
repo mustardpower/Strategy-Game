@@ -77,6 +77,11 @@ namespace global_domination
 	{
 		switch (action)
 		{
+			case TYPES::ACTION_LIST::NEXT_TURN:
+			{
+				updateForSelectedResource();
+			}
+			break;
 			case TYPES::ACTION_LIST::SELECTING_RESOURCE:
 			{
 				updateForSelectedResource();
@@ -89,19 +94,35 @@ namespace global_domination
 			break;
 		}
 	}
-	void TradeView::updateForSelectedResource()
+	void TradeView::updateExistingTradeDeals()
 	{
 		TradeResource* trade_resource = getSelectedTradeResource();
-		if (trade_resource)
+		std::shared_ptr<SDLListBox<TradeDeal>> trade_deal_list = std::dynamic_pointer_cast<SDLListBox<TradeDeal>>(getControl(TRADE_DEAL_LIST_EXISTING));
+		trade_deal_list->clearItems();
+		std::vector<TradeDeal> trade_deals_for_resource = nation_->getTradeDealsForResource(*trade_resource);
+		for (std::vector<TradeDeal>::const_iterator deal = trade_deals_for_resource.cbegin(); deal != trade_deals_for_resource.end(); deal++)
 		{
-			std::shared_ptr<SDLListBox<TradeDeal>> trade_deal_list = std::dynamic_pointer_cast<SDLListBox<TradeDeal>>(getControl(TRADE_DEAL_LIST_EXISTING));
-			trade_deal_list->clearItems();
-			std::vector<TradeDeal> trade_deals_for_resource = nation_->getTradeDealsForResource(*trade_resource);
-			for (std::vector<TradeDeal>::const_iterator deal = trade_deals_for_resource.cbegin(); deal != trade_deals_for_resource.end(); deal++)
-			{
-				trade_deal_list->addItem(ListItem<TradeDeal>(deal->reportString(), getTradeDealSelectionAction(), *deal));
-			}
+			trade_deal_list->addItem(ListItem<TradeDeal>(deal->reportString(), getTradeDealSelectionAction(), *deal));
+		}
+	}
+	void TradeView::updateProspectiveTradeDeals()
+	{
+		TradeResource* trade_resource = getSelectedTradeResource();
+		std::shared_ptr<SDLListBox<TradeDeal>> trade_offers_list = std::dynamic_pointer_cast<SDLListBox<TradeDeal>>(getControl(TRADE_DEAL_LIST));
+		trade_offers_list->clearItems();
+		std::vector<TradeDeal> trade_offers_for_resource = nation_->getTradeOffersForResource(*trade_resource);
+		for (std::vector<TradeDeal>::const_iterator offer = trade_offers_for_resource.cbegin(); offer != trade_offers_for_resource.end(); offer++)
+		{
+			trade_offers_list->addItem(ListItem<TradeDeal>(offer->reportString(), getTradeDealSelectionAction(), *offer));
+		}
+	}
 
+	void TradeView::updateForSelectedResource()
+	{
+		if (getSelectedTradeResource())
+		{
+			updateExistingTradeDeals();
+			updateProspectiveTradeDeals();
 			updateForSelectedTradeDeal();
 		}
 	}

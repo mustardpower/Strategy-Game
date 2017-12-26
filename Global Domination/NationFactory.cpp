@@ -11,42 +11,29 @@ namespace global_domination
 
 	void from_json(const nlohmann::json& j, Nation& nation) {
 
-		std::map<TradeResource, int> resources;
-		std::map<std::string, int> json_resources = j.at("resources").get<std::map<std::string, int>>();
-
-		TradeResource resource;
 		TradeResource::createTradeResources("trade resources.json");
-		for (std::map<std::string, int>::iterator pair = json_resources.begin(); pair != json_resources.end(); pair++)
-		{
-			
-			bool matching_resource = TradeResource::find(pair->first, resource);
-			if (matching_resource)
-			{
-				resources.emplace(std::pair<TradeResource, int>(resource, pair->second));
-			}
-		}
-
-		nation = Nation(j.at("name").get<std::string>(), j.at("GDP").get<double>(), j.at("population").get<int>(), resources, j.at("trade deals").get<std::vector<TradeDeal>>());
+		nation = Nation(
+			j.at("name").get<std::string>(),
+			j.at("GDP").get<double>(),
+			j.at("population").get<int>(),
+			getTradeResources(j),
+			j.at("trade deals").get<std::vector<TradeDeal>>());
 	}
 
-	std::vector<Nation> NationFactory::createNations(std::string file_path)
+	void NationFactory::createNations(std::string file_path)
 	{
 		std::ifstream i(file_path);
 
 		Nation nation;
-		std::vector<Nation> nations;
-
 		nlohmann::json j;
 		i >> j;
 		for (nlohmann::json::iterator it = j.begin(); it != j.end(); ++it) 
 		{
 			from_json(*it, nation);
-			nations.push_back(nation);
+			nations_.push_back(nation);
 		}
 
 		i.close();
-		
-		return nations;
 	}
 
 	void NationFactory::createJSONFile(std::vector<Nation> nations)
@@ -59,5 +46,40 @@ namespace global_domination
 		}
 
 		i.close();
+	}
+
+	Nation* NationFactory::getNation(std::string name)
+	{
+		for (std::vector<Nation>::iterator it = nations_.begin(); it != nations_.end(); it++)
+		{
+			if(it->getName() == name)
+			return &(*it);
+		}
+
+		return NULL;
+	}
+
+	std::vector<Nation> NationFactory::getNations()
+	{
+		return nations_;
+	}
+
+	std::map<TradeResource, int> getTradeResources(const nlohmann::json& json)
+	{
+		std::map<TradeResource, int> resources;
+		std::map<std::string, int> json_resources = json.at("resources").get<std::map<std::string, int>>();
+
+		TradeResource resource;
+		for (std::map<std::string, int>::iterator pair = json_resources.begin(); pair != json_resources.end(); pair++)
+		{
+
+			bool matching_resource = TradeResource::find(pair->first, resource);
+			if (matching_resource)
+			{
+				resources.emplace(std::pair<TradeResource, int>(resource, pair->second));
+			}
+		}
+
+		return resources;
 	}
 }

@@ -1,0 +1,93 @@
+[
+
+  {
+    "name": "Australia",
+    "relationships": {
+    }
+  },
+  {
+    "name": "Brazil",
+    "relationships": {
+    }
+  },
+  {
+    "name": "Canada",
+    "relationships": {
+      "USA": 0.7,
+	  "Australia": 0.6
+    }
+  },
+  {
+    "name": "China",
+    "relationships": {
+      "Japan": 0.8
+    }
+  },
+  {
+    "name": "France",
+    "relationships": {
+      "United Kingdom": 0.8
+    }
+  },
+  {
+    "name": "Germany",
+    "relationships": {
+      "France": 0.6,
+      "United Kingdom" : 0.7
+    }
+  },
+  {
+    "name": "India",
+    "relationships": {
+      "United Kingdom" :  0.6
+    }
+  },
+  {
+    "name": "Italy",
+    "relationships": {
+      "France":  0.6
+    }
+  },
+  {
+    "name": "Japan",
+    "relationships": {
+      "China": 0.7
+    }
+  },
+  {
+    "name": "Moldova",
+    "relationships": {
+    }
+  },
+  {
+    "name": "Monaco",
+    "relationships": {
+      "France": 0.9
+    }
+  },
+  {
+    "name": "Turkey",
+    "relationships": {
+    }
+  },
+  {
+    "name": "Tuvalu",
+    "relationships": {
+      "Australia": 0.8
+    }
+  },
+  {
+    "name": "United Kingdom",
+    "relationships": {
+      "France":  0.8,
+      "USA": 0.8
+    }
+  },
+  {
+    "name": "USA",
+    "relationships": {
+      "Canada": 0.7,
+      "United Kingdom" :  0.8
+    }
+  }
+]

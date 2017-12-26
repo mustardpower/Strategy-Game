@@ -16,8 +16,10 @@ namespace global_domination
 	NationSelectionView::NationSelectionView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : View(the_game, parent, client_area)
 	{
 		NationFactory nationFactory;
-		nations_ = nationFactory.createNations("nations.json");
+		nationFactory.createNations("nations.json");
+		nations_ = nationFactory.getNations();
 		the_game->getGameModel()->setNations(nations_);
+		the_game->getGameModel()->setNationalRelationships();
 	}
 
 	NationSelectionView::~NationSelectionView()

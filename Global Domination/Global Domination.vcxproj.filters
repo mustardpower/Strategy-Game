@@ -93,6 +93,9 @@
     <ClCompile Include="TradeDeal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RelationsView.cpp">
+      <Filter>Source Files\Views</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -184,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="StackGridItem.h">
       <Filter>Header Files\SDLControls</Filter>
+    </ClInclude>
+    <ClInclude Include="RelationsView.h">
+      <Filter>Header Files\Views</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

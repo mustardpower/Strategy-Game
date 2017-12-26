@@ -2,8 +2,9 @@
 
 #include "GameModel.h"
 
-#include <sstream>
+#include <fstream>
 #include <iomanip>
+#include <sstream>
 
 namespace global_domination {
 	
@@ -39,6 +40,8 @@ namespace global_domination {
 				return &(*nation);
 			}
 		}
+
+		return nullptr;
 	}
 
 	Nation* GameModel::getSelectedNation()
@@ -54,7 +57,7 @@ namespace global_domination {
 	void GameModel::nextTurn()
 	{
 		struct tm* time = localtime(&date);
-		time->tm_mday += 1;
+		time->tm_mon += 1;
 		date = mktime(time);
 
 		Message turn_summary_message("Progress report", getSummaryReport());
@@ -85,6 +88,46 @@ namespace global_domination {
 	void GameModel::setNations(std::vector<Nation> nations)
 	{
 		nations_ = nations;
+	}
+
+	void GameModel::setNationalRelationships()
+	{
+		// go through JSON file
+		// if defined in JSON then set the relationship between the nations to the value specified
+		// if not defined then set as a neutral relationship
+		std::ifstream i("nation relationships.json");
+
+		if (i.is_open())
+		{
+			nlohmann::json j;
+			i >> j;
+
+			for (nlohmann::json::iterator it = j.begin(); it != j.end(); ++it)
+			{
+				Nation* nation = getNation(it->at("name").get<std::string>());
+				setRelationshipsFromJSON(*it, *nation);
+			}
+
+			i.close();
+		}
+	}
+
+	void GameModel::setRelationshipsFromJSON(nlohmann::json& j, Nation& nation)
+	{
+		std::map<std::string, double> relations;
+		for (nlohmann::json::iterator it = j.begin(); it != j.end(); ++it)
+		{
+			relations = j.at("relationships").get<std::map<std::string, double>>();
+			for (std::map<std::string, double>::iterator pair = relations.begin(); pair != relations.end(); pair++)
+			{
+				Nation* matching_nation = getNation(pair->first);
+				if (matching_nation)
+				{
+					nation.setRelationship(matching_nation, pair->second);
+				}
+			}
+
+		}
 	}
 
 	std::string GameModel::getSelectedNationName()

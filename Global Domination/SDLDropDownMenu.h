@@ -85,7 +85,9 @@ namespace global_domination
 
 		if (is_expanded_)
 		{
-			SDL_Rect menu_client_area{ kMenuItemPosX, kMenuItemPosY, 150, kMenuItemHeight * menu_items_.size() };
+			// make menu width slightly longer than the estimated text length
+			int text_length_pixels = 140;
+			SDL_Rect menu_client_area{ kMenuItemPosX, kMenuItemPosY, text_length_pixels * 1.2, kMenuItemHeight * menu_items_.size() };
 
 			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0xFF);
 			SDL_RenderFillRect(renderer, &menu_client_area);

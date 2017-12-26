@@ -12,19 +12,24 @@ namespace global_domination
 	public:
 		Nation() {};
 		Nation(std::string a_name, double bank_balance, int population, std::map<TradeResource, int> resources, std::vector<TradeDeal> trade_deals);
-		double calculateExpenses();
-		double calculateIncome();
+		std::vector<Nation*> alliedNations();
+		double calculateMonthlyExpenses();
+		double calculateMonthlyIncome();
 		double getGDP() const;
 		double getGDPPerCapita() const;
 		std::string getName() const;
 		unsigned int getNumberOfDeathsInTurn() const;
 		unsigned int getNumberOfBirthsInTurn() const;
 		int getPopulation() const;
+		std::map<TradeResource, int> getTradeableResources();
 		std::vector<TradeDeal> getTradeDeals() const;
 		std::vector<TradeDeal> getTradeDealsForResource(TradeResource resource);
+		std::vector<TradeDeal> getTradeOffersForResource(TradeResource resource);
 		std::map<TradeResource, int> getTradeResources() const;
 		void makeTradeDeals();
+		void recieveTradeOffer(TradeDeal prospective_deal);
 		std::string reportString() const;
+		void setRelationship(Nation* nation, double relationship_score);
 		void update();
 		void updateFinances();
 		void updatePopulation();
@@ -33,8 +38,10 @@ namespace global_domination
 	private:
 		double GDP_;
 		std::string name_;
+		std::map<Nation*, double> nation_friendships;
 		int population_;
 		std::map<TradeResource, int> resources_;
+		std::vector<TradeDeal> trade_offers_;
 		std::vector<TradeDeal> trade_deals_;
 	};
 }

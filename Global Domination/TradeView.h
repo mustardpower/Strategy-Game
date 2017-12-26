@@ -15,6 +15,8 @@ namespace global_domination
 		std::shared_ptr<Action> getTradeDealSelectionAction();
 		void initialize();
 		void respondToAction(TYPES::ACTION_LIST action);
+		void updateExistingTradeDeals();
+		void updateProspectiveTradeDeals();
 		void updateForSelectedResource();
 		void updateForSelectedTradeDeal();
 	private:

@@ -137,6 +137,7 @@
     <ClCompile Include="Nation.cpp" />
     <ClCompile Include="NationFactory.cpp" />
     <ClCompile Include="NationSelectionView.cpp" />
+    <ClCompile Include="RelationsView.cpp" />
     <ClCompile Include="SDLButton.cpp" />
     <ClCompile Include="SDLControl.cpp" />
     <ClCompile Include="SDLStaticText.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="Nation.h" />
     <ClInclude Include="NationFactory.h" />
     <ClInclude Include="NationSelectionView.h" />
+    <ClInclude Include="RelationsView.h" />
     <ClInclude Include="SDLButton.h" />
     <ClInclude Include="SDLControl.h" />
     <ClInclude Include="SDLDropDownMenu.h" />
