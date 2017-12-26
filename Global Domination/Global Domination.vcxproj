@@ -139,6 +139,7 @@
     <ClCompile Include="NationSelectionView.cpp" />
     <ClCompile Include="RelationsView.cpp" />
     <ClCompile Include="SDLButton.cpp" />
+    <ClCompile Include="SDLCompositePane.cpp" />
     <ClCompile Include="SDLControl.cpp" />
     <ClCompile Include="SDLStaticText.cpp" />
     <ClCompile Include="SDL_TextRenderer.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="NationSelectionView.h" />
     <ClInclude Include="RelationsView.h" />
     <ClInclude Include="SDLButton.h" />
+    <ClInclude Include="SDLCompositePane.h" />
     <ClInclude Include="SDLControl.h" />
     <ClInclude Include="SDLDropDownMenu.h" />
     <ClInclude Include="SDLListBox.h" />

@@ -7,7 +7,7 @@
 
 namespace global_domination {
 
-	InboxView::InboxView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : SDLControl(parent, client_area)
+	InboxView::InboxView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
 	{
 		the_game_ = the_game;
 	}
@@ -19,8 +19,8 @@ namespace global_domination {
 		message_list->setId(INBOX_LIST);
 		addChildControl(message_list);
 
-		//addLabel("", client_area_.w * 0.6, client_area_.h * 0.3, SELECTED_MESSAGE_TITLE_LABEL);
-		//addLabel("", client_area_.w * 0.6, client_area_.h * 0.4, SELECTED_MESSAGE_TEXT_LABEL, 12);
+		addLabel("", client_area_.w * 0.6, client_area_.h * 0.3, SELECTED_MESSAGE_TITLE_LABEL);
+		addLabel("", client_area_.w * 0.6, client_area_.h * 0.4, SELECTED_MESSAGE_TEXT_LABEL, 12);
 
 		updateMessageList();
 		
@@ -67,8 +67,8 @@ namespace global_domination {
 		Message* selected_message = message_list->selectedItem();
 		if (selected_message)
 		{
-			//setLabelText(SELECTED_MESSAGE_TEXT_LABEL, selected_message->getMessageText());
-			//setLabelText(SELECTED_MESSAGE_TITLE_LABEL, selected_message->getTitle());
+			setLabelText(SELECTED_MESSAGE_TEXT_LABEL, selected_message->getMessageText());
+			setLabelText(SELECTED_MESSAGE_TITLE_LABEL, selected_message->getTitle());
 		}
 	}
 }

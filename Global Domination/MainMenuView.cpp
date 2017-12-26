@@ -11,7 +11,7 @@
 
 namespace global_domination
 {
-	MainMenuView::MainMenuView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : SDLControl(parent, client_area)
+	MainMenuView::MainMenuView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
 	{
 		the_game_ = the_game;
 	}

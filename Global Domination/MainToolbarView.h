@@ -1,11 +1,11 @@
 #pragma once
-#include "SDLControl.h"
+#include "SDLCompositePane.h"
 
 namespace global_domination
 {
 	class Game;
 
-	class MainToolbarView : public SDLControl
+	class MainToolbarView : public SDLCompositePane
 	{
 	public:
 		MainToolbarView(Game* the_game, SDL_Window * parent, SDL_Rect client_area);

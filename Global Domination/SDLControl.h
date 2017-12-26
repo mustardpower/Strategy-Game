@@ -18,10 +18,8 @@ namespace global_domination
 		unsigned int getId();
 		SDL_Color getBackgroundColor();
 		SDL_Color getTextColor();
-		virtual bool handleClick(int mouse_x, int mouse_y);
-		virtual void initialize() {};
-		virtual void render(SDL_Renderer* renderer);
-		virtual void respondToAction(TYPES::ACTION_LIST action);
+		virtual bool handleClick(int mouse_x, int mouse_y) = 0;
+		virtual void render(SDL_Renderer* renderer) = 0;
 		void setFontSize(int font_size);
 		void setId(ControlID id);
 		void setSelection(bool selected);

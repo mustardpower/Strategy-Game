@@ -1,11 +1,11 @@
 #pragma once
-#include "SDLControl.h"
+#include "SDLCompositePane.h"
 
 namespace global_domination
 {
 	class Game;
 
-	class RelationsView : public SDLControl
+	class RelationsView : public SDLCompositePane
 	{
 	public:
 		RelationsView::RelationsView(Game* the_game, SDL_Window * parent, SDL_Rect client_area);

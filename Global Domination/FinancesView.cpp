@@ -4,7 +4,7 @@
 
 namespace global_domination
 {
-	FinancesView::FinancesView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : SDLControl(parent, client_area)
+	FinancesView::FinancesView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
 	{
 		nation_ = the_game->getGameModel()->getSelectedNation();
 	}

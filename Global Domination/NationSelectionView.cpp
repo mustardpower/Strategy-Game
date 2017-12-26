@@ -13,7 +13,7 @@
 
 namespace global_domination
 {
-	NationSelectionView::NationSelectionView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : SDLControl(parent, client_area)
+	NationSelectionView::NationSelectionView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
 	{
 		the_game_ = the_game;
 		NationFactory nationFactory;
@@ -37,10 +37,10 @@ namespace global_domination
 
 	void NationSelectionView::initialize()
 	{
-		//addLabel("Select a nation:", client_area_.w * 0.15, client_area_.h * 0.25, NATION_SELECTION_PROMPT_LABEL);
-		//addLabel("", client_area_.w * 0.6, client_area_.h * 0.25, NATION_SELECTION_POPULATION_LABEL, 15);
-		//addLabel("", client_area_.w * 0.6, client_area_.h * 0.30, NATION_SELECTION_GDP_LABEL, 15);
-		//addLabel("", client_area_.w * 0.6, client_area_.h * 0.35, NATION_SELECTION_GDP_PER_CAPITA_LABEL, 15);
+		addLabel("Select a nation:", client_area_.w * 0.15, client_area_.h * 0.25, NATION_SELECTION_PROMPT_LABEL);
+		addLabel("", client_area_.w * 0.6, client_area_.h * 0.25, NATION_SELECTION_POPULATION_LABEL, 15);
+		addLabel("", client_area_.w * 0.6, client_area_.h * 0.30, NATION_SELECTION_GDP_LABEL, 15);
+		addLabel("", client_area_.w * 0.6, client_area_.h * 0.35, NATION_SELECTION_GDP_PER_CAPITA_LABEL, 15);
 
 		std::shared_ptr<SDLButton> start_button = std::make_shared<SDLButton>(
 			parent_,
@@ -114,9 +114,9 @@ namespace global_domination
 		Nation* selected_nation = getSelectedNation();
 		if (selected_nation)
 		{
-			//setLabelText(NATION_SELECTION_POPULATION_LABEL, "Population: " + std::to_string(selected_nation->getPopulation()));
-			//setLabelText(NATION_SELECTION_GDP_LABEL, "GDP: " + std::to_string(selected_nation->getGDP()));
-			//setLabelText(NATION_SELECTION_GDP_PER_CAPITA_LABEL, "GDP per capita: " + std::to_string(selected_nation->getGDPPerCapita()));
+			setLabelText(NATION_SELECTION_POPULATION_LABEL, "Population: " + std::to_string(selected_nation->getPopulation()));
+			setLabelText(NATION_SELECTION_GDP_LABEL, "GDP: " + std::to_string(selected_nation->getGDP()));
+			setLabelText(NATION_SELECTION_GDP_PER_CAPITA_LABEL, "GDP per capita: " + std::to_string(selected_nation->getGDPPerCapita()));
 		}
 	}
 }

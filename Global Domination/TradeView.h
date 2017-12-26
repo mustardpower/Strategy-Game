@@ -1,12 +1,12 @@
 #pragma once
-#include "SDLControl.h"
+#include "SDLCompositePane.h"
 
 #include "Nation.h"
 
 namespace global_domination
 {
 	class Game;
-	class TradeView : public SDLControl
+	class TradeView : public SDLCompositePane
 	{
 	public:
 		TradeView::TradeView(Game* the_game, SDL_Window * parent, SDL_Rect client_area);

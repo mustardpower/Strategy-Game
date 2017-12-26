@@ -9,7 +9,7 @@
 
 namespace global_domination
 {
-	MainToolbarView::MainToolbarView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : SDLControl(parent, client_area)
+	MainToolbarView::MainToolbarView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
 	{
 		the_game_ = the_game;
 		useSecondaryColorScheme();
@@ -30,7 +30,7 @@ namespace global_domination
 		if (is_visible_)
 		{
 			collapseMenus();
-			SDLControl::handleClick(x, y);
+			SDLCompositePane::handleClick(x, y);
 		}
 
 		return false;
@@ -38,7 +38,7 @@ namespace global_domination
 
 	void MainToolbarView::initialize()
 	{
-		//addLabel(the_game_->getGameModel()->getDateString(), client_area_.w * 0.05, client_area_.h * 0.4, TOOLBAR_DATE_LABEL, 18, true);
+		addLabel(the_game_->getGameModel()->getDateString(), client_area_.w * 0.05, client_area_.h * 0.4, TOOLBAR_DATE_LABEL, 18, true);
 		
 		std::shared_ptr<SDLDropDownMenu<int>> home_menu = std::make_shared<SDLDropDownMenu<int>>(parent_, client_area_.w * 0.4, client_area_.h * 0.4, client_area_.w * 0.4, client_area_.h, client_area_.h * 0.4);
 		home_menu->addMenuItem(ListItem<int>("HOME", nullptr, 0));
@@ -68,7 +68,7 @@ namespace global_domination
 		{
 			case TYPES::ACTION_LIST::NEXT_TURN:
 			{
-				//setLabelText(TOOLBAR_DATE_LABEL, the_game_->getGameModel()->getDateString());
+				setLabelText(TOOLBAR_DATE_LABEL, the_game_->getGameModel()->getDateString());
 			}
 			break;
 		}

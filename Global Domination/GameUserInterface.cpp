@@ -141,7 +141,7 @@ namespace global_domination
 		}
 	}
 
-	void GameUserInterface::switchActiveControl(std::shared_ptr<SDLControl> top_control)
+	void GameUserInterface::switchActiveControl(std::shared_ptr<SDLCompositePane> top_control)
 	{
 		top_control->initialize();
 		active_control_ = top_control;

@@ -12,7 +12,7 @@
 
 namespace global_domination
 {
-	TradeView::TradeView(Game * the_game, SDL_Window * parent, SDL_Rect client_area) : SDLControl(parent, client_area)
+	TradeView::TradeView(Game * the_game, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
 	{
 		the_game_ = the_game;
 		nation_ = the_game->getGameModel()->getSelectedNation();
@@ -41,10 +41,10 @@ namespace global_domination
 
 	void TradeView::initialize()
 	{
-		//addLabel("Resource:", client_area_.w * 0.7, client_area_.h * 0.2, TRADEVIEW_DEAL_RESOURCE_LABEL, 15);
-		//addLabel("Value per annum:", client_area_.w * 0.7, client_area_.h * 0.25, TRADEVIEW_DEAL_VALUEPERANNUM_LABEL, 15);
-		//addLabel("Total value:", client_area_.w * 0.7, client_area_.h * 0.3, TRADEVIEW_DEAL_TOTALVALUE_LABEL, 15);
-		//addLabel("Expiry date:", client_area_.w * 0.7, client_area_.h * 0.35, TRADEVIEW_DEAL_EXPIRYDATE_LABEL, 15);
+		addLabel("Resource:", client_area_.w * 0.7, client_area_.h * 0.2, TRADEVIEW_DEAL_RESOURCE_LABEL, 15);
+		addLabel("Value per annum:", client_area_.w * 0.7, client_area_.h * 0.25, TRADEVIEW_DEAL_VALUEPERANNUM_LABEL, 15);
+		addLabel("Total value:", client_area_.w * 0.7, client_area_.h * 0.3, TRADEVIEW_DEAL_TOTALVALUE_LABEL, 15);
+		addLabel("Expiry date:", client_area_.w * 0.7, client_area_.h * 0.35, TRADEVIEW_DEAL_EXPIRYDATE_LABEL, 15);
 
 		std::shared_ptr<SDLButton> trade_offers_button = std::make_shared<SDLButton>(parent_, "Trade offers", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::TRADEVIEW_SHOW_OFFERS), client_area_.w * 0.08, client_area_.h * 0.12, 80, 15);
 		trade_offers_button->setFontSize(12);
@@ -61,7 +61,7 @@ namespace global_domination
 		std::shared_ptr<SDLListBox<TradeDeal>> trade_offers_list = std::make_shared<SDLListBox<TradeDeal>>(parent_, trade_deal_list_area, client_area_.h * 0.1);
 		trade_offers_list->setId(TRADE_DEAL_LIST_EXISTING);
 
-		//addLabel("Resources:", client_area_.w * 0.08, client_area_.h * 0.7, TRADEVIEW_RESOURCES_LABEL);
+		addLabel("Resources:", client_area_.w * 0.08, client_area_.h * 0.7, TRADEVIEW_RESOURCES_LABEL);
 		SDL_Rect resource_list_area{ client_area_.w * 0.06, client_area_.h * 0.75, client_area_.w * 0.88, client_area_.h * 0.2 };
 		std::shared_ptr<SDLStackGrid<TradeResource, 10, 2>> resource_list = std::make_shared<SDLStackGrid<TradeResource, 10, 2>>(parent_, resource_list_area);
 		resource_list->setId(TRADE_RESOURCE_LIST);
@@ -157,17 +157,17 @@ namespace global_domination
 		if (trade_deal)
 		{
 			TradeResource selected_resource = trade_deal->getResource();
-			/*setLabelText(TRADEVIEW_DEAL_RESOURCE_LABEL, "Resource: " + selected_resource.reportString());
+			setLabelText(TRADEVIEW_DEAL_RESOURCE_LABEL, "Resource: " + selected_resource.reportString());
 			setLabelText(TRADEVIEW_DEAL_VALUEPERANNUM_LABEL, "Value per annum: " + trade_deal->reportValuePerAnnum());
 			setLabelText(TRADEVIEW_DEAL_TOTALVALUE_LABEL, "Total value: " + trade_deal->reportTotalValue());
-			setLabelText(TRADEVIEW_DEAL_EXPIRYDATE_LABEL, "Expiry date: " + trade_deal->reportExpiryDate());*/
+			setLabelText(TRADEVIEW_DEAL_EXPIRYDATE_LABEL, "Expiry date: " + trade_deal->reportExpiryDate());
 		}
 		else
 		{
-			/*setLabelText(TRADEVIEW_DEAL_RESOURCE_LABEL, "Resource: N/A");
+			setLabelText(TRADEVIEW_DEAL_RESOURCE_LABEL, "Resource: N/A");
 			setLabelText(TRADEVIEW_DEAL_VALUEPERANNUM_LABEL, "Value per annum: N/A");
 			setLabelText(TRADEVIEW_DEAL_TOTALVALUE_LABEL, "Total value: N/A");
-			setLabelText(TRADEVIEW_DEAL_EXPIRYDATE_LABEL, "Expiry date: N/A");*/
+			setLabelText(TRADEVIEW_DEAL_EXPIRYDATE_LABEL, "Expiry date: N/A");
 		}
 	}
 }

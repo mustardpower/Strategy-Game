@@ -99,6 +99,9 @@
     <ClCompile Include="TradeDealsView.cpp">
       <Filter>Source Files\Views</Filter>
     </ClCompile>
+    <ClCompile Include="SDLCompositePane.cpp">
+      <Filter>Source Files\SDLControls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -196,6 +199,9 @@
     </ClInclude>
     <ClInclude Include="TradeDealsView.h">
       <Filter>Header Files\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="SDLCompositePane.h">
+      <Filter>Header Files\SDLControls</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

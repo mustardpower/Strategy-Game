@@ -62,50 +62,6 @@ namespace global_domination
 		return ColorPreferences::getPrimaryTextColor();
 	}
 
-	bool SDLControl::handleClick(int mouse_x, int mouse_y)
-	{
-		if (is_visible_)
-		{
-			for (std::vector<std::shared_ptr<SDLControl>>::iterator control = children_.begin(); control != children_.end(); control++)
-			{
-				(*control)->setSelection(false);
-			}
-
-			if (children_.size())
-			{
-				for (std::vector<std::shared_ptr<SDLControl>>::iterator control = children_.begin(); control != children_.end(); control++)
-				{
-					bool clickHandled = (*control)->handleClick(mouse_x, mouse_y);
-					if (clickHandled) { return true; }
-				}
-			}
-		}
-
-		return false;
-	}
-
-	void SDLControl::render(SDL_Renderer * renderer)
-	{
-		if (is_visible_)
-		{
-			SDL_Color background_color = getBackgroundColor();
-			SDL_SetRenderDrawColor(renderer, background_color.r, background_color.g, background_color.b, 0xFF);
-			SDL_RenderFillRect(renderer, &client_area_);
-
-			if (children_.size())
-			{
-				for (std::vector<std::shared_ptr<SDLControl>>::iterator control = children_.begin(); control != children_.end(); control++)
-				{
-					(*control)->render(renderer);
-				}
-			}
-		}
-	}
-
-	void SDLControl::respondToAction(TYPES::ACTION_LIST action)
-	{
-	}
-
 	void SDLControl::setFontSize(int font_size)
 	{
 		font_size_ = font_size;
