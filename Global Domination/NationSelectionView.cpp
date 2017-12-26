@@ -42,11 +42,12 @@ namespace global_domination
 		addLabel("", client_area_.w * 0.6, client_area_.h * 0.30, NATION_SELECTION_GDP_LABEL, 15);
 		addLabel("", client_area_.w * 0.6, client_area_.h * 0.35, NATION_SELECTION_GDP_PER_CAPITA_LABEL, 15);
 
+		SDL_Rect start_button_client_area{ client_area_.w * 0.8, client_area_.h * 0.8, client_area_.w * 0.1, client_area_.h * 0.05 };
 		std::shared_ptr<SDLButton> start_button = std::make_shared<SDLButton>(
 			parent_,
 			"START",
 			std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::CHANGEVIEW_INBOX),
-			client_area_.w * 0.8, client_area_.h * 0.8, client_area_.w * 0.1, client_area_.h * 0.05
+			start_button_client_area
 			);
 
 		addChildControl(start_button);

@@ -57,7 +57,8 @@ namespace global_domination
 		settings_menu->useSecondaryColorScheme();
 		addChildControl(settings_menu);
 
-		std::shared_ptr<SDLButton> next_button = std::make_shared<SDLButton>(parent_, "NEXT", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::NEXT_TURN), client_area_.w * 0.9, client_area_.h * 0.4, 200, client_area_.h * 0.4);
+		SDL_Rect next_button_client_area{ client_area_.w * 0.9, client_area_.h * 0.4, 200, client_area_.h * 0.4 };
+		std::shared_ptr<SDLButton> next_button = std::make_shared<SDLButton>(parent_, "NEXT", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::NEXT_TURN), next_button_client_area);
 		next_button->useSecondaryColorScheme();
 		addChildControl(next_button);
 	}

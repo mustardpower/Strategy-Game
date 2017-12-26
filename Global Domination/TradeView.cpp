@@ -46,11 +46,13 @@ namespace global_domination
 		addLabel("Total value:", client_area_.w * 0.7, client_area_.h * 0.3, TRADEVIEW_DEAL_TOTALVALUE_LABEL, 15);
 		addLabel("Expiry date:", client_area_.w * 0.7, client_area_.h * 0.35, TRADEVIEW_DEAL_EXPIRYDATE_LABEL, 15);
 
-		std::shared_ptr<SDLButton> trade_offers_button = std::make_shared<SDLButton>(parent_, "Trade offers", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::TRADEVIEW_SHOW_OFFERS), client_area_.w * 0.08, client_area_.h * 0.12, 80, 15);
+		SDL_Rect offers_button_client_area{ client_area_.w * 0.08, client_area_.h * 0.12, 80, 15 };
+		std::shared_ptr<SDLButton> trade_offers_button = std::make_shared<SDLButton>(parent_, "Trade offers", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::TRADEVIEW_SHOW_OFFERS), offers_button_client_area);
 		trade_offers_button->setFontSize(12);
 		addChildControl(trade_offers_button);
 
-		std::shared_ptr<SDLButton> trade_deals_button = std::make_shared<SDLButton>(parent_, "Trade deals", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::TRADEVIEW_SHOW_DEALS), client_area_.w * 0.16, client_area_.h * 0.12, 80, 15);
+		SDL_Rect deals_button_client_area{ client_area_.w * 0.16, client_area_.h * 0.12, 80, 15 };
+		std::shared_ptr<SDLButton> trade_deals_button = std::make_shared<SDLButton>(parent_, "Trade deals", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::TRADEVIEW_SHOW_DEALS), deals_button_client_area);
 		trade_deals_button->setFontSize(12);
 		addChildControl(trade_deals_button);
 

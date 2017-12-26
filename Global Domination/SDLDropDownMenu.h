@@ -35,7 +35,8 @@ namespace global_domination
 	{
 		if (top_level_button == nullptr)
 		{
-			top_level_button = std::make_unique<SDLButton>(parent_, menu_item.reportString(), menu_item.getAction(), kTopLevelButtonPosX, kTopLevelButtonPosY, 150, kMenuItemHeight);
+			SDL_Rect button_client_area { kTopLevelButtonPosX, kTopLevelButtonPosY, 150, kMenuItemHeight };
+			top_level_button = std::make_unique<SDLButton>(parent_, menu_item.reportString(), menu_item.getAction(), button_client_area);
 			top_level_button->useSecondaryColorScheme();
 		}
 		else
