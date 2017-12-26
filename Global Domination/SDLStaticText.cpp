@@ -5,7 +5,7 @@
 
 namespace global_domination
 {
-	SDLStaticText::SDLStaticText(SDL_Window * parent, std::string text, int pos_x, int pos_y) : SDLControl(parent),
+	SDLStaticText::SDLStaticText(SDL_Window * parent, std::string text, int pos_x, int pos_y) : SDLControl(parent, SDL_Rect{ pos_x, pos_y, 0, 0}),
 		kPosX(pos_x), kPosY(pos_y)
 	{
 		text_ = text;

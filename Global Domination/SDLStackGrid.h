@@ -27,7 +27,7 @@ namespace global_domination
 	};
 
 	template <class T, int X, int Y>
-	inline SDLStackGrid<T, X, Y>::SDLStackGrid(SDL_Window * parent, SDL_Rect client_area) : SDLControl(parent)
+	inline SDLStackGrid<T, X, Y>::SDLStackGrid(SDL_Window * parent, SDL_Rect client_area) : SDLControl(parent, client_area)
 	{
 		client_area_ = client_area;
 		selected_item_index_x_ = 0;

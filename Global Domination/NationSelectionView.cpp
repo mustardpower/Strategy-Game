@@ -13,8 +13,9 @@
 
 namespace global_domination
 {
-	NationSelectionView::NationSelectionView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : View(the_game, parent, client_area)
+	NationSelectionView::NationSelectionView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : SDLControl(parent, client_area)
 	{
+		the_game_ = the_game;
 		NationFactory nationFactory;
 		nationFactory.createNations("nations.json");
 		nations_ = nationFactory.getNations();
@@ -28,7 +29,7 @@ namespace global_domination
 
 	Nation* NationSelectionView::getSelectedNation()
 	{
-		std::shared_ptr<SDLListBox<Nation>> nation_selection_menu = std::dynamic_pointer_cast<SDLListBox<Nation>>(getControl(NATION_SELECTION_MENU));
+		std::shared_ptr<SDLListBox<Nation>> nation_selection_menu = std::dynamic_pointer_cast<SDLListBox<Nation>>(getChildControl(NATION_SELECTION_MENU));
 		std::string nation_name = nation_selection_menu->selectedItem()->getName();
 		return the_game_->getGameModel()->getNation(nation_name);
 		
@@ -36,13 +37,19 @@ namespace global_domination
 
 	void NationSelectionView::initialize()
 	{
-		addLabel("Select a nation:", client_area_.w * 0.15, client_area_.h * 0.25, NATION_SELECTION_PROMPT_LABEL);
-		addLabel("", client_area_.w * 0.6, client_area_.h * 0.25, NATION_SELECTION_POPULATION_LABEL, 15);
-		addLabel("", client_area_.w * 0.6, client_area_.h * 0.30, NATION_SELECTION_GDP_LABEL, 15);
-		addLabel("", client_area_.w * 0.6, client_area_.h * 0.35, NATION_SELECTION_GDP_PER_CAPITA_LABEL, 15);
+		//addLabel("Select a nation:", client_area_.w * 0.15, client_area_.h * 0.25, NATION_SELECTION_PROMPT_LABEL);
+		//addLabel("", client_area_.w * 0.6, client_area_.h * 0.25, NATION_SELECTION_POPULATION_LABEL, 15);
+		//addLabel("", client_area_.w * 0.6, client_area_.h * 0.30, NATION_SELECTION_GDP_LABEL, 15);
+		//addLabel("", client_area_.w * 0.6, client_area_.h * 0.35, NATION_SELECTION_GDP_PER_CAPITA_LABEL, 15);
 
-		std::shared_ptr<SDLButton> start_button = std::make_shared<SDLButton>(parent_, "START", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::CHANGEVIEW_INBOX), client_area_.w * 0.8, client_area_.h * 0.8, 200, 300);
-		addControl(start_button);
+		std::shared_ptr<SDLButton> start_button = std::make_shared<SDLButton>(
+			parent_,
+			"START",
+			std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::CHANGEVIEW_INBOX),
+			client_area_.w * 0.8, client_area_.h * 0.8, client_area_.w * 0.1, client_area_.h * 0.05
+			);
+
+		addChildControl(start_button);
 
 		SDL_Rect menu_client_area { client_area_.w * 0.2, client_area_.h * 0.4, client_area_.w * 0.3, client_area_.h * 0.5 };
 		std::shared_ptr<SDLListBox<Nation>> nation_selection_menu = std::make_shared<SDLListBox<Nation>>(parent_, menu_client_area, client_area_.h * 0.1);
@@ -58,20 +65,20 @@ namespace global_domination
 			nation_selection_menu->addItem(ListItem<Nation>(nationName, nationSelectionAction, *nation));
 		}	
 
-		addControl(nation_selection_menu);
+		addChildControl(nation_selection_menu);
 
 		updateSelectedNationDetails();
 	}
 
 	void NationSelectionView::onKeyDown()
 	{
-		std::shared_ptr<SDLListBox<Nation>> nation_selection_menu = std::dynamic_pointer_cast<SDLListBox<Nation>>(getControl(NATION_SELECTION_MENU));
+		std::shared_ptr<SDLListBox<Nation>> nation_selection_menu = std::dynamic_pointer_cast<SDLListBox<Nation>>(getChildControl(NATION_SELECTION_MENU));
 		nation_selection_menu->nextItem();
 	}
 
 	void NationSelectionView::onKeyUp()
 	{
-		std::shared_ptr<SDLListBox<Nation>> nation_selection_menu = std::dynamic_pointer_cast<SDLListBox<Nation>>(getControl(NATION_SELECTION_MENU));
+		std::shared_ptr<SDLListBox<Nation>> nation_selection_menu = std::dynamic_pointer_cast<SDLListBox<Nation>>(getChildControl(NATION_SELECTION_MENU));
 		nation_selection_menu->previousItem();
 	}
 	void NationSelectionView::onKeyPress(int keyCode)
@@ -107,9 +114,9 @@ namespace global_domination
 		Nation* selected_nation = getSelectedNation();
 		if (selected_nation)
 		{
-			setLabelText(NATION_SELECTION_POPULATION_LABEL, "Population: " + std::to_string(selected_nation->getPopulation()));
-			setLabelText(NATION_SELECTION_GDP_LABEL, "GDP: " + std::to_string(selected_nation->getGDP()));
-			setLabelText(NATION_SELECTION_GDP_PER_CAPITA_LABEL, "GDP per capita: " + std::to_string(selected_nation->getGDPPerCapita()));
+			//setLabelText(NATION_SELECTION_POPULATION_LABEL, "Population: " + std::to_string(selected_nation->getPopulation()));
+			//setLabelText(NATION_SELECTION_GDP_LABEL, "GDP: " + std::to_string(selected_nation->getGDP()));
+			//setLabelText(NATION_SELECTION_GDP_PER_CAPITA_LABEL, "GDP per capita: " + std::to_string(selected_nation->getGDPPerCapita()));
 		}
 	}
 }

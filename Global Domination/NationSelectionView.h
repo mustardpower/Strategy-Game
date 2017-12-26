@@ -1,11 +1,12 @@
 #pragma once
-#include "View.h"
+#include "SDLControl.h"
 
+#include "Game.h"
 #include "Nation.h"
 
 namespace global_domination
 {
-	class NationSelectionView : public View
+	class NationSelectionView : public SDLControl
 	{
 	public:
 		NationSelectionView::NationSelectionView(Game* the_game, SDL_Window * parent, SDL_Rect client_area);
@@ -18,6 +19,7 @@ namespace global_domination
 		void respondToAction(TYPES::ACTION_LIST action);
 		void updateSelectedNationDetails();
 	private:
+		Game* the_game_;
 		std::vector<Nation> nations_;
 	};
 }

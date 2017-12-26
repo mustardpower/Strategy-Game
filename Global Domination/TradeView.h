@@ -1,11 +1,12 @@
 #pragma once
-#include "View.h"
+#include "SDLControl.h"
 
 #include "Nation.h"
 
 namespace global_domination
 {
-	class TradeView : public View
+	class Game;
+	class TradeView : public SDLControl
 	{
 	public:
 		TradeView::TradeView(Game* the_game, SDL_Window * parent, SDL_Rect client_area);
@@ -21,5 +22,6 @@ namespace global_domination
 		void updateForSelectedTradeDeal();
 	private:
 		Nation* nation_;
+		Game* the_game_;
 	};
 }

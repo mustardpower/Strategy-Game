@@ -63,9 +63,6 @@
     <ClCompile Include="SDLControl.cpp">
       <Filter>Source Files\SDLControls</Filter>
     </ClCompile>
-    <ClCompile Include="View.cpp">
-      <Filter>Source Files\Views</Filter>
-    </ClCompile>
     <ClCompile Include="Action.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -96,6 +93,12 @@
     <ClCompile Include="RelationsView.cpp">
       <Filter>Source Files\Views</Filter>
     </ClCompile>
+    <ClCompile Include="TradeOffersView.cpp">
+      <Filter>Source Files\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="TradeDealsView.cpp">
+      <Filter>Source Files\Views</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -118,9 +121,6 @@
     </ClInclude>
     <ClInclude Include="SDLMenu.h">
       <Filter>Header Files\SDLControls</Filter>
-    </ClInclude>
-    <ClInclude Include="View.h">
-      <Filter>Header Files\Views</Filter>
     </ClInclude>
     <ClInclude Include="MainMenuView.h">
       <Filter>Header Files\Views</Filter>
@@ -189,6 +189,12 @@
       <Filter>Header Files\SDLControls</Filter>
     </ClInclude>
     <ClInclude Include="RelationsView.h">
+      <Filter>Header Files\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="TradeOffersView.h">
+      <Filter>Header Files\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="TradeDealsView.h">
       <Filter>Header Files\Views</Filter>
     </ClInclude>
   </ItemGroup>

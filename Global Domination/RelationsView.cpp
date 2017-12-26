@@ -1,8 +1,10 @@
 #include "RelationsView.h"
 
+#include "Game.h"
+
 namespace global_domination
 {
-	RelationsView::RelationsView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : View(the_game, parent, client_area)
+	RelationsView::RelationsView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : SDLControl(parent, client_area)
 	{
 	}
 

@@ -7,8 +7,9 @@
 
 namespace global_domination {
 
-	InboxView::InboxView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : View(the_game, parent, client_area)
+	InboxView::InboxView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : SDLControl(parent, client_area)
 	{
+		the_game_ = the_game;
 	}
 
 	void InboxView::initialize()
@@ -16,10 +17,10 @@ namespace global_domination {
 		SDL_Rect list_box_client_area{ client_area_.w * 0.05, client_area_.h * 0.15, client_area_.w * 0.25, client_area_.h * 0.8 };
 		std::shared_ptr<SDLListBox<Message>> message_list = std::make_shared<SDLListBox<Message>>(parent_, list_box_client_area, list_box_client_area.h * 0.2);
 		message_list->setId(INBOX_LIST);
-		addControl(message_list);
+		addChildControl(message_list);
 
-		addLabel("", client_area_.w * 0.6, client_area_.h * 0.3, SELECTED_MESSAGE_TITLE_LABEL);
-		addLabel("", client_area_.w * 0.6, client_area_.h * 0.4, SELECTED_MESSAGE_TEXT_LABEL, 12);
+		//addLabel("", client_area_.w * 0.6, client_area_.h * 0.3, SELECTED_MESSAGE_TITLE_LABEL);
+		//addLabel("", client_area_.w * 0.6, client_area_.h * 0.4, SELECTED_MESSAGE_TEXT_LABEL, 12);
 
 		updateMessageList();
 		
@@ -48,7 +49,7 @@ namespace global_domination {
 		if (messages.empty()) { return; }
 
 		std::shared_ptr<Action> messageSelectionAction = std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::SELECTING_MESSAGE);
-		std::shared_ptr<SDLListBox<Message>> message_list = std::dynamic_pointer_cast<SDLListBox<Message>>(getControl(INBOX_LIST));
+		std::shared_ptr<SDLListBox<Message>> message_list = std::dynamic_pointer_cast<SDLListBox<Message>>(getChildControl(INBOX_LIST));
 		
 		message_list->clearItems();
 
@@ -62,12 +63,12 @@ namespace global_domination {
 
 	void InboxView::updateSelectedMessageText()
 	{
-		std::shared_ptr<SDLListBox<Message>> message_list = std::dynamic_pointer_cast<SDLListBox<Message>>(getControl(INBOX_LIST));
+		std::shared_ptr<SDLListBox<Message>> message_list = std::dynamic_pointer_cast<SDLListBox<Message>>(getChildControl(INBOX_LIST));
 		Message* selected_message = message_list->selectedItem();
 		if (selected_message)
 		{
-			setLabelText(SELECTED_MESSAGE_TEXT_LABEL, selected_message->getMessageText());
-			setLabelText(SELECTED_MESSAGE_TITLE_LABEL, selected_message->getTitle());
+			//setLabelText(SELECTED_MESSAGE_TEXT_LABEL, selected_message->getMessageText());
+			//setLabelText(SELECTED_MESSAGE_TITLE_LABEL, selected_message->getTitle());
 		}
 	}
 }

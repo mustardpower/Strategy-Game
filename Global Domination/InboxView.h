@@ -1,11 +1,12 @@
 #pragma once
-#include "View.h"
+#include "SDLControl.h"
+#include "IReciever.h"
 
 namespace global_domination
 {
 	class Game;
 
-	class InboxView : public View
+	class InboxView : public SDLControl
 	{
 	public:
 		InboxView::InboxView(Game* the_game, SDL_Window * parent, SDL_Rect client_area);
@@ -14,5 +15,6 @@ namespace global_domination
 		void updateMessageList();
 		void updateSelectedMessageText();
 	private:
+		Game* the_game_;
 	};
 }

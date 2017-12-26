@@ -3,7 +3,6 @@
 
 #include "SDL.h"
 
-#include "View.h"
 #include "MainToolbarView.h"
 
 namespace global_domination {
@@ -20,13 +19,13 @@ namespace global_domination {
 		void render();
 		void respondToAction(TYPES::ACTION_LIST action);
 		void respondToMouseClick(TYPES::ACTION_LIST action, int x, int y);
-		void switchActiveView(std::shared_ptr<View> view);
+		void switchActiveControl(std::shared_ptr<SDLControl> top_control);
 		void update();
 	private:
 		bool is_quiting_;
 		Game* the_game_;
 		std::unique_ptr<MainToolbarView> toolbar_;
-		std::shared_ptr<View> active_view_;
+		std::shared_ptr<SDLControl> active_control_;
 		SDL_Renderer *renderer_;
 		SDL_Window* window_;
 	};

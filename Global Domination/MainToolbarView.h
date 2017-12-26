@@ -1,16 +1,19 @@
 #pragma once
-#include "View.h"
+#include "SDLControl.h"
 
 namespace global_domination
 {
-	class MainToolbarView : public View
+	class Game;
+
+	class MainToolbarView : public SDLControl
 	{
 	public:
-		MainToolbarView::MainToolbarView(Game* the_game, SDL_Window * parent, SDL_Rect client_area);
+		MainToolbarView(Game* the_game, SDL_Window * parent, SDL_Rect client_area);
 		void collapseMenus();
-		SDL_Color getBackgroundColor();
 		bool handleClick(int x, int y);
 		void initialize();
 		void respondToAction(TYPES::ACTION_LIST action);
+	private:
+		Game* the_game_;
 	};
 }

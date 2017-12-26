@@ -11,8 +11,9 @@
 
 namespace global_domination
 {
-	MainMenuView::MainMenuView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : View(the_game, parent, client_area)
+	MainMenuView::MainMenuView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : SDLControl(parent, client_area)
 	{
+		the_game_ = the_game;
 	}
 
 	void MainMenuView::initialize()
@@ -20,19 +21,19 @@ namespace global_domination
 		std::shared_ptr<SDLMenu<int>> main_menu = std::make_shared<SDLMenu<int>>(parent_, client_area_.w * 0.2, client_area_.h * 0.3, client_area_.h * 0.1);
 		main_menu->addMenuItem(ListItem<int>("PLAY!", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::CHANGEVIEW_NATIONSELECTION), 0));
 		main_menu->addMenuItem(ListItem<int>("QUIT!", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::QUIT), 1));
-		addControl(main_menu);
+		addChildControl(main_menu);
 		main_menu->setId(MAIN_MENU);
 	}
 	
 	void MainMenuView::onKeyDown()
 	{
-		std::shared_ptr<SDLMenu<int>> main_menu = std::dynamic_pointer_cast<SDLMenu<int>>(getControl(MAIN_MENU));
+		std::shared_ptr<SDLMenu<int>> main_menu = std::dynamic_pointer_cast<SDLMenu<int>>(getChildControl(MAIN_MENU));
 		main_menu->nextMenuItem();
 	}
 
 	void MainMenuView::onKeyUp()
 	{
-		std::shared_ptr<SDLMenu<int>> main_menu = std::dynamic_pointer_cast<SDLMenu<int>>(getControl(MAIN_MENU));
+		std::shared_ptr<SDLMenu<int>> main_menu = std::dynamic_pointer_cast<SDLMenu<int>>(getChildControl(MAIN_MENU));
 		main_menu->nextMenuItem();
 	}
 	void MainMenuView::onKeyPress(int keyCode)
@@ -41,7 +42,7 @@ namespace global_domination
 		{
 			case SDLK_RETURN: 
 			{
-				std::shared_ptr<SDLMenu<int>> main_menu = std::dynamic_pointer_cast<SDLMenu<int>>(getControl(MAIN_MENU));
+				std::shared_ptr<SDLMenu<int>> main_menu = std::dynamic_pointer_cast<SDLMenu<int>>(getChildControl(MAIN_MENU));
 				main_menu->selectCurrentItem();
 			}
 			break;

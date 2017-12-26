@@ -39,7 +39,7 @@ namespace global_domination
 	};
 
 	template <typename T>
-	SDLMenu<T>::SDLMenu(SDL_Window* parent, int menu_pos_x, int menu_pos_y, int menu_item_height) : SDLControl(parent),
+	SDLMenu<T>::SDLMenu(SDL_Window* parent, int menu_pos_x, int menu_pos_y, int menu_item_height) : SDLControl(parent, SDL_Rect()),
 		kMenuItemPosX(menu_pos_x),
 		kMenuItemPosY(menu_pos_y),
 		kMenuItemHeight(menu_item_height)

@@ -1,11 +1,12 @@
 #pragma once
-#include "View.h"
 
+#include "SDLControl.h"
+#include "Game.h"
 #include "Nation.h"
 
 namespace global_domination
 {
-	class FinancesView : public View
+	class FinancesView : public SDLControl
 	{
 	public:
 		FinancesView::FinancesView(Game* the_game, SDL_Window * parent, SDL_Rect client_area);

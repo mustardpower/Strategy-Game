@@ -22,6 +22,7 @@ namespace global_domination
 		const int kButtonHeight;
 		const int kPosX;
 		const int kPosY;
+		SDL_Rect client_area_;
 		std::shared_ptr<Action> action_;
 		std::string button_text_;
 	};

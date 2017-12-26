@@ -47,7 +47,7 @@ namespace global_domination
 	};
 
 	template <typename T>
-	SDLListBox<T>::SDLListBox(SDL_Window*  parent, SDL_Rect client_area, int item_height) : SDLControl(parent),
+	SDLListBox<T>::SDLListBox(SDL_Window*  parent, SDL_Rect client_area, int item_height) : SDLControl(parent, client_area),
 		kItemHeight(item_height)
 	{
 		client_area_ = client_area;
@@ -223,11 +223,14 @@ namespace global_domination
 	template <typename T>
 	void SDLListBox<T>::render(SDL_Renderer* renderer)
 	{
-		SDL_SetRenderDrawColor(renderer, 0,0,0, 0xFF);
-		SDL_RenderFillRect(renderer, &client_area_);
+		if (is_visible_)
+		{
+			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
+			SDL_RenderFillRect(renderer, &client_area_);
 
-		drawSliderBar(renderer);
-		drawMessages(renderer);
+			drawSliderBar(renderer);
+			drawMessages(renderer);
+		}
 	}
 
 	template<class T>

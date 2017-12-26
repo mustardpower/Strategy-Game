@@ -60,7 +60,7 @@ namespace global_domination
 		toolbar_client_area.h = toolbar_client_area.h * 0.1;
 		toolbar_ = std::make_unique<MainToolbarView>(the_game_, window_, toolbar_client_area);
 		toolbar_->initialize();
-		toolbar_->isVisible(false);
+		toolbar_->setVisibility(false);
 
 		TTF_Init();
 	}
@@ -75,7 +75,7 @@ namespace global_domination
 		SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 0xFF);
 		SDL_RenderClear(renderer_);
 
-		active_view_->render(renderer_);
+		active_control_->render(renderer_);
 		toolbar_->render(renderer_);
 
 		SDL_UpdateWindowSurface(window_);
@@ -83,43 +83,43 @@ namespace global_domination
 
 	void GameUserInterface::respondToAction(TYPES::ACTION_LIST action)
 	{
-		if(active_view_)
+		if(active_control_)
 		{
 			toolbar_->respondToAction(action);
-			active_view_->respondToAction(action);
+			active_control_->respondToAction(action);
 		}
 
 		switch (action)
 		{
 			case TYPES::ACTION_LIST::CHANGEVIEW_MENU:
 			{
-				switchActiveView(std::make_unique<MainMenuView>(the_game_, window_, getClientArea()));
+				switchActiveControl(std::make_unique<MainMenuView>(the_game_, window_, getClientArea()));
 			}
 			break;
 			case TYPES::ACTION_LIST::CHANGEVIEW_NATIONSELECTION:
 			{
-				switchActiveView(std::make_unique<NationSelectionView>(the_game_, window_, getClientArea()));
+				switchActiveControl(std::make_unique<NationSelectionView>(the_game_, window_, getClientArea()));
 			}
 			break;
 			case TYPES::ACTION_LIST::CHANGEVIEW_INBOX:
 			{
-				toolbar_->isVisible(true);
-				switchActiveView(std::make_unique<InboxView>(the_game_, window_, getClientArea()));
+				toolbar_->setVisibility(true);
+				switchActiveControl(std::make_unique<InboxView>(the_game_, window_, getClientArea()));
 			}
 			break;
 			case TYPES::ACTION_LIST::CHANGEVIEW_FINANCES:
 			{
-				switchActiveView(std::make_unique<FinancesView>(the_game_, window_, getClientArea()));
+				switchActiveControl(std::make_unique<FinancesView>(the_game_, window_, getClientArea()));
 			}
 			break;
 			case TYPES::ACTION_LIST::CHANGEVIEW_RELATIONS:
 			{
-				switchActiveView(std::make_unique<RelationsView>(the_game_, window_, getClientArea()));
+				switchActiveControl(std::make_unique<RelationsView>(the_game_, window_, getClientArea()));
 			}
 			break;
 			case TYPES::ACTION_LIST::CHANGEVIEW_TRADE:
 			{
-				switchActiveView(std::make_unique<TradeView>(the_game_, window_, getClientArea()));
+				switchActiveControl(std::make_unique<TradeView>(the_game_, window_, getClientArea()));
 			}
 			break;
 		}
@@ -133,7 +133,7 @@ namespace global_domination
 			{
 				if (!toolbar_->handleClick(x, y))
 				{
-					active_view_->handleClick(x, y);
+					active_control_->handleClick(x, y);
 				}
 				
 			}
@@ -141,10 +141,10 @@ namespace global_domination
 		}
 	}
 
-	void GameUserInterface::switchActiveView(std::shared_ptr<View> view)
+	void GameUserInterface::switchActiveControl(std::shared_ptr<SDLControl> top_control)
 	{
-		view->initialize();
-		active_view_ = view;
+		top_control->initialize();
+		active_control_ = top_control;
 	}
 
 	void GameUserInterface::update()

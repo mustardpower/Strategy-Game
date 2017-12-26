@@ -143,9 +143,10 @@
     <ClCompile Include="SDLStaticText.cpp" />
     <ClCompile Include="SDL_TextRenderer.cpp" />
     <ClCompile Include="TradeDeal.cpp" />
+    <ClCompile Include="TradeDealsView.cpp" />
+    <ClCompile Include="TradeOffersView.cpp" />
     <ClCompile Include="TradeResource.cpp" />
     <ClCompile Include="TradeView.cpp" />
-    <ClCompile Include="View.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ColorPreferences.h" />
@@ -176,9 +177,10 @@
     <ClInclude Include="SDL_TextRenderer.h" />
     <ClInclude Include="StackGridItem.h" />
     <ClInclude Include="TradeDeal.h" />
+    <ClInclude Include="TradeDealsView.h" />
+    <ClInclude Include="TradeOffersView.h" />
     <ClInclude Include="TradeResource.h" />
     <ClInclude Include="TradeView.h" />
-    <ClInclude Include="View.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
