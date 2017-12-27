@@ -13,6 +13,17 @@ namespace global_domination
 		trade_deals_ = trade_deals;
 	}
 
+	void Nation::acceptTradeOffer(TradeDeal trade_deal)
+	{
+		trade_offers_.erase(trade_deal);
+		trade_deals_.push_back(trade_deal);
+	}
+
+	void Nation::declineTradeOffer(TradeDeal trade_deal)
+	{
+		trade_offers_.erase(trade_deal);
+	}
+
 	std::vector<Nation*> Nation::alliedNations()
 	{
 		std::vector<Nation*> allies;

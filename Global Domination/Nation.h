@@ -13,6 +13,8 @@ namespace global_domination
 	public:
 		Nation() {};
 		Nation(std::string a_name, double bank_balance, int population, std::map<TradeResource, int> resources, std::vector<TradeDeal> trade_deals);
+		void acceptTradeOffer(TradeDeal trade_deal);
+		void declineTradeOffer(TradeDeal trade_deal);
 		std::vector<Nation*> alliedNations();
 		double calculateMonthlyExpenses();
 		double calculateMonthlyIncome();
