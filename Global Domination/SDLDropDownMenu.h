@@ -11,6 +11,7 @@ namespace global_domination
 		SDLDropDownMenu(SDL_Window* parent, int top_level_button_pos_x, int top_level_button_pos_y, int sub_menu_pos_x, int sub_menu_pos_y, int menu_item_height);
 		void addMenuItem(ListItem<T> menu_item);
 		void collapseMenu();
+		void collapseIfNotClicked(int x, int y);
 		bool handleClick(int x, int y);
 		void render(SDL_Renderer* renderer);
 		void toggleExpanded();
@@ -53,6 +54,29 @@ namespace global_domination
 	}
 
 	template<class T>
+	inline void SDLDropDownMenu<T>::collapseIfNotClicked(int x, int y)
+	{
+		bool top_level_clicked = top_level_button->containsPoint(x, y);
+		bool sub_menu_clicked = false;
+
+		if (is_expanded_)
+		{
+			for (unsigned int i = 0; i < menu_items_.size(); i++)
+			{
+				if (containsPoint(textLocationForIndex(i), x, y))
+				{
+					sub_menu_clicked = true;
+				}
+			}
+		}
+
+		if (!(top_level_clicked || sub_menu_clicked))
+		{
+			collapseMenu();
+		}
+	}
+
+	template<class T>
 	inline bool SDLDropDownMenu<T>::handleClick(int x, int y)
 	{
 		if (top_level_button->containsPoint(x, y))
@@ -61,16 +85,21 @@ namespace global_domination
 			return true;
 		}
 
-		for (unsigned int i = 0; i < menu_items_.size(); i++)
+		if (is_expanded_)
 		{
-			if (containsPoint(textLocationForIndex(i), x, y))
+			for (unsigned int i = 0; i < menu_items_.size(); i++)
 			{
-				selected_menu_item_index_ = i;
-				menu_items_.at(i).invokeAction();
-				return true;
+				if (containsPoint(textLocationForIndex(i), x, y))
+				{
+					selected_menu_item_index_ = i;
+					menu_items_.at(i).invokeAction();
+					collapseMenu();
+					return true;
+				}
 			}
 		}
 
+		collapseMenu();
 		return false;
 	}
 

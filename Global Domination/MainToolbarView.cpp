@@ -15,21 +15,20 @@ namespace global_domination
 		useSecondaryColorScheme();
 	}
 
-	void MainToolbarView::collapseMenus()
+	void MainToolbarView::collapseUnclickedMenus(int x, int y)
 	{
 		std::shared_ptr<SDLDropDownMenu<int>> home_menu = std::dynamic_pointer_cast<SDLDropDownMenu<int>>(getChildControl(TOOLBAR_MENU_HOME));
-		home_menu->collapseMenu();
+		home_menu->collapseIfNotClicked(x, y);
 
 		std::shared_ptr<SDLDropDownMenu<int>> settings_menu = std::dynamic_pointer_cast<SDLDropDownMenu<int>>(getChildControl(TOOLBAR_MENU_SETTINGS));
-		settings_menu->collapseMenu();
-
+		settings_menu->collapseIfNotClicked(x, y);
 	}
 
 	bool MainToolbarView::handleClick(int x, int y)
 	{
 		if (is_visible_)
 		{
-			collapseMenus();
+			collapseUnclickedMenus(x, y);
 			SDLCompositePane::handleClick(x, y);
 		}
 
