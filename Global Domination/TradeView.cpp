@@ -6,6 +6,7 @@
 #include "ControlResources.h"
 #include "Game.h"
 #include "SDLButton.h"
+#include "SDLButtonGroup.h"
 #include "SDLListBox.h"
 #include "SDLStackGrid.h"
 #include "TradeDeal.h"
@@ -58,13 +59,16 @@ namespace global_domination
 		trade_deals_button->setFontSize(12);
 		addChildControl(trade_deals_button);
 
+		SDLButtonGroup* buttonGroup = new SDLButtonGroup();
+		buttonGroup->addToGroup(trade_offers_button.get());
+		buttonGroup->addToGroup(trade_deals_button.get());
+		addButtonGroup(buttonGroup);
+
 		SDL_Rect trade_deals_pane_client_area{ client_area_.w * 0.08, client_area_.h * 0.2, client_area_.w * 0.55, client_area_.h * 0.5 };
 		std::shared_ptr<TradeDealsView> trade_deals_pane = std::make_shared<TradeDealsView>(the_game_, parent_, trade_deals_pane_client_area);
-		trade_deals_pane->initialize();
 		trade_deals_pane->setId(TRADE_DEALS_PANE);
 
 		std::shared_ptr<TradeOffersView> trade_offers_pane = std::make_shared<TradeOffersView>(the_game_, parent_, trade_deals_pane_client_area);
-		trade_offers_pane->initialize();
 		trade_offers_pane->setId(TRADE_OFFERS_PANE);
 
 		addLabel("Resources:", client_area_.w * 0.08, client_area_.h * 0.7, TRADEVIEW_RESOURCES_LABEL);

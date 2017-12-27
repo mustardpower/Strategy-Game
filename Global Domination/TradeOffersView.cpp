@@ -10,6 +10,8 @@ namespace global_domination
 	{
 		the_game_ = the_game;
 		nation_ = the_game_->getGameModel()->getSelectedNation();
+
+		initialize();
 	}
 
 	TradeDeal* TradeOffersView::getSelectedTradeOffer()

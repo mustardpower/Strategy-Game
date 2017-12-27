@@ -23,7 +23,7 @@ namespace global_domination
 		virtual void render(SDL_Renderer* renderer) = 0;
 		void setFontSize(int font_size);
 		void setId(ControlID id);
-		void setSelection(bool selected);
+		virtual void setSelection(bool selected);
 		void setVisibility(bool visibility);
 		void useSecondaryColorScheme();
 	protected:

@@ -102,6 +102,9 @@
     <ClCompile Include="SDLCompositePane.cpp">
       <Filter>Source Files\SDLControls</Filter>
     </ClCompile>
+    <ClCompile Include="SDLButtonGroup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -201,6 +204,9 @@
       <Filter>Header Files\Views</Filter>
     </ClInclude>
     <ClInclude Include="SDLCompositePane.h">
+      <Filter>Header Files\SDLControls</Filter>
+    </ClInclude>
+    <ClInclude Include="SDLButtonGroup.h">
       <Filter>Header Files\SDLControls</Filter>
     </ClInclude>
   </ItemGroup>

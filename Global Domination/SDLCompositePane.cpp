@@ -7,6 +7,11 @@ namespace global_domination
 	{
 	}
 
+	void SDLCompositePane::addButtonGroup(SDLButtonGroup* group)
+	{
+		button_groups_.push_back(group);
+	}
+
 	void SDLCompositePane::addLabel(std::string text, int pos_x, int pos_y, ControlID id, int font_size, bool use_secondary_color_scheme)
 	{
 		std::shared_ptr<SDLStaticText> title_label = std::make_shared<SDLStaticText>(parent_, text, pos_x, pos_y);
@@ -24,11 +29,6 @@ namespace global_domination
 	{
 		if (is_visible_)
 		{
-			for (std::vector<std::shared_ptr<SDLControl>>::iterator control = children_.begin(); control != children_.end(); control++)
-			{
-				(*control)->setSelection(false);
-			}
-
 			if (children_.size())
 			{
 				for (std::vector<std::shared_ptr<SDLControl>>::iterator control = children_.begin(); control != children_.end(); control++)

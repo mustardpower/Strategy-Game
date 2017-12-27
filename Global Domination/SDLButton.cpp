@@ -3,6 +3,7 @@
 #include "SDL_ttf.h"
 
 #include "ColorPreferences.h"
+#include "SDLButtonGroup.h"
 #include "SDL_TextRenderer.h"
 
 namespace global_domination
@@ -11,6 +12,12 @@ namespace global_domination
 	{
 		action_ = action;
 		button_text_ = button_text;
+		button_group_ = nullptr;
+	}
+
+	void SDLButton::addToGroup(SDLButtonGroup* group)
+	{
+		button_group_ = group;
 	}
 
 	bool SDLButton::containsPoint(int x, int y)
@@ -57,5 +64,23 @@ namespace global_domination
 		if (!font) { return; }
 
 		text_renderer::renderText(parent_, button_text_, client_area_, getTextColor(), getBackgroundColor(), font_size_);
+	}
+
+	void SDLButton::setSelection(bool selected)
+	{
+		if (button_group_)
+		{
+			if (selected)
+			{
+				button_group_->setSelection(this);
+			}
+			is_selected_ = selected;
+		}
+	}
+
+	void SDLButton::trigger()
+	{
+		setSelection(true);
+		invokeAction();
 	}
 }
