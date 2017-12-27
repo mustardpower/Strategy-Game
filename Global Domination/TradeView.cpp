@@ -58,7 +58,7 @@ namespace global_domination
 		trade_deals_button->setFontSize(12);
 		addChildControl(trade_deals_button);
 
-		SDL_Rect trade_deals_pane_client_area{ client_area_.w * 0.08, client_area_.h * 0.2, client_area_.w * 0.25, client_area_.h * 0.5 };
+		SDL_Rect trade_deals_pane_client_area{ client_area_.w * 0.08, client_area_.h * 0.2, client_area_.w * 0.55, client_area_.h * 0.5 };
 		std::shared_ptr<TradeDealsView> trade_deals_pane = std::make_shared<TradeDealsView>(the_game_, parent_, trade_deals_pane_client_area);
 		trade_deals_pane->initialize();
 		trade_deals_pane->setId(TRADE_DEALS_PANE);
@@ -121,6 +121,28 @@ namespace global_domination
 
 				std::shared_ptr<TradeOffersView> trade_offers_list = std::dynamic_pointer_cast<TradeOffersView>(getChildControl(TRADE_OFFERS_PANE));
 				trade_offers_list->setVisibility(true);
+			}
+			break;
+			case TYPES::ACTION_LIST::TRADEVIEW_ACCEPT_OFFER:
+			{
+				std::shared_ptr<TradeOffersView> trade_offer_pane = std::dynamic_pointer_cast<TradeOffersView>(getChildControl(TRADE_OFFERS_PANE));
+				TradeDeal* trade_offer = trade_offer_pane->getSelectedTradeOffer();
+				if (trade_offer)
+				{
+					nation_->acceptTradeOffer(*trade_offer);
+					updateForSelectedResource();
+				}
+			}
+			break;
+			case TYPES::ACTION_LIST::TRADEVIEW_DECLINE_OFFER:
+			{
+				std::shared_ptr<TradeOffersView> trade_offer_pane = std::dynamic_pointer_cast<TradeOffersView>(getChildControl(TRADE_OFFERS_PANE));
+				TradeDeal* trade_offer = trade_offer_pane->getSelectedTradeOffer();
+				if (trade_offer)
+				{
+					nation_->declineTradeOffer(*trade_offer);
+					updateForSelectedResource();
+				}
 			}
 			break;
 		}
