@@ -46,10 +46,16 @@ namespace global_domination
 				{
 					return *control;
 				}
+
+				std::shared_ptr<SDLControl> child_control = (*control)->getChildControl(id);
+				if (child_control)
+				{
+					return child_control;
+				}
 			}
 		}
 
-		throw std::exception("No control defined with the id:" + id);
+		return nullptr;
 	}
 
 	unsigned int SDLControl::getId()
@@ -94,6 +100,10 @@ namespace global_domination
 	void SDLControl::setVisibility(bool visibility)
 	{
 		is_visible_ = visibility;
+		for (std::vector<std::shared_ptr<SDLControl>> ::iterator child = children_.begin(); child != children_.end(); child++)
+		{
+			(*child)->setVisibility(visibility);
+		}
 	}
 
 	void SDLControl::useSecondaryColorScheme()

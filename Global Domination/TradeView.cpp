@@ -9,6 +9,8 @@
 #include "SDLListBox.h"
 #include "SDLStackGrid.h"
 #include "TradeDeal.h"
+#include "TradeDealsView.h"
+#include "TradeOffersView.h"
 
 namespace global_domination
 {
@@ -24,7 +26,7 @@ namespace global_domination
 
 	TradeDeal* TradeView::getSelectedTradeDeal()
 	{
-		std::shared_ptr<SDLListBox<TradeDeal>> trade_deal_list = std::dynamic_pointer_cast<SDLListBox<TradeDeal>>(getChildControl(TRADE_DEAL_LIST_EXISTING));
+		std::shared_ptr<SDLListBox<TradeDeal>> trade_deal_list = std::dynamic_pointer_cast<SDLListBox<TradeDeal>>(getChildControl(TRADE_DEAL_LIST));
 		return trade_deal_list->selectedItem();
 	}
 
@@ -56,12 +58,14 @@ namespace global_domination
 		trade_deals_button->setFontSize(12);
 		addChildControl(trade_deals_button);
 
-		SDL_Rect trade_deal_list_area{ client_area_.w * 0.08, client_area_.h * 0.2, client_area_.w * 0.25, client_area_.h * 0.5 };
-		std::shared_ptr<SDLListBox<TradeDeal>> trade_deal_list = std::make_shared<SDLListBox<TradeDeal>>(parent_, trade_deal_list_area, client_area_.h * 0.1);
-		trade_deal_list->setId(TRADE_DEAL_LIST);
+		SDL_Rect trade_deals_pane_client_area{ client_area_.w * 0.08, client_area_.h * 0.2, client_area_.w * 0.25, client_area_.h * 0.5 };
+		std::shared_ptr<TradeDealsView> trade_deals_pane = std::make_shared<TradeDealsView>(the_game_, parent_, trade_deals_pane_client_area);
+		trade_deals_pane->initialize();
+		trade_deals_pane->setId(TRADE_DEALS_PANE);
 
-		std::shared_ptr<SDLListBox<TradeDeal>> trade_offers_list = std::make_shared<SDLListBox<TradeDeal>>(parent_, trade_deal_list_area, client_area_.h * 0.1);
-		trade_offers_list->setId(TRADE_DEAL_LIST_EXISTING);
+		std::shared_ptr<TradeOffersView> trade_offers_pane = std::make_shared<TradeOffersView>(the_game_, parent_, trade_deals_pane_client_area);
+		trade_offers_pane->initialize();
+		trade_offers_pane->setId(TRADE_OFFERS_PANE);
 
 		addLabel("Resources:", client_area_.w * 0.08, client_area_.h * 0.7, TRADEVIEW_RESOURCES_LABEL);
 		SDL_Rect resource_list_area{ client_area_.w * 0.06, client_area_.h * 0.75, client_area_.w * 0.88, client_area_.h * 0.2 };
@@ -77,8 +81,8 @@ namespace global_domination
 		}
 
 		addChildControl(resource_list);
-		addChildControl(trade_offers_list);
-		addChildControl(trade_deal_list);
+		addChildControl(trade_deals_pane);
+		addChildControl(trade_offers_pane);
 
 		updateForSelectedResource();
 	}
@@ -103,19 +107,19 @@ namespace global_domination
 			break;
 			case TYPES::ACTION_LIST::TRADEVIEW_SHOW_DEALS:
 			{
-				std::shared_ptr<SDLListBox<TradeDeal>> trade_deal_list = std::dynamic_pointer_cast<SDLListBox<TradeDeal>>(getChildControl(TRADE_DEAL_LIST_EXISTING));
+				std::shared_ptr<TradeDealsView> trade_deal_list = std::dynamic_pointer_cast<TradeDealsView>(getChildControl(TRADE_DEALS_PANE));
 				trade_deal_list->setVisibility(true);
 
-				std::shared_ptr<SDLListBox<TradeDeal>> trade_offers_list = std::dynamic_pointer_cast<SDLListBox<TradeDeal>>(getChildControl(TRADE_DEAL_LIST));
+				std::shared_ptr<TradeOffersView> trade_offers_list = std::dynamic_pointer_cast<TradeOffersView>(getChildControl(TRADE_OFFERS_PANE));
 				trade_offers_list->setVisibility(false);
 			}
 			break;
 			case TYPES::ACTION_LIST::TRADEVIEW_SHOW_OFFERS:
 			{
-				std::shared_ptr<SDLListBox<TradeDeal>> trade_deal_list = std::dynamic_pointer_cast<SDLListBox<TradeDeal>>(getChildControl(TRADE_DEAL_LIST_EXISTING));
+				std::shared_ptr<TradeDealsView> trade_deal_list = std::dynamic_pointer_cast<TradeDealsView>(getChildControl(TRADE_DEALS_PANE));
 				trade_deal_list->setVisibility(false);
 
-				std::shared_ptr<SDLListBox<TradeDeal>> trade_offers_list = std::dynamic_pointer_cast<SDLListBox<TradeDeal>>(getChildControl(TRADE_DEAL_LIST));
+				std::shared_ptr<TradeOffersView> trade_offers_list = std::dynamic_pointer_cast<TradeOffersView>(getChildControl(TRADE_OFFERS_PANE));
 				trade_offers_list->setVisibility(true);
 			}
 			break;
@@ -124,7 +128,7 @@ namespace global_domination
 	void TradeView::updateExistingTradeDeals()
 	{
 		TradeResource* trade_resource = getSelectedTradeResource();
-		std::shared_ptr<SDLListBox<TradeDeal>> trade_deal_list = std::dynamic_pointer_cast<SDLListBox<TradeDeal>>(getChildControl(TRADE_DEAL_LIST_EXISTING));
+		std::shared_ptr<SDLListBox<TradeDeal>> trade_deal_list = std::dynamic_pointer_cast<SDLListBox<TradeDeal>>(getChildControl(TRADE_DEAL_LIST));
 		trade_deal_list->clearItems();
 		std::vector<TradeDeal> trade_deals_for_resource = nation_->getTradeDealsForResource(*trade_resource);
 		for (std::vector<TradeDeal>::const_iterator deal = trade_deals_for_resource.cbegin(); deal != trade_deals_for_resource.end(); deal++)
@@ -135,7 +139,7 @@ namespace global_domination
 	void TradeView::updateProspectiveTradeDeals()
 	{
 		TradeResource* trade_resource = getSelectedTradeResource();
-		std::shared_ptr<SDLListBox<TradeDeal>> trade_offers_list = std::dynamic_pointer_cast<SDLListBox<TradeDeal>>(getChildControl(TRADE_DEAL_LIST));
+		std::shared_ptr<SDLListBox<TradeDeal>> trade_offers_list = std::dynamic_pointer_cast<SDLListBox<TradeDeal>>(getChildControl(TRADE_OFFERS_LIST));
 		trade_offers_list->clearItems();
 		std::vector<TradeDeal> trade_offers_for_resource = nation_->getTradeOffersForResource(*trade_resource);
 		for (std::vector<TradeDeal>::const_iterator offer = trade_offers_for_resource.cbegin(); offer != trade_offers_for_resource.end(); offer++)
