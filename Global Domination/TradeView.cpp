@@ -25,6 +25,17 @@ namespace global_domination
 	{
 	}
 
+	void TradeView::acceptTradeOffer()
+	{
+		std::shared_ptr<TradeOffersView> trade_offer_pane = std::dynamic_pointer_cast<TradeOffersView>(getChildControl(TRADE_OFFERS_PANE));
+		TradeDeal* trade_offer = trade_offer_pane->getSelectedTradeOffer();
+		if (trade_offer)
+		{
+			nation_->acceptTradeOffer(*trade_offer);
+			updateForSelectedResource();
+		}
+	}
+
 	TradeDeal* TradeView::getSelectedTradeDeal()
 	{
 		std::shared_ptr<SDLListBox<TradeDeal>> trade_deal_list = std::dynamic_pointer_cast<SDLListBox<TradeDeal>>(getChildControl(TRADE_DEAL_LIST));
@@ -90,6 +101,18 @@ namespace global_domination
 
 		updateForSelectedResource();
 	}
+
+	void TradeView::rejectTradeOffer()
+	{
+		std::shared_ptr<TradeOffersView> trade_offer_pane = std::dynamic_pointer_cast<TradeOffersView>(getChildControl(TRADE_OFFERS_PANE));
+		TradeDeal* trade_offer = trade_offer_pane->getSelectedTradeOffer();
+		if (trade_offer)
+		{
+			nation_->declineTradeOffer(*trade_offer);
+			updateForSelectedResource();
+		}
+	}
+
 	void TradeView::respondToAction(TYPES::ACTION_LIST action)
 	{
 		switch (action)
@@ -111,46 +134,45 @@ namespace global_domination
 			break;
 			case TYPES::ACTION_LIST::TRADEVIEW_SHOW_DEALS:
 			{
-				std::shared_ptr<TradeDealsView> trade_deal_list = std::dynamic_pointer_cast<TradeDealsView>(getChildControl(TRADE_DEALS_PANE));
-				trade_deal_list->setVisibility(true);
-
-				std::shared_ptr<TradeOffersView> trade_offers_list = std::dynamic_pointer_cast<TradeOffersView>(getChildControl(TRADE_OFFERS_PANE));
-				trade_offers_list->setVisibility(false);
+				showTradeDeals();
 			}
 			break;
 			case TYPES::ACTION_LIST::TRADEVIEW_SHOW_OFFERS:
 			{
-				std::shared_ptr<TradeDealsView> trade_deal_list = std::dynamic_pointer_cast<TradeDealsView>(getChildControl(TRADE_DEALS_PANE));
-				trade_deal_list->setVisibility(false);
-
-				std::shared_ptr<TradeOffersView> trade_offers_list = std::dynamic_pointer_cast<TradeOffersView>(getChildControl(TRADE_OFFERS_PANE));
-				trade_offers_list->setVisibility(true);
+				showTradeOffers();
 			}
 			break;
 			case TYPES::ACTION_LIST::TRADEVIEW_ACCEPT_OFFER:
 			{
-				std::shared_ptr<TradeOffersView> trade_offer_pane = std::dynamic_pointer_cast<TradeOffersView>(getChildControl(TRADE_OFFERS_PANE));
-				TradeDeal* trade_offer = trade_offer_pane->getSelectedTradeOffer();
-				if (trade_offer)
-				{
-					nation_->acceptTradeOffer(*trade_offer);
-					updateForSelectedResource();
-				}
+				acceptTradeOffer();
 			}
 			break;
 			case TYPES::ACTION_LIST::TRADEVIEW_DECLINE_OFFER:
 			{
-				std::shared_ptr<TradeOffersView> trade_offer_pane = std::dynamic_pointer_cast<TradeOffersView>(getChildControl(TRADE_OFFERS_PANE));
-				TradeDeal* trade_offer = trade_offer_pane->getSelectedTradeOffer();
-				if (trade_offer)
-				{
-					nation_->declineTradeOffer(*trade_offer);
-					updateForSelectedResource();
-				}
+				rejectTradeOffer();
 			}
 			break;
 		}
 	}
+
+	void TradeView::showTradeDeals()
+	{
+		std::shared_ptr<TradeDealsView> trade_deal_list = std::dynamic_pointer_cast<TradeDealsView>(getChildControl(TRADE_DEALS_PANE));
+		trade_deal_list->setVisibility(true);
+
+		std::shared_ptr<TradeOffersView> trade_offers_list = std::dynamic_pointer_cast<TradeOffersView>(getChildControl(TRADE_OFFERS_PANE));
+		trade_offers_list->setVisibility(false);
+	}
+
+	void TradeView::showTradeOffers()
+	{
+		std::shared_ptr<TradeDealsView> trade_deal_list = std::dynamic_pointer_cast<TradeDealsView>(getChildControl(TRADE_DEALS_PANE));
+		trade_deal_list->setVisibility(false);
+
+		std::shared_ptr<TradeOffersView> trade_offers_list = std::dynamic_pointer_cast<TradeOffersView>(getChildControl(TRADE_OFFERS_PANE));
+		trade_offers_list->setVisibility(true);
+	}
+
 	void TradeView::updateExistingTradeDeals()
 	{
 		TradeResource* trade_resource = getSelectedTradeResource();

@@ -7,6 +7,16 @@ namespace global_domination
 	{
 	}
 
+	SDLCompositePane::~SDLCompositePane()
+	{
+		for (std::vector<SDLButtonGroup*>::iterator group = button_groups_.begin(); group != button_groups_.end(); group++)
+		{
+			delete *group;
+		}
+
+		button_groups_.clear();
+	}
+
 	void SDLCompositePane::addButtonGroup(SDLButtonGroup* group)
 	{
 		button_groups_.push_back(group);

@@ -11,11 +11,15 @@ namespace global_domination
 	public:
 		TradeView::TradeView(Game* the_game, SDL_Window * parent, SDL_Rect client_area);
 		virtual ~TradeView();
+		void acceptTradeOffer();
 		TradeDeal* getSelectedTradeDeal();
 		TradeResource* getSelectedTradeResource();
 		std::shared_ptr<Action> getTradeDealSelectionAction();
 		void initialize();
+		void rejectTradeOffer();
 		void respondToAction(TYPES::ACTION_LIST action);
+		void showTradeDeals();
+		void showTradeOffers();
 		void updateExistingTradeDeals();
 		void updateProspectiveTradeDeals();
 		void updateForSelectedResource();
