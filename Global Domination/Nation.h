@@ -18,6 +18,7 @@ namespace global_domination
 		std::vector<Nation*> alliedNations();
 		double calculateMonthlyExpenses();
 		double calculateMonthlyIncome();
+		void cancelTradeDeal(TradeDeal trade_deal);
 		double getGDP() const;
 		double getGDPPerCapita() const;
 		std::string getName() const;

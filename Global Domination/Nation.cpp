@@ -55,6 +55,12 @@ namespace global_domination
 		return income;
 	}
 
+	void Nation::cancelTradeDeal(TradeDeal trade_deal)
+	{
+		std::vector<TradeDeal>::iterator matching_deal = std::find(trade_deals_.begin(), trade_deals_.end(), trade_deal);
+		trade_deals_.erase(matching_deal);
+	}
+
 	double Nation::getGDP() const
 	{
 		return GDP_;

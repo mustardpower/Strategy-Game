@@ -36,6 +36,17 @@ namespace global_domination
 		}
 	}
 
+	void TradeView::cancelTradeDeal()
+	{
+		std::shared_ptr<TradeDealsView> trade_deal_pane = std::dynamic_pointer_cast<TradeDealsView>(getChildControl(TRADE_DEALS_PANE));
+		TradeDeal* trade_deal = trade_deal_pane->getSelectedTradeDeal();
+		if (trade_deal)
+		{
+			nation_->cancelTradeDeal(*trade_deal);
+			updateForSelectedResource();
+		}
+	}
+
 	TradeDeal* TradeView::getSelectedTradeDeal()
 	{
 		std::shared_ptr<SDLListBox<TradeDeal>> trade_deal_list = std::dynamic_pointer_cast<SDLListBox<TradeDeal>>(getChildControl(TRADE_DEAL_LIST));
@@ -152,6 +163,10 @@ namespace global_domination
 				rejectTradeOffer();
 			}
 			break;
+			case TYPES::ACTION_LIST::TRADEVIEW_CANCEL_DEAL:
+			{
+				cancelTradeDeal();
+			}
 		}
 	}
 

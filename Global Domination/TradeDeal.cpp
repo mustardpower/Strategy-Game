@@ -63,6 +63,14 @@ namespace global_domination
 		return reportString() < another.reportString();
 	}
 
+	bool TradeDeal::operator==(const TradeDeal & another) const
+	{
+		if (payee_ != another.payee_) { return false; };
+		if (resource_ != another.resource_) { return false; };
+
+		return true;
+	}
+
 	void to_json(nlohmann::json& j, const TradeDeal& trade_deal) {
 		j = nlohmann::json{ { "payee", trade_deal.getPayee() } };
 	}
