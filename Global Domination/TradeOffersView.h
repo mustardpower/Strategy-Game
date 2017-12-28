@@ -14,6 +14,7 @@ namespace global_domination
 		TradeDeal* getSelectedTradeOffer();
 		void initialize();
 		void respondToAction(TYPES::ACTION_LIST action);
+		void updateGui();
 		
 	private:
 		Game* the_game_;

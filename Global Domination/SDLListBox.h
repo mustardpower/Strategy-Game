@@ -26,6 +26,7 @@ namespace global_domination
 		void drawSliderBarUpArrow(SDL_Renderer* renderer);
 		void drawSliderBarDownArrow(SDL_Renderer* renderer);
 		bool handleClick(int x, int y);
+		bool isEmpty();
 		void nextItem();
 		void previousItem();
 		void render(SDL_Renderer* renderer);
@@ -207,6 +208,12 @@ namespace global_domination
 		}
 
 		return false;
+	}
+
+	template<class T>
+	inline bool SDLListBox<T>::isEmpty()
+	{
+		return items_.empty();
 	}
 
 	template <typename T>

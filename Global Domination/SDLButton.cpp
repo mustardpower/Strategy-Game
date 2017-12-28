@@ -52,18 +52,21 @@ namespace global_domination
 
 	void SDLButton::render(SDL_Renderer* renderer)
 	{
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
-		int index = 0;
-
-		if (is_selected_)
+		if (is_visible_)
 		{
-			SDL_RenderDrawRect(renderer, &client_area_);
+			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
+			int index = 0;
+
+			if (is_selected_)
+			{
+				SDL_RenderDrawRect(renderer, &client_area_);
+			}
+
+			TTF_Font* font = text_renderer::getFont(font_size_);
+			if (!font) { return; }
+
+			text_renderer::renderText(parent_, button_text_, client_area_, getTextColor(), getBackgroundColor(), font_size_);
 		}
-
-		TTF_Font* font = text_renderer::getFont(font_size_);
-		if (!font) { return; }
-
-		text_renderer::renderText(parent_, button_text_, client_area_, getTextColor(), getBackgroundColor(), font_size_);
 	}
 
 	void SDLButton::setSelection(bool selected)

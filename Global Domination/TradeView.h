@@ -21,7 +21,7 @@ namespace global_domination
 		void showTradeDeals();
 		void showTradeOffers();
 		void updateExistingTradeDeals();
-		void updateProspectiveTradeDeals();
+		void updateTradeOffers();
 		void updateForSelectedResource();
 		void updateForSelectedTradeDeal();
 	private:

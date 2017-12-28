@@ -30,11 +30,13 @@ namespace global_domination
 		SDL_Rect accept_button_client_area{ client_area_.x + client_area_.w * 0.6, client_area_.y + client_area_.h * 0.2, 100, client_area_.h * 0.05 };
 		std::shared_ptr<SDLButton> accept_offer_button = std::make_shared<SDLButton>(parent_, "Accept offer", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::TRADEVIEW_ACCEPT_OFFER), accept_button_client_area);
 		accept_offer_button->setFontSize(12);
+		accept_offer_button->setId(TRADEVIEW_ACCEPTOFFER_BUTTON);
 		addChildControl(accept_offer_button);
 
 		SDL_Rect decline_button_client_area{ client_area_.x + client_area_.w * 0.8, client_area_.y + client_area_.h * 0.2, 100, client_area_.h * 0.05 };
 		std::shared_ptr<SDLButton> decline_offer_button = std::make_shared<SDLButton>(parent_, "Decline offer", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::TRADEVIEW_DECLINE_OFFER), decline_button_client_area);
 		decline_offer_button->setFontSize(12);
+		decline_offer_button->setId(TRADEVIEW_DECLINEOFFER_BUTTON);
 		addChildControl(decline_offer_button);
 	}
 
@@ -61,6 +63,15 @@ namespace global_domination
 			}
 			break;
 		}
+	}
+
+	void TradeOffersView::updateGui()
+	{
+		std::shared_ptr<SDLListBox<TradeDeal>> trade_offers_list = std::dynamic_pointer_cast<SDLListBox<TradeDeal>>(getChildControl(TRADE_OFFERS_LIST));
+		std::shared_ptr<SDLButton> accept_offer_button = std::dynamic_pointer_cast<SDLButton>(getChildControl(TRADEVIEW_ACCEPTOFFER_BUTTON));
+		accept_offer_button->setVisibility(!trade_offers_list->isEmpty());
+		std::shared_ptr<SDLButton> decline_offer_button = std::dynamic_pointer_cast<SDLButton>(getChildControl(TRADEVIEW_DECLINEOFFER_BUTTON));
+		decline_offer_button->setVisibility(!trade_offers_list->isEmpty());
 	}
 }
 

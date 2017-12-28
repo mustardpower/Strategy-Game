@@ -81,6 +81,11 @@ namespace global_domination
 		return ColorPreferences::getPrimaryTextColor();
 	}
 
+	bool SDLControl::isSelected()
+	{
+		return is_selected_;
+	}
+
 	void SDLControl::setFontSize(int font_size)
 	{
 		font_size_ = font_size;

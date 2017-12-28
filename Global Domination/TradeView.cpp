@@ -166,11 +166,12 @@ namespace global_domination
 
 	void TradeView::showTradeOffers()
 	{
-		std::shared_ptr<TradeDealsView> trade_deal_list = std::dynamic_pointer_cast<TradeDealsView>(getChildControl(TRADE_DEALS_PANE));
-		trade_deal_list->setVisibility(false);
+		std::shared_ptr<TradeDealsView> trade_deal_pane = std::dynamic_pointer_cast<TradeDealsView>(getChildControl(TRADE_DEALS_PANE));
+		trade_deal_pane->setVisibility(false);
 
-		std::shared_ptr<TradeOffersView> trade_offers_list = std::dynamic_pointer_cast<TradeOffersView>(getChildControl(TRADE_OFFERS_PANE));
-		trade_offers_list->setVisibility(true);
+		std::shared_ptr<TradeOffersView> trade_offers_pane = std::dynamic_pointer_cast<TradeOffersView>(getChildControl(TRADE_OFFERS_PANE));
+		trade_offers_pane->setVisibility(true);
+		trade_offers_pane->updateGui();
 	}
 
 	void TradeView::updateExistingTradeDeals()
@@ -184,9 +185,10 @@ namespace global_domination
 			trade_deal_list->addItem(ListItem<TradeDeal>(deal->reportString(), getTradeDealSelectionAction(), *deal));
 		}
 	}
-	void TradeView::updateProspectiveTradeDeals()
+	void TradeView::updateTradeOffers()
 	{
 		TradeResource* trade_resource = getSelectedTradeResource();
+
 		std::shared_ptr<SDLListBox<TradeDeal>> trade_offers_list = std::dynamic_pointer_cast<SDLListBox<TradeDeal>>(getChildControl(TRADE_OFFERS_LIST));
 		trade_offers_list->clearItems();
 		std::vector<TradeDeal> trade_offers_for_resource = nation_->getTradeOffersForResource(*trade_resource);
@@ -194,6 +196,11 @@ namespace global_domination
 		{
 			trade_offers_list->addItem(ListItem<TradeDeal>(offer->reportString(), getTradeDealSelectionAction(), *offer));
 		}
+
+		std::shared_ptr<SDLButton> accept_offer_button = std::dynamic_pointer_cast<SDLButton>(getChildControl(TRADEVIEW_ACCEPTOFFER_BUTTON));
+		accept_offer_button->setVisibility(!trade_offers_list->isEmpty());
+		std::shared_ptr<SDLButton> decline_offer_button = std::dynamic_pointer_cast<SDLButton>(getChildControl(TRADEVIEW_DECLINEOFFER_BUTTON));
+		decline_offer_button->setVisibility(!trade_offers_list->isEmpty());
 	}
 
 	void TradeView::updateForSelectedResource()
@@ -201,7 +208,7 @@ namespace global_domination
 		if (getSelectedTradeResource())
 		{
 			updateExistingTradeDeals();
-			updateProspectiveTradeDeals();
+			updateTradeOffers();
 			updateForSelectedTradeDeal();
 		}
 	}

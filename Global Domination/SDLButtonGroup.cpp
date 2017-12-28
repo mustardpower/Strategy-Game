@@ -13,6 +13,11 @@ namespace global_domination
 	{
 		buttons_.push_back(button);
 		button->addToGroup(this);
+
+		if (buttons_.size() == 1)
+		{
+			button->setSelection(true);
+		}
 	}
 
 	void SDLButtonGroup::setSelection(SDLButton * button)
