@@ -1,6 +1,5 @@
 #pragma once
 #include "SDLCompositePane.h"
-#include "IReciever.h"
 
 namespace global_domination
 {

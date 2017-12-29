@@ -188,9 +188,6 @@
     <ClInclude Include="TradeDeal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IReciever.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SDLStackGrid.h">
       <Filter>Header Files\SDLControls</Filter>
     </ClInclude>

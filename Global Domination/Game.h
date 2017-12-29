@@ -7,7 +7,7 @@
 
 namespace global_domination {
 
-	class Game : public IReciever
+	class Game
 	{
 	public:
 		Game();

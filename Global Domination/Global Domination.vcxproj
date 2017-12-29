@@ -160,7 +160,6 @@
     <ClInclude Include="GameModel.h" />
     <ClInclude Include="GameUserInterface.h" />
     <ClInclude Include="InboxView.h" />
-    <ClInclude Include="IReciever.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="MainMenuView.h" />
     <ClInclude Include="MainToolbarView.h" />
