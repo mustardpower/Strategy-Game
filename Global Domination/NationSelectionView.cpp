@@ -82,9 +82,7 @@ namespace global_domination
 		std::shared_ptr<SDLListBox<Nation>> nation_selection_menu = std::dynamic_pointer_cast<SDLListBox<Nation>>(getChildControl(NATION_SELECTION_MENU));
 		nation_selection_menu->previousItem();
 	}
-	void NationSelectionView::onKeyPress(int keyCode)
-	{
-	}
+	
 	void NationSelectionView::respondToAction(TYPES::ACTION_LIST action)
 	{
 		// Only apply changes in this view once the game set up is confirmed

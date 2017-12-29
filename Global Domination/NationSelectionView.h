@@ -15,7 +15,6 @@ namespace global_domination
 		void initialize();
 		void onKeyDown();
 		void onKeyUp();
-		void onKeyPress(int keyCode);
 		void respondToAction(TYPES::ACTION_LIST action);
 		void updateSelectedNationDetails();
 	private:
