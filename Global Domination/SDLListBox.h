@@ -16,7 +16,7 @@ namespace global_domination
 	class SDLListBox : public SDLControl
 	{
 	public:
-		SDLListBox(SDL_Window* parent, SDL_Rect client_area, int item_height);
+		SDLListBox(SDL_Window* parent, SDL_Rect client_area);
 		int getSelectedIndex() const;
 		void addItem(ListItem<T> menu_item);
 		void clearItems();
@@ -48,8 +48,8 @@ namespace global_domination
 	};
 
 	template <typename T>
-	SDLListBox<T>::SDLListBox(SDL_Window*  parent, SDL_Rect client_area, int item_height) : SDLControl(parent, client_area),
-		kItemHeight(item_height)
+	SDLListBox<T>::SDLListBox(SDL_Window*  parent, SDL_Rect client_area) : SDLControl(parent, client_area),
+		kItemHeight(client_area.h * 0.1)
 	{
 		client_area_ = client_area;
 		selected_item_index_ = 0;

@@ -53,7 +53,7 @@ namespace global_domination
 		addChildControl(start_button);
 
 		SDL_Rect menu_client_area { client_area_.w * 0.2, client_area_.h * 0.4, client_area_.w * 0.3, client_area_.h * 0.5 };
-		std::shared_ptr<SDLListBox<Nation>> nation_selection_menu = std::make_shared<SDLListBox<Nation>>(parent_, menu_client_area, client_area_.h * 0.1);
+		std::shared_ptr<SDLListBox<Nation>> nation_selection_menu = std::make_shared<SDLListBox<Nation>>(parent_, menu_client_area);
 		nation_selection_menu->setId(NATION_SELECTION_MENU);
 
 		// Share the same action between menu items

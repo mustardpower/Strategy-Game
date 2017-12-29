@@ -23,7 +23,7 @@ namespace global_domination
 	void TradeOffersView::initialize()
 	{
 		SDL_Rect trade_offers_list_client_area{ client_area_.x, client_area_.y, client_area_.w * 0.5, client_area_.h };
-		std::shared_ptr<SDLListBox<TradeDeal>> trade_offers_list = std::make_shared<SDLListBox<TradeDeal>>(parent_, trade_offers_list_client_area, client_area_.h * 0.1);
+		std::shared_ptr<SDLListBox<TradeDeal>> trade_offers_list = std::make_shared<SDLListBox<TradeDeal>>(parent_, trade_offers_list_client_area);
 		trade_offers_list->setId(TRADE_OFFERS_LIST);
 		addChildControl(trade_offers_list);
 

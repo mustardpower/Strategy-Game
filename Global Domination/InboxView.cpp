@@ -15,7 +15,7 @@ namespace global_domination {
 	void InboxView::initialize()
 	{
 		SDL_Rect list_box_client_area{ client_area_.w * 0.05, client_area_.h * 0.15, client_area_.w * 0.25, client_area_.h * 0.8 };
-		std::shared_ptr<SDLListBox<Message>> message_list = std::make_shared<SDLListBox<Message>>(parent_, list_box_client_area, list_box_client_area.h * 0.2);
+		std::shared_ptr<SDLListBox<Message>> message_list = std::make_shared<SDLListBox<Message>>(parent_, list_box_client_area);
 		message_list->setId(INBOX_LIST);
 		addChildControl(message_list);
 
