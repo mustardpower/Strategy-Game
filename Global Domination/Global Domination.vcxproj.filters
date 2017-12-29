@@ -102,8 +102,11 @@
     <ClCompile Include="SDLCompositePane.cpp">
       <Filter>Source Files\SDLControls</Filter>
     </ClCompile>
+    <ClCompile Include="SDLProgressBar.cpp">
+      <Filter>Source Files\SDLControls</Filter>
+    </ClCompile>
     <ClCompile Include="SDLButtonGroup.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\SDLControls</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -207,6 +210,9 @@
       <Filter>Header Files\SDLControls</Filter>
     </ClInclude>
     <ClInclude Include="SDLButtonGroup.h">
+      <Filter>Header Files\SDLControls</Filter>
+    </ClInclude>
+    <ClInclude Include="SDLProgressBar.h">
       <Filter>Header Files\SDLControls</Filter>
     </ClInclude>
   </ItemGroup>

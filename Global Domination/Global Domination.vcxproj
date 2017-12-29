@@ -142,6 +142,7 @@
     <ClCompile Include="SDLButtonGroup.cpp" />
     <ClCompile Include="SDLCompositePane.cpp" />
     <ClCompile Include="SDLControl.cpp" />
+    <ClCompile Include="SDLProgressBar.cpp" />
     <ClCompile Include="SDLStaticText.cpp" />
     <ClCompile Include="SDL_TextRenderer.cpp" />
     <ClCompile Include="TradeDeal.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="SDLDropDownMenu.h" />
     <ClInclude Include="SDLListBox.h" />
     <ClInclude Include="SDLMenu.h" />
+    <ClInclude Include="SDLProgressBar.h" />
     <ClInclude Include="SDLStackGrid.h" />
     <ClInclude Include="SDLStaticText.h" />
     <ClInclude Include="SDL_TextRenderer.h" />
