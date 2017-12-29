@@ -4,9 +4,12 @@
 
 namespace global_domination
 {
+	// only register a single custom event for all custom game actions
+	// each event is then differentiated by its user code
+	uint32_t Action::event_type_ = SDL_RegisterEvents(1);
+
 	Action::Action(TYPES::ACTION_LIST action) : action_(action)
 	{
-		event_type_ = SDL_RegisterEvents(1);
 	}
 
 	void Action::execute()

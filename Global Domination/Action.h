@@ -39,8 +39,8 @@ namespace global_domination
 		Action(TYPES::ACTION_LIST action);
 		~Action() { }
 		void execute();
-	protected:
+	private:
 		TYPES::ACTION_LIST action_;
-		uint32_t event_type_;
+		static uint32_t event_type_;
 	};
 }
