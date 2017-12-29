@@ -2,16 +2,16 @@
 
 #include "Action.h"
 #include "ColorPreferences.h"
-#include "Game.h"
+#include "GameModel.h"
 #include "ListItem.h"
 #include "SDLButton.h"
 #include "SDLDropDownMenu.h"
 
 namespace global_domination
 {
-	MainToolbarView::MainToolbarView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
+	MainToolbarView::MainToolbarView(std::shared_ptr<GameModel> the_model, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
 	{
-		the_game_ = the_game;
+		game_model_ = the_model;
 		useSecondaryColorScheme();
 	}
 
@@ -37,38 +37,38 @@ namespace global_domination
 
 	void MainToolbarView::initialize()
 	{
-		addLabel(the_game_->getGameModel()->getDateString(), client_area_.w * 0.05, client_area_.h * 0.4, TOOLBAR_DATE_LABEL, 18, true);
+		addLabel(game_model_->getDateString(), client_area_.w * 0.05, client_area_.h * 0.4, TOOLBAR_DATE_LABEL, 18, true);
 		
 		std::shared_ptr<SDLDropDownMenu<int>> home_menu = std::make_shared<SDLDropDownMenu<int>>(parent_, client_area_.w * 0.4, client_area_.h * 0.4, client_area_.w * 0.4, client_area_.h, client_area_.h * 0.4);
 		home_menu->addMenuItem(ListItem<int>("HOME", nullptr, 0));
-		home_menu->addMenuItem(ListItem<int>("INBOX", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::CHANGEVIEW_INBOX), 1));
-		home_menu->addMenuItem(ListItem<int>("FINANCES", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::CHANGEVIEW_FINANCES), 2));
-		home_menu->addMenuItem(ListItem<int>("TRADE", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::CHANGEVIEW_TRADE), 3));
-		home_menu->addMenuItem(ListItem<int>("RELATIONS", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::CHANGEVIEW_RELATIONS), 3));
+		home_menu->addMenuItem(ListItem<int>("INBOX", std::make_shared<Action>(TYPES::ACTION_LIST::CHANGEVIEW_INBOX), 1));
+		home_menu->addMenuItem(ListItem<int>("FINANCES", std::make_shared<Action>(TYPES::ACTION_LIST::CHANGEVIEW_FINANCES), 2));
+		home_menu->addMenuItem(ListItem<int>("TRADE", std::make_shared<Action>(TYPES::ACTION_LIST::CHANGEVIEW_TRADE), 3));
+		home_menu->addMenuItem(ListItem<int>("RELATIONS", std::make_shared<Action>(TYPES::ACTION_LIST::CHANGEVIEW_RELATIONS), 3));
 		home_menu->setId(TOOLBAR_MENU_HOME);
 		home_menu->useSecondaryColorScheme();
 		addChildControl(home_menu);
 
 		std::shared_ptr<SDLDropDownMenu<int>> settings_menu = std::make_shared<SDLDropDownMenu<int>>(parent_, client_area_.w * 0.7, client_area_.h * 0.4, client_area_.w * 0.7, client_area_.h, client_area_.h * 0.4);
 		settings_menu->addMenuItem(ListItem<int>("SETTINGS", nullptr, 0));
-		settings_menu->addMenuItem(ListItem<int>("QUIT", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::QUIT), 1));
+		settings_menu->addMenuItem(ListItem<int>("QUIT", std::make_shared<Action>(TYPES::ACTION_LIST::QUIT), 1));
 		settings_menu->setId(TOOLBAR_MENU_SETTINGS);
 		settings_menu->useSecondaryColorScheme();
 		addChildControl(settings_menu);
 
 		SDL_Rect next_button_client_area{ client_area_.w * 0.9, client_area_.h * 0.4, 200, client_area_.h * 0.4 };
-		std::shared_ptr<SDLButton> next_button = std::make_shared<SDLButton>(parent_, "NEXT", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::NEXT_TURN), next_button_client_area);
+		std::shared_ptr<SDLButton> next_button = std::make_shared<SDLButton>(parent_, "NEXT", std::make_shared<Action>(TYPES::ACTION_LIST::NEXT_TURN), next_button_client_area);
 		next_button->useSecondaryColorScheme();
 		addChildControl(next_button);
 	}
 
-	void MainToolbarView::respondToAction(TYPES::ACTION_LIST action)
+	void MainToolbarView::respondToAction(Sint32 action)
 	{
 		switch (action)
 		{
 			case TYPES::ACTION_LIST::NEXT_TURN:
 			{
-				setLabelText(TOOLBAR_DATE_LABEL, the_game_->getGameModel()->getDateString());
+				setLabelText(TOOLBAR_DATE_LABEL, game_model_->getDateString());
 			}
 			break;
 		}

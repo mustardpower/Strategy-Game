@@ -1,4 +1,7 @@
 #pragma once
+
+#include "SDL.h"
+
 #include <vector>
 
 #include "Action.h"
@@ -20,7 +23,7 @@ namespace global_domination {
 		std::vector<Message> getInboxMessages();
 		void nextTurn();
 		void pushMessage(Message new_message);
-		void respondToAction(TYPES::ACTION_LIST action);
+		void respondToAction(Sint32 action);
 		void setNations(std::vector<Nation> nations);
 		void setNationalRelationships();
 		void setRelationshipsFromJSON(nlohmann::json& j, Nation& nation);

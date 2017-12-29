@@ -11,16 +11,15 @@
 
 namespace global_domination
 {
-	MainMenuView::MainMenuView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
+	MainMenuView::MainMenuView(SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
 	{
-		the_game_ = the_game;
 	}
 
 	void MainMenuView::initialize()
 	{
 		std::shared_ptr<SDLMenu<int>> main_menu = std::make_shared<SDLMenu<int>>(parent_, client_area_.w * 0.2, client_area_.h * 0.3, client_area_.h * 0.1);
-		main_menu->addMenuItem(ListItem<int>("PLAY!", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::CHANGEVIEW_NATIONSELECTION), 0));
-		main_menu->addMenuItem(ListItem<int>("QUIT!", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::QUIT), 1));
+		main_menu->addMenuItem(ListItem<int>("PLAY!", std::make_shared<Action>(TYPES::ACTION_LIST::CHANGEVIEW_NATIONSELECTION), 0));
+		main_menu->addMenuItem(ListItem<int>("QUIT!", std::make_shared<Action>(TYPES::ACTION_LIST::QUIT), 1));
 		addChildControl(main_menu);
 		main_menu->setId(MAIN_MENU);
 	}
@@ -48,7 +47,7 @@ namespace global_domination
 			break;
 		}
 	}
-	void MainMenuView::respondToAction(TYPES::ACTION_LIST action)
+	void MainMenuView::respondToAction(Sint32 action)
 	{
 		switch (action)
 		{

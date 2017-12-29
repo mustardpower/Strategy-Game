@@ -23,9 +23,9 @@ namespace global_domination
 		return client_area;
 	}
 
-	void GameUserInterface::initialize(Game* the_game)
+	void GameUserInterface::initialize(std::shared_ptr<GameModel> the_model)
 	{
-		the_game_ = the_game;
+		game_model_ = the_model;
 
 		SDL_Surface *surface;
 
@@ -58,7 +58,7 @@ namespace global_domination
 
 		SDL_Rect toolbar_client_area = getClientArea();
 		toolbar_client_area.h = toolbar_client_area.h * 0.1;
-		toolbar_ = std::make_unique<MainToolbarView>(the_game_, window_, toolbar_client_area);
+		toolbar_ = std::make_unique<MainToolbarView>(game_model_, window_, toolbar_client_area);
 		toolbar_->initialize();
 		toolbar_->setVisibility(false);
 
@@ -81,8 +81,10 @@ namespace global_domination
 		SDL_UpdateWindowSurface(window_);
 	}
 
-	void GameUserInterface::respondToAction(TYPES::ACTION_LIST action)
+	void GameUserInterface::respondToAction(Sint32 action)
 	{
+		game_model_->respondToAction(action);
+
 		if(active_control_)
 		{
 			toolbar_->respondToAction(action);
@@ -93,33 +95,33 @@ namespace global_domination
 		{
 			case TYPES::ACTION_LIST::CHANGEVIEW_MENU:
 			{
-				switchActiveControl(std::make_unique<MainMenuView>(the_game_, window_, getClientArea()));
+				switchActiveControl(std::make_unique<MainMenuView>(window_, getClientArea()));
 			}
 			break;
 			case TYPES::ACTION_LIST::CHANGEVIEW_NATIONSELECTION:
 			{
-				switchActiveControl(std::make_unique<NationSelectionView>(the_game_, window_, getClientArea()));
+				switchActiveControl(std::make_unique<NationSelectionView>(game_model_, window_, getClientArea()));
 			}
 			break;
 			case TYPES::ACTION_LIST::CHANGEVIEW_INBOX:
 			{
 				toolbar_->setVisibility(true);
-				switchActiveControl(std::make_unique<InboxView>(the_game_, window_, getClientArea()));
+				switchActiveControl(std::make_unique<InboxView>(game_model_, window_, getClientArea()));
 			}
 			break;
 			case TYPES::ACTION_LIST::CHANGEVIEW_FINANCES:
 			{
-				switchActiveControl(std::make_unique<FinancesView>(the_game_, window_, getClientArea()));
+				switchActiveControl(std::make_unique<FinancesView>(game_model_, window_, getClientArea()));
 			}
 			break;
 			case TYPES::ACTION_LIST::CHANGEVIEW_RELATIONS:
 			{
-				switchActiveControl(std::make_unique<RelationsView>(the_game_, window_, getClientArea()));
+				switchActiveControl(std::make_unique<RelationsView>(game_model_, window_, getClientArea()));
 			}
 			break;
 			case TYPES::ACTION_LIST::CHANGEVIEW_TRADE:
 			{
-				switchActiveControl(std::make_unique<TradeView>(the_game_, window_, getClientArea()));
+				switchActiveControl(std::make_unique<TradeView>(game_model_, window_, getClientArea()));
 			}
 			break;
 		}
@@ -152,37 +154,29 @@ namespace global_domination
 		SDL_Event e;
 
 		while (SDL_PollEvent(&e)) {
-			if (e.type == SDL_QUIT) {
-				is_quiting_ = true;
-				return;
-			}
-
-			if ((e.type == SDL_KEYDOWN) && (e.key.keysym.sym == SDLK_ESCAPE)) {
-				is_quiting_ = true;
-				return;
-			}
-
-			if (e.type == SDL_KEYDOWN)
+			
+			if (e.type == SDL_QUIT) 
 			{
-				if (e.key.keysym.sym == SDLK_DOWN)
-				{
-					respondToAction(TYPES::ACTION_LIST::KEYPRESS_DOWN);
-				}
-				else if (e.key.keysym.sym == SDLK_UP)
-				{
-					respondToAction(TYPES::ACTION_LIST::KEYPRESS_UP);
-				}
-				else if (e.key.keysym.sym == SDLK_RETURN)
-				{
-					respondToAction(TYPES::ACTION_LIST::KEYPRESS_RETURN);
-				}
+				is_quiting_ = true;
+				return;
 			}
-			else if (e.type == SDL_MOUSEBUTTONDOWN)
+
+			if (e.user.code == TYPES::ACTION_LIST::QUIT) {
+				is_quiting_ = true;
+				return;
+			}
+	
+			if (e.type == SDL_MOUSEBUTTONDOWN)
 			{
 				if (e.button.button == SDL_BUTTON_LEFT)
 				{
 					respondToMouseClick(TYPES::ACTION_LIST::MOUSECLICK_LEFT, e.button.x, e.button.y);
 				}
+			}
+
+			else if((e.type >= SDL_USEREVENT) && (e.type <= SDL_LASTEVENT))
+			{
+				respondToAction(e.user.code);
 			}
 		}
 	}

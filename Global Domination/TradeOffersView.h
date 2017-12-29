@@ -6,18 +6,18 @@
 
 namespace global_domination
 {
-	class Game;
+	class GameModel;
 	class TradeOffersView : public SDLCompositePane
 	{
 	public:
-		TradeOffersView(Game* the_game, SDL_Window * parent, SDL_Rect client_area);
+		TradeOffersView(std::shared_ptr<GameModel> the_model, SDL_Window * parent, SDL_Rect client_area);
 		TradeDeal* getSelectedTradeOffer();
 		void initialize();
-		void respondToAction(TYPES::ACTION_LIST action);
+		void respondToAction(Sint32 action);
 		void updateGui();
 		
 	private:
-		Game* the_game_;
+		std::shared_ptr<GameModel> game_model_;
 		Nation* nation_;
 	};
 }

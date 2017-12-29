@@ -70,7 +70,7 @@ namespace global_domination
 		}
 	}
 
-	void SDLCompositePane::respondToAction(TYPES::ACTION_LIST action)
+	void SDLCompositePane::respondToAction(Sint32 action)
 	{
 	}
 	void SDLCompositePane::setLabelText(ControlID id, std::string text)

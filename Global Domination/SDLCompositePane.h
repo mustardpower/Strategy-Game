@@ -15,7 +15,7 @@ namespace global_domination
 		virtual bool handleClick(int mouse_x, int mouse_y);
 		virtual void initialize() = 0;
 		virtual void render(SDL_Renderer* renderer);
-		virtual void respondToAction(TYPES::ACTION_LIST action) = 0;
+		virtual void respondToAction(Sint32 action) = 0;
 		void setLabelText(ControlID id, std::string text);
 
 	private:

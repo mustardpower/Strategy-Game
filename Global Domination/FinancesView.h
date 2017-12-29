@@ -9,10 +9,10 @@ namespace global_domination
 	class FinancesView : public SDLCompositePane
 	{
 	public:
-		FinancesView::FinancesView(Game* the_game, SDL_Window * parent, SDL_Rect client_area);
+		FinancesView::FinancesView(std::shared_ptr<GameModel>, SDL_Window * parent, SDL_Rect client_area);
 		virtual ~FinancesView();
 		void initialize();
-		void respondToAction(TYPES::ACTION_LIST action);
+		void respondToAction(Sint32 action);
 	private:
 		Nation* nation_;
 	};

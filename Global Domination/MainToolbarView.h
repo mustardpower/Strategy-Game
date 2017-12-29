@@ -3,17 +3,17 @@
 
 namespace global_domination
 {
-	class Game;
+	class GameModel;
 
 	class MainToolbarView : public SDLCompositePane
 	{
 	public:
-		MainToolbarView(Game* the_game, SDL_Window * parent, SDL_Rect client_area);
+		MainToolbarView(std::shared_ptr<GameModel> the_model, SDL_Window * parent, SDL_Rect client_area);
 		void collapseUnclickedMenus(int x, int y);
 		bool handleClick(int x, int y);
 		void initialize();
-		void respondToAction(TYPES::ACTION_LIST action);
+		void respondToAction(Sint32 action);
 	private:
-		Game* the_game_;
+		std::shared_ptr<GameModel> game_model_;
 	};
 }

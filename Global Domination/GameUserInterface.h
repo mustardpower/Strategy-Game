@@ -8,26 +8,26 @@
 
 namespace global_domination {
 
-	class Game;
+	class GameModel;
 
 	class GameUserInterface
 	{
 	public:
 		GameUserInterface();
 		SDL_Rect getClientArea() const;
-		void initialize(Game* the_game);
+		void initialize(std::shared_ptr<GameModel> game_model);
 		bool isQuiting();
 		void render();
-		void respondToAction(TYPES::ACTION_LIST action);
+		void respondToAction(Sint32 action);
 		void respondToMouseClick(TYPES::ACTION_LIST action, int x, int y);
 		void switchActiveControl(std::shared_ptr<SDLCompositePane> top_control);
 		void update();
 	private:
-		bool is_quiting_;
-		Game* the_game_;
-		std::unique_ptr<MainToolbarView> toolbar_;
 		std::shared_ptr<SDLCompositePane> active_control_;
+		std::shared_ptr<GameModel> game_model_;
+		bool is_quiting_;
 		SDL_Renderer *renderer_;
+		std::unique_ptr<MainToolbarView> toolbar_;
 		SDL_Window* window_;
 	};
 }

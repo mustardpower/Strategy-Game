@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint>
+
 #include "IReciever.h"
 
 namespace global_domination
@@ -7,12 +9,11 @@ namespace global_domination
 	class Action
 	{
 	public:
-		Action(IReciever* reciever, TYPES::ACTION_LIST action) :p_receiver_(reciever), action_(action) {}
+		Action(TYPES::ACTION_LIST action);
 		~Action() { }
 		void execute();
 	protected:
-		IReciever* p_receiver_;
 		TYPES::ACTION_LIST action_;
-
+		uint32_t event_type_;
 	};
 }

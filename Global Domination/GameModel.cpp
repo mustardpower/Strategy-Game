@@ -18,6 +18,8 @@ namespace global_domination {
 		delete time;
 		current_turn_ = 0;
 
+		selected_nation_ = nullptr;
+
 	}
 
 	GameModel::~GameModel()
@@ -78,7 +80,7 @@ namespace global_domination {
 		inbox_messages_.push_back(new_message);
 	}
 
-	void GameModel::respondToAction(TYPES::ACTION_LIST action)
+	void GameModel::respondToAction(Sint32 action)
 	{
 		switch (action)
 		{

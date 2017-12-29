@@ -6,10 +6,10 @@
 
 namespace global_domination
 {
-	TradeOffersView::TradeOffersView(Game * the_game, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
+	TradeOffersView::TradeOffersView(std::shared_ptr<GameModel> the_model, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
 	{
-		the_game_ = the_game;
-		nation_ = the_game_->getGameModel()->getSelectedNation();
+		game_model_ = the_model;
+		nation_ = the_model->getSelectedNation();
 
 		initialize();
 	}
@@ -28,19 +28,19 @@ namespace global_domination
 		addChildControl(trade_offers_list);
 
 		SDL_Rect accept_button_client_area{ client_area_.x + client_area_.w * 0.6, client_area_.y + client_area_.h * 0.2, 100, client_area_.h * 0.05 };
-		std::shared_ptr<SDLButton> accept_offer_button = std::make_shared<SDLButton>(parent_, "Accept offer", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::TRADEVIEW_ACCEPT_OFFER), accept_button_client_area);
+		std::shared_ptr<SDLButton> accept_offer_button = std::make_shared<SDLButton>(parent_, "Accept offer", std::make_shared<Action>(TYPES::ACTION_LIST::TRADEVIEW_ACCEPT_OFFER), accept_button_client_area);
 		accept_offer_button->setFontSize(12);
 		accept_offer_button->setId(TRADEVIEW_ACCEPTOFFER_BUTTON);
 		addChildControl(accept_offer_button);
 
 		SDL_Rect decline_button_client_area{ client_area_.x + client_area_.w * 0.8, client_area_.y + client_area_.h * 0.2, 100, client_area_.h * 0.05 };
-		std::shared_ptr<SDLButton> decline_offer_button = std::make_shared<SDLButton>(parent_, "Decline offer", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::TRADEVIEW_DECLINE_OFFER), decline_button_client_area);
+		std::shared_ptr<SDLButton> decline_offer_button = std::make_shared<SDLButton>(parent_, "Decline offer", std::make_shared<Action>(TYPES::ACTION_LIST::TRADEVIEW_DECLINE_OFFER), decline_button_client_area);
 		decline_offer_button->setFontSize(12);
 		decline_offer_button->setId(TRADEVIEW_DECLINEOFFER_BUTTON);
 		addChildControl(decline_offer_button);
 	}
 
-	void TradeOffersView::respondToAction(TYPES::ACTION_LIST action)
+	void TradeOffersView::respondToAction(Sint32 action)
 	{
 		switch (action)
 		{

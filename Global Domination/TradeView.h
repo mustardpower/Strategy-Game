@@ -5,11 +5,11 @@
 
 namespace global_domination
 {
-	class Game;
+	class GameModel;
 	class TradeView : public SDLCompositePane
 	{
 	public:
-		TradeView::TradeView(Game* the_game, SDL_Window * parent, SDL_Rect client_area);
+		TradeView::TradeView(std::shared_ptr<GameModel> the_model, SDL_Window * parent, SDL_Rect client_area);
 		virtual ~TradeView();
 		void acceptTradeOffer();
 		void cancelTradeDeal();
@@ -18,7 +18,7 @@ namespace global_domination
 		std::shared_ptr<Action> getTradeDealSelectionAction();
 		void initialize();
 		void rejectTradeOffer();
-		void respondToAction(TYPES::ACTION_LIST action);
+		void respondToAction(Sint32 action);
 		void showTradeDeals();
 		void showTradeOffers();
 		void updateExistingTradeDeals();
@@ -27,6 +27,6 @@ namespace global_domination
 		void updateForSelectedTradeDeal();
 	private:
 		Nation* nation_;
-		Game* the_game_;
+		std::shared_ptr<GameModel> game_model_;
 	};
 }

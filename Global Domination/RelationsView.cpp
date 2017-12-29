@@ -1,11 +1,11 @@
 #include "RelationsView.h"
 
-#include "Game.h"
+#include "GameModel.h"
 #include "SDLProgressBar.h"
 
 namespace global_domination
 {
-	RelationsView::RelationsView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
+	RelationsView::RelationsView(std::shared_ptr<GameModel> the_model, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
 	{
 	}
 
@@ -20,7 +20,7 @@ namespace global_domination
 		addChildControl(progressBar);
 	}
 
-	void RelationsView::respondToAction(TYPES::ACTION_LIST action)
+	void RelationsView::respondToAction(Sint32 action)
 	{
 		
 	}

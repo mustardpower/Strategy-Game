@@ -7,9 +7,9 @@
 
 namespace global_domination
 {
-	TradeDealsView::TradeDealsView(Game * the_game, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
+	TradeDealsView::TradeDealsView(std::shared_ptr<GameModel> the_model, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
 	{
-		the_game_ = the_game;
+		game_model_ = the_model;
 		initialize();
 	}
 
@@ -27,13 +27,13 @@ namespace global_domination
 		addChildControl(trade_deal_list);
 
 		SDL_Rect cancel_deal_button_client_area{ client_area_.x + client_area_.w * 0.6, client_area_.y + client_area_.h * 0.2, 100, client_area_.h * 0.05 };
-		std::shared_ptr<SDLButton> cancel_deal_button = std::make_shared<SDLButton>(parent_, "Cancel deal", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::TRADEVIEW_CANCEL_DEAL), cancel_deal_button_client_area);
+		std::shared_ptr<SDLButton> cancel_deal_button = std::make_shared<SDLButton>(parent_, "Cancel deal", std::make_shared<Action>(TYPES::ACTION_LIST::TRADEVIEW_CANCEL_DEAL), cancel_deal_button_client_area);
 		cancel_deal_button->setFontSize(12);
 		cancel_deal_button->setId(TRADEVIEW_CANCELDEAL_BUTTON);
 		addChildControl(cancel_deal_button);
 	}
 
-	void TradeDealsView::respondToAction(TYPES::ACTION_LIST action)
+	void TradeDealsView::respondToAction(Sint32 action)
 	{
 	}
 }

@@ -4,9 +4,9 @@
 
 namespace global_domination
 {
-	FinancesView::FinancesView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
+	FinancesView::FinancesView(std::shared_ptr<GameModel> the_model, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
 	{
-		nation_ = the_game->getGameModel()->getSelectedNation();
+		nation_ = the_model->getSelectedNation();
 	}
 
 	FinancesView::~FinancesView()
@@ -22,7 +22,7 @@ namespace global_domination
 		addChildControl(title_label);
 	}
 
-	void FinancesView::respondToAction(TYPES::ACTION_LIST action)
+	void FinancesView::respondToAction(Sint32 action)
 	{
 		switch (action)
 		{

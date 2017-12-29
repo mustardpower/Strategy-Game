@@ -3,15 +3,15 @@
 
 namespace global_domination
 {
-	class Game;
+	class GameModel;
 
 	class RelationsView : public SDLCompositePane
 	{
 	public:
-		RelationsView::RelationsView(Game* the_game, SDL_Window * parent, SDL_Rect client_area);
+		RelationsView::RelationsView(std::shared_ptr<GameModel> game_model, SDL_Window * parent, SDL_Rect client_area);
 		virtual ~RelationsView();
 		void initialize();
-		void respondToAction(TYPES::ACTION_LIST action);
+		void respondToAction(Sint32 action);
 	private:
 		
 	};

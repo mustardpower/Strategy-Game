@@ -4,7 +4,7 @@
 
 #include "Action.h"
 #include "ControlResources.h"
-#include "Game.h"
+#include "GameModel.h"
 #include "SDLButton.h"
 #include "SDLButtonGroup.h"
 #include "SDLListBox.h"
@@ -15,10 +15,10 @@
 
 namespace global_domination
 {
-	TradeView::TradeView(Game * the_game, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
+	TradeView::TradeView(std::shared_ptr<GameModel> the_model, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
 	{
-		the_game_ = the_game;
-		nation_ = the_game->getGameModel()->getSelectedNation();
+		game_model_ = the_model;
+		nation_ = game_model_->getSelectedNation();
 	}
 
 	TradeView::~TradeView()
@@ -61,7 +61,7 @@ namespace global_domination
 
 	std::shared_ptr<Action> TradeView::getTradeDealSelectionAction()
 	{
-		return std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::SELECTING_TRADE_DEAL);
+		return std::make_shared<Action>(TYPES::ACTION_LIST::SELECTING_TRADE_DEAL);
 	}
 
 	void TradeView::initialize()
@@ -72,12 +72,12 @@ namespace global_domination
 		addLabel("Expiry date:", client_area_.w * 0.7, client_area_.h * 0.35, TRADEVIEW_DEAL_EXPIRYDATE_LABEL, 15);
 
 		SDL_Rect offers_button_client_area{ client_area_.w * 0.08, client_area_.h * 0.12, 80, 15 };
-		std::shared_ptr<SDLButton> trade_offers_button = std::make_shared<SDLButton>(parent_, "Trade offers", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::TRADEVIEW_SHOW_OFFERS), offers_button_client_area);
+		std::shared_ptr<SDLButton> trade_offers_button = std::make_shared<SDLButton>(parent_, "Trade offers", std::make_shared<Action>(TYPES::ACTION_LIST::TRADEVIEW_SHOW_OFFERS), offers_button_client_area);
 		trade_offers_button->setFontSize(12);
 		addChildControl(trade_offers_button);
 
 		SDL_Rect deals_button_client_area{ client_area_.w * 0.16, client_area_.h * 0.12, 80, 15 };
-		std::shared_ptr<SDLButton> trade_deals_button = std::make_shared<SDLButton>(parent_, "Trade deals", std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::TRADEVIEW_SHOW_DEALS), deals_button_client_area);
+		std::shared_ptr<SDLButton> trade_deals_button = std::make_shared<SDLButton>(parent_, "Trade deals", std::make_shared<Action>(TYPES::ACTION_LIST::TRADEVIEW_SHOW_DEALS), deals_button_client_area);
 		trade_deals_button->setFontSize(12);
 		addChildControl(trade_deals_button);
 
@@ -87,10 +87,10 @@ namespace global_domination
 		addButtonGroup(buttonGroup);
 
 		SDL_Rect trade_deals_pane_client_area{ client_area_.w * 0.08, client_area_.h * 0.2, client_area_.w * 0.55, client_area_.h * 0.5 };
-		std::shared_ptr<TradeDealsView> trade_deals_pane = std::make_shared<TradeDealsView>(the_game_, parent_, trade_deals_pane_client_area);
+		std::shared_ptr<TradeDealsView> trade_deals_pane = std::make_shared<TradeDealsView>(game_model_, parent_, trade_deals_pane_client_area);
 		trade_deals_pane->setId(TRADE_DEALS_PANE);
 
-		std::shared_ptr<TradeOffersView> trade_offers_pane = std::make_shared<TradeOffersView>(the_game_, parent_, trade_deals_pane_client_area);
+		std::shared_ptr<TradeOffersView> trade_offers_pane = std::make_shared<TradeOffersView>(game_model_, parent_, trade_deals_pane_client_area);
 		trade_offers_pane->setId(TRADE_OFFERS_PANE);
 
 		addLabel("Resources:", client_area_.w * 0.08, client_area_.h * 0.7, TRADEVIEW_RESOURCES_LABEL);
@@ -99,7 +99,7 @@ namespace global_domination
 		resource_list->setId(TRADE_RESOURCE_LIST);
 
 		std::map<TradeResource, int> trade_resources = nation_->getTradeResources();
-		std::shared_ptr<Action> resource_selection_action = std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::SELECTING_RESOURCE);
+		std::shared_ptr<Action> resource_selection_action = std::make_shared<Action>(TYPES::ACTION_LIST::SELECTING_RESOURCE);
 		for (std::map<TradeResource, int>::const_iterator resource = trade_resources.cbegin(); resource != trade_resources.end(); resource++)
 		{
 			TradeResource trade_resource = (*resource).first;
@@ -124,7 +124,7 @@ namespace global_domination
 		}
 	}
 
-	void TradeView::respondToAction(TYPES::ACTION_LIST action)
+	void TradeView::respondToAction(Sint32 action)
 	{
 		switch (action)
 		{

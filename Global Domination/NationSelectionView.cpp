@@ -13,14 +13,14 @@
 
 namespace global_domination
 {
-	NationSelectionView::NationSelectionView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
+	NationSelectionView::NationSelectionView(std::shared_ptr<GameModel> the_model, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
 	{
-		the_game_ = the_game;
+		game_model_ = the_model;
 		NationFactory nationFactory;
 		nationFactory.createNations("nations.json");
 		nations_ = nationFactory.getNations();
-		the_game->getGameModel()->setNations(nations_);
-		the_game->getGameModel()->setNationalRelationships();
+		the_model->setNations(nations_);
+		the_model->setNationalRelationships();
 	}
 
 	NationSelectionView::~NationSelectionView()
@@ -31,7 +31,7 @@ namespace global_domination
 	{
 		std::shared_ptr<SDLListBox<Nation>> nation_selection_menu = std::dynamic_pointer_cast<SDLListBox<Nation>>(getChildControl(NATION_SELECTION_MENU));
 		std::string nation_name = nation_selection_menu->selectedItem()->getName();
-		return the_game_->getGameModel()->getNation(nation_name);
+		return game_model_->getNation(nation_name);
 		
 	}
 
@@ -46,7 +46,7 @@ namespace global_domination
 		std::shared_ptr<SDLButton> start_button = std::make_shared<SDLButton>(
 			parent_,
 			"START",
-			std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::CHANGEVIEW_INBOX),
+			std::make_shared<Action>(TYPES::ACTION_LIST::CHANGEVIEW_INBOX),
 			start_button_client_area
 			);
 
@@ -58,7 +58,7 @@ namespace global_domination
 
 		// Share the same action between menu items
 		
-		std::shared_ptr<Action> nationSelectionAction = std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::SELECTING_NATION);
+		std::shared_ptr<Action> nationSelectionAction = std::make_shared<Action>(TYPES::ACTION_LIST::SELECTING_NATION);
 
 		for (std::vector<Nation>::const_iterator nation = nations_.cbegin(); nation != nations_.end(); nation++)
 		{
@@ -83,7 +83,7 @@ namespace global_domination
 		nation_selection_menu->previousItem();
 	}
 	
-	void NationSelectionView::respondToAction(TYPES::ACTION_LIST action)
+	void NationSelectionView::respondToAction(Sint32 action)
 	{
 		// Only apply changes in this view once the game set up is confirmed
 		switch(action)
@@ -91,13 +91,13 @@ namespace global_domination
 			case TYPES::ACTION_LIST::CHANGEVIEW_INBOX:
 			{
 				Nation* selected_nation = getSelectedNation();
-				the_game_->getGameModel()->setSelectedNation(selected_nation);
+				game_model_->setSelectedNation(selected_nation);
 
 				Message welcome_message("Welcome to " + selected_nation->getName(), "You have arrived in " + selected_nation->getName() + ". Please wipe your feet and make our country glorious.");
-				the_game_->getGameModel()->pushMessage(welcome_message);
+				game_model_->pushMessage(welcome_message);
 
 				Message aMessage("Assistant Report", "I am your assistant. Have a look at these reports I have compiled for you.");
-				the_game_->getGameModel()->pushMessage(aMessage);
+				game_model_->pushMessage(aMessage);
 			}
 			break;
 			case TYPES::ACTION_LIST::SELECTING_NATION:

@@ -7,9 +7,9 @@
 
 namespace global_domination {
 
-	InboxView::InboxView(Game* the_game, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
+	InboxView::InboxView(std::shared_ptr<GameModel> the_model, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
 	{
-		the_game_ = the_game;
+		game_model_ = the_model;
 	}
 
 	void InboxView::initialize()
@@ -26,7 +26,7 @@ namespace global_domination {
 		
 	}
 	
-	void InboxView::respondToAction(TYPES::ACTION_LIST action)
+	void InboxView::respondToAction(Sint32 action)
 	{
 		switch (action)
 		{
@@ -45,10 +45,10 @@ namespace global_domination {
 
 	void InboxView::updateMessageList()
 	{
-		std::vector<Message> messages = the_game_->getGameModel()->getInboxMessages();
+		std::vector<Message> messages = game_model_->getInboxMessages();
 		if (messages.empty()) { return; }
 
-		std::shared_ptr<Action> messageSelectionAction = std::make_shared<Action>(the_game_, TYPES::ACTION_LIST::SELECTING_MESSAGE);
+		std::shared_ptr<Action> messageSelectionAction = std::make_shared<Action>(TYPES::ACTION_LIST::SELECTING_MESSAGE);
 		std::shared_ptr<SDLListBox<Message>> message_list = std::dynamic_pointer_cast<SDLListBox<Message>>(getChildControl(INBOX_LIST));
 		
 		message_list->clearItems();
