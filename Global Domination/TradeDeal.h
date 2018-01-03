@@ -19,6 +19,7 @@ namespace global_domination
 		std::string reportValuePerAnnum() const;
 		bool operator<(const TradeDeal & another) const;
 		bool operator==(const TradeDeal& another) const;
+		bool operator!=(const TradeDeal& another) const;
 
 	private:
 		time_t expiry_date_;

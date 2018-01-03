@@ -13,6 +13,7 @@ namespace global_domination
 		TradeDeal* getSelectedTradeDeal();
 		void initialize();
 		void respondToAction(Sint32 action);
+		void updateGui();
 
 	private:
 		std::shared_ptr<GameModel> game_model_;

@@ -44,7 +44,7 @@ namespace global_domination
 		const int kItemHeight;
 		// Number of visible items depends on the font size 
 		//so I'm not sure how to dynamically calculate this value
-		const int kNumberOfVisibleItems = 5;
+		const int kNumberOfVisibleItems = 10;
 	};
 
 	template <typename T>

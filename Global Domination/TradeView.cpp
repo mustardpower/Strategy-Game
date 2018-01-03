@@ -89,6 +89,7 @@ namespace global_domination
 		SDL_Rect trade_deals_pane_client_area{ client_area_.w * 0.08, client_area_.h * 0.2, client_area_.w * 0.55, client_area_.h * 0.5 };
 		std::shared_ptr<TradeDealsView> trade_deals_pane = std::make_shared<TradeDealsView>(game_model_, parent_, trade_deals_pane_client_area);
 		trade_deals_pane->setId(TRADE_DEALS_PANE);
+		trade_deals_pane->setVisibility(false);
 
 		std::shared_ptr<TradeOffersView> trade_offers_pane = std::make_shared<TradeOffersView>(game_model_, parent_, trade_deals_pane_client_area);
 		trade_offers_pane->setId(TRADE_OFFERS_PANE);
@@ -172,11 +173,12 @@ namespace global_domination
 
 	void TradeView::showTradeDeals()
 	{
-		std::shared_ptr<TradeDealsView> trade_deal_list = std::dynamic_pointer_cast<TradeDealsView>(getChildControl(TRADE_DEALS_PANE));
-		trade_deal_list->setVisibility(true);
+		std::shared_ptr<TradeDealsView> trade_deal_pane = std::dynamic_pointer_cast<TradeDealsView>(getChildControl(TRADE_DEALS_PANE));
+		trade_deal_pane->setVisibility(true);
 
-		std::shared_ptr<TradeOffersView> trade_offers_list = std::dynamic_pointer_cast<TradeOffersView>(getChildControl(TRADE_OFFERS_PANE));
-		trade_offers_list->setVisibility(false);
+		std::shared_ptr<TradeOffersView> trade_offers_pane = std::dynamic_pointer_cast<TradeOffersView>(getChildControl(TRADE_OFFERS_PANE));
+		trade_offers_pane->setVisibility(false);
+		trade_deal_pane->updateGui();
 	}
 
 	void TradeView::showTradeOffers()
@@ -199,6 +201,9 @@ namespace global_domination
 		{
 			trade_deal_list->addItem(ListItem<TradeDeal>(deal->reportString(), getTradeDealSelectionAction(), *deal));
 		}
+
+		std::shared_ptr<SDLButton> cancel_deal_button = std::dynamic_pointer_cast<SDLButton>(getChildControl(TRADEVIEW_CANCELDEAL_BUTTON));
+		cancel_deal_button->setVisibility(!trade_deal_list->isEmpty());
 	}
 	void TradeView::updateTradeOffers()
 	{

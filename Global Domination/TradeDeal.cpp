@@ -11,6 +11,7 @@ namespace global_domination
 		payee_ = trader;
 		resource_ = resource;
 		quantity_ = quantity;
+		value_per_annum_ = 0.0;
 
 		struct tm* time = new tm();
 		time->tm_mon = 1;
@@ -69,6 +70,11 @@ namespace global_domination
 		if (resource_ != another.resource_) { return false; };
 
 		return true;
+	}
+
+	bool TradeDeal::operator!=(const TradeDeal & another) const
+	{
+		return !(*this == another);
 	}
 
 	void to_json(nlohmann::json& j, const TradeDeal& trade_deal) {

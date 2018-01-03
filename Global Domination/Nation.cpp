@@ -159,7 +159,10 @@ namespace global_domination
 
 	void Nation::recieveTradeOffer(TradeDeal prospective_deal)
 	{
-		trade_offers_.emplace(prospective_deal);
+		if (std::find(std::begin(trade_deals_), std::end(trade_deals_), prospective_deal) == std::end(trade_deals_))
+		{
+			trade_offers_.emplace(prospective_deal);
+		};
 	}
 
 	std::string Nation::reportString() const

@@ -36,4 +36,11 @@ namespace global_domination
 	void TradeDealsView::respondToAction(Sint32 action)
 	{
 	}
+
+	void TradeDealsView::updateGui()
+	{
+		std::shared_ptr<SDLListBox<TradeDeal>> trade_deal_list = std::dynamic_pointer_cast<SDLListBox<TradeDeal>>(getChildControl(TRADE_DEAL_LIST));
+		std::shared_ptr<SDLButton> cancel_deal_button = std::dynamic_pointer_cast<SDLButton>(getChildControl(TRADEVIEW_CANCELDEAL_BUTTON));
+		cancel_deal_button->setVisibility(!trade_deal_list->isEmpty());
+	}
 }
