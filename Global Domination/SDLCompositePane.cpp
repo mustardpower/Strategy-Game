@@ -1,4 +1,6 @@
 #include "SDLCompositePane.h"
+
+#include "SDLButton.h"
 #include "SDLStaticText.h"
 
 namespace global_domination
@@ -22,17 +24,24 @@ namespace global_domination
 		button_groups_.push_back(group);
 	}
 
+	void SDLCompositePane::addButton(std::string text, TYPES::ACTION_LIST action, ControlID id, SDL_Rect client_area, int font_size)
+	{
+		std::shared_ptr<SDLButton> button = std::make_shared<SDLButton>(parent_, text, std::make_shared<Action>(action), client_area);
+		button->setId(id);
+		button->setFontSize(font_size);
+		addChildControl(button);
+	}
 	void SDLCompositePane::addLabel(std::string text, int pos_x, int pos_y, ControlID id, int font_size, bool use_secondary_color_scheme)
 	{
-		std::shared_ptr<SDLStaticText> title_label = std::make_shared<SDLStaticText>(parent_, text, pos_x, pos_y);
-		title_label->setId(id);
-		title_label->setFontSize(font_size);
+		std::shared_ptr<SDLStaticText> label = std::make_shared<SDLStaticText>(parent_, text, pos_x, pos_y);
+		label->setId(id);
+		label->setFontSize(font_size);
 
 		if (use_secondary_color_scheme)
 		{
-			title_label->useSecondaryColorScheme();
+			label->useSecondaryColorScheme();
 		}
-		addChildControl(title_label);
+		addChildControl(label);
 	}
 
 	bool SDLCompositePane::handleClick(int mouse_x, int mouse_y)

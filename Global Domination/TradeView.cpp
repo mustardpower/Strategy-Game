@@ -72,15 +72,13 @@ namespace global_domination
 		addLabel("Expiry date:", client_area_.w * 0.7, client_area_.h * 0.35, TRADEVIEW_DEAL_EXPIRYDATE_LABEL, 15);
 
 		SDL_Rect offers_button_client_area{ client_area_.w * 0.08, client_area_.h * 0.12, 80, 15 };
-		std::shared_ptr<SDLButton> trade_offers_button = std::make_shared<SDLButton>(parent_, "Trade offers", std::make_shared<Action>(TYPES::ACTION_LIST::TRADEVIEW_SHOW_OFFERS), offers_button_client_area);
-		trade_offers_button->setFontSize(12);
-		addChildControl(trade_offers_button);
+		addButton("Trade offers", TYPES::ACTION_LIST::TRADEVIEW_SHOW_OFFERS, TRADEVIEW_TRADEOFFERS_BUTTON, offers_button_client_area, 12);
 
 		SDL_Rect deals_button_client_area{ client_area_.w * 0.16, client_area_.h * 0.12, 80, 15 };
-		std::shared_ptr<SDLButton> trade_deals_button = std::make_shared<SDLButton>(parent_, "Trade deals", std::make_shared<Action>(TYPES::ACTION_LIST::TRADEVIEW_SHOW_DEALS), deals_button_client_area);
-		trade_deals_button->setFontSize(12);
-		addChildControl(trade_deals_button);
+		addButton("Trade deals", TYPES::ACTION_LIST::TRADEVIEW_SHOW_DEALS, TRADEVIEW_TRADEDEALS_BUTTON, deals_button_client_area, 12);
 
+		std::shared_ptr<SDLButton> trade_offers_button = std::dynamic_pointer_cast<SDLButton>(getChildControl(TRADEVIEW_TRADEOFFERS_BUTTON));
+		std::shared_ptr<SDLButton> trade_deals_button = std::dynamic_pointer_cast<SDLButton>(getChildControl(TRADEVIEW_TRADEDEALS_BUTTON));
 		SDLButtonGroup* buttonGroup = new SDLButtonGroup();
 		buttonGroup->addToGroup(trade_offers_button.get());
 		buttonGroup->addToGroup(trade_deals_button.get());
