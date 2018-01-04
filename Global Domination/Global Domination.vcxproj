@@ -173,6 +173,7 @@
     <ClInclude Include="SDLButtonGroup.h" />
     <ClInclude Include="SDLCompositePane.h" />
     <ClInclude Include="SDLControl.h" />
+    <ClInclude Include="SDLDataGrid.h" />
     <ClInclude Include="SDLDropDownMenu.h" />
     <ClInclude Include="SDLListBox.h" />
     <ClInclude Include="SDLMenu.h" />

@@ -116,7 +116,7 @@ namespace global_domination
 		{
 			for (int j = 0; j < items_[i].size(); j++)
 			{
-				StackGridItem<TradeResource> item = items_[i][j];
+				StackGridItem<T> item = items_[i][j];
 				int w = 0;
 				int h = 0;
 				text_renderer::getTextDimensions(item.reportString(), w, h);

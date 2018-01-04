@@ -165,6 +165,11 @@ namespace global_domination
 		};
 	}
 
+	std::string Nation::reportSomething() const
+	{
+		return "A string";
+	}
+
 	std::string Nation::reportString() const
 	{
 		return name_;

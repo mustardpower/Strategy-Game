@@ -212,5 +212,8 @@
     <ClInclude Include="SDLProgressBar.h">
       <Filter>Header Files\SDLControls</Filter>
     </ClInclude>
+    <ClInclude Include="SDLDataGrid.h">
+      <Filter>Header Files\SDLControls</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
