@@ -13,6 +13,6 @@ namespace global_domination
 		void initialize();
 		void respondToAction(Sint32 action);
 	private:
-		
+		std::shared_ptr<GameModel> game_model_;
 	};
 }

@@ -17,6 +17,7 @@ namespace global_domination {
 		~GameModel();
 		std::string getDateString();
 		Nation* getNation(std::string name);
+		std::vector<Nation> getNations();
 		Nation* getSelectedNation();
 		std::string getSelectedNationName();
 		std::string getSummaryReport();

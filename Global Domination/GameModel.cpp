@@ -51,6 +51,11 @@ namespace global_domination {
 		return nullptr;
 	}
 
+	std::vector<Nation> GameModel::getNations()
+	{
+		return nations_;
+	}
+
 	Nation* GameModel::getSelectedNation()
 	{
 		return selected_nation_;
