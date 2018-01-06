@@ -219,7 +219,10 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="NoArgumentsGridCell.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\SDLControls</Filter>
+    </ClInclude>
+    <ClInclude Include="OneArgumentGridCell.h">
+      <Filter>Header Files\SDLControls</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

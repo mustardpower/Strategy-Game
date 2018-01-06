@@ -4,6 +4,7 @@
 #include "SDLProgressBar.h"
 #include "SDLDataGrid.h"
 #include "NoArgumentsGridCell.h"
+#include "OneArgumentGridCell.h"
 
 namespace global_domination
 {
@@ -36,14 +37,21 @@ namespace global_domination
 			{
 				if (row < nations.size())
 				{
-					std::shared_ptr<NoArgumentsGridCell<Nation>> grid_cell = std::make_shared<NoArgumentsGridCell<Nation>>(null_action, nations.at(row));
-					data_grid->addItem(grid_cell, col, row);
+					if (col == 0)
+					{
+						std::shared_ptr<NoArgumentsGridCell<Nation>> grid_cell = std::make_shared<NoArgumentsGridCell<Nation>>(null_action, nations.at(row), &Nation::reportString);
+						data_grid->addItem(grid_cell, col, row);
+					}
+					if (col == 1)
+					{
+						Nation* selected_nation = game_model_->getSelectedNation();
+						std::shared_ptr<OneArgumentGridCell<Nation, int>> grid_cell = std::make_shared<OneArgumentGridCell<Nation, int>>(null_action, nations.at(row), 456, &Nation::reportSomething);
+						data_grid->addItem(grid_cell, col, row);
+					}
+
 				}
 			}
 		}
-
-		data_grid->setSelector(0, &Nation::reportString);
-		data_grid->setSelector(1, &Nation::reportSomething);
 		
 		addChildControl(data_grid);
 	}

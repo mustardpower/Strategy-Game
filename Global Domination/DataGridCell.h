@@ -11,7 +11,7 @@ namespace global_domination
 		DataGridCell() {};
 		T* getData();
 		void invokeAction() const;
-		std::string reportString() const;
+		virtual std::string reportString() const = 0;
 
 		DataGridCell(std::shared_ptr<Action> an_action, T menu_item_data)
 		{
@@ -19,11 +19,12 @@ namespace global_domination
 			data_ = menu_item_data;
 		}
 
+	protected:
+		T data_;
 	private:
 		std::shared_ptr<Action> action_;
 		SDL_Color text_color_;
 		std::shared_ptr<SDL_Rect> text_location_;
-		T data_;
 	};
 
 	template<class T>
@@ -37,11 +38,4 @@ namespace global_domination
 	{
 		action_->execute();
 	}
-
-	template<class T>
-	inline std::string DataGridCell<T>::reportString() const
-	{
-		return data_.reportString();
-	}
-
 }

@@ -20,11 +20,9 @@ namespace global_domination
 		bool containsPoint(SDL_Rect aRect, int x, int y);
 		bool handleClick(int x, int y);
 		void render(SDL_Renderer * renderer);
-		void setSelector(int column_y, std::function<std::string(const T&)> selector);
 	private:
 		SDL_Rect client_area_;
 		std::array<std::array<std::shared_ptr<DataGridCell<T>>, R>, C> items_;
-		std::array<std::function<std::string(const T&)>, C> selectors_;
 	};
 
 	template <class T, int C, int R>
@@ -94,29 +92,16 @@ namespace global_domination
 		{
 			for (int row = 0; row < items_[column].size(); row++)
 			{
-				std::shared_ptr<DataGridCell<T>> item = items_[column][row];
-				std::function<std::string(const T&)> selector = selectors_[column];
-				if (selector)
-				{
-					int w = 0;
-					int h = 0;
-					const T* data = item->getData();
-					std::string text = selector(*data);
-					text_renderer::getTextDimensions(text, w, h);
-					const int width_per_item = client_area_.w / items_.size();
-					const int height_per_item = client_area_.h / items_[column].size();
-					SDL_Color text_color = ColorPreferences::getPrimaryTextColor();
-					SDL_Rect text_location = SDL_Rect{ client_area_.x + (column * width_per_item) + (int)(0.5 * width_per_item), client_area_.y + (row * height_per_item) + (int)(0.5 * height_per_item), w, h };
-					global_domination::text_renderer::renderText(parent_, text, text_location, text_color, SDL_Color{ 0,0,0,0xFF }, 15);
-				}
-
+				std::string text = items_[column][row]->reportString();
+				int w = 0;
+				int h = 0;
+				text_renderer::getTextDimensions(text, w, h);
+				const int width_per_item = client_area_.w / items_.size();
+				const int height_per_item = client_area_.h / items_[column].size();
+				SDL_Color text_color = ColorPreferences::getPrimaryTextColor();
+				SDL_Rect text_location = SDL_Rect{ client_area_.x + (column * width_per_item) + (int)(0.5 * width_per_item), client_area_.y + (row * height_per_item) + (int)(0.5 * height_per_item), w, h };
+				global_domination::text_renderer::renderText(parent_, text, text_location, text_color, SDL_Color{ 0,0,0,0xFF }, 15);
 			}
 		}
-	}
-
-	template <class T, int C, int R>
-	inline void SDLDataGrid<T, C, R>::setSelector(int column_index, std::function<std::string(const T&)> selector)
-	{
-		selectors_[column_index] = selector;
 	}
 }

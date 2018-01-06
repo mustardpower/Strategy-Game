@@ -170,6 +170,7 @@
     <ClInclude Include="NationFactory.h" />
     <ClInclude Include="NationSelectionView.h" />
     <ClInclude Include="NoArgumentsGridCell.h" />
+    <ClInclude Include="OneArgumentGridCell.h" />
     <ClInclude Include="RelationsView.h" />
     <ClInclude Include="SDLButton.h" />
     <ClInclude Include="SDLButtonGroup.h" />
