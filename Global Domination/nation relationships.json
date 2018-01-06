@@ -14,7 +14,8 @@
     "name": "Canada",
     "relationships": {
       "USA": 0.7,
-	  "Australia": 0.6
+	  "Australia": 0.6,
+	  "China": 0.1
     }
   },
   {

@@ -32,7 +32,7 @@ namespace global_domination
 		std::map<TradeResource, int> getTradeResources() const;
 		void makeTradeDeals();
 		void recieveTradeOffer(TradeDeal prospective_deal);
-		std::string reportSomething(int value) const;
+		std::string reportRelationshipWithNation(Nation* another) const;
 		std::string reportString() const;
 		void setRelationship(Nation* nation, double relationship_score);
 		void update();

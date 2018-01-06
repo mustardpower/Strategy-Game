@@ -165,9 +165,22 @@ namespace global_domination
 		};
 	}
 
-	std::string Nation::reportSomething(int value) const
+	std::string Nation::reportRelationshipWithNation(Nation * another) const
 	{
-		return std::to_string(value);
+		if (nation_friendships.find(another) != nation_friendships.end())
+		{
+			double relationship_score = nation_friendships.at(another);
+			if (relationship_score <= 0.2)
+			{
+				return "Enemy";
+			}
+			else if (relationship_score >= 0.7)
+			{
+				return "Ally";
+			}
+		}
+
+		return "Neutral";
 	}
 
 	std::string Nation::reportString() const
