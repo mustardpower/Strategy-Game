@@ -218,5 +218,8 @@
     <ClInclude Include="DataGridCell.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="NoArgumentsGridCell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

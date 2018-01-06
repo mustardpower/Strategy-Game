@@ -16,14 +16,14 @@ namespace global_domination
 	public:
 		SDLDataGrid(SDL_Window* parent, SDL_Rect client_area);
 		~SDLDataGrid();
-		void addItem(DataGridCell<T> item, int location_x, int location_y);
+		void addItem(std::shared_ptr<DataGridCell<T>> item, int location_x, int location_y);
 		bool containsPoint(SDL_Rect aRect, int x, int y);
 		bool handleClick(int x, int y);
 		void render(SDL_Renderer * renderer);
 		void setSelector(int column_y, std::function<std::string(const T&)> selector);
 	private:
 		SDL_Rect client_area_;
-		std::array<std::array<DataGridCell<T>, R>, C> items_;
+		std::array<std::array<std::shared_ptr<DataGridCell<T>>, R>, C> items_;
 		std::array<std::function<std::string(const T&)>, C> selectors_;
 	};
 
@@ -39,7 +39,7 @@ namespace global_domination
 	}
 
 	template <class T, int C, int R>
-	inline void SDLDataGrid<T, C, R>::addItem(DataGridCell<T> item, int location_x, int location_y)
+	inline void SDLDataGrid<T, C, R>::addItem(std::shared_ptr<DataGridCell<T>> item, int location_x, int location_y)
 	{
 		items_[location_x][location_y] = item;
 	}
@@ -75,7 +75,7 @@ namespace global_domination
 				SDL_Rect text_location = SDL_Rect{ client_area_.x + (i * width_per_item), client_area_.y + (j * height_per_item), width_per_item, height_per_item };
 				if (containsPoint(text_location, x, y))
 				{
-					items_[i][j].invokeAction();
+					items_[i][j]->invokeAction();
 					return true;
 				}
 			}
@@ -94,13 +94,13 @@ namespace global_domination
 		{
 			for (int row = 0; row < items_[column].size(); row++)
 			{
-				DataGridCell<T> item = items_[column][row];
+				std::shared_ptr<DataGridCell<T>> item = items_[column][row];
 				std::function<std::string(const T&)> selector = selectors_[column];
 				if (selector)
 				{
 					int w = 0;
 					int h = 0;
-					const T* data = item.getData();
+					const T* data = item->getData();
 					std::string text = selector(*data);
 					text_renderer::getTextDimensions(text, w, h);
 					const int width_per_item = client_area_.w / items_.size();

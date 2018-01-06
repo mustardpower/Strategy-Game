@@ -3,6 +3,7 @@
 #include "GameModel.h"
 #include "SDLProgressBar.h"
 #include "SDLDataGrid.h"
+#include "NoArgumentsGridCell.h"
 
 namespace global_domination
 {
@@ -35,7 +36,8 @@ namespace global_domination
 			{
 				if (row < nations.size())
 				{
-					data_grid->addItem(DataGridCell<Nation>(null_action, nations.at(row)), col, row);
+					std::shared_ptr<NoArgumentsGridCell<Nation>> grid_cell = std::make_shared<NoArgumentsGridCell<Nation>>(null_action, nations.at(row));
+					data_grid->addItem(grid_cell, col, row);
 				}
 			}
 		}
