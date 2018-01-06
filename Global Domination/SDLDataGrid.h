@@ -85,22 +85,33 @@ namespace global_domination
 	template <class T, int C, int R>
 	inline void SDLDataGrid<T, C, R>::render(SDL_Renderer * renderer)
 	{
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
+		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0xFF);
 		SDL_RenderFillRect(renderer, &client_area_);
+
+		SDL_SetRenderDrawColor(renderer, 0,0,0, 0xFF);
+		SDL_RenderDrawRect(renderer, &client_area_);
+
+		const int width_per_item = client_area_.w / C;
+		const int height_per_item = client_area_.h / R;
 
 		for (int column = 0; column < items_.size(); column++)
 		{
+			SDL_RenderDrawLine(renderer, client_area_.x + (column * width_per_item), client_area_.y, client_area_.x + +(column * width_per_item), client_area_.y + client_area_.h);
+
 			for (int row = 0; row < items_[column].size(); row++)
 			{
-				std::string text = items_[column][row]->reportString();
-				int w = 0;
-				int h = 0;
-				text_renderer::getTextDimensions(text, w, h);
-				const int width_per_item = client_area_.w / items_.size();
-				const int height_per_item = client_area_.h / items_[column].size();
-				SDL_Color text_color = ColorPreferences::getPrimaryTextColor();
-				SDL_Rect text_location = SDL_Rect{ client_area_.x + (column * width_per_item) + (int)(0.5 * width_per_item), client_area_.y + (row * height_per_item) + (int)(0.5 * height_per_item), w, h };
-				global_domination::text_renderer::renderText(parent_, text, text_location, text_color, SDL_Color{ 0,0,0,0xFF }, 15);
+				SDL_RenderDrawLine(renderer, client_area_.x, client_area_.y + (row * height_per_item), client_area_.x + client_area_.w, client_area_.y + (row * height_per_item));
+
+				int w, h = 0;
+				std::shared_ptr<DataGridCell<T>> item = items_[column][row];
+				if (item)
+				{
+					std::string text = item->reportString();
+					text_renderer::getTextDimensions(text, w, h);
+					SDL_Color text_color = ColorPreferences::getPrimaryTextColor();
+					SDL_Rect text_location = SDL_Rect{ client_area_.x + (column * width_per_item) + (int)(0.5 * width_per_item), client_area_.y + (row * height_per_item) + (int)(0.5 * height_per_item), w, h };
+					global_domination::text_renderer::renderText(parent_, text, text_location, text_color, SDL_Color{ 0,0,0,0xFF }, 15);
+				}
 			}
 		}
 	}

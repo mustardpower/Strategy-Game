@@ -27,7 +27,7 @@ namespace global_domination
 		addChildControl(progressBar);
 
 		SDL_Rect resource_list_area{ client_area_.w * 0.06, client_area_.h * 0.3, client_area_.w * 0.88, client_area_.h * 0.6 };
-		std::shared_ptr<SDLDataGrid<Nation, kNumberOfGridColumns, kNumberOfGridRows>> data_grid = std::make_shared<SDLDataGrid<Nation, 2, 10>>(parent_, resource_list_area);
+		std::shared_ptr<SDLDataGrid<Nation, kNumberOfGridColumns, kNumberOfGridRows>> data_grid = std::make_shared<SDLDataGrid<Nation, kNumberOfGridColumns, kNumberOfGridRows>>(parent_, resource_list_area);
 
 		std::vector<Nation> nations = game_model_->getNations();
 		std::shared_ptr<Action> null_action = std::make_shared<Action>(TYPES::ACTION_LIST::UNINITIALIZED);
