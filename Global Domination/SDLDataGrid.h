@@ -6,7 +6,7 @@
 
 #include "ColorPreferences.h"
 #include "SDL_TextRenderer.h"
-#include "StackGridItem.h"
+#include "DataGridCell.h"
 
 namespace global_domination
 {
@@ -16,14 +16,14 @@ namespace global_domination
 	public:
 		SDLDataGrid(SDL_Window* parent, SDL_Rect client_area);
 		~SDLDataGrid();
-		void addItem(StackGridItem<T> item, int location_x, int location_y);
+		void addItem(DataGridCell<T> item, int location_x, int location_y);
 		bool containsPoint(SDL_Rect aRect, int x, int y);
 		bool handleClick(int x, int y);
 		void render(SDL_Renderer * renderer);
 		void setSelector(int column_y, std::function<std::string(const T&)> selector);
 	private:
 		SDL_Rect client_area_;
-		std::array<std::array<StackGridItem<T>, R>, C> items_;
+		std::array<std::array<DataGridCell<T>, R>, C> items_;
 		std::array<std::function<std::string(const T&)>, C> selectors_;
 	};
 
@@ -39,7 +39,7 @@ namespace global_domination
 	}
 
 	template <class T, int C, int R>
-	inline void SDLDataGrid<T, C, R>::addItem(StackGridItem<T> item, int location_x, int location_y)
+	inline void SDLDataGrid<T, C, R>::addItem(DataGridCell<T> item, int location_x, int location_y)
 	{
 		items_[location_x][location_y] = item;
 	}
@@ -94,7 +94,7 @@ namespace global_domination
 		{
 			for (int row = 0; row < items_[column].size(); row++)
 			{
-				StackGridItem<T> item = items_[column][row];
+				DataGridCell<T> item = items_[column][row];
 				std::function<std::string(const T&)> selector = selectors_[column];
 				if (selector)
 				{

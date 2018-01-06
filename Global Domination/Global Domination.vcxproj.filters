@@ -215,5 +215,8 @@
     <ClInclude Include="SDLDataGrid.h">
       <Filter>Header Files\SDLControls</Filter>
     </ClInclude>
+    <ClInclude Include="DataGridCell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

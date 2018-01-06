@@ -35,7 +35,7 @@ namespace global_domination
 			{
 				if (row < nations.size())
 				{
-					data_grid->addItem(StackGridItem<Nation>(null_action, nations.at(row)), col, row);
+					data_grid->addItem(DataGridCell<Nation>(null_action, nations.at(row)), col, row);
 				}
 			}
 		}
