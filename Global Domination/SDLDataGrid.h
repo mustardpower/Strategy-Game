@@ -20,6 +20,10 @@ namespace global_domination
 		bool containsPoint(SDL_Rect aRect, int x, int y);
 		bool handleClick(int x, int y);
 		void render(SDL_Renderer * renderer);
+		void renderCells(SDL_Renderer * renderer);
+		void renderCell(SDL_Renderer* renderer, int column, int row);
+		int cellHeight();
+		int cellWidth();
 	private:
 		SDL_Rect client_area_;
 		std::array<std::array<std::shared_ptr<DataGridCell<T>>, R>, C> items_;
@@ -91,28 +95,46 @@ namespace global_domination
 		SDL_SetRenderDrawColor(renderer, 0,0,0, 0xFF);
 		SDL_RenderDrawRect(renderer, &client_area_);
 
-		const int width_per_item = client_area_.w / C;
-		const int height_per_item = client_area_.h / R;
+		renderCells(renderer);
+	}
 
+	template<class T, int C, int R>
+	inline void SDLDataGrid<T, C, R>::renderCells(SDL_Renderer * renderer)
+	{
 		for (int column = 0; column < items_.size(); column++)
 		{
-			SDL_RenderDrawLine(renderer, client_area_.x + (column * width_per_item), client_area_.y, client_area_.x + +(column * width_per_item), client_area_.y + client_area_.h);
+			SDL_RenderDrawLine(renderer, client_area_.x + (column * cellWidth()), client_area_.y, client_area_.x + (column * cellWidth()), client_area_.y + client_area_.h);
 
 			for (int row = 0; row < items_[column].size(); row++)
 			{
-				SDL_RenderDrawLine(renderer, client_area_.x, client_area_.y + (row * height_per_item), client_area_.x + client_area_.w, client_area_.y + (row * height_per_item));
-
-				int w, h = 0;
+				SDL_RenderDrawLine(renderer, client_area_.x, client_area_.y + (row * cellHeight()), client_area_.x + client_area_.w, client_area_.y + (row * cellHeight()));
 				std::shared_ptr<DataGridCell<T>> item = items_[column][row];
 				if (item)
 				{
-					std::string text = item->reportString();
-					text_renderer::getTextDimensions(text, w, h);
-					SDL_Color text_color = ColorPreferences::getPrimaryTextColor();
-					SDL_Rect text_location = SDL_Rect{ client_area_.x + (column * width_per_item) + (int)(0.5 * width_per_item), client_area_.y + (row * height_per_item) + (int)(0.5 * height_per_item), w, h };
-					global_domination::text_renderer::renderText(parent_, text, text_location, text_color, SDL_Color{ 0,0,0,0xFF }, 15);
+					renderCell(renderer, column, row);
 				}
 			}
 		}
+	}
+
+	template<class T, int C, int R>
+	inline void SDLDataGrid<T, C, R>::renderCell(SDL_Renderer * renderer, int column, int row)
+	{
+		int w, h = 0;
+		std::string text = items_[column][row]->reportString();
+		text_renderer::getTextDimensions(text, w, h);
+		SDL_Color text_color = ColorPreferences::getPrimaryTextColor();
+		SDL_Rect text_location = SDL_Rect{ client_area_.x + (column * cellWidth()) + (int)(0.5 * cellWidth()), client_area_.y + (row * cellHeight()) + (int)(0.5 * cellHeight()), w, h };
+		global_domination::text_renderer::renderText(parent_, text, text_location, text_color, SDL_Color{ 0,0,0,0xFF }, 15);
+	}
+	template<class T, int C, int R>
+	inline int SDLDataGrid<T, C, R>::cellHeight()
+	{
+		return client_area_.h / R;
+	}
+	template<class T, int C, int R>
+	inline int SDLDataGrid<T, C, R>::cellWidth()
+	{
+		return client_area_.w / C;
 	}
 }
