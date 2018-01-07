@@ -37,12 +37,12 @@ namespace global_domination
 
 	void NationSelectionView::initialize()
 	{
-		addLabel("Select a nation:", client_area_.w * 0.15, client_area_.h * 0.25, NATION_SELECTION_PROMPT_LABEL);
-		addLabel("", client_area_.w * 0.6, client_area_.h * 0.25, NATION_SELECTION_POPULATION_LABEL, 15);
-		addLabel("", client_area_.w * 0.6, client_area_.h * 0.30, NATION_SELECTION_GDP_LABEL, 15);
-		addLabel("", client_area_.w * 0.6, client_area_.h * 0.35, NATION_SELECTION_GDP_PER_CAPITA_LABEL, 15);
+		addLabel("Select a nation:", (int)(client_area_.w * 0.15), (int)(client_area_.h * 0.25), NATION_SELECTION_PROMPT_LABEL);
+		addLabel("", (int)(client_area_.w * 0.6), (int)(client_area_.h * 0.25), NATION_SELECTION_POPULATION_LABEL, 15);
+		addLabel("", (int)(client_area_.w * 0.6), (int)(client_area_.h * 0.30), NATION_SELECTION_GDP_LABEL, 15);
+		addLabel("", (int)(client_area_.w * 0.6), (int)(client_area_.h * 0.35), NATION_SELECTION_GDP_PER_CAPITA_LABEL, 15);
 
-		SDL_Rect start_button_client_area{ client_area_.w * 0.8, client_area_.h * 0.8, client_area_.w * 0.1, client_area_.h * 0.05 };
+		SDL_Rect start_button_client_area{ (int)(client_area_.w * 0.8), (int)(client_area_.h * 0.8), (int)(client_area_.w * 0.1), (int)(client_area_.h * 0.05) };
 		std::shared_ptr<SDLButton> start_button = std::make_shared<SDLButton>(
 			parent_,
 			"START",
@@ -52,7 +52,7 @@ namespace global_domination
 
 		addChildControl(start_button);
 
-		SDL_Rect menu_client_area { client_area_.w * 0.2, client_area_.h * 0.4, client_area_.w * 0.3, client_area_.h * 0.5 };
+		SDL_Rect menu_client_area { (int)(client_area_.w * 0.2), (int)(client_area_.h * 0.4), (int)(client_area_.w * 0.3), (int)(client_area_.h * 0.5) };
 		std::shared_ptr<SDLListBox<Nation>> nation_selection_menu = std::make_shared<SDLListBox<Nation>>(parent_, menu_client_area);
 		nation_selection_menu->setId(NATION_SELECTION_MENU);
 

@@ -85,11 +85,11 @@ namespace global_domination
 
 		const int width_per_item = client_area_.w / X;
 		const int height_per_item = client_area_.h / Y;
-		for (int i = 0; i < items_.size(); i++)
+		for (size_t i = 0; i < items_.size(); i++)
 		{
-			for (int j = 0; j < items_[i].size(); j++)
+			for (size_t j = 0; j < items_[i].size(); j++)
 			{
-				SDL_Rect text_location = SDL_Rect{ client_area_.x + (i * width_per_item), client_area_.y + (j * height_per_item), width_per_item, height_per_item };
+				SDL_Rect text_location = SDL_Rect{ client_area_.x + ((int)i * width_per_item), client_area_.y + ((int)j * height_per_item), width_per_item, height_per_item };
 				if (containsPoint(text_location, x, y))
 				{
 					if (!items_[i][j].reportString().empty())
@@ -112,9 +112,9 @@ namespace global_domination
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
 		SDL_RenderFillRect(renderer, &client_area_);
 
-		for (int i = 0; i < items_.size(); i++)
+		for (size_t i = 0; i < items_.size(); i++)
 		{
-			for (int j = 0; j < items_[i].size(); j++)
+			for (size_t j = 0; j < items_[i].size(); j++)
 			{
 				StackGridItem<T> item = items_[i][j];
 				int w = 0;
@@ -128,7 +128,7 @@ namespace global_domination
 					text_color = ColorPreferences::getSelectedTextColor();
 				}
 
-				SDL_Rect text_location = SDL_Rect{ client_area_.x + (i * width_per_item) + (int)(0.5 * width_per_item), client_area_.y + (j * height_per_item) + (int)(0.5 * height_per_item), w, h };
+				SDL_Rect text_location = SDL_Rect{ client_area_.x + ((int)i * width_per_item) + (int)(0.5 * width_per_item), client_area_.y + ((int)j * height_per_item) + (int)(0.5 * height_per_item), w, h };
 				global_domination::text_renderer::renderText(parent_, item.reportString(), text_location, text_color, SDL_Color{ 0,0,0,0xFF }, 15);
 			}
 		}

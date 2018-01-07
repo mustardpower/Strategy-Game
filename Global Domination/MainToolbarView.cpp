@@ -37,9 +37,9 @@ namespace global_domination
 
 	void MainToolbarView::initialize()
 	{
-		addLabel(game_model_->getDateString(), client_area_.w * 0.05, client_area_.h * 0.4, TOOLBAR_DATE_LABEL, 18, true);
+		addLabel(game_model_->getDateString(), (int)(client_area_.w * 0.05), (int)(client_area_.h * 0.4), TOOLBAR_DATE_LABEL, 18, true);
 		
-		std::shared_ptr<SDLDropDownMenu<int>> home_menu = std::make_shared<SDLDropDownMenu<int>>(parent_, client_area_.w * 0.4, client_area_.h * 0.4, client_area_.w * 0.4, client_area_.h, client_area_.h * 0.4);
+		std::shared_ptr<SDLDropDownMenu<int>> home_menu = std::make_shared<SDLDropDownMenu<int>>(parent_, (int)(client_area_.w * 0.4), (int)(client_area_.h * 0.4), (int)(client_area_.w * 0.4), client_area_.h, (int)(client_area_.h * 0.4));
 		home_menu->addMenuItem(ListItem<int>("HOME", nullptr, 0));
 		home_menu->addMenuItem(ListItem<int>("INBOX", std::make_shared<Action>(TYPES::ACTION_LIST::CHANGEVIEW_INBOX), 1));
 		home_menu->addMenuItem(ListItem<int>("FINANCES", std::make_shared<Action>(TYPES::ACTION_LIST::CHANGEVIEW_FINANCES), 2));
@@ -49,14 +49,14 @@ namespace global_domination
 		home_menu->useSecondaryColorScheme();
 		addChildControl(home_menu);
 
-		std::shared_ptr<SDLDropDownMenu<int>> settings_menu = std::make_shared<SDLDropDownMenu<int>>(parent_, client_area_.w * 0.7, client_area_.h * 0.4, client_area_.w * 0.7, client_area_.h, client_area_.h * 0.4);
+		std::shared_ptr<SDLDropDownMenu<int>> settings_menu = std::make_shared<SDLDropDownMenu<int>>(parent_, (int)(client_area_.w * 0.7), (int)(client_area_.h * 0.4), (int)(client_area_.w * 0.7), client_area_.h, (int)(client_area_.h * 0.4));
 		settings_menu->addMenuItem(ListItem<int>("SETTINGS", nullptr, 0));
 		settings_menu->addMenuItem(ListItem<int>("QUIT", std::make_shared<Action>(TYPES::ACTION_LIST::QUIT), 1));
 		settings_menu->setId(TOOLBAR_MENU_SETTINGS);
 		settings_menu->useSecondaryColorScheme();
 		addChildControl(settings_menu);
 
-		SDL_Rect next_button_client_area{ client_area_.w * 0.9, client_area_.h * 0.4, 200, client_area_.h * 0.4 };
+		SDL_Rect next_button_client_area{ (int)(client_area_.w * 0.9), (int)(client_area_.h * 0.4), 200, (int)(client_area_.h * 0.4) };
 		std::shared_ptr<SDLButton> next_button = std::make_shared<SDLButton>(parent_, "NEXT", std::make_shared<Action>(TYPES::ACTION_LIST::NEXT_TURN), next_button_client_area);
 		next_button->useSecondaryColorScheme();
 		addChildControl(next_button);

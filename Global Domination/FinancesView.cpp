@@ -15,7 +15,7 @@ namespace global_domination
 
 	void FinancesView::initialize()
 	{
-		std::shared_ptr<SDLStaticText> title_label = std::make_shared<SDLStaticText>(parent_, "GDP: " + std::to_string(nation_->getGDP()), client_area_.w * 0.25, client_area_.h * 0.4);
+		std::shared_ptr<SDLStaticText> title_label = std::make_shared<SDLStaticText>(parent_, "GDP: " + std::to_string(nation_->getGDP()), (int)(client_area_.w * 0.25), (int)(client_area_.h * 0.4));
 		title_label->setId(FINANCES_BALANCE_LABEL);
 		title_label->setFontSize(18);
 

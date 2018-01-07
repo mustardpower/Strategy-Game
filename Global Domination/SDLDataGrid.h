@@ -37,7 +37,7 @@ namespace global_domination
 	private:
 		SDL_Rect client_area_;
 		std::array<std::vector<std::shared_ptr<DataGridCell<T>>>, C> items_;
-		int top_visible_index_;
+		unsigned int top_visible_index_;
 	};
 
 	template <class T, int C, int R>
@@ -91,9 +91,9 @@ namespace global_domination
 	{
 		SDL_Rect up_arrow_client_area = sliderBarUpArrowClientArea();
 		filledTrigonRGBA(renderer,
-			up_arrow_client_area.x + (up_arrow_client_area.w * 0.05), up_arrow_client_area.y + up_arrow_client_area.h,
-			up_arrow_client_area.x + (up_arrow_client_area.w / 2), up_arrow_client_area.y,
-			up_arrow_client_area.x + (up_arrow_client_area.w * 0.95), up_arrow_client_area.y + up_arrow_client_area.h,
+			up_arrow_client_area.x + (int)(up_arrow_client_area.w * 0.05), up_arrow_client_area.y + up_arrow_client_area.h,
+			up_arrow_client_area.x + (int)(up_arrow_client_area.w / 2), up_arrow_client_area.y,
+			up_arrow_client_area.x + (int)(up_arrow_client_area.w * 0.95), up_arrow_client_area.y + up_arrow_client_area.h,
 			0, 0, 0, 255);
 	}
 
@@ -102,9 +102,9 @@ namespace global_domination
 	{
 		SDL_Rect down_arrow_client_area = sliderBarDownArrowClientArea();
 		filledTrigonRGBA(renderer,
-			down_arrow_client_area.x + (down_arrow_client_area.w * 0.05), down_arrow_client_area.y,
-			down_arrow_client_area.x + (down_arrow_client_area.w / 2), down_arrow_client_area.y + down_arrow_client_area.h,
-			down_arrow_client_area.x + (down_arrow_client_area.w * 0.95), down_arrow_client_area.y,
+			down_arrow_client_area.x + (int)(down_arrow_client_area.w * 0.05), down_arrow_client_area.y,
+			down_arrow_client_area.x + (int)(down_arrow_client_area.w / 2), down_arrow_client_area.y + down_arrow_client_area.h,
+			down_arrow_client_area.x + (int)(down_arrow_client_area.w * 0.95), down_arrow_client_area.y,
 			0, 0, 0, 255);
 	}
 
@@ -121,11 +121,11 @@ namespace global_domination
 
 		const int width_per_item = client_area_.w / C;
 		const int height_per_item = client_area_.h / R;
-		for (int i = 0; i < items_.size(); i++)
+		for (unsigned int i = 0; i < items_.size(); i++)
 		{
-			for (int j = 0; j < items_[i].size(); j++)
+			for (unsigned int j = 0; j < items_[i].size(); j++)
 			{
-				SDL_Rect text_location = SDL_Rect{ client_area_.x + (i * width_per_item), client_area_.y + (j * height_per_item), width_per_item, height_per_item };
+				SDL_Rect text_location = SDL_Rect{ client_area_.x + ((int)i * width_per_item), client_area_.y + ((int)j * height_per_item), width_per_item, height_per_item };
 				if (containsPoint(text_location, x, y))
 				{
 					items_[i][j]->invokeAction();
@@ -173,14 +173,14 @@ namespace global_domination
 	template<class T, int C, int R>
 	inline void SDLDataGrid<T, C, R>::renderCells(SDL_Renderer * renderer)
 	{
-		for (int column = 0; column < items_.size(); column++)
+		for (size_t column = 0; column < items_.size(); column++)
 		{
 			SDL_RenderDrawLine(renderer, client_area_.x + (column * cellWidth()), client_area_.y, client_area_.x + (column * cellWidth()), client_area_.y + client_area_.h);
 
 			for (int grid_row = 0; grid_row < R; grid_row++)
 			{
 				SDL_RenderDrawLine(renderer, client_area_.x, client_area_.y + (grid_row * cellHeight()), client_area_.x + client_area_.w, client_area_.y + (grid_row * cellHeight()));
-				const int item_index = grid_row + top_visible_index_;
+				const unsigned int item_index = grid_row + top_visible_index_;
 				if (item_index < items_[column].size())
 				{
 					std::shared_ptr<DataGridCell<T>> item = items_[column][item_index];

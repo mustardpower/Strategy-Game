@@ -22,18 +22,18 @@ namespace global_domination
 
 	void TradeOffersView::initialize()
 	{
-		SDL_Rect trade_offers_list_client_area{ client_area_.x, client_area_.y, client_area_.w * 0.5, client_area_.h };
+		SDL_Rect trade_offers_list_client_area{ client_area_.x, client_area_.y, (int)(client_area_.w * 0.5), client_area_.h };
 		std::shared_ptr<SDLListBox<TradeDeal>> trade_offers_list = std::make_shared<SDLListBox<TradeDeal>>(parent_, trade_offers_list_client_area);
 		trade_offers_list->setId(TRADE_OFFERS_LIST);
 		addChildControl(trade_offers_list);
 
-		SDL_Rect accept_button_client_area{ client_area_.x + client_area_.w * 0.6, client_area_.y + client_area_.h * 0.2, 100, client_area_.h * 0.05 };
+		SDL_Rect accept_button_client_area{ client_area_.x + (int)(client_area_.w * 0.6), client_area_.y + (int)(client_area_.h * 0.2), 100, (int)(client_area_.h * 0.05) };
 		std::shared_ptr<SDLButton> accept_offer_button = std::make_shared<SDLButton>(parent_, "Accept offer", std::make_shared<Action>(TYPES::ACTION_LIST::TRADEVIEW_ACCEPT_OFFER), accept_button_client_area);
 		accept_offer_button->setFontSize(12);
 		accept_offer_button->setId(TRADEVIEW_ACCEPTOFFER_BUTTON);
 		addChildControl(accept_offer_button);
 
-		SDL_Rect decline_button_client_area{ client_area_.x + client_area_.w * 0.8, client_area_.y + client_area_.h * 0.2, 100, client_area_.h * 0.05 };
+		SDL_Rect decline_button_client_area{ client_area_.x + (int)(client_area_.w * 0.8), client_area_.y + (int)(client_area_.h * 0.2), 100, (int)(client_area_.h * 0.05) };
 		std::shared_ptr<SDLButton> decline_offer_button = std::make_shared<SDLButton>(parent_, "Decline offer", std::make_shared<Action>(TYPES::ACTION_LIST::TRADEVIEW_DECLINE_OFFER), decline_button_client_area);
 		decline_offer_button->setFontSize(12);
 		decline_offer_button->setId(TRADEVIEW_DECLINEOFFER_BUTTON);

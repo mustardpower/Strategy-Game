@@ -16,7 +16,7 @@ namespace global_domination
 		SDL_RenderFillRect(renderer, &client_area_);
 
 		SDL_SetRenderDrawColor(renderer, 0, 255, 0, 0xFF);
-		SDL_Rect progress_bar_fill_area{ client_area_.x, client_area_.y, client_area_.w * percent_complete_, client_area_.h };
+		SDL_Rect progress_bar_fill_area{ client_area_.x, client_area_.y, (int)(client_area_.w * percent_complete_), client_area_.h };
 		SDL_RenderFillRect(renderer, &progress_bar_fill_area);
 
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);

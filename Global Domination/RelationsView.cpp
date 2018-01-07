@@ -22,12 +22,12 @@ namespace global_domination
 		const int kNumberOfGridRows = 10;
 		const int kNumberOfGridColumns = 2;
 
-		SDL_Rect progress_bar_client_area{ client_area_.x + client_area_.w * 0.3, client_area_.y + client_area_.h * 0.3, client_area_.w * 0.3, client_area_.h * 0.05 };
+		SDL_Rect progress_bar_client_area{ client_area_.x + (int)(client_area_.w * 0.3), client_area_.y + (int)(client_area_.h * 0.3), (int)(client_area_.w * 0.3), (int)(client_area_.h * 0.05) };
 		std::shared_ptr<SDLProgressBar> progressBar = std::make_shared<SDLProgressBar>(parent_, progress_bar_client_area);
 		addChildControl(progressBar);
 
-		SDL_Rect resource_list_area{ client_area_.w * 0.06, client_area_.h * 0.3, client_area_.w * 0.88, client_area_.h * 0.6 };
-		std::shared_ptr<SDLDataGrid<Nation, kNumberOfGridColumns, kNumberOfGridRows>> data_grid = std::make_shared<SDLDataGrid<Nation, kNumberOfGridColumns, kNumberOfGridRows>>(parent_, resource_list_area);
+		SDL_Rect relationship_list_area{ (int)(client_area_.w * 0.06), (int)(client_area_.h * 0.15), (int)(client_area_.w * 0.88), (int)(client_area_.h * 0.6) };
+		std::shared_ptr<SDLDataGrid<Nation, kNumberOfGridColumns, kNumberOfGridRows>> data_grid = std::make_shared<SDLDataGrid<Nation, kNumberOfGridColumns, kNumberOfGridRows>>(parent_, relationship_list_area);
 
 		std::vector<Nation> nations = game_model_->getNations();
 		std::shared_ptr<Action> null_action = std::make_shared<Action>(TYPES::ACTION_LIST::UNINITIALIZED);

@@ -66,15 +66,15 @@ namespace global_domination
 
 	void TradeView::initialize()
 	{
-		addLabel("Resource:", client_area_.w * 0.7, client_area_.h * 0.2, TRADEVIEW_DEAL_RESOURCE_LABEL, 15);
-		addLabel("Value per annum:", client_area_.w * 0.7, client_area_.h * 0.25, TRADEVIEW_DEAL_VALUEPERANNUM_LABEL, 15);
-		addLabel("Total value:", client_area_.w * 0.7, client_area_.h * 0.3, TRADEVIEW_DEAL_TOTALVALUE_LABEL, 15);
-		addLabel("Expiry date:", client_area_.w * 0.7, client_area_.h * 0.35, TRADEVIEW_DEAL_EXPIRYDATE_LABEL, 15);
+		addLabel("Resource:", (int)(client_area_.w * 0.7), (int)(client_area_.h * 0.2), TRADEVIEW_DEAL_RESOURCE_LABEL, 15);
+		addLabel("Value per annum:", (int)(client_area_.w * 0.7), (int)(client_area_.h * 0.25), TRADEVIEW_DEAL_VALUEPERANNUM_LABEL, 15);
+		addLabel("Total value:", (int)(client_area_.w * 0.7), (int)(client_area_.h * 0.3), TRADEVIEW_DEAL_TOTALVALUE_LABEL, 15);
+		addLabel("Expiry date:", (int)(client_area_.w * 0.7), (int)(client_area_.h * 0.35), TRADEVIEW_DEAL_EXPIRYDATE_LABEL, 15);
 
-		SDL_Rect offers_button_client_area{ client_area_.w * 0.08, client_area_.h * 0.12, 80, 15 };
+		SDL_Rect offers_button_client_area{ (int)(client_area_.w * 0.08), (int)(client_area_.h * 0.12), 80, 15 };
 		addButton("Trade offers", TYPES::ACTION_LIST::TRADEVIEW_SHOW_OFFERS, TRADEVIEW_TRADEOFFERS_BUTTON, offers_button_client_area, 12);
 
-		SDL_Rect deals_button_client_area{ client_area_.w * 0.16, client_area_.h * 0.12, 80, 15 };
+		SDL_Rect deals_button_client_area{ (int)(client_area_.w * 0.16), (int)(client_area_.h * 0.12), 80, 15 };
 		addButton("Trade deals", TYPES::ACTION_LIST::TRADEVIEW_SHOW_DEALS, TRADEVIEW_TRADEDEALS_BUTTON, deals_button_client_area, 12);
 
 		std::shared_ptr<SDLButton> trade_offers_button = std::dynamic_pointer_cast<SDLButton>(getChildControl(TRADEVIEW_TRADEOFFERS_BUTTON));
@@ -84,7 +84,7 @@ namespace global_domination
 		buttonGroup->addToGroup(trade_deals_button.get());
 		addButtonGroup(buttonGroup);
 
-		SDL_Rect trade_deals_pane_client_area{ client_area_.w * 0.08, client_area_.h * 0.2, client_area_.w * 0.55, client_area_.h * 0.5 };
+		SDL_Rect trade_deals_pane_client_area{ (int)(client_area_.w * 0.08), (int)(client_area_.h * 0.2), (int)(client_area_.w * 0.55), (int)(client_area_.h * 0.5) };
 		std::shared_ptr<TradeDealsView> trade_deals_pane = std::make_shared<TradeDealsView>(game_model_, parent_, trade_deals_pane_client_area);
 		trade_deals_pane->setId(TRADE_DEALS_PANE);
 		trade_deals_pane->setVisibility(false);
@@ -92,8 +92,8 @@ namespace global_domination
 		std::shared_ptr<TradeOffersView> trade_offers_pane = std::make_shared<TradeOffersView>(game_model_, parent_, trade_deals_pane_client_area);
 		trade_offers_pane->setId(TRADE_OFFERS_PANE);
 
-		addLabel("Resources:", client_area_.w * 0.08, client_area_.h * 0.7, TRADEVIEW_RESOURCES_LABEL);
-		SDL_Rect resource_list_area{ client_area_.w * 0.06, client_area_.h * 0.75, client_area_.w * 0.88, client_area_.h * 0.2 };
+		addLabel("Resources:", (int)(client_area_.w * 0.08), (int)(client_area_.h * 0.7), TRADEVIEW_RESOURCES_LABEL);
+		SDL_Rect resource_list_area{ (int)(client_area_.w * 0.06), (int)(client_area_.h * 0.75), (int)(client_area_.w * 0.88), (int)(client_area_.h * 0.2) };
 		std::shared_ptr<SDLStackGrid<TradeResource, 10, 2>> resource_list = std::make_shared<SDLStackGrid<TradeResource, 10, 2>>(parent_, resource_list_area);
 		resource_list->setId(TRADE_RESOURCE_LIST);
 

@@ -57,7 +57,7 @@ namespace global_domination
 		SDL_RenderClear(renderer_);
 
 		SDL_Rect toolbar_client_area = getClientArea();
-		toolbar_client_area.h = toolbar_client_area.h * 0.1;
+		toolbar_client_area.h = (int)(toolbar_client_area.h * 0.1);
 		toolbar_ = std::make_unique<MainToolbarView>(game_model_, window_, toolbar_client_area);
 		toolbar_->initialize();
 		toolbar_->setVisibility(false);

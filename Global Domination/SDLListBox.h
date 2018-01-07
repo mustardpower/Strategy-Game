@@ -35,12 +35,12 @@ namespace global_domination
 		SDL_Rect sliderBarClientArea();
 		SDL_Rect sliderBarDownArrowClientArea();
 		SDL_Rect sliderBarUpArrowClientArea();
-		SDL_Rect textLocationForIndex(const int item_index);
+		SDL_Rect textLocationForIndex(const unsigned int item_index);
 	private:
 		SDL_Rect client_area_;
 		std::vector<ListItem<T>> items_;
-		int selected_item_index_;
-		int top_visible_index_;
+		unsigned int selected_item_index_;
+		unsigned int top_visible_index_;
 		const int kItemHeight;
 		// Number of visible items depends on the font size 
 		//so I'm not sure how to dynamically calculate this value
@@ -49,7 +49,7 @@ namespace global_domination
 
 	template <typename T>
 	SDLListBox<T>::SDLListBox(SDL_Window*  parent, SDL_Rect client_area) : SDLControl(parent, client_area),
-		kItemHeight(client_area.h * 0.1)
+		kItemHeight((int)(client_area.h * 0.1))
 	{
 		client_area_ = client_area;
 		selected_item_index_ = 0;
@@ -91,7 +91,7 @@ namespace global_domination
 	template <class T>
 	inline void SDLListBox<T>::drawMessages(SDL_Renderer* renderer)
 	{
-		int index = 0;
+		unsigned int index = 0;
 		SDL_Color text_color;
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
 
@@ -141,9 +141,9 @@ namespace global_domination
 		SDL_RenderDrawRect(renderer, &up_arrow_client_area);
 
 		filledTrigonRGBA(renderer,
-			up_arrow_client_area.x + (up_arrow_client_area.w * 0.05), up_arrow_client_area.y + up_arrow_client_area.h,
-			up_arrow_client_area.x + (up_arrow_client_area.w / 2), up_arrow_client_area.y,
-			up_arrow_client_area.x + (up_arrow_client_area.w * 0.95), up_arrow_client_area.y + up_arrow_client_area.h,
+			up_arrow_client_area.x + (int)(up_arrow_client_area.w * 0.05), up_arrow_client_area.y + up_arrow_client_area.h,
+			up_arrow_client_area.x + (int)(up_arrow_client_area.w / 2), up_arrow_client_area.y,
+			up_arrow_client_area.x + (int)(up_arrow_client_area.w * 0.95), up_arrow_client_area.y + up_arrow_client_area.h,
 			0, 0, 0, 255);
 	}
 
@@ -159,9 +159,9 @@ namespace global_domination
 		SDL_RenderDrawRect(renderer, &down_arrow_client_area);
 
 		filledTrigonRGBA(renderer,
-			down_arrow_client_area.x + +(down_arrow_client_area.w * 0.05), down_arrow_client_area.y,
-			down_arrow_client_area.x + (down_arrow_client_area.w / 2), down_arrow_client_area.y + down_arrow_client_area.h,
-			down_arrow_client_area.x + (down_arrow_client_area.w * 0.95), down_arrow_client_area.y,
+			down_arrow_client_area.x + (int)(down_arrow_client_area.w * 0.05), down_arrow_client_area.y,
+			down_arrow_client_area.x + (int)(down_arrow_client_area.w / 2), down_arrow_client_area.y + down_arrow_client_area.h,
+			down_arrow_client_area.x + (int)(down_arrow_client_area.w * 0.95), down_arrow_client_area.y,
 			0, 0, 0, 255);
 	}
 
@@ -262,27 +262,27 @@ namespace global_domination
 	template<class T>
 	inline SDL_Rect SDLListBox<T>::sliderBarClientArea()
 	{
-		int list_width = client_area_.w * 0.9;
-		int slider_bar_width = client_area_.w * 0.1;
+		int list_width = (int)(client_area_.w * 0.9);
+		int slider_bar_width = (int)(client_area_.w * 0.1);
 		return SDL_Rect { client_area_.x + list_width, client_area_.y, slider_bar_width, client_area_.h };
 	}
 
 	template<class T>
 	inline SDL_Rect SDLListBox<T>::sliderBarDownArrowClientArea()
 	{
-		int arrow_height = sliderBarClientArea().h * 0.06;
+		int arrow_height = (int)(sliderBarClientArea().h * 0.06);
 		return SDL_Rect { sliderBarClientArea().x, sliderBarClientArea().y + sliderBarClientArea().h - arrow_height, sliderBarClientArea().w, arrow_height };
 	}
 
 	template<class T>
 	inline SDL_Rect SDLListBox<T>::sliderBarUpArrowClientArea()
 	{
-		int arrow_height = sliderBarClientArea().h * 0.06;
+		int arrow_height = (int)(sliderBarClientArea().h * 0.06);
 		return SDL_Rect { sliderBarClientArea().x, sliderBarClientArea().y, sliderBarClientArea().w, arrow_height };
 	}
 
 	template<class T>
-	inline SDL_Rect SDLListBox<T>::textLocationForIndex(const int menu_item_index)
+	inline SDL_Rect SDLListBox<T>::textLocationForIndex(const unsigned int menu_item_index)
 	{
 		ListItem<T> list_item = items_.at(menu_item_index);
 		std::shared_ptr<SDL_Rect> cached_text_location = list_item.getTextLocation();
@@ -291,7 +291,7 @@ namespace global_domination
 		int w = 0;
 		int h = 0;
 		text_renderer::getTextDimensions(list_item.reportString(), w, h);
-		SDL_Rect text_location = SDL_Rect{ client_area_.x, client_area_.y + (kItemHeight * (menu_item_index - top_visible_index_)), w, h };
+		SDL_Rect text_location = SDL_Rect{ client_area_.x, client_area_.y + (kItemHeight * (int)(menu_item_index - top_visible_index_)), w, h };
 		list_item.setTextLocation(text_location);
 		return text_location;
 	}

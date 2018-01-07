@@ -1,6 +1,7 @@
 #include "SDLCompositePane.h"
 
 #include "SDLButton.h"
+#include "SDLButtonGroup.h"
 #include "SDLStaticText.h"
 
 namespace global_domination
