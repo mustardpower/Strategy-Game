@@ -165,11 +165,11 @@ namespace global_domination
 		};
 	}
 
-	std::string Nation::reportRelationshipWithNation(Nation * another) const
+	std::string Nation::reportRelationshipWithNation(Nation& another) const
 	{
-		if (nation_friendships.find(another) != nation_friendships.end())
+		if (nation_friendships.find(&another) != nation_friendships.end())
 		{
-			double relationship_score = nation_friendships.at(another);
+			double relationship_score = nation_friendships.at(&another);
 			if (relationship_score <= 0.2)
 			{
 				return "Enemy";

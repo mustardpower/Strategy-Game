@@ -9,10 +9,9 @@ namespace global_domination
 	{
 	public:
 		OneArgumentGridCell() {};
-		OneArgumentGridCell(std::shared_ptr<Action> an_action, T menu_item_data, Arg selector_argument, std::function<std::string(const T&, Arg)> selector) : DataGridCell(an_action, menu_item_data)
+		OneArgumentGridCell(std::shared_ptr<Action> an_action, T menu_item_data, Arg selector_argument, std::function<std::string(const T&, Arg)> selector) : DataGridCell(an_action, menu_item_data), selector_argument_(selector_argument)
 		{
 			selector_ = selector;
-			selector_argument_ = selector_argument;
 		}
 
 		std::string reportString() const;

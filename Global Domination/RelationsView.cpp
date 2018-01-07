@@ -45,7 +45,7 @@ namespace global_domination
 					if (col == 1)
 					{
 						Nation* selected_nation = game_model_->getSelectedNation();
-						std::shared_ptr<OneArgumentGridCell<Nation, Nation*>> grid_cell = std::make_shared<OneArgumentGridCell<Nation, Nation*>>(null_action, nations.at(row), selected_nation, &Nation::reportRelationshipWithNation);
+						std::shared_ptr<OneArgumentGridCell<Nation, Nation&>> grid_cell = std::make_shared<OneArgumentGridCell<Nation, Nation&>>(null_action, nations.at(row), *selected_nation, &Nation::reportRelationshipWithNation);
 						data_grid->addItem(grid_cell, col, row);
 					}
 
