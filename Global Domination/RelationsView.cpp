@@ -31,26 +31,26 @@ namespace global_domination
 
 		std::vector<Nation> nations = game_model_->getNations();
 		std::shared_ptr<Action> null_action = std::make_shared<Action>(TYPES::ACTION_LIST::UNINITIALIZED);
-		for (int col = 0; col < kNumberOfGridColumns; col++)
-		{
-			for (int row = 0; row < kNumberOfGridRows; row++)
-			{
-				if (row < nations.size())
-				{
-					if (col == 0)
-					{
-						std::shared_ptr<NoArgumentsGridCell<Nation>> grid_cell = std::make_shared<NoArgumentsGridCell<Nation>>(null_action, nations.at(row), &Nation::reportString);
-						data_grid->addItem(grid_cell, col, row);
-					}
-					if (col == 1)
-					{
-						Nation* selected_nation = game_model_->getSelectedNation();
-						std::shared_ptr<OneArgumentGridCell<Nation, Nation&>> grid_cell = std::make_shared<OneArgumentGridCell<Nation, Nation&>>(null_action, nations.at(row), *selected_nation, &Nation::reportRelationshipWithNation);
-						data_grid->addItem(grid_cell, col, row);
-					}
 
+		int row = 0;
+		for (std::vector<Nation>::iterator nation = nations.begin(); nation != nations.end(); nation++)
+		{
+			for (int col = 0; col < kNumberOfGridColumns; col++)
+			{
+				if (col == 0)
+				{
+					std::shared_ptr<NoArgumentsGridCell<Nation>> grid_cell = std::make_shared<NoArgumentsGridCell<Nation>>(null_action, *nation, &Nation::reportString);
+					data_grid->addItem(grid_cell, col, row);
+				}
+				if (col == 1)
+				{
+					Nation* selected_nation = game_model_->getSelectedNation();
+					std::shared_ptr<OneArgumentGridCell<Nation, Nation&>> grid_cell = std::make_shared<OneArgumentGridCell<Nation, Nation&>>(null_action, *nation, *selected_nation, &Nation::reportRelationshipWithNation);
+					data_grid->addItem(grid_cell, col, row);
 				}
 			}
+
+			row++;
 		}
 		
 		addChildControl(data_grid);
