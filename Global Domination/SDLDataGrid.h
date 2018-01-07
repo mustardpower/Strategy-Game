@@ -203,7 +203,7 @@ namespace global_domination
 		{
 			SDL_RenderDrawLine(renderer, client_area_.x + (column * cellWidth()), client_area_.y, client_area_.x + (column * cellWidth()), client_area_.y + client_area_.h);
 
-			for (int grid_row = 0; grid_row < R; grid_row++)
+			for (int grid_row = 0; grid_row < R + 1; grid_row++)
 			{
 				SDL_RenderDrawLine(renderer, client_area_.x, client_area_.y + (grid_row * cellHeight()), client_area_.x + client_area_.w, client_area_.y + (grid_row * cellHeight()));
 			}
