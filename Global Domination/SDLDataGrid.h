@@ -137,6 +137,7 @@ namespace global_domination
 				SDL_Rect text_location = SDL_Rect{ client_area_.x + ((int)i * width_per_item), client_area_.y + ((int)j * height_per_item), width_per_item, height_per_item };
 				if (containsPoint(text_location, x, y))
 				{
+					selected_index_ = j + top_visible_index_;
 					items_[i][j]->invokeAction();
 					return true;
 				}
@@ -215,7 +216,8 @@ namespace global_domination
 	{
 		int w, h = 0;
 
-		if (selected_index_ == grid_row)
+		const int item_index = grid_row + top_visible_index_;
+		if (selected_index_ == item_index)
 		{
 			SDL_SetRenderDrawColor(renderer, 255, 100, 100, 0xFF);
 		}
@@ -226,7 +228,6 @@ namespace global_domination
 
 		SDL_RenderFillRect(renderer, &cellClientArea(column, grid_row));
 
-		const int item_index = grid_row + top_visible_index_;
 		std::string text = items_[column][item_index]->reportString();
 		text_renderer::getTextDimensions(text, w, h);
 		SDL_Color text_color = ColorPreferences::getPrimaryTextColor();
