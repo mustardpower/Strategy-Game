@@ -24,6 +24,7 @@ namespace global_domination
 
 		SDL_Rect graph_plot_client_area{ (int)(client_area_.w * 0.1), (int)(client_area_.h * 0.2), (int)(client_area_.w * 0.8), (int)(client_area_.h * 0.5) };
 		std::shared_ptr<SDLGraphPane> finances_plot = std::make_shared<SDLGraphPane>(parent_, graph_plot_client_area);
+		finances_plot->setFontSize(10);
 		addChildControl(finances_plot);
 	}
 
