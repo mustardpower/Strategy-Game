@@ -1,5 +1,6 @@
 #include "FinancesView.h"
 
+#include "SDLGraphPane.h"
 #include "SDLStaticText.h"
 
 namespace global_domination
@@ -15,11 +16,15 @@ namespace global_domination
 
 	void FinancesView::initialize()
 	{
-		std::shared_ptr<SDLStaticText> title_label = std::make_shared<SDLStaticText>(parent_, "GDP: " + std::to_string(nation_->getGDP()), (int)(client_area_.w * 0.25), (int)(client_area_.h * 0.4));
+		std::shared_ptr<SDLStaticText> title_label = std::make_shared<SDLStaticText>(parent_, "GDP: " + std::to_string(nation_->getGDP()), (int)(client_area_.w * 0.25), (int)(client_area_.h * 0.8));
 		title_label->setId(FINANCES_BALANCE_LABEL);
 		title_label->setFontSize(18);
 
 		addChildControl(title_label);
+
+		SDL_Rect graph_plot_client_area{ (int)(client_area_.w * 0.1), (int)(client_area_.h * 0.2), (int)(client_area_.w * 0.8), (int)(client_area_.h * 0.5) };
+		std::shared_ptr<SDLGraphPane> finances_plot = std::make_shared<SDLGraphPane>(parent_, graph_plot_client_area);
+		addChildControl(finances_plot);
 	}
 
 	void FinancesView::respondToAction(Sint32 action)
