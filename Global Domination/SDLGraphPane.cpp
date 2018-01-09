@@ -106,7 +106,20 @@ namespace global_domination
 			}
 		}
 
+		SDL_Point* mapped_points = new SDL_Point[data_points_x_.size()];
+		for (size_t index = 0; index < data_points_y_.size(); index++)
+		{
+			x_values_mapped[index], y_values_mapped[index];
+			const SDL_Point pt{ x_values_mapped[index] , y_values_mapped[index] };
+			mapped_points[index] = pt;
+		}
 		// draw lines made from mapped values here!
+		for (size_t index = 0; index < data_points_y_.size(); index++)
+		{
+			SDL_RenderDrawLines(renderer, mapped_points, data_points_x_.size());
+		}
+
+		delete[] mapped_points;
 	}
 
 	bool SDLGraphPane::handleClick(int mouse_x, int mouse_y)
