@@ -96,11 +96,12 @@ namespace global_domination
 			double original_range_upper_y = *std::max_element(data_points_y_.begin(), data_points_y_.end());
 			int y_axis_start_y = (int)(client_area_.y + (client_area_.h * margin));
 			double new_range_lower_y = y_axis_start_y;
-			int axis_length_y = (int)(client_area_.w * (1.0 - 2 * margin));
+			int axis_length_y = (int)(client_area_.h * (1.0 - 2 * margin));
 			double new_range_upper_y = y_axis_start_y + axis_length_y;
 			for (size_t index = 0; index < data_points_y_.size(); index++)
 			{
 				double unmapped_value_y = data_points_y_.at(index);
+				unmapped_value_y = std::abs(unmapped_value_y - (original_range_upper_y - original_range_lower_y));
 				double mapped_y = (unmapped_value_y - original_range_lower_y) / (original_range_upper_y - original_range_lower_y) * (new_range_upper_y - new_range_lower_y) + new_range_lower_y;
 				y_values_mapped.push_back(mapped_y);
 			}
