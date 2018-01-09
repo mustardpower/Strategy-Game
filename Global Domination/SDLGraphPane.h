@@ -27,6 +27,12 @@ namespace global_domination
 			void setAxisLabelsX(std::vector<std::string> labels);
 			void setAxisLabelsY(std::vector<std::string> labels);
 			void setDataPoints(std::vector<double> values_x, std::vector<double> values_y);
+			SDL_Point xAxisStartPoint();
+			SDL_Point xAxisEndPoint();
+			int xAxisLength();
+			SDL_Point yAxisStartPoint();
+			SDL_Point yAxisEndPoint();
+			int yAxisLength();
 		private:
 			std::vector<std::string> axis_labels_x_;
 			std::vector<std::string> axis_labels_y_;
@@ -34,8 +40,7 @@ namespace global_domination
 			float min_y_;
 			float max_x_;
 			float max_y_;
-			int number_of_intervals_x;
-			int number_of_intervals_y;
+			const double plot_margin_ = 0.1; // percentage of client area from plot to client area edge
 			std::vector<double> data_points_x_;
 			std::vector<double> data_points_y_;
 	};

@@ -8,58 +8,49 @@ namespace global_domination
 {
 	SDLGraphPane::SDLGraphPane(SDL_Window* parent, SDL_Rect client_area) : SDLControl(parent, client_area)
 	{
-		number_of_intervals_x = 12;
-		number_of_intervals_y = 10;
 	}
 
 	void SDLGraphPane::drawAxes(SDL_Renderer * renderer)
 	{
-		const double margin = 0.1;
-		const int extra_axis_overlap = (int)(client_area_.w * (margin / 5.0));
-
-		int y_axis_start_x = (int)(client_area_.x + (client_area_.w * margin));
-		int y_axis_start_y = (int)(client_area_.y + (client_area_.h * margin));
-		int axis_length_y = (int)(client_area_.h * (1.0 - 2 * margin));
-
-		int x_axis_start_x = (int)(client_area_.x + (client_area_.w * margin));
-		int x_axis_start_y = (int)(client_area_.y + (client_area_.h * margin) + axis_length_y);
-		int axis_length_x = (int)(client_area_.w * (1.0 - 2 * margin));
+		const int extra_axis_overlap = (int)(client_area_.w * (plot_margin_ / 5.0));
 
 		SDL_RenderDrawLine(
 			renderer, 
-			x_axis_start_x - extra_axis_overlap,
-			x_axis_start_y, 
-			x_axis_start_x + axis_length_x,
-			x_axis_start_y
+			xAxisStartPoint().x - extra_axis_overlap,
+			xAxisStartPoint().y,
+			xAxisEndPoint().x,
+			xAxisEndPoint().y
 		);
 
 		SDL_RenderDrawLine(
 			renderer,
-			y_axis_start_x,
-			y_axis_start_y,
-			y_axis_start_x,
-			y_axis_start_y + axis_length_y + extra_axis_overlap
+			yAxisStartPoint().x,
+			yAxisStartPoint().y,
+			yAxisEndPoint().x,
+			yAxisEndPoint().y + extra_axis_overlap
 		);
 
 		// draw markers on x axis
-		const int interval_x = axis_length_x / axis_labels_x_.size();
-		int marker_x = x_axis_start_x;
+		const int interval_x = xAxisLength() / axis_labels_x_.size();
+		int marker_x = xAxisStartPoint().x;
 		for (size_t label_index = 0; label_index < axis_labels_x_.size(); label_index++)
 		{
 			int text_width, text_height;
 			text_renderer::getTextDimensions(axis_labels_x_.at(label_index), text_width, text_height);
 			int quarter_text_width = (int)(text_width / 4.0);
-			SDL_RenderDrawLine(renderer, marker_x, x_axis_start_y, marker_x, x_axis_start_y + (extra_axis_overlap / 2));
-			SDL_Rect label_location = { marker_x - quarter_text_width, x_axis_start_y + ( 2 * (extra_axis_overlap / 2)) , 0, 0 };
+			SDL_RenderDrawLine(renderer, marker_x, xAxisStartPoint().y, marker_x, xAxisStartPoint().y + (extra_axis_overlap / 2));
+			SDL_Rect label_location = { marker_x - quarter_text_width, xAxisStartPoint().y + ( 2 * (extra_axis_overlap / 2)) , 0, 0 };
 			text_renderer::renderText(parent_, axis_labels_x_.at(label_index), label_location, getTextColor(), getBackgroundColor(), font_size_);
 			marker_x += interval_x;
 		}
 
 		// draw markers on y axis
-		const int interval_y = axis_length_y / number_of_intervals_y;
-		for (int marker_y = y_axis_start_y; marker_y < y_axis_start_y + axis_length_y; marker_y += interval_y)
+		const int kDefaultNoOfIntervals = 10;
+		int number_of_intervals = data_points_y_.empty() ? kDefaultNoOfIntervals : data_points_y_.size();
+		const int interval_y = yAxisLength() / number_of_intervals;
+		for (int marker_y = yAxisStartPoint().y; marker_y < yAxisStartPoint().y + yAxisLength(); marker_y += interval_y)
 		{
-			SDL_RenderDrawLine(renderer, y_axis_start_x - (extra_axis_overlap / 2), marker_y, y_axis_start_x, marker_y);
+			SDL_RenderDrawLine(renderer, yAxisStartPoint().x - (extra_axis_overlap / 2), marker_y, yAxisStartPoint().x, marker_y);
 		}
 	}
 
@@ -67,17 +58,13 @@ namespace global_domination
 	{
 		// map x values to the pixel on the x axis
 		std::vector<double> x_values_mapped;
-		const double margin = 0.1;
-
 		if (data_points_x_.size() > 0)
 		{
 			double original_range_lower_x = *std::min_element(data_points_x_.begin(), data_points_x_.end());
 			double original_range_upper_x = *std::max_element(data_points_x_.begin(), data_points_x_.end());
 			
-			int x_axis_start_x = (int)(client_area_.x + (client_area_.w * margin));
-			double new_range_lower_x = x_axis_start_x;
-			int axis_length_x = (int)(client_area_.w * (1.0 - 2 * margin));
-			double new_range_upper_x = x_axis_start_x + axis_length_x;
+			double new_range_lower_x = xAxisStartPoint().x;
+			double new_range_upper_x = xAxisStartPoint().x + xAxisLength();
 			for (size_t index = 0; index < data_points_x_.size(); index++)
 			{
 				double unmapped_value_x = data_points_x_.at(index);
@@ -89,15 +76,12 @@ namespace global_domination
 
 		// map y values to the pixel on the y axis
 		std::vector<double> y_values_mapped;
-
 		if (data_points_y_.size() > 0)
 		{
 			double original_range_lower_y = *std::min_element(data_points_y_.begin(), data_points_y_.end());
 			double original_range_upper_y = *std::max_element(data_points_y_.begin(), data_points_y_.end());
-			int y_axis_start_y = (int)(client_area_.y + (client_area_.h * margin));
-			double new_range_lower_y = y_axis_start_y;
-			int axis_length_y = (int)(client_area_.h * (1.0 - 2 * margin));
-			double new_range_upper_y = y_axis_start_y + axis_length_y;
+			double new_range_lower_y = yAxisStartPoint().y;
+			double new_range_upper_y = yAxisStartPoint().y + yAxisLength();
 			for (size_t index = 0; index < data_points_y_.size(); index++)
 			{
 				double unmapped_value_y = data_points_y_.at(index);
@@ -111,7 +95,7 @@ namespace global_domination
 		for (size_t index = 0; index < data_points_y_.size(); index++)
 		{
 			x_values_mapped[index], y_values_mapped[index];
-			const SDL_Point pt{ x_values_mapped[index] , y_values_mapped[index] };
+			const SDL_Point pt{ (int)x_values_mapped[index] , (int)y_values_mapped[index] };
 			mapped_points[index] = pt;
 		}
 		// draw lines made from mapped values here!
@@ -153,6 +137,38 @@ namespace global_domination
 	{
 		data_points_x_ = values_x;
 		data_points_y_ = values_y;
+	}
+	SDL_Point SDLGraphPane::xAxisStartPoint()
+	{
+		int x_axis_start_x = (int)(client_area_.x + (client_area_.w * plot_margin_));
+		int x_axis_start_y = (int)(client_area_.y + (client_area_.h * plot_margin_) + yAxisLength());
+		return SDL_Point{ x_axis_start_x, x_axis_start_y };
+	}
+	SDL_Point SDLGraphPane::xAxisEndPoint()
+	{
+		int end_x = xAxisStartPoint().x + xAxisLength();
+		int end_y =	xAxisStartPoint().y;
+		return SDL_Point{ end_x, end_y };
+	}
+	int SDLGraphPane::xAxisLength()
+	{
+		return (int)(client_area_.w * (1.0 - 2 * plot_margin_));
+	}
+	SDL_Point SDLGraphPane::yAxisStartPoint()
+	{
+		int y_axis_start_x = (int)(client_area_.x + (client_area_.w * plot_margin_));
+		int y_axis_start_y = (int)(client_area_.y + (client_area_.h * plot_margin_));
+		return SDL_Point{ y_axis_start_x, y_axis_start_y };
+	}
+	SDL_Point SDLGraphPane::yAxisEndPoint()
+	{
+		int end_x = yAxisStartPoint().x;
+		int end_y = yAxisStartPoint().y + yAxisLength();
+		return SDL_Point{ end_x, end_y };
+	}
+	int SDLGraphPane::yAxisLength()
+	{
+		return (int)(client_area_.h * (1.0 - 2 * plot_margin_));
 	}
 }
 
