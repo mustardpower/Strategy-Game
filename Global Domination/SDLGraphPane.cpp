@@ -57,39 +57,8 @@ namespace global_domination
 	void SDLGraphPane::drawDataPoints(SDL_Renderer * renderer)
 	{
 		// map x values to the pixel on the x axis
-		std::vector<double> x_values_mapped;
-		if (data_points_x_.size() > 0)
-		{
-			double original_range_lower_x = *std::min_element(data_points_x_.begin(), data_points_x_.end());
-			double original_range_upper_x = *std::max_element(data_points_x_.begin(), data_points_x_.end());
-			
-			double new_range_lower_x = xAxisStartPoint().x;
-			double new_range_upper_x = xAxisStartPoint().x + xAxisLength();
-			for (size_t index = 0; index < data_points_x_.size(); index++)
-			{
-				double unmapped_value_x = data_points_x_.at(index);
-				double mapped_x = (unmapped_value_x - original_range_lower_x) / (original_range_upper_x - original_range_lower_x) * (new_range_upper_x - new_range_lower_x) + new_range_lower_x;
-				x_values_mapped.push_back(mapped_x);
-			}
-		}
-		
-
-		// map y values to the pixel on the y axis
-		std::vector<double> y_values_mapped;
-		if (data_points_y_.size() > 0)
-		{
-			double original_range_lower_y = *std::min_element(data_points_y_.begin(), data_points_y_.end());
-			double original_range_upper_y = *std::max_element(data_points_y_.begin(), data_points_y_.end());
-			double new_range_lower_y = yAxisStartPoint().y;
-			double new_range_upper_y = yAxisStartPoint().y + yAxisLength();
-			for (size_t index = 0; index < data_points_y_.size(); index++)
-			{
-				double unmapped_value_y = data_points_y_.at(index);
-				unmapped_value_y = std::abs(unmapped_value_y - (original_range_upper_y - original_range_lower_y));
-				double mapped_y = (unmapped_value_y - original_range_lower_y) / (original_range_upper_y - original_range_lower_y) * (new_range_upper_y - new_range_lower_y) + new_range_lower_y;
-				y_values_mapped.push_back(mapped_y);
-			}
-		}
+		std::vector<double> x_values_mapped = getMappedXValues();
+		std::vector<double> y_values_mapped = getMappedYValues();
 
 		SDL_Point* mapped_points = new SDL_Point[data_points_x_.size()];
 		for (size_t index = 0; index < data_points_y_.size(); index++)
@@ -105,6 +74,46 @@ namespace global_domination
 		}
 
 		delete[] mapped_points;
+	}
+
+	std::vector<double> SDLGraphPane::getMappedXValues()
+	{
+		std::vector<double> x_values_mapped;
+		if (data_points_x_.size() > 0)
+		{
+			double original_range_lower_x = *std::min_element(data_points_x_.begin(), data_points_x_.end());
+			double original_range_upper_x = *std::max_element(data_points_x_.begin(), data_points_x_.end());
+
+			double new_range_lower_x = xAxisStartPoint().x;
+			double new_range_upper_x = xAxisStartPoint().x + xAxisLength();
+			for (size_t index = 0; index < data_points_x_.size(); index++)
+			{
+				double unmapped_value_x = data_points_x_.at(index);
+				double mapped_x = (unmapped_value_x - original_range_lower_x) / (original_range_upper_x - original_range_lower_x) * (new_range_upper_x - new_range_lower_x) + new_range_lower_x;
+				x_values_mapped.push_back(mapped_x);
+			}
+		}
+		return x_values_mapped;
+	}
+
+	std::vector<double> SDLGraphPane::getMappedYValues()
+	{
+		std::vector<double> y_values_mapped;
+		if (data_points_y_.size() > 0)
+		{
+			double original_range_lower_y = *std::min_element(data_points_y_.begin(), data_points_y_.end());
+			double original_range_upper_y = *std::max_element(data_points_y_.begin(), data_points_y_.end());
+			double new_range_lower_y = yAxisStartPoint().y;
+			double new_range_upper_y = yAxisStartPoint().y + yAxisLength();
+			for (size_t index = 0; index < data_points_y_.size(); index++)
+			{
+				double unmapped_value_y = data_points_y_.at(index);
+				unmapped_value_y = std::abs(unmapped_value_y - (original_range_upper_y - original_range_lower_y));
+				double mapped_y = (unmapped_value_y - original_range_lower_y) / (original_range_upper_y - original_range_lower_y) * (new_range_upper_y - new_range_lower_y) + new_range_lower_y;
+				y_values_mapped.push_back(mapped_y);
+			}
+		}
+		return y_values_mapped;
 	}
 
 	bool SDLGraphPane::handleClick(int mouse_x, int mouse_y)
