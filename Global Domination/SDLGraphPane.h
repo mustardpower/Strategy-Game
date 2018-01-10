@@ -20,8 +20,11 @@ namespace global_domination
 	{
 		public:
 			SDLGraphPane(SDL_Window* parent, SDL_Rect client_area);
+			int axisOverlap();
 			void drawAxes(SDL_Renderer* renderer);
 			void drawDataPoints(SDL_Renderer* renderer);
+			void drawXAxisLabels(SDL_Renderer* renderer);
+			void drawYAxisLabels(SDL_Renderer* renderer);
 			std::vector<double> getMappedXValues();
 			std::vector<double> getMappedYValues();
 			bool handleClick(int mouse_x, int mouse_y);

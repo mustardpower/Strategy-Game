@@ -10,13 +10,16 @@ namespace global_domination
 	{
 	}
 
+	int SDLGraphPane::axisOverlap()
+	{
+		return (int)(client_area_.w * (plot_margin_ / 5.0));
+	}
+
 	void SDLGraphPane::drawAxes(SDL_Renderer * renderer)
 	{
-		const int extra_axis_overlap = (int)(client_area_.w * (plot_margin_ / 5.0));
-
 		SDL_RenderDrawLine(
 			renderer, 
-			xAxisStartPoint().x - extra_axis_overlap,
+			xAxisStartPoint().x - axisOverlap(),
 			xAxisStartPoint().y,
 			xAxisEndPoint().x,
 			xAxisEndPoint().y
@@ -27,31 +30,11 @@ namespace global_domination
 			yAxisStartPoint().x,
 			yAxisStartPoint().y,
 			yAxisEndPoint().x,
-			yAxisEndPoint().y + extra_axis_overlap
+			yAxisEndPoint().y + axisOverlap()
 		);
 
-		// draw markers on x axis
-		const int interval_x = xAxisLength() / axis_labels_x_.size();
-		int marker_x = xAxisStartPoint().x;
-		for (size_t label_index = 0; label_index < axis_labels_x_.size(); label_index++)
-		{
-			int text_width, text_height;
-			text_renderer::getTextDimensions(axis_labels_x_.at(label_index), text_width, text_height);
-			int quarter_text_width = (int)(text_width / 4.0);
-			SDL_RenderDrawLine(renderer, marker_x, xAxisStartPoint().y, marker_x, xAxisStartPoint().y + (extra_axis_overlap / 2));
-			SDL_Rect label_location = { marker_x - quarter_text_width, xAxisStartPoint().y + ( 2 * (extra_axis_overlap / 2)) , 0, 0 };
-			text_renderer::renderText(parent_, axis_labels_x_.at(label_index), label_location, getTextColor(), getBackgroundColor(), font_size_);
-			marker_x += interval_x;
-		}
-
-		// draw markers on y axis
-		const int kDefaultNoOfIntervals = 10;
-		int number_of_intervals = data_points_y_.empty() ? kDefaultNoOfIntervals : data_points_y_.size();
-		const int interval_y = yAxisLength() / number_of_intervals;
-		for (int marker_y = yAxisStartPoint().y; marker_y < yAxisStartPoint().y + yAxisLength(); marker_y += interval_y)
-		{
-			SDL_RenderDrawLine(renderer, yAxisStartPoint().x - (extra_axis_overlap / 2), marker_y, yAxisStartPoint().x, marker_y);
-		}
+		drawXAxisLabels(renderer);
+		drawYAxisLabels(renderer);
 	}
 
 	void SDLGraphPane::drawDataPoints(SDL_Renderer * renderer)
@@ -74,6 +57,33 @@ namespace global_domination
 		}
 
 		delete[] mapped_points;
+	}
+
+	void SDLGraphPane::drawXAxisLabels(SDL_Renderer * renderer)
+	{
+		const int interval_x = xAxisLength() / axis_labels_x_.size();
+		int marker_x = xAxisStartPoint().x;
+		for (size_t label_index = 0; label_index < axis_labels_x_.size(); label_index++)
+		{
+			int text_width, text_height;
+			text_renderer::getTextDimensions(axis_labels_x_.at(label_index), text_width, text_height);
+			int quarter_text_width = (int)(text_width / 4.0);
+			SDL_RenderDrawLine(renderer, marker_x, xAxisStartPoint().y, marker_x, xAxisStartPoint().y + (axisOverlap() / 2));
+			SDL_Rect label_location = { marker_x - quarter_text_width, xAxisStartPoint().y + (2 * (axisOverlap() / 2)) , 0, 0 };
+			text_renderer::renderText(parent_, axis_labels_x_.at(label_index), label_location, getTextColor(), getBackgroundColor(), font_size_);
+			marker_x += interval_x;
+		}
+	}
+
+	void SDLGraphPane::drawYAxisLabels(SDL_Renderer * renderer)
+	{
+		const int kDefaultNoOfIntervals = 10;
+		int number_of_intervals = data_points_y_.empty() ? kDefaultNoOfIntervals : data_points_y_.size();
+		const int interval_y = yAxisLength() / number_of_intervals;
+		for (int marker_y = yAxisStartPoint().y; marker_y < yAxisStartPoint().y + yAxisLength(); marker_y += interval_y)
+		{
+			SDL_RenderDrawLine(renderer, yAxisStartPoint().x - (axisOverlap() / 2), marker_y, yAxisStartPoint().x, marker_y);
+		}
 	}
 
 	std::vector<double> SDLGraphPane::getMappedXValues()
