@@ -111,6 +111,9 @@
     <ClCompile Include="SDLGraphPane.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SDLTabControl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -228,6 +231,9 @@
       <Filter>Header Files\SDLControls</Filter>
     </ClInclude>
     <ClInclude Include="SDLGraphPane.h">
+      <Filter>Header Files\SDLControls</Filter>
+    </ClInclude>
+    <ClInclude Include="SDLTabControl.h">
       <Filter>Header Files\SDLControls</Filter>
     </ClInclude>
   </ItemGroup>

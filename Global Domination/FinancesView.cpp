@@ -3,6 +3,7 @@
 #include "SDLDataGrid.h"
 #include "SDLGraphPane.h"
 #include "SDLStaticText.h"
+#include "SDLTabControl.h"
 
 namespace global_domination
 {
@@ -32,7 +33,11 @@ namespace global_domination
 		finances_data_grid->setFontSize(10);
 		finances_data_grid->showSliderBar(false);
 		finances_data_grid->setId(FINANCES_DATA_GRID);
-		addChildControl(finances_data_grid);
+
+		SDL_Rect tab_control_client_area{ (int)(client_area_.w * 0.1), (int)(client_area_.h * 0.75), (int)(client_area_.w * 0.8), (int)(client_area_.h * 0.2) };
+		std::shared_ptr<SDLTabControl> finance_tabs = std::make_shared<SDLTabControl>(parent_, tab_control_client_area);
+		finance_tabs->addTab("Expenses", finances_data_grid);
+		addChildControl(finance_tabs);
 	}
 
 	void FinancesView::respondToAction(Sint32 action)

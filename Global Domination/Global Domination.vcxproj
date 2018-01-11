@@ -145,6 +145,7 @@
     <ClCompile Include="SDLGraphPane.cpp" />
     <ClCompile Include="SDLProgressBar.cpp" />
     <ClCompile Include="SDLStaticText.cpp" />
+    <ClCompile Include="SDLTabControl.cpp" />
     <ClCompile Include="SDL_TextRenderer.cpp" />
     <ClCompile Include="TradeDeal.cpp" />
     <ClCompile Include="TradeDealsView.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="SDLProgressBar.h" />
     <ClInclude Include="SDLStackGrid.h" />
     <ClInclude Include="SDLStaticText.h" />
+    <ClInclude Include="SDLTabControl.h" />
     <ClInclude Include="SDL_TextRenderer.h" />
     <ClInclude Include="StackGridItem.h" />
     <ClInclude Include="TradeDeal.h" />
