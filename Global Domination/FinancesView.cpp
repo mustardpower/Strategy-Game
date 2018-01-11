@@ -29,14 +29,21 @@ namespace global_domination
 		addChildControl(finances_plot);
 
 		SDL_Rect data_grid_client_area{ (int)(client_area_.w * 0.1), (int)(client_area_.h * 0.75), (int)(client_area_.w * 0.8), (int)(client_area_.h * 0.2) };
-		std::shared_ptr<SDLDataGrid<Nation, 5, 5>> finances_data_grid = std::make_shared<SDLDataGrid<Nation, 5,5>>(parent_, data_grid_client_area);
-		finances_data_grid->setFontSize(10);
-		finances_data_grid->showSliderBar(false);
-		finances_data_grid->setId(FINANCES_DATA_GRID);
+		std::shared_ptr<SDLDataGrid<Nation, 5, 5>> income_data_grid = std::make_shared<SDLDataGrid<Nation, 5,5>>(parent_, data_grid_client_area);
+		income_data_grid->setFontSize(10);
+		income_data_grid->showSliderBar(false);
+		income_data_grid->setId(FINANCES_INCOME_DATA_GRID);
+
+		std::shared_ptr<SDLDataGrid<Nation, 5, 5>> expenses_data_grid = std::make_shared<SDLDataGrid<Nation, 5, 5>>(parent_, data_grid_client_area);
+		expenses_data_grid->setFontSize(10);
+		expenses_data_grid->showSliderBar(false);
+		expenses_data_grid->setId(FINANCES_EXPENSES_DATA_GRID);
 
 		SDL_Rect tab_control_client_area{ (int)(client_area_.w * 0.1), (int)(client_area_.h * 0.75), (int)(client_area_.w * 0.8), (int)(client_area_.h * 0.2) };
 		std::shared_ptr<SDLTabControl> finance_tabs = std::make_shared<SDLTabControl>(parent_, tab_control_client_area);
-		finance_tabs->addTab("Expenses", finances_data_grid);
+		finance_tabs->setFontSize(16);
+		finance_tabs->addTab("Expenses", expenses_data_grid);
+		finance_tabs->addTab("Income", income_data_grid);
 		addChildControl(finance_tabs);
 	}
 

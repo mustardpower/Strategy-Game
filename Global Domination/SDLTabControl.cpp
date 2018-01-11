@@ -14,6 +14,27 @@ namespace global_domination
 		tabs_.push_back(control);
 	}
 
+	void SDLTabControl::drawTabHeaders(SDL_Renderer * renderer)
+	{
+		int tab_x_pos = client_area_.x;
+		for (std::vector<std::string>::iterator tab_name = tab_names_.begin(); tab_name != tab_names_.end(); tab_name++)
+		{
+			int w, h;
+			w = h = 0;
+			TTF_SizeText(text_renderer::getFont(font_size_), tab_name->c_str(), &w, &h);
+			SDL_Rect tab_name_location{ tab_x_pos, client_area_.y - h, w, h };
+
+			SDL_SetRenderDrawColor(renderer, 170, 170, 170, 0);
+			SDL_RenderFillRect(renderer, &tab_name_location);
+
+			text_renderer::renderText(parent_, *tab_name, tab_name_location, getTextColor(), getBackgroundColor(), font_size_);
+
+			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+			SDL_RenderDrawRect(renderer, &tab_name_location);
+			tab_x_pos += w;
+		}
+	}
+
 	bool SDLTabControl::handleClick(int mouse_x, int mouse_y)
 	{
 		return tabs_.at(current_page_)->handleClick(mouse_x, mouse_y);
@@ -21,12 +42,7 @@ namespace global_domination
 
 	void SDLTabControl::render(SDL_Renderer * renderer)
 	{
-		for(std::vector<std::string>::iterator tab_name = tab_names_.begin(); tab_name != tab_names_.end(); tab_name++)
-		{
-			SDL_Rect tab_name_location{ 100 , 100, 0, 0 };
-			text_renderer::renderText(parent_, *tab_name, tab_name_location, getTextColor(), getBackgroundColor(), font_size_);
-		}
-
+		drawTabHeaders(renderer);
 		tabs_.at(current_page_)->render(renderer);
 	}
 }
