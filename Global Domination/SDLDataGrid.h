@@ -35,10 +35,12 @@ namespace global_domination
 		SDL_Rect sliderBarClientArea();
 		SDL_Rect sliderBarDownArrowClientArea();
 		SDL_Rect sliderBarUpArrowClientArea();
+		void showSliderBar(bool shown);
 	private:
 		SDL_Rect client_area_;
 		std::array<std::vector<std::shared_ptr<DataGridCell<T>>>, C> items_;
 		unsigned int selected_index_;
+		bool show_slider_bar_;
 		unsigned int top_visible_index_;
 	};
 
@@ -47,6 +49,7 @@ namespace global_domination
 	{
 		client_area_ = client_area;
 		selected_index_ = 0;
+		show_slider_bar_ = true;
 		top_visible_index_ = 0;
 	}
 
@@ -177,7 +180,10 @@ namespace global_domination
 
 		renderCells(renderer);
 
-		drawSliderBar(renderer);
+		if (show_slider_bar_)
+		{
+			drawSliderBar(renderer);
+		}
 	}
 
 	template<class T, int C, int R>
@@ -274,6 +280,12 @@ namespace global_domination
 		int pos_x = sliderBarClientArea().x + sliderArrowMargin();
 		int pos_y = sliderBarClientArea().y + sliderArrowMargin();
 		return SDL_Rect{ pos_x, pos_y, sliderArrowWidth(), sliderArrowHeight() };
+	}
+
+	template<class T, int C, int R>
+	inline void SDLDataGrid<T, C, R>::showSliderBar(bool shown)
+	{
+		show_slider_bar_ = shown;
 	}
 
 	template<class T, int C, int R>
