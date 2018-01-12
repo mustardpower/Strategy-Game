@@ -11,6 +11,7 @@ namespace global_domination
 		void drawTabHeaders(SDL_Renderer* renderer);
 		bool handleClick(int mouse_x, int mouse_y);
 		void render(SDL_Renderer* renderer);
+		SDL_Rect tabHeaderLocation(const int tab_number);
 	private:
 		unsigned int current_page_;
 		std::vector<std::string> tab_names_;

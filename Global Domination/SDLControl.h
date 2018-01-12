@@ -15,6 +15,7 @@ namespace global_domination
 		SDLControl(SDL_Window* parent, SDL_Rect client_area_);
 		void addChildControl(std::shared_ptr<SDLControl> control);
 		bool containsPoint(int x, int y);
+		bool containsPoint(SDL_Rect aRect, int x, int y);
 		std::shared_ptr<SDLControl> getChildControl(ControlID id);
 		unsigned int getId();
 		SDL_Color getBackgroundColor();

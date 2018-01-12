@@ -20,7 +20,6 @@ namespace global_domination
 		int getSelectedIndex() const;
 		void addItem(ListItem<T> menu_item);
 		void clearItems();
-		bool containsPoint(SDL_Rect aRect, int x, int y);
 		void drawMessages(SDL_Renderer* renderer);
 		void drawSliderBar(SDL_Renderer* renderer);
 		void drawSliderBarUpArrow(SDL_Renderer* renderer);
@@ -72,20 +71,6 @@ namespace global_domination
 	inline void SDLListBox<T>::clearItems()
 	{
 		items_.clear();
-	}
-
-	template<class T>
-	inline bool SDLListBox<T>::containsPoint(SDL_Rect aRect, int x, int y)
-	{
-		if ((x >= aRect.x) && (x <= (aRect.x + aRect.w)))
-		{
-			if ((y >= aRect.y) && (y <= (aRect.y + aRect.h)))
-			{
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	template <class T>

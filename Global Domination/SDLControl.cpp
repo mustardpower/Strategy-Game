@@ -36,6 +36,19 @@ namespace global_domination
 		return false;
 	}
 
+	bool SDLControl::containsPoint(SDL_Rect aRect, int x, int y)
+	{
+		if ((x >= aRect.x) && (x <= (aRect.x + aRect.w)))
+		{
+			if ((y >= aRect.y) && (y <= (aRect.y + aRect.h)))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	std::shared_ptr<SDLControl> SDLControl::getChildControl(ControlID id)
 	{
 		if (children_.size())
