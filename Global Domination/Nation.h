@@ -3,6 +3,7 @@
 #include <map>
 #include <set>
 
+#include "FinanceHistory.h"
 #include "TradeDeal.h"
 #include "TradeResource.h"
 
@@ -21,6 +22,7 @@ namespace global_domination
 		void cancelTradeDeal(TradeDeal trade_deal);
 		double getGDP() const;
 		double getGDPPerCapita() const;
+		std::vector<double> getMonthlyProfits(int number_of_months);
 		std::string getName() const;
 		unsigned int getNumberOfDeathsInTurn() const;
 		unsigned int getNumberOfBirthsInTurn() const;
@@ -42,6 +44,7 @@ namespace global_domination
 		bool operator == (const Nation& another);
 	private:
 		double GDP_;
+		FinanceHistory finance_history_;
 		std::string name_;
 		std::map<Nation*, double> nation_friendships;
 		int population_;

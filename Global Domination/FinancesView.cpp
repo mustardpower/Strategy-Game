@@ -29,14 +29,14 @@ namespace global_domination
 		addChildControl(finances_plot);
 
 		SDL_Rect data_grid_client_area{ (int)(client_area_.w * 0.1), (int)(client_area_.h * 0.75), (int)(client_area_.w * 0.8), (int)(client_area_.h * 0.2) };
-		std::array<std::string, 5> income_header_names{ "Income", "Column 2", "Column 3", "Column 4", "Column 5" };
-		std::shared_ptr<SDLDataGrid<Nation, 5, 5>> income_data_grid = std::make_shared<SDLDataGrid<Nation, 5,5>>(parent_, data_grid_client_area, income_header_names);
+		std::array<std::string, 5> header_names{ "Item", "This Month", "Last Month", "This Year", "Last Year" };
+		std::shared_ptr<SDLDataGrid<Nation, 5, 5>> income_data_grid = std::make_shared<SDLDataGrid<Nation, 5,5>>(parent_, data_grid_client_area, header_names);
 		income_data_grid->setFontSize(10);
 		income_data_grid->showSliderBar(false);
 		income_data_grid->setId(FINANCES_INCOME_DATA_GRID);
 
-		std::array<std::string, 5> expenditure_header_names{ "Expenses", "Column 2", "Column 3", "Column 4", "Column 5" };
-		std::shared_ptr<SDLDataGrid<Nation, 5, 5>> expenses_data_grid = std::make_shared<SDLDataGrid<Nation, 5, 5>>(parent_, data_grid_client_area, expenditure_header_names);
+		std::array<std::string, 5> expenditure_header_names{ "Item", "This Month", "Last Month", "This Year", "Last Year" };
+		std::shared_ptr<SDLDataGrid<Nation, 5, 5>> expenses_data_grid = std::make_shared<SDLDataGrid<Nation, 5, 5>>(parent_, data_grid_client_area, header_names);
 		expenses_data_grid->setFontSize(10);
 		expenses_data_grid->showSliderBar(false);
 		expenses_data_grid->setId(FINANCES_EXPENSES_DATA_GRID);
@@ -56,7 +56,9 @@ namespace global_domination
 			case TYPES::ACTION_LIST::NEXT_TURN:
 			{
 				std::vector<double> columns{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
-				std::vector<double> monthly_profits{ 0, 100, 200, 300, 400, 500, 600, 700, 600, 500, 400, 300 };
+				const int kNumberOfMonths = 12;
+				std::vector<double> monthly_profits = nation_->getMonthlyProfits(kNumberOfMonths);
+				assert(monthly_profits.size() <= kNumberOfMonths);
 				std::shared_ptr<SDLGraphPane> finances_plot = std::dynamic_pointer_cast<SDLGraphPane>(getChildControl(FINANCES_PLOT));
 				finances_plot->setDataPoints(columns, monthly_profits);
 			}

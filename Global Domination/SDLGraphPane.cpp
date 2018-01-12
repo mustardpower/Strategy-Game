@@ -53,7 +53,7 @@ namespace global_domination
 		// draw lines made from mapped values here!
 		for (size_t index = 0; index < data_points_y_.size(); index++)
 		{
-			SDL_RenderDrawLines(renderer, mapped_points, data_points_x_.size());
+			SDL_RenderDrawLines(renderer, mapped_points, data_points_y_.size());
 		}
 
 		delete[] mapped_points;
@@ -111,14 +111,22 @@ namespace global_domination
 		std::vector<double> y_values_mapped;
 		if (data_points_y_.size() > 0)
 		{
-			double original_range_lower_y = *std::min_element(data_points_y_.begin(), data_points_y_.end());
-			double original_range_upper_y = *std::max_element(data_points_y_.begin(), data_points_y_.end());
+			const int kNumOfDataPointsDisplayed = std::min(data_points_x_.size(), data_points_y_.size());
+			std::vector<double>::iterator first_data_point = data_points_y_.end() - kNumOfDataPointsDisplayed;
+			double original_range_lower_y = *std::min_element(first_data_point, data_points_y_.end());
+			double original_range_upper_y = *std::max_element(first_data_point, data_points_y_.end());
+
+			if (original_range_lower_y == original_range_upper_y)
+			{
+				original_range_lower_y = original_range_lower_y * 0.5;
+				original_range_upper_y = original_range_upper_y * 1.5;
+			}
+
 			double new_range_lower_y = yAxisStartPoint().y;
 			double new_range_upper_y = yAxisStartPoint().y + yAxisLength();
 			for (size_t index = 0; index < data_points_y_.size(); index++)
 			{
 				double unmapped_value_y = data_points_y_.at(index);
-				unmapped_value_y = std::abs(unmapped_value_y - (original_range_upper_y - original_range_lower_y));
 				double mapped_y = (unmapped_value_y - original_range_lower_y) / (original_range_upper_y - original_range_lower_y) * (new_range_upper_y - new_range_lower_y) + new_range_lower_y;
 				y_values_mapped.push_back(mapped_y);
 			}

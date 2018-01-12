@@ -72,6 +72,11 @@ namespace global_domination
 		return (GDP_ / population_) * 1000000;
 	}
 
+	std::vector<double> Nation::getMonthlyProfits(int number_of_months)
+	{
+		return finance_history_.getMonthlyProfits(number_of_months);
+	}
+
 	std::string Nation::getName() const
 	{
 		return name_;
@@ -204,7 +209,9 @@ namespace global_domination
 
 	void Nation::updateFinances()
 	{
-		GDP_ += calculateMonthlyIncome() - calculateMonthlyExpenses();
+		double monthly_profit = calculateMonthlyIncome() - calculateMonthlyExpenses();
+		finance_history_.addMonthlyProfit(monthly_profit);
+		GDP_ += monthly_profit;
 	}
 
 	void Nation::updatePopulation()
