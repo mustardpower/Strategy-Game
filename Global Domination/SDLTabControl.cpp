@@ -22,16 +22,20 @@ namespace global_domination
 			int w, h;
 			w = h = 0;
 			TTF_SizeText(text_renderer::getFont(font_size_), tab_name->c_str(), &w, &h);
-			SDL_Rect tab_name_location{ tab_x_pos, client_area_.y - h, w, h };
+
+			const double percentage_margin = 0.2;
+			SDL_Rect tab_name_location{ tab_x_pos, client_area_.y - h, w * (1.0 + 2 * percentage_margin), h };
 
 			SDL_SetRenderDrawColor(renderer, 170, 170, 170, 0);
 			SDL_RenderFillRect(renderer, &tab_name_location);
 
-			text_renderer::renderText(parent_, *tab_name, tab_name_location, getTextColor(), getBackgroundColor(), font_size_);
+			SDL_Rect tab_string_location(tab_name_location);
+			tab_string_location.x = tab_name_location.x + w * percentage_margin;
+			text_renderer::renderText(parent_, *tab_name, tab_string_location, getTextColor(), getBackgroundColor(), font_size_);
 
 			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 			SDL_RenderDrawRect(renderer, &tab_name_location);
-			tab_x_pos += w;
+			tab_x_pos += tab_name_location.w;
 		}
 	}
 
