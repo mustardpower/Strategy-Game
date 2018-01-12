@@ -13,6 +13,7 @@ namespace global_domination
 		virtual ~FinancesView();
 		void initialize();
 		void respondToAction(Sint32 action);
+		void updatePlot();
 	private:
 		Nation* nation_;
 	};

@@ -47,6 +47,8 @@ namespace global_domination
 		finance_tabs->addTab("Expenses", expenses_data_grid);
 		finance_tabs->addTab("Income", income_data_grid);
 		addChildControl(finance_tabs);
+
+		updatePlot();
 	}
 
 	void FinancesView::respondToAction(Sint32 action)
@@ -55,14 +57,18 @@ namespace global_domination
 		{
 			case TYPES::ACTION_LIST::NEXT_TURN:
 			{
-				std::vector<double> columns{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
-				const int kNumberOfMonths = 12;
-				std::vector<double> monthly_profits = nation_->getMonthlyProfits(kNumberOfMonths);
-				assert(monthly_profits.size() <= kNumberOfMonths);
-				std::shared_ptr<SDLGraphPane> finances_plot = std::dynamic_pointer_cast<SDLGraphPane>(getChildControl(FINANCES_PLOT));
-				finances_plot->setDataPoints(columns, monthly_profits);
+				updatePlot();
 			}
 			break;
 		}
+	}
+	void FinancesView::updatePlot()
+	{
+		std::vector<double> columns{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+		const int kNumberOfMonths = 12;
+		std::vector<double> monthly_profits = nation_->getMonthlyProfits(kNumberOfMonths);
+		assert(monthly_profits.size() <= kNumberOfMonths);
+		std::shared_ptr<SDLGraphPane> finances_plot = std::dynamic_pointer_cast<SDLGraphPane>(getChildControl(FINANCES_PLOT));
+		finances_plot->setDataPoints(columns, monthly_profits);
 	}
 }

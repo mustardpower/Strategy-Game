@@ -77,12 +77,35 @@ namespace global_domination
 
 	void SDLGraphPane::drawYAxisLabels(SDL_Renderer * renderer)
 	{
+		if (data_points_y_.empty()) { return; }
+		axis_labels_y_.clear();
+		for (std::vector<double>::iterator data_point = data_points_y_.begin(); data_point != data_points_y_.end(); data_point++)
+		{
+			axis_labels_y_.push_back(std::to_string(*data_point));
+		}
+
 		const int kDefaultNoOfIntervals = 10;
 		int number_of_intervals = data_points_y_.empty() ? kDefaultNoOfIntervals : data_points_y_.size();
-		const int interval_y = yAxisLength() / number_of_intervals;
-		for (int marker_y = yAxisStartPoint().y; marker_y < yAxisStartPoint().y + yAxisLength(); marker_y += interval_y)
+		const int interval_y = (yAxisLength() + number_of_intervals - 1) / number_of_intervals; // rounding up here
+		int label_index = 0;
+
+		int last_point = yAxisStartPoint().y + yAxisLength();
+		for (int marker_y = yAxisStartPoint().y; marker_y < last_point; marker_y += interval_y)
 		{
 			SDL_RenderDrawLine(renderer, yAxisStartPoint().x - (axisOverlap() / 2), marker_y, yAxisStartPoint().x, marker_y);
+
+			int text_width, text_height;
+			text_renderer::getTextDimensions(axis_labels_y_[label_index], text_width, text_height);
+			SDL_Rect label_location
+			{
+				yAxisStartPoint().x,
+				marker_y,
+				text_width,
+				text_height
+			};
+
+			text_renderer::renderText(parent_, std::to_string(marker_y), label_location, getTextColor(), getBackgroundColor(), font_size_);
+			label_index++;
 		}
 	}
 
