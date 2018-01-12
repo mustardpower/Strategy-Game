@@ -15,20 +15,24 @@ namespace global_domination
 	class SDLDataGrid : public SDLControl
 	{
 	public:
-		SDLDataGrid(SDL_Window* parent, SDL_Rect client_area);
+		SDLDataGrid(SDL_Window* parent, SDL_Rect client_area, std::array<std::string, C> header_names_);
 		~SDLDataGrid();
 		void addItem(std::shared_ptr<DataGridCell<T>> item, int location_x, int location_y);
 		SDL_Rect cellClientArea(int column, int row);
 		int cellHeight();
 		int cellWidth();
 		bool containsPoint(SDL_Rect aRect, int x, int y);
+		void drawGridLines(SDL_Renderer* renderer);
 		void drawSliderBar(SDL_Renderer* renderer);
 		void drawSliderBarUpArrow(SDL_Renderer* renderer);
 		void drawSliderBarDownArrow(SDL_Renderer* renderer);
 		bool handleClick(int x, int y);
+		SDL_Rect headerClientArea(int column);
+		int headerHeight();
 		void render(SDL_Renderer * renderer);
 		void renderCells(SDL_Renderer * renderer);
 		void renderCell(SDL_Renderer* renderer, int column, int row);
+		void renderHeaderCells(SDL_Renderer* renderer);
 		const int sliderArrowHeight();
 		const int sliderArrowMargin();
 		const int sliderArrowWidth();
@@ -38,6 +42,7 @@ namespace global_domination
 		void showSliderBar(bool shown);
 	private:
 		SDL_Rect client_area_;
+		std::array<std::string, C> header_names_;
 		std::array<std::vector<std::shared_ptr<DataGridCell<T>>>, C> items_;
 		unsigned int selected_index_;
 		bool show_slider_bar_;
@@ -45,9 +50,10 @@ namespace global_domination
 	};
 
 	template <class T, int C, int R>
-	inline SDLDataGrid<T, C, R>::SDLDataGrid(SDL_Window * parent, SDL_Rect client_area) : SDLControl(parent, client_area)
+	inline SDLDataGrid<T, C, R>::SDLDataGrid(SDL_Window * parent, SDL_Rect client_area, std::array<std::string, C> header_names) : SDLControl(parent, client_area)
 	{
 		client_area_ = client_area;
+		header_names_ = header_names;
 		selected_index_ = 0;
 		show_slider_bar_ = true;
 		top_visible_index_ = 0;
@@ -67,7 +73,7 @@ namespace global_domination
 	template<class T, int C, int R>
 	inline SDL_Rect SDLDataGrid<T, C, R>::cellClientArea(int column, int row)
 	{
-		return SDL_Rect { client_area_.x + (column * cellWidth()), client_area_.y + row * cellHeight(), cellWidth(), cellHeight() };
+		return SDL_Rect { client_area_.x + (column * cellWidth()), client_area_.y + row * cellHeight() + headerHeight(), cellWidth(), cellHeight() };
 	}
 
 	template <class T, int C, int R>
@@ -82,6 +88,22 @@ namespace global_domination
 		}
 
 		return false;
+	}
+
+	template<class T, int C, int R>
+	inline void SDLDataGrid<T, C, R>::drawGridLines(SDL_Renderer * renderer)
+	{
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
+		for (size_t column = 0; column < items_.size(); column++)
+		{
+			SDL_RenderDrawLine(renderer, client_area_.x + (column * cellWidth()), client_area_.y, client_area_.x + (column * cellWidth()), client_area_.y + client_area_.h);
+
+			for (int grid_row = 0; grid_row < R + 1; grid_row++)
+			{
+				int line_height = client_area_.y + headerHeight() + (grid_row * cellHeight());
+				SDL_RenderDrawLine(renderer, client_area_.x, line_height, client_area_.x + client_area_.w, line_height);
+			}
+		}
 	}
 
 	template <class T, int C, int R>
@@ -131,13 +153,11 @@ namespace global_domination
 			return false;
 		}
 
-		const int width_per_item = client_area_.w / C;
-		const int height_per_item = client_area_.h / R;
 		for (unsigned int i = 0; i < items_.size(); i++)
 		{
 			for (unsigned int j = 0; j < items_[i].size(); j++)
 			{
-				SDL_Rect text_location = SDL_Rect{ client_area_.x + ((int)i * width_per_item), client_area_.y + ((int)j * height_per_item), width_per_item, height_per_item };
+				SDL_Rect text_location = SDL_Rect{ client_area_.x + ((int)i * cellWidth()), client_area_.y + headerHeight() + ((int)j * cellHeight()), cellWidth(), cellHeight() };
 				if (containsPoint(text_location, x, y))
 				{
 					selected_index_ = j + top_visible_index_;
@@ -169,16 +189,30 @@ namespace global_domination
 		return false;
 	}
 
+	template<class T, int C, int R>
+	inline SDL_Rect SDLDataGrid<T, C, R>::headerClientArea(int column)
+	{
+		return SDL_Rect{ client_area_.x + (column * cellWidth()), client_area_.y, cellWidth(), headerHeight() };
+	}
+
+	template<class T, int C, int R>
+	inline int SDLDataGrid<T, C, R>::headerHeight()
+	{
+		return (int)(client_area_.h * 0.15);
+	}
+
 	template <class T, int C, int R>
 	inline void SDLDataGrid<T, C, R>::render(SDL_Renderer * renderer)
 	{
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0xFF);
 		SDL_RenderFillRect(renderer, &client_area_);
 
-		SDL_SetRenderDrawColor(renderer, 0,0,0, 0xFF);
-		SDL_RenderDrawRect(renderer, &client_area_);
-
+		renderHeaderCells(renderer);
 		renderCells(renderer);
+		drawGridLines(renderer);
+
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
+		SDL_RenderDrawRect(renderer, &client_area_);
 
 		if (show_slider_bar_)
 		{
@@ -204,17 +238,6 @@ namespace global_domination
 				}
 			}
 		}
-
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
-		for (size_t column = 0; column < items_.size(); column++)
-		{
-			SDL_RenderDrawLine(renderer, client_area_.x + (column * cellWidth()), client_area_.y, client_area_.x + (column * cellWidth()), client_area_.y + client_area_.h);
-
-			for (int grid_row = 0; grid_row < R + 1; grid_row++)
-			{
-				SDL_RenderDrawLine(renderer, client_area_.x, client_area_.y + (grid_row * cellHeight()), client_area_.x + client_area_.w, client_area_.y + (grid_row * cellHeight()));
-			}
-		}
 	}
 
 	template<class T, int C, int R>
@@ -237,8 +260,29 @@ namespace global_domination
 		std::string text = items_[column][item_index]->reportString();
 		text_renderer::getTextDimensions(text, w, h);
 		SDL_Color text_color = ColorPreferences::getPrimaryTextColor();
-		SDL_Rect text_location = SDL_Rect{ client_area_.x + (column * cellWidth()) + (int)(0.5 * cellWidth()), client_area_.y + (grid_row * cellHeight()) + (int)(0.5 * cellHeight()), w, h };
+		int text_location_y = client_area_.y + (grid_row * cellHeight()) + (int)(0.5 * cellHeight()) + headerHeight();
+		SDL_Rect text_location = SDL_Rect{ client_area_.x + (column * cellWidth()) + (int)(0.5 * cellWidth()), text_location_y, w, h };
 		global_domination::text_renderer::renderText(parent_, text, text_location, text_color, SDL_Color{ 0,0,0,0xFF }, 15);
+	}
+
+	template<class T, int C, int R>
+	inline void SDLDataGrid<T, C, R>::renderHeaderCells(SDL_Renderer * renderer)
+	{
+		for (size_t column = 0; column < items_.size(); column++)
+		{
+			SDL_SetRenderDrawColor(renderer, 200, 200, 200, 0xFF);
+			SDL_RenderFillRect(renderer, &headerClientArea(column));
+			int w = 0;
+			int h = 0;
+			TTF_SizeText(text_renderer::getFont(font_size_), header_names_[column].c_str(), &w, &h);
+			SDL_Color text_color = ColorPreferences::getPrimaryTextColor();
+			int margin_x = (headerClientArea(column).w - w) / 2.0;
+			int margin_y = (headerClientArea(column).h - h) / 2.0;
+			int cell_pos_x = client_area_.x + (int)(column * cellWidth()) + margin_x;
+			int cell_pos_y = client_area_.y + margin_y;
+			SDL_Rect text_location = SDL_Rect{ cell_pos_x, cell_pos_y, w, h };
+			global_domination::text_renderer::renderText(parent_, header_names_[column], text_location, text_color, SDL_Color{ 0,0,0,0xFF }, 15);
+		}
 	}
 
 	template<class T, int C, int R>
@@ -291,7 +335,7 @@ namespace global_domination
 	template<class T, int C, int R>
 	inline int SDLDataGrid<T, C, R>::cellHeight()
 	{
-		return client_area_.h / R;
+		return (client_area_.h - headerHeight()) / R;
 	}
 
 	template<class T, int C, int R>

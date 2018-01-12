@@ -29,12 +29,14 @@ namespace global_domination
 		addChildControl(finances_plot);
 
 		SDL_Rect data_grid_client_area{ (int)(client_area_.w * 0.1), (int)(client_area_.h * 0.75), (int)(client_area_.w * 0.8), (int)(client_area_.h * 0.2) };
-		std::shared_ptr<SDLDataGrid<Nation, 5, 5>> income_data_grid = std::make_shared<SDLDataGrid<Nation, 5,5>>(parent_, data_grid_client_area);
+		std::array<std::string, 5> income_header_names{ "Income", "Column 2", "Column 3", "Column 4", "Column 5" };
+		std::shared_ptr<SDLDataGrid<Nation, 5, 5>> income_data_grid = std::make_shared<SDLDataGrid<Nation, 5,5>>(parent_, data_grid_client_area, income_header_names);
 		income_data_grid->setFontSize(10);
 		income_data_grid->showSliderBar(false);
 		income_data_grid->setId(FINANCES_INCOME_DATA_GRID);
 
-		std::shared_ptr<SDLDataGrid<Nation, 5, 5>> expenses_data_grid = std::make_shared<SDLDataGrid<Nation, 5, 5>>(parent_, data_grid_client_area);
+		std::array<std::string, 5> expenditure_header_names{ "Expenses", "Column 2", "Column 3", "Column 4", "Column 5" };
+		std::shared_ptr<SDLDataGrid<Nation, 5, 5>> expenses_data_grid = std::make_shared<SDLDataGrid<Nation, 5, 5>>(parent_, data_grid_client_area, expenditure_header_names);
 		expenses_data_grid->setFontSize(10);
 		expenses_data_grid->showSliderBar(false);
 		expenses_data_grid->setId(FINANCES_EXPENSES_DATA_GRID);
