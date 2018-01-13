@@ -36,6 +36,9 @@ namespace global_domination
 	template<class T>
 	inline void DataGridCell<T>::invokeAction() const
 	{
-		action_->execute();
+		if (action_)
+		{
+			action_->execute();
+		}
 	}
 }

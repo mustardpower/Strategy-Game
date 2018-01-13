@@ -7,6 +7,17 @@ namespace global_domination
 
 		TTF_Font* font = NULL;
 
+		SDL_Rect getCenteredTextLocation(SDL_Rect client_area, std::string text, int font_size)
+		{
+			int w = 0;
+			int h = 0;
+			TTF_SizeText(getFont(font_size), text.c_str(), &w, &h);
+			int margin_x = (client_area.w - w) / 2.0;
+			int margin_y = (client_area.h - h) / 2.0;
+			int cell_pos_x = client_area.x + margin_x;
+			int cell_pos_y = client_area.y + margin_y;
+			return SDL_Rect{ cell_pos_x, cell_pos_y, w, h };
+		}
 
 		TTF_Font * getFont(unsigned int font_size)
 		{

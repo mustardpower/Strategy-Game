@@ -14,15 +14,28 @@ namespace global_domination
 			selector_ = selector;
 		}
 
+		void setString(std::string reported_string);
 		std::string reportString() const;
 
 	private:
 		std::function<std::string(const T&)> selector_;
+		std::string string_override_;
 	};
 	
 	template<class T>
+	inline void NoArgumentsGridCell<T>::setString(std::string reported_string)
+	{
+		string_override_ = reported_string;
+	}
+
+	template<class T>
 	inline std::string NoArgumentsGridCell<T>::reportString() const
 	{
+		if (!string_override_.empty())
+		{
+			return string_override_;
+		}
+
 		return selector_(data_);
 	}
 }

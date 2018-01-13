@@ -40,6 +40,7 @@ namespace global_domination
 		expenses_data_grid->setFontSize(10);
 		expenses_data_grid->showSliderBar(false);
 		expenses_data_grid->setId(FINANCES_EXPENSES_DATA_GRID);
+		expenses_data_grid->addItem("Profit", 0, 0);
 
 		SDL_Rect tab_control_client_area{ (int)(client_area_.w * 0.1), (int)(client_area_.h * 0.75), (int)(client_area_.w * 0.8), (int)(client_area_.h * 0.2) };
 		std::shared_ptr<SDLTabControl> finance_tabs = std::make_shared<SDLTabControl>(parent_, tab_control_client_area);

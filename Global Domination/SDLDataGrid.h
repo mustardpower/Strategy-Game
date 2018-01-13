@@ -7,6 +7,7 @@
 
 #include "ColorPreferences.h"
 #include "DataGridCell.h"
+#include "NoArgumentsGridCell.h"
 #include "SDL_TextRenderer.h"
 
 namespace global_domination
@@ -17,6 +18,7 @@ namespace global_domination
 	public:
 		SDLDataGrid(SDL_Window* parent, SDL_Rect client_area, std::array<std::string, C> header_names_);
 		~SDLDataGrid();
+		void addItem(std::string item_string, int location_x, int location_y);
 		void addItem(std::shared_ptr<DataGridCell<T>> item, int location_x, int location_y);
 		SDL_Rect cellClientArea(int column, int row);
 		int cellHeight();
@@ -67,6 +69,14 @@ namespace global_domination
 	template <class T, int C, int R>
 	inline void SDLDataGrid<T, C, R>::addItem(std::shared_ptr<DataGridCell<T>> item, int location_x, int location_y)
 	{
+		items_[location_x].push_back(item);
+	}
+
+	template <class T, int C, int R>
+	inline void SDLDataGrid<T, C, R>::addItem(std::string item_string, int location_x, int location_y)
+	{
+		std::shared_ptr<NoArgumentsGridCell<T>> item = std::make_shared<NoArgumentsGridCell<T>>();
+		item->setString(item_string);
 		items_[location_x].push_back(item);
 	}
 
@@ -258,11 +268,8 @@ namespace global_domination
 		SDL_RenderFillRect(renderer, &cellClientArea(column, grid_row));
 
 		std::string text = items_[column][item_index]->reportString();
-		text_renderer::getTextDimensions(text, w, h);
-		SDL_Color text_color = ColorPreferences::getPrimaryTextColor();
-		int text_location_y = client_area_.y + (grid_row * cellHeight()) + (int)(0.5 * cellHeight()) + headerHeight();
-		SDL_Rect text_location = SDL_Rect{ client_area_.x + (column * cellWidth()) + (int)(0.5 * cellWidth()), text_location_y, w, h };
-		global_domination::text_renderer::renderText(parent_, text, text_location, text_color, SDL_Color{ 0,0,0,0xFF }, 15);
+		SDL_Rect text_location = text_renderer::getCenteredTextLocation(cellClientArea(column, grid_row), text, font_size_);
+		global_domination::text_renderer::renderText(parent_, text, text_location, ColorPreferences::getPrimaryTextColor(), SDL_Color{ 0,0,0,0xFF }, 15);
 	}
 
 	template<class T, int C, int R>
@@ -272,15 +279,8 @@ namespace global_domination
 		{
 			SDL_SetRenderDrawColor(renderer, 200, 200, 200, 0xFF);
 			SDL_RenderFillRect(renderer, &headerClientArea(column));
-			int w = 0;
-			int h = 0;
-			TTF_SizeText(text_renderer::getFont(font_size_), header_names_[column].c_str(), &w, &h);
 			SDL_Color text_color = ColorPreferences::getPrimaryTextColor();
-			int margin_x = (headerClientArea(column).w - w) / 2.0;
-			int margin_y = (headerClientArea(column).h - h) / 2.0;
-			int cell_pos_x = client_area_.x + (int)(column * cellWidth()) + margin_x;
-			int cell_pos_y = client_area_.y + margin_y;
-			SDL_Rect text_location = SDL_Rect{ cell_pos_x, cell_pos_y, w, h };
+			SDL_Rect text_location = text_renderer::getCenteredTextLocation(headerClientArea(column), header_names_[column], font_size_);
 			global_domination::text_renderer::renderText(parent_, header_names_[column], text_location, text_color, SDL_Color{ 0,0,0,0xFF }, 15);
 		}
 	}
