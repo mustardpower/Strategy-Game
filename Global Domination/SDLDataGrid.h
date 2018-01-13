@@ -73,11 +73,11 @@ namespace global_domination
 	}
 
 	template <class T, int C, int R>
-	inline void SDLDataGrid<T, C, R>::addItem(std::string item_string, int location_x, int location_y)
+	inline void SDLDataGrid<T, C, R>::addItem(std::string item_string, int column, int row)
 	{
 		std::shared_ptr<NoArgumentsGridCell<T>> item = std::make_shared<NoArgumentsGridCell<T>>();
 		item->setString(item_string);
-		items_[location_x].push_back(item);
+		items_[column].push_back(item);
 	}
 
 	template<class T, int C, int R>
@@ -253,8 +253,6 @@ namespace global_domination
 	template<class T, int C, int R>
 	inline void SDLDataGrid<T, C, R>::renderCell(SDL_Renderer * renderer, int column, int grid_row)
 	{
-		int w, h = 0;
-
 		const int item_index = grid_row + top_visible_index_;
 		if (selected_index_ == item_index)
 		{

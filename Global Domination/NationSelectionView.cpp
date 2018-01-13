@@ -114,8 +114,8 @@ namespace global_domination
 		if (selected_nation)
 		{
 			setLabelText(NATION_SELECTION_POPULATION_LABEL, "Population: " + std::to_string(selected_nation->getPopulation()));
-			setLabelText(NATION_SELECTION_GDP_LABEL, "GDP: " + std::to_string(selected_nation->getGDP()));
-			setLabelText(NATION_SELECTION_GDP_PER_CAPITA_LABEL, "GDP per capita: " + std::to_string(selected_nation->getGDPPerCapita()));
+			setLabelText(NATION_SELECTION_GDP_LABEL, "Balance: " + std::to_string(selected_nation->getBalance()));
+			setLabelText(NATION_SELECTION_GDP_PER_CAPITA_LABEL, "Balance per capita: " + std::to_string(selected_nation->getBalancePerCapita()));
 		}
 	}
 }

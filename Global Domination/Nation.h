@@ -21,8 +21,8 @@ namespace global_domination
 		double calculateMonthlyIncome();
 		double calculateMonthlyProfit();
 		void cancelTradeDeal(TradeDeal trade_deal);
-		double getGDP() const;
-		double getGDPPerCapita() const;
+		double getBalance() const;
+		double getBalancePerCapita() const;
 		std::vector<double> getMonthlyProfits(int number_of_months);
 		std::string getName() const;
 		unsigned int getNumberOfDeathsInTurn() const;
@@ -44,7 +44,7 @@ namespace global_domination
 
 		bool operator == (const Nation& another);
 	private:
-		double GDP_;
+		double balance_;
 		FinanceHistory finance_history_;
 		std::string name_;
 		std::map<Nation*, double> nation_friendships;

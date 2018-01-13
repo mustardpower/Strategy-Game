@@ -95,7 +95,7 @@ namespace global_domination
 			int label_y_pos = yAxisEndPoint().y - (marker_y - yAxisStartPoint().y);
 			SDL_Rect label_location
 			{
-				yAxisStartPoint().x,
+				yAxisStartPoint().x - text_width,
 				label_y_pos,
 				text_width,
 				text_height

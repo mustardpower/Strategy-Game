@@ -4,9 +4,9 @@
 
 namespace global_domination
 {
-	Nation::Nation(std::string aName, double GDP, int population, std::map<TradeResource, int> resources, std::vector<TradeDeal> trade_deals)
+	Nation::Nation(std::string aName, double balance, int population, std::map<TradeResource, int> resources, std::vector<TradeDeal> trade_deals)
 	{
-		GDP_ = GDP;
+		balance_ = balance;
 		name_ = aName;
 		population_ = population;
 		resources_ = resources;
@@ -66,15 +66,15 @@ namespace global_domination
 		trade_deals_.erase(matching_deal);
 	}
 
-	double Nation::getGDP() const
+	double Nation::getBalance() const
 	{
-		return GDP_;
+		return balance_;
 	}
 
-	double Nation::getGDPPerCapita() const
+	double Nation::getBalancePerCapita() const
 	{
 		if (population_ == 0) { return 0; }
-		return (GDP_ / population_) * 1000000;
+		return (balance_ / population_) * 1000000;
 	}
 
 	std::vector<double> Nation::getMonthlyProfits(int number_of_months)
@@ -216,7 +216,7 @@ namespace global_domination
 	{
 		double monthly_profit = calculateMonthlyProfit();
 		finance_history_.addMonthlyProfit(monthly_profit);
-		GDP_ += monthly_profit;
+		balance_ += monthly_profit;
 	}
 
 	void Nation::updatePopulation()

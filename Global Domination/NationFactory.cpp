@@ -6,7 +6,7 @@
 namespace global_domination
 {
 	void to_json(nlohmann::json& j, const Nation& nation) {
-		j = nlohmann::json{ { "name", nation.getName() },{ "GDP", nation.getGDP() }, { "population", nation.getGDP() }, { "resources", nation.getTradeResources()}};
+		j = nlohmann::json{ { "name", nation.getName() },{ "balance", nation.getBalance() }, { "population", nation.getPopulation() }, { "resources", nation.getTradeResources()}};
 	}
 
 	void from_json(const nlohmann::json& j, Nation& nation) {
@@ -14,7 +14,7 @@ namespace global_domination
 		TradeResource::createTradeResources("trade resources.json");
 		nation = Nation(
 			j.at("name").get<std::string>(),
-			j.at("GDP").get<double>(),
+			j.at("balance").get<double>(),
 			j.at("population").get<int>(),
 			getTradeResources(j),
 			j.at("trade deals").get<std::vector<TradeDeal>>());
