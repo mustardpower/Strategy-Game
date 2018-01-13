@@ -208,7 +208,14 @@ namespace global_domination
 	template<class T, int C, int R>
 	inline int SDLDataGrid<T, C, R>::headerHeight()
 	{
-		return (int)(client_area_.h * 0.15);
+		int target_height = (int)(client_area_.h * 0.15);
+		int overall_height = target_height + R * cellHeight();
+		if (overall_height != client_area_.h)
+		{
+			int difference = client_area_.h - overall_height;
+			return target_height + difference;
+		}
+		return target_height;
 	}
 
 	template <class T, int C, int R>
@@ -333,7 +340,7 @@ namespace global_domination
 	template<class T, int C, int R>
 	inline int SDLDataGrid<T, C, R>::cellHeight()
 	{
-		return (client_area_.h - headerHeight()) / R;
+		return (client_area_.h - (int)(client_area_.h * 0.15)) / R;
 	}
 
 	template<class T, int C, int R>
