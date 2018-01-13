@@ -55,6 +55,11 @@ namespace global_domination
 		return income;
 	}
 
+	double Nation::calculateMonthlyProfit()
+	{
+		return calculateMonthlyIncome() - calculateMonthlyExpenses();
+	}
+
 	void Nation::cancelTradeDeal(TradeDeal trade_deal)
 	{
 		std::vector<TradeDeal>::iterator matching_deal = std::find(trade_deals_.begin(), trade_deals_.end(), trade_deal);
@@ -209,7 +214,7 @@ namespace global_domination
 
 	void Nation::updateFinances()
 	{
-		double monthly_profit = calculateMonthlyIncome() - calculateMonthlyExpenses();
+		double monthly_profit = calculateMonthlyProfit();
 		finance_history_.addMonthlyProfit(monthly_profit);
 		GDP_ += monthly_profit;
 	}

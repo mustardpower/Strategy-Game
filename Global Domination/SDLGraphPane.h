@@ -28,10 +28,14 @@ namespace global_domination
 			std::vector<double> getMappedXValues();
 			std::vector<double> getMappedYValues();
 			bool handleClick(int mouse_x, int mouse_y);
+			double mapDataPointY(double unmapped_point_y);
+			double minYValue();
+			double maxYValue();
 			void render(SDL_Renderer* renderer);
 			void setAxisLabelsX(std::vector<std::string> labels);
 			void setAxisLabelsY(std::vector<std::string> labels);
 			void setDataPoints(std::vector<double> values_x, std::vector<double> values_y);
+			double unmapDataPointY(double mapped_point_y);
 			SDL_Point xAxisStartPoint();
 			SDL_Point xAxisEndPoint();
 			int xAxisLength();
