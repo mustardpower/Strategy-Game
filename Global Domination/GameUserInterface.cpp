@@ -7,6 +7,7 @@
 #include "NationSelectionView.h"
 #include "RelationsView.h"
 #include "TradeView.h"
+#include "WorldView.h"
 
 namespace global_domination
 {
@@ -122,6 +123,11 @@ namespace global_domination
 			case TYPES::ACTION_LIST::CHANGEVIEW_TRADE:
 			{
 				switchActiveControl(std::make_unique<TradeView>(game_model_, window_, getClientArea()));
+			}
+			break;
+			case TYPES::ACTION_LIST::CHANGEVIEW_WORLD:
+			{
+				switchActiveControl(std::make_unique<WorldView>(game_model_, window_, getClientArea()));
 			}
 			break;
 		}

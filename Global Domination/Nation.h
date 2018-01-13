@@ -13,7 +13,7 @@ namespace global_domination
 	{
 	public:
 		Nation() {};
-		Nation(std::string a_name, double bank_balance, int population, std::map<TradeResource, int> resources, std::vector<TradeDeal> trade_deals);
+		Nation(std::string a_name, double bank_balance, int population, std::map<TradeResource, int> resources, std::vector<TradeDeal> trade_deals, double area);
 		void acceptTradeOffer(TradeDeal trade_deal);
 		void declineTradeOffer(TradeDeal trade_deal);
 		std::vector<Nation*> alliedNations();
@@ -23,6 +23,7 @@ namespace global_domination
 		void cancelTradeDeal(TradeDeal trade_deal);
 		double getBalance() const;
 		double getBalancePerCapita() const;
+		double getLandArea() const;
 		std::vector<double> getMonthlyProfits(int number_of_months);
 		std::string getName() const;
 		unsigned int getNumberOfDeathsInTurn() const;
@@ -33,8 +34,10 @@ namespace global_domination
 		std::vector<TradeDeal> getTradeDealsForResource(TradeResource resource);
 		std::vector<TradeDeal> getTradeOffersForResource(TradeResource resource);
 		std::map<TradeResource, int> getTradeResources() const;
+		double globalAreaPercentageControlled() const;
 		void makeTradeDeals();
 		void recieveTradeOffer(TradeDeal prospective_deal);
+		std::string reportGlobalPercentageArea() const;
 		std::string reportRelationshipWithNation(Nation& another) const;
 		std::string reportString() const;
 		void setRelationship(Nation* nation, double relationship_score);
@@ -44,6 +47,7 @@ namespace global_domination
 
 		bool operator == (const Nation& another);
 	private:
+		double area_;
 		double balance_;
 		FinanceHistory finance_history_;
 		std::string name_;

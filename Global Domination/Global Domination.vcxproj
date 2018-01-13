@@ -153,6 +153,7 @@
     <ClCompile Include="TradeOffersView.cpp" />
     <ClCompile Include="TradeResource.cpp" />
     <ClCompile Include="TradeView.cpp" />
+    <ClCompile Include="WorldView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ColorPreferences.h" />
@@ -196,6 +197,7 @@
     <ClInclude Include="TradeOffersView.h" />
     <ClInclude Include="TradeResource.h" />
     <ClInclude Include="TradeView.h" />
+    <ClInclude Include="WorldView.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

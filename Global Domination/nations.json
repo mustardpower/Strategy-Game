@@ -25,7 +25,8 @@
         "resource": "Potatoes",
         "quantity": 7
       }
-    ]
+    ],
+	"area": 7682300
   },
   {
     "name": "Brazil",
@@ -47,7 +48,8 @@
 			"resource": "Potatoes",
 			"quantity": 7
 		}
-	]
+	],
+	"area": 8358140
   },
   {
     "name": "Canada",
@@ -68,7 +70,8 @@
 			"resource": "Potatoes",
 			"quantity": 7
 		}
-	]
+	],
+	"area" : 9093510
   },
   {
     "name": "China",
@@ -89,7 +92,8 @@
 			"resource": "Potatoes",
 			"quantity": 7
 		}
-	]
+	],
+	"area": 9388211
   },
   {
     "name": "France",
@@ -110,7 +114,8 @@
 			"resource": "Potatoes",
 			"quantity": 7
 		}
-	]
+	],
+	"area": 547557
   },
   {
     "name": "Germany",
@@ -131,7 +136,8 @@
 			"resource": "Potatoes",
 			"quantity": 7
 		}
-	]
+	],
+	"area": 348560
   },
   {
     "name": "India",
@@ -152,7 +158,8 @@
 			"resource": "Potatoes",
 			"quantity": 7
 		}
-	]
+	],
+	"area": 2973190
   },
   {
     "name": "Italy",
@@ -173,7 +180,8 @@
 			"resource": "Potatoes",
 			"quantity": 7
 		}
-	]
+	],
+	"area": 294140
   },
   {
     "name": "Japan",
@@ -194,7 +202,8 @@
 			"resource": "Potatoes",
 			"quantity": 7
 		}
-	]
+	],
+	"area": 364555	
   },
   {
     "name": "Moldova",
@@ -215,7 +224,8 @@
 			"resource": "Potatoes",
 			"quantity": 7
 		}
-	]
+	],
+	"area": 32850
   },
   {
     "name": "Monaco",
@@ -236,7 +246,8 @@
 			"resource": "Potatoes",
 			"quantity": 7
 		}
-	]
+	],
+	"area": 1
   },
   {
     "name": "Turkey",
@@ -257,7 +268,8 @@
 			"resource": "Potatoes",
 			"quantity": 7
 		}
-	]
+	],
+	"area": 769630
   },
   {
     "name": "Tuvalu",
@@ -278,7 +290,8 @@
 			"resource": "Potatoes",
 			"quantity": 7
 		}
-	]
+	],
+	"area": 30
   },
   {
     "name": "United Kingdom",
@@ -299,7 +312,8 @@
 			"resource": "Potatoes",
 			"quantity": 7
 		}
-	]
+	],
+	"area": 241930
   },
   {
     "name": "USA",
@@ -320,6 +334,7 @@
 			"resource": "Potatoes",
 			"quantity": 7
 		}
-	]
+	],
+	"area": 9147420	
   }
 ]

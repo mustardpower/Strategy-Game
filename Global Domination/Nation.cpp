@@ -4,8 +4,9 @@
 
 namespace global_domination
 {
-	Nation::Nation(std::string aName, double balance, int population, std::map<TradeResource, int> resources, std::vector<TradeDeal> trade_deals)
+	Nation::Nation(std::string aName, double balance, int population, std::map<TradeResource, int> resources, std::vector<TradeDeal> trade_deals, double area)
 	{
+		area_ = area;
 		balance_ = balance;
 		name_ = aName;
 		population_ = population;
@@ -77,6 +78,11 @@ namespace global_domination
 		return (balance_ / population_) * 1000000;
 	}
 
+	double Nation::getLandArea() const
+	{
+		return area_;
+	}
+
 	std::vector<double> Nation::getMonthlyProfits(int number_of_months)
 	{
 		return finance_history_.getMonthlyProfits(number_of_months);
@@ -145,6 +151,13 @@ namespace global_domination
 		return resources_;
 	}
 
+	// returns percentage of global area controlled - calculated in km sq
+	double Nation::globalAreaPercentageControlled() const
+	{
+		const double kAreaOfWorld = 148940000;
+		return (area_ / kAreaOfWorld) * 100;
+	}
+
 	void Nation::makeTradeDeals()
 	{
 		std::vector<Nation*> allies = alliedNations();
@@ -173,6 +186,11 @@ namespace global_domination
 		{
 			trade_offers_.emplace(prospective_deal);
 		};
+	}
+
+	std::string Nation::reportGlobalPercentageArea() const
+	{
+		return std::to_string(globalAreaPercentageControlled());
 	}
 
 	std::string Nation::reportRelationshipWithNation(Nation& another) const

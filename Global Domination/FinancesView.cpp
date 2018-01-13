@@ -34,6 +34,7 @@ namespace global_domination
 		income_data_grid->setFontSize(10);
 		income_data_grid->showSliderBar(false);
 		income_data_grid->setId(FINANCES_INCOME_DATA_GRID);
+		income_data_grid->addItem("Trade Deals", 0, 0);
 
 		std::array<std::string, 5> expenditure_header_names{ "Item", "This Month", "Last Month", "This Year", "Last Year" };
 
