@@ -7,7 +7,6 @@ namespace global_domination
 {
 	SDLDropDownList::SDLDropDownList(SDL_Window * parent, SDL_Rect client_area) : SDLControl(parent, client_area)
 	{
-		selected_index_ = 0;
 		is_expanded_ = false;
 	}
 
@@ -20,7 +19,7 @@ namespace global_domination
 			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
 			SDL_RenderFillRect(renderer, &item_client_area);
 
-			SDL_Rect text_location = text_renderer::getCenteredTextLocation(item_client_area, items_.at(selected_index_), font_size_);
+			SDL_Rect text_location = text_renderer::getCenteredTextLocation(item_client_area, selected_text_, font_size_);
 			text_renderer::renderText(parent_, items_.at(i), text_location, ColorPreferences::getPrimaryTextColor(), ColorPreferences::getPrimaryBackgroundColor(), font_size_);
 		}
 
@@ -44,7 +43,7 @@ namespace global_domination
 				SDL_Rect item_client_area{ client_area_.x, client_area_.y + ((i + 1) * client_area_.h), client_area_.w, client_area_.h };
 				if (containsPoint(item_client_area, mouse_x, mouse_y))
 				{
-					selected_index_ = i;
+					selected_text_ = items_.at(i);
 					is_expanded_ = false;
 					return true;
 				}
@@ -63,10 +62,10 @@ namespace global_domination
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 		SDL_RenderDrawRect(renderer, &client_area_);
 
-		if (selected_index_ < items_.size())
+		if (!items_.empty())
 		{
-			SDL_Rect text_location = text_renderer::getCenteredTextLocation(client_area_, items_.at(selected_index_), font_size_);
-			text_renderer::renderText(parent_, items_.at(selected_index_), text_location, ColorPreferences::getPrimaryTextColor(), ColorPreferences::getPrimaryBackgroundColor(), font_size_);
+			SDL_Rect text_location = text_renderer::getCenteredTextLocation(client_area_, selected_text_, font_size_);
+			text_renderer::renderText(parent_, selected_text_, text_location, ColorPreferences::getPrimaryTextColor(), ColorPreferences::getPrimaryBackgroundColor(), font_size_);
 
 			if (is_expanded_)
 			{
@@ -78,6 +77,11 @@ namespace global_domination
 	void SDLDropDownList::setItems(std::vector<std::string> items)
 	{
 		items_ = items;
+	}
+
+	void SDLDropDownList::setText(std::string text)
+	{
+		selected_text_ = text;
 	}
 }
 

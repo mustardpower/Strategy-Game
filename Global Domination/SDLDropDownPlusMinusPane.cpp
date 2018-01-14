@@ -15,8 +15,6 @@ namespace global_domination
 		SDL_Rect dropdown_client_area{ client_area_.x, client_area_.y, (int)(client_area_.w * 0.8), client_area_.h };
 		dropdown_list_ = std::make_shared<SDLDropDownList>(parent_, dropdown_client_area);
 		dropdown_list_->setFontSize(16);
-		std::vector<std::string> items{ "0%", "5%", "10%", "15%", "20%" };
-		dropdown_list_->setItems(items);
 		addChildControl(dropdown_list_);
 
 		SDL_Rect minus_button_client_area{ client_area_.x + dropdown_client_area.w, client_area_.y, (int)(client_area_.w * 0.1), client_area_.h };
@@ -34,6 +32,7 @@ namespace global_domination
 
 	void SDLDropDownPlusMinusPane::setItems(std::vector<std::string> items)
 	{
+		dropdown_list_->setItems(items);
 	}
 
 	void SDLDropDownPlusMinusPane::respondToAction(Sint32 action)
@@ -42,12 +41,12 @@ namespace global_domination
 		{
 			case TYPES::ACTION_LIST::DECREASE_LISTBOX_VALUE:
 			{
-				
+				dropdown_list_->setText("Lower value");
 			}
 			break;
 			case TYPES::ACTION_LIST::INCREASE_LISTBOX_VALUE:
 			{
-
+				dropdown_list_->setText("Higher value");
 			}
 			break;
 		default:
