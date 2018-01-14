@@ -64,6 +64,9 @@ namespace global_domination
 		addLabel("Tax:", (int)(client_area_.w * 0.83), (int)(client_area_.h * 0.14), FINANCES_TAX_LABEL, 16);
 		SDL_Rect tax_dropdown_client_area{ (int)(client_area_.w * 0.87), (int)(client_area_.h * 0.13), (int)(client_area_.w * 0.1), (int)(client_area_.h * 0.04) };
 		std::shared_ptr<SDLDropDownList> tax_drop_down_list = std::make_shared<SDLDropDownList>(parent_, tax_dropdown_client_area);
+		tax_drop_down_list->setFontSize(16);
+		std::vector<std::string> items{ "0%", "5%", "10%", "15%", "20%"};
+		tax_drop_down_list->setItems(items);
 		addChildControl(tax_drop_down_list);
 
 		updatePlot();
