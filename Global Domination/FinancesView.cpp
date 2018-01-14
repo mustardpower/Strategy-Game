@@ -72,6 +72,7 @@ namespace global_domination
 		tax_drop_down_list->setFontSize(16);
 		std::vector<std::string> items{ "0%", "5%", "10%", "15%", "20%" };
 		tax_drop_down_list->setItems(items);
+		tax_drop_down_list->setId(FINANCES_TAX_DROPDOWN_LIST);
 		addChildControl(tax_drop_down_list);
 	}
 
@@ -86,6 +87,9 @@ namespace global_domination
 
 	void FinancesView::respondToAction(Sint32 action)
 	{
+		std::shared_ptr<SDLDropDownPlusMinusPane> tax_dropdown_list = std::dynamic_pointer_cast<SDLDropDownPlusMinusPane>(getChildControl(FINANCES_TAX_DROPDOWN_LIST));
+		tax_dropdown_list->respondToAction(action);
+
 		switch (action)
 		{
 			case TYPES::ACTION_LIST::SHOW_BALANCE:
