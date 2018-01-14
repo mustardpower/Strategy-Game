@@ -17,17 +17,20 @@ namespace global_domination
 	{
 	}
 
-	void FinancesView::initialize()
+	void FinancesView::addFinancesPlot()
 	{
 		SDL_Rect graph_plot_client_area{ (int)(client_area_.w * 0.02), (int)(client_area_.h * 0.13), (int)(client_area_.w * 0.75), (int)(client_area_.h * 0.5) };
 		std::shared_ptr<SDLGraphPane> finances_plot = std::make_shared<SDLGraphPane>(parent_, graph_plot_client_area);
 		finances_plot->setFontSize(10);
 		finances_plot->setId(FINANCES_PLOT);
-		
 		std::vector<std::string> month_names{ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec" };
 		finances_plot->setAxisLabelsX(month_names);
-
 		addChildControl(finances_plot);
+	}
+
+	void FinancesView::initialize()
+	{
+		addFinancesPlot();
 
 		SDL_Rect data_grid_client_area{ (int)(client_area_.w * 0.02), (int)(client_area_.h * 0.75), (int)(client_area_.w * 0.75), (int)(client_area_.h * 0.2) };
 		std::array<std::string, 5> header_names{ "Item", "This Month", "Last Month", "This Year", "Last Year" };

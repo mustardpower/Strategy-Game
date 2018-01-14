@@ -16,6 +16,7 @@ namespace global_domination
 	public:
 		FinancesView::FinancesView(std::shared_ptr<GameModel>, SDL_Window * parent, SDL_Rect client_area);
 		virtual ~FinancesView();
+		void addFinancesPlot();
 		void initialize();
 		void respondToAction(Sint32 action);
 		void updatePlot();
