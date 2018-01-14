@@ -28,6 +28,11 @@ namespace global_domination
 		SDL_RenderDrawRect(renderer, &expanded_client_area);
 	}
 
+	std::string SDLDropDownList::getText() const
+	{
+		return selected_text_;
+	}
+
 	bool SDLDropDownList::handleClick(int mouse_x, int mouse_y)
 	{
 		if (containsPoint(mouse_x, mouse_y))
@@ -77,6 +82,10 @@ namespace global_domination
 	void SDLDropDownList::setItems(std::vector<std::string> items)
 	{
 		items_ = items;
+		if (items.size())
+		{
+			selected_text_ = items.at(0);
+		}
 	}
 
 	void SDLDropDownList::setText(std::string text)
