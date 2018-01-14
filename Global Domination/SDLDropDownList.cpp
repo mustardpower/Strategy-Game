@@ -15,7 +15,7 @@ namespace global_domination
 	{
 		for (int i = 0; i < items_.size(); i++)
 		{
-			SDL_Rect item_client_area{ client_area_.x, client_area_.y + (i * client_area_.h), (int)(client_area_.w * 0.8), client_area_.h };
+			SDL_Rect item_client_area{ client_area_.x, client_area_.y + ((i + 1) * client_area_.h), client_area_.w, client_area_.h };
 
 			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
 			SDL_RenderFillRect(renderer, &item_client_area);
@@ -24,7 +24,7 @@ namespace global_domination
 			text_renderer::renderText(parent_, items_.at(i), text_location, ColorPreferences::getPrimaryTextColor(), ColorPreferences::getPrimaryBackgroundColor(), font_size_);
 		}
 
-		SDL_Rect expanded_client_area{ client_area_.x, client_area_.y, client_area_.w, client_area_.h * items_.size() };
+		SDL_Rect expanded_client_area{ client_area_.x, client_area_.y + client_area_.h, client_area_.w, client_area_.h * items_.size() };
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 		SDL_RenderDrawRect(renderer, &expanded_client_area);
 	}
@@ -41,7 +41,7 @@ namespace global_domination
 		{
 			for (int i = 0; i < items_.size(); i++)
 			{
-				SDL_Rect item_client_area{ client_area_.x, client_area_.y + (i * client_area_.h), client_area_.w, client_area_.h };
+				SDL_Rect item_client_area{ client_area_.x, client_area_.y + ((i + 1) * client_area_.h), client_area_.w, client_area_.h };
 				if (containsPoint(item_client_area, mouse_x, mouse_y))
 				{
 					selected_index_ = i;
@@ -51,7 +51,7 @@ namespace global_domination
 			}
 		}
 		
-
+		is_expanded_ = false;
 		return false;
 	}
 
@@ -65,14 +65,12 @@ namespace global_domination
 
 		if (selected_index_ < items_.size())
 		{
+			SDL_Rect text_location = text_renderer::getCenteredTextLocation(client_area_, items_.at(selected_index_), font_size_);
+			text_renderer::renderText(parent_, items_.at(selected_index_), text_location, ColorPreferences::getPrimaryTextColor(), ColorPreferences::getPrimaryBackgroundColor(), font_size_);
+
 			if (is_expanded_)
 			{
 				drawExpandedItems(renderer);
-			}
-			else
-			{
-				SDL_Rect text_location = text_renderer::getCenteredTextLocation(client_area_, items_.at(selected_index_), font_size_);
-				text_renderer::renderText(parent_, items_.at(selected_index_), text_location, ColorPreferences::getPrimaryTextColor(), ColorPreferences::getPrimaryBackgroundColor(), font_size_);
 			}
 		}
 	}
