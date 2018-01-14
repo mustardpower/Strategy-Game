@@ -40,7 +40,7 @@ namespace global_domination
 		}
 
 		/* Create window and renderer for given surface */
-		window_ = SDL_CreateWindow("Global Domination", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1024, 800, 0 /*SDL_WINDOW_FULLSCREEN*/);
+		window_ = SDL_CreateWindow("Global Domination", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1024, 800, 0  /*SDL_WINDOW_FULLSCREEN */);
 		if (!window_) {
 			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Window creation fail : %s\n", SDL_GetError());
 			return;

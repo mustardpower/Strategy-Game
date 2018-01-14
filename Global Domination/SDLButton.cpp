@@ -65,7 +65,8 @@ namespace global_domination
 			TTF_Font* font = text_renderer::getFont(font_size_);
 			if (!font) { return; }
 
-			text_renderer::renderText(parent_, button_text_, client_area_, getTextColor(), getBackgroundColor(), font_size_);
+			SDL_Rect text_location = text_renderer::getCenteredTextLocation(client_area_, button_text_, font_size_);
+			text_renderer::renderText(parent_, button_text_, text_location, getTextColor(), getBackgroundColor(), font_size_);
 		}
 	}
 

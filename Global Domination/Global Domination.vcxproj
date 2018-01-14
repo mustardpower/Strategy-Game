@@ -144,6 +144,7 @@
     <ClCompile Include="SDLCompositePane.cpp" />
     <ClCompile Include="SDLControl.cpp" />
     <ClCompile Include="SDLDropDownList.cpp" />
+    <ClCompile Include="SDLDropDownPlusMinusPane.cpp" />
     <ClCompile Include="SDLGraphPane.cpp" />
     <ClCompile Include="SDLProgressBar.cpp" />
     <ClCompile Include="SDLStaticText.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="SDLDataGrid.h" />
     <ClInclude Include="SDLDropDownList.h" />
     <ClInclude Include="SDLDropDownMenu.h" />
+    <ClInclude Include="SDLDropDownPlusMinusPane.h" />
     <ClInclude Include="SDLGraphPane.h" />
     <ClInclude Include="SDLListBox.h" />
     <ClInclude Include="SDLMenu.h" />

@@ -120,8 +120,11 @@
     <ClCompile Include="WorldView.cpp">
       <Filter>Source Files\Views</Filter>
     </ClCompile>
+    <ClCompile Include="SDLDropDownPlusMinusPane.cpp">
+      <Filter>Source Files\SDLControls</Filter>
+    </ClCompile>
     <ClCompile Include="SDLDropDownList.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\SDLControls</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -252,6 +255,9 @@
       <Filter>Header Files\Views</Filter>
     </ClInclude>
     <ClInclude Include="SDLDropDownList.h">
+      <Filter>Header Files\SDLControls</Filter>
+    </ClInclude>
+    <ClInclude Include="SDLDropDownPlusMinusPane.h">
       <Filter>Header Files\SDLControls</Filter>
     </ClInclude>
   </ItemGroup>

@@ -7,6 +7,7 @@ namespace global_domination
 	{
 	public:
 		SDLDropDownList(SDL_Window* parent, SDL_Rect client_area);
+		void drawExpandedItems(SDL_Renderer* renderer);
 		bool handleClick(int mouse_x, int mouse_y);
 		void render(SDL_Renderer* renderer);
 		void setItems(std::vector<std::string> items);

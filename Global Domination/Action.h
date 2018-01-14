@@ -43,7 +43,7 @@ namespace global_domination
 	class Action
 	{
 	public:
-		Action(TYPES::ACTION_LIST action);
+		Action(TYPES::ACTION_LIST action = TYPES::ACTION_LIST::UNINITIALIZED);
 		~Action() { }
 		void execute();
 	private:
