@@ -6,6 +6,11 @@
 
 namespace global_domination
 {
+	enum PlotType
+	{
+		Unknown, Balance, Expenditure, Profit, TaxIncome, TradeDealIncome, Turnover
+	};
+
 	class FinancesView : public SDLCompositePane
 	{
 	public:
@@ -16,5 +21,6 @@ namespace global_domination
 		void updatePlot();
 	private:
 		Nation* nation_;
+		PlotType current_plot_;
 	};
 }

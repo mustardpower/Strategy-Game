@@ -35,7 +35,8 @@ namespace global_domination
 		income_data_grid->setFontSize(10);
 		income_data_grid->showSliderBar(false);
 		income_data_grid->setId(FINANCES_INCOME_DATA_GRID);
-		income_data_grid->addItem("Trade Deals", 0, 0);
+		income_data_grid->addItem("Trade Deals", 0, 0, TYPES::ACTION_LIST::SHOW_TRADEDEAL_INCOME);
+		income_data_grid->addItem("Taxes", 0, 0, TYPES::ACTION_LIST::SHOW_TAX_INCOME);
 
 		std::array<std::string, 5> expenditure_header_names{ "Item", "This Month", "Last Month", "This Year", "Last Year" };
 
@@ -43,10 +44,10 @@ namespace global_domination
 		summary_data_grid->setFontSize(10);
 		summary_data_grid->showSliderBar(false);
 		summary_data_grid->setId(FINANCES_EXPENSES_DATA_GRID);
-		summary_data_grid->addItem("Turnover", 0, 0);
-		summary_data_grid->addItem("Expenditure", 0, 0);
-		summary_data_grid->addItem("Profit/Loss", 0, 0);
-		summary_data_grid->addItem("Balance", 0, 0);
+		summary_data_grid->addItem("Turnover", 0, 0, TYPES::ACTION_LIST::SHOW_TURNOVER);
+		summary_data_grid->addItem("Expenditure", 0, 0, TYPES::ACTION_LIST::SHOW_EXPENDITURE);
+		summary_data_grid->addItem("Profit/Loss", 0, 0, TYPES::ACTION_LIST::SHOW_PROFIT);
+		summary_data_grid->addItem("Balance", 0, 0, TYPES::ACTION_LIST::SHOW_BALANCE);
 
 		std::shared_ptr<SDLDataGrid<Nation, 5, 5>> expenses_data_grid = std::make_shared<SDLDataGrid<Nation, 5, 5>>(parent_, data_grid_client_area, header_names);
 		expenses_data_grid->setFontSize(10);
@@ -76,20 +77,60 @@ namespace global_domination
 	{
 		switch (action)
 		{
-			case TYPES::ACTION_LIST::NEXT_TURN:
+			case TYPES::ACTION_LIST::SHOW_BALANCE:
 			{
-				updatePlot();
+				current_plot_ = Balance;
 			}
 			break;
+			case TYPES::ACTION_LIST::SHOW_EXPENDITURE:
+			{
+				current_plot_ = Expenditure;
+			}
+			break;
+			case TYPES::ACTION_LIST::SHOW_PROFIT:
+			{
+				current_plot_ = Profit;
+			}
+			break;
+			case TYPES::ACTION_LIST::SHOW_TAX_INCOME:
+			{
+				current_plot_ = TaxIncome;
+			}
+			break;
+			case TYPES::ACTION_LIST::SHOW_TRADEDEAL_INCOME:
+			{
+				current_plot_ = TradeDealIncome;
+			}
+			break;
+			case TYPES::ACTION_LIST::SHOW_TURNOVER:
+			{
+				current_plot_ = Turnover;
+			}
+			break;
+
 		}
+
+		updatePlot();
 	}
 	void FinancesView::updatePlot()
 	{
 		std::vector<double> columns{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
-		const int kNumberOfMonths = 12;
-		std::vector<double> monthly_profits = nation_->getMonthlyProfits(kNumberOfMonths);
-		assert(monthly_profits.size() <= kNumberOfMonths);
 		std::shared_ptr<SDLGraphPane> finances_plot = std::dynamic_pointer_cast<SDLGraphPane>(getChildControl(FINANCES_PLOT));
-		finances_plot->setDataPoints(columns, monthly_profits);
+		switch (current_plot_)
+		{
+			case Profit:
+			{
+				const int kNumberOfMonths = 12;
+				std::vector<double> monthly_profits = nation_->getMonthlyProfits(kNumberOfMonths);
+				assert(monthly_profits.size() <= kNumberOfMonths);
+				finances_plot->setDataPoints(columns, monthly_profits);
+			}
+			break;
+			default:
+			{
+				finances_plot->setDataPoints(columns, std::vector<double>());
+			}
+			break;
+		}
 	}
 }

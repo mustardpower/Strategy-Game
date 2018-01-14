@@ -18,7 +18,7 @@ namespace global_domination
 	public:
 		SDLDataGrid(SDL_Window* parent, SDL_Rect client_area, std::array<std::string, C> header_names_);
 		~SDLDataGrid();
-		void addItem(std::string item_string, int location_x, int location_y);
+		void addItem(std::string item_string, int location_x, int location_y, TYPES::ACTION_LIST action);
 		void addItem(std::shared_ptr<DataGridCell<T>> item, int location_x, int location_y);
 		SDL_Rect cellClientArea(int column, int row);
 		int cellHeight();
@@ -73,9 +73,11 @@ namespace global_domination
 	}
 
 	template <class T, int C, int R>
-	inline void SDLDataGrid<T, C, R>::addItem(std::string item_string, int column, int row)
+	inline void SDLDataGrid<T, C, R>::addItem(std::string item_string, int column, int row, TYPES::ACTION_LIST action_type)
 	{
 		std::shared_ptr<NoArgumentsGridCell<T>> item = std::make_shared<NoArgumentsGridCell<T>>();
+		std::shared_ptr<Action> action = std::make_shared<Action>(action_type);
+		item->setAction(action);
 		item->setString(item_string);
 		items_[column].push_back(item);
 	}
