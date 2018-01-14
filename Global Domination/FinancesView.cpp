@@ -1,6 +1,7 @@
 #include "FinancesView.h"
 
 #include "SDLDataGrid.h"
+#include "SDLDropDownList.h"
 #include "SDLGraphPane.h"
 #include "SDLStaticText.h"
 #include "SDLTabControl.h"
@@ -18,7 +19,7 @@ namespace global_domination
 
 	void FinancesView::initialize()
 	{
-		SDL_Rect graph_plot_client_area{ (int)(client_area_.w * 0.1), (int)(client_area_.h * 0.2), (int)(client_area_.w * 0.8), (int)(client_area_.h * 0.5) };
+		SDL_Rect graph_plot_client_area{ (int)(client_area_.w * 0.02), (int)(client_area_.h * 0.13), (int)(client_area_.w * 0.75), (int)(client_area_.h * 0.5) };
 		std::shared_ptr<SDLGraphPane> finances_plot = std::make_shared<SDLGraphPane>(parent_, graph_plot_client_area);
 		finances_plot->setFontSize(10);
 		finances_plot->setId(FINANCES_PLOT);
@@ -28,7 +29,7 @@ namespace global_domination
 
 		addChildControl(finances_plot);
 
-		SDL_Rect data_grid_client_area{ (int)(client_area_.w * 0.1), (int)(client_area_.h * 0.75), (int)(client_area_.w * 0.8), (int)(client_area_.h * 0.2) };
+		SDL_Rect data_grid_client_area{ (int)(client_area_.w * 0.02), (int)(client_area_.h * 0.75), (int)(client_area_.w * 0.75), (int)(client_area_.h * 0.2) };
 		std::array<std::string, 5> header_names{ "Item", "This Month", "Last Month", "This Year", "Last Year" };
 		std::shared_ptr<SDLDataGrid<Nation, 5, 5>> income_data_grid = std::make_shared<SDLDataGrid<Nation, 5,5>>(parent_, data_grid_client_area, header_names);
 		income_data_grid->setFontSize(10);
@@ -52,13 +53,18 @@ namespace global_domination
 		expenses_data_grid->showSliderBar(false);
 		expenses_data_grid->setId(FINANCES_EXPENSES_DATA_GRID);
 
-		SDL_Rect tab_control_client_area{ (int)(client_area_.w * 0.1), (int)(client_area_.h * 0.75), (int)(client_area_.w * 0.8), (int)(client_area_.h * 0.2) };
+		SDL_Rect tab_control_client_area{ (int)(client_area_.w * 0.02), (int)(client_area_.h * 0.75), (int)(client_area_.w * 0.75), (int)(client_area_.h * 0.2) };
 		std::shared_ptr<SDLTabControl> finance_tabs = std::make_shared<SDLTabControl>(parent_, tab_control_client_area);
 		finance_tabs->setFontSize(16);
 		finance_tabs->addTab("Summary", summary_data_grid);
 		finance_tabs->addTab("Expenses", expenses_data_grid);
 		finance_tabs->addTab("Income", income_data_grid);
 		addChildControl(finance_tabs);
+
+		addLabel("Tax:", (int)(client_area_.w * 0.83), (int)(client_area_.h * 0.14), FINANCES_TAX_LABEL, 16);
+		SDL_Rect tax_dropdown_client_area{ (int)(client_area_.w * 0.87), (int)(client_area_.h * 0.13), (int)(client_area_.w * 0.1), (int)(client_area_.h * 0.04) };
+		std::shared_ptr<SDLDropDownList> tax_drop_down_list = std::make_shared<SDLDropDownList>(parent_, tax_dropdown_client_area);
+		addChildControl(tax_drop_down_list);
 
 		updatePlot();
 	}

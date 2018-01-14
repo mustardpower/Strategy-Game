@@ -11,7 +11,7 @@ namespace global_domination {
 	GameModel::GameModel()
 	{
 		struct tm* time = new tm();
-		time->tm_mon = 1;
+		time->tm_mon = 0;
 		time->tm_mday = 1;
 		time->tm_year = 118;
 		date = mktime(time);

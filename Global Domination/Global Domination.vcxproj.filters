@@ -120,6 +120,9 @@
     <ClCompile Include="WorldView.cpp">
       <Filter>Source Files\Views</Filter>
     </ClCompile>
+    <ClCompile Include="SDLDropDownList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -247,6 +250,9 @@
     </ClInclude>
     <ClInclude Include="WorldView.h">
       <Filter>Header Files\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="SDLDropDownList.h">
+      <Filter>Header Files\SDLControls</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
