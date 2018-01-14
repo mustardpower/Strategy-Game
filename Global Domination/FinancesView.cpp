@@ -67,7 +67,7 @@ namespace global_domination
 	void FinancesView::addTaxDropDownList()
 	{
 		addLabel("Tax:", (int)(client_area_.w * 0.775), (int)(client_area_.h * 0.14), FINANCES_TAX_LABEL, 16);
-		SDL_Rect tax_dropdown_client_area{ (int)(client_area_.w * 0.8), (int)(client_area_.h * 0.13), (int)(client_area_.w * 0.18), (int)(client_area_.h * 0.04) };
+		SDL_Rect tax_dropdown_client_area{ (int)(client_area_.w * 0.81), (int)(client_area_.h * 0.13), (int)(client_area_.w * 0.18), (int)(client_area_.h * 0.04) };
 		std::shared_ptr<SDLDropDownPlusMinusPane> tax_drop_down_list = std::make_shared<SDLDropDownPlusMinusPane>(parent_, tax_dropdown_client_area);
 		tax_drop_down_list->setFontSize(16);
 		std::vector<std::string> items{ "0%", "5%", "10%", "15%", "20%" };
