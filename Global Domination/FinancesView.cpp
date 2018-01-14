@@ -28,13 +28,11 @@ namespace global_domination
 		addChildControl(finances_plot);
 	}
 
-	void FinancesView::initialize()
+	void FinancesView::addFinancesTabs()
 	{
-		addFinancesPlot();
-
 		SDL_Rect data_grid_client_area{ (int)(client_area_.w * 0.02), (int)(client_area_.h * 0.75), (int)(client_area_.w * 0.75), (int)(client_area_.h * 0.2) };
 		std::array<std::string, 5> header_names{ "Item", "This Month", "Last Month", "This Year", "Last Year" };
-		std::shared_ptr<SDLDataGrid<Nation, 5, 5>> income_data_grid = std::make_shared<SDLDataGrid<Nation, 5,5>>(parent_, data_grid_client_area, header_names);
+		std::shared_ptr<SDLDataGrid<Nation, 5, 5>> income_data_grid = std::make_shared<SDLDataGrid<Nation, 5, 5>>(parent_, data_grid_client_area, header_names);
 		income_data_grid->setFontSize(10);
 		income_data_grid->showSliderBar(false);
 		income_data_grid->setId(FINANCES_INCOME_DATA_GRID);
@@ -64,14 +62,24 @@ namespace global_domination
 		finance_tabs->addTab("Expenses", expenses_data_grid);
 		finance_tabs->addTab("Income", income_data_grid);
 		addChildControl(finance_tabs);
+	}
 
+	void FinancesView::addTaxDropDownList()
+	{
 		addLabel("Tax:", (int)(client_area_.w * 0.83), (int)(client_area_.h * 0.14), FINANCES_TAX_LABEL, 16);
 		SDL_Rect tax_dropdown_client_area{ (int)(client_area_.w * 0.87), (int)(client_area_.h * 0.13), (int)(client_area_.w * 0.1), (int)(client_area_.h * 0.04) };
 		std::shared_ptr<SDLDropDownList> tax_drop_down_list = std::make_shared<SDLDropDownList>(parent_, tax_dropdown_client_area);
 		tax_drop_down_list->setFontSize(16);
-		std::vector<std::string> items{ "0%", "5%", "10%", "15%", "20%"};
+		std::vector<std::string> items{ "0%", "5%", "10%", "15%", "20%" };
 		tax_drop_down_list->setItems(items);
 		addChildControl(tax_drop_down_list);
+	}
+
+	void FinancesView::initialize()
+	{
+		addFinancesPlot();
+		addFinancesTabs();
+		addTaxDropDownList();
 
 		updatePlot();
 	}
