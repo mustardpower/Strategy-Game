@@ -11,6 +11,7 @@ namespace global_domination
 		name_ = aName;
 		population_ = population;
 		resources_ = resources;
+		tax_rate_ = 0.0;
 		trade_deals_ = trade_deals;
 	}
 
@@ -106,6 +107,11 @@ namespace global_domination
 	int Nation::getPopulation() const
 	{
 		return population_;
+	}
+
+	double Nation::getTaxRate() const
+	{
+		return tax_rate_;
 	}
 
 	std::map<TradeResource, int> Nation::getTradeableResources()
@@ -220,6 +226,11 @@ namespace global_domination
 	{
 		std::pair<Nation*, double> relationship(nation, relationship_score);
 		nation_friendships.emplace(relationship);
+	}
+
+	void Nation::setTaxRate(double tax_rate)
+	{
+		tax_rate_ = tax_rate;
 	}
 
 

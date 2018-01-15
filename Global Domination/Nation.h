@@ -29,6 +29,7 @@ namespace global_domination
 		unsigned int getNumberOfDeathsInTurn() const;
 		unsigned int getNumberOfBirthsInTurn() const;
 		int getPopulation() const;
+		double getTaxRate() const;
 		std::map<TradeResource, int> getTradeableResources();
 		std::vector<TradeDeal> getTradeDeals() const;
 		std::vector<TradeDeal> getTradeDealsForResource(TradeResource resource);
@@ -41,6 +42,7 @@ namespace global_domination
 		std::string reportRelationshipWithNation(Nation& another) const;
 		std::string reportString() const;
 		void setRelationship(Nation* nation, double relationship_score);
+		void setTaxRate(double tax_rate);
 		void update();
 		void updateFinances();
 		void updatePopulation();
@@ -54,6 +56,7 @@ namespace global_domination
 		std::map<Nation*, double> nation_friendships;
 		int population_;
 		std::map<TradeResource, int> resources_;
+		double tax_rate_;
 		std::set<TradeDeal> trade_offers_;
 		std::vector<TradeDeal> trade_deals_;
 	};

@@ -15,6 +15,9 @@ namespace global_domination
 
 	FinancesView::~FinancesView()
 	{
+		std::shared_ptr<SDLDropDownPlusMinusPane> tax_dropdown_list = std::dynamic_pointer_cast<SDLDropDownPlusMinusPane>(getChildControl(FINANCES_TAX_DROPDOWN_LIST));
+		const double tax_rate = std::stod(tax_dropdown_list->getText());
+		nation_->setTaxRate(tax_rate);
 	}
 
 	void FinancesView::addFinancesPlot()
@@ -73,6 +76,8 @@ namespace global_domination
 		std::vector<std::string> items{ "0%", "5%", "10%", "15%", "20%" };
 		tax_drop_down_list->setItems(items);
 		tax_drop_down_list->setId(FINANCES_TAX_DROPDOWN_LIST);
+		const double kTaxRate = nation_->getTaxRate();
+		tax_drop_down_list->setText(std::to_string(kTaxRate) + "%");
 		addChildControl(tax_drop_down_list);
 	}
 

@@ -10,6 +10,11 @@ namespace global_domination
 		initialize();
 	}
 
+	std::string SDLDropDownPlusMinusPane::getText() const
+	{
+		return dropdown_list_->getText();
+	}
+
 	void SDLDropDownPlusMinusPane::initialize()
 	{
 		SDL_Rect dropdown_client_area{ client_area_.x, client_area_.y, (int)(client_area_.w * 0.8), client_area_.h };
@@ -33,6 +38,11 @@ namespace global_domination
 	void SDLDropDownPlusMinusPane::setItems(std::vector<std::string> items)
 	{
 		dropdown_list_->setItems(items);
+	}
+
+	void SDLDropDownPlusMinusPane::setText(std::string text)
+	{
+		dropdown_list_->setText(text);
 	}
 
 	void SDLDropDownPlusMinusPane::respondToAction(Sint32 action)
