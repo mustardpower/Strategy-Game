@@ -45,6 +45,10 @@ namespace global_domination
 		addChildControl(label);
 	}
 
+	void SDLCompositePane::applyChanges()
+	{
+	}
+
 	bool SDLCompositePane::handleClick(int mouse_x, int mouse_y)
 	{
 		if (is_visible_)

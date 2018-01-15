@@ -84,6 +84,12 @@ namespace global_domination
 
 	void GameUserInterface::respondToAction(Sint32 action)
 	{
+
+		if (active_control_ && action == TYPES::ACTION_LIST::NEXT_TURN)
+		{
+			active_control_->applyChanges();
+		}
+
 		game_model_->respondToAction(action);
 
 		if(active_control_)

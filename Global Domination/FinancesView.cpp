@@ -132,12 +132,6 @@ namespace global_domination
 				current_plot_ = Turnover;
 			}
 			break;
-			case TYPES::ACTION_LIST::NEXT_TURN:
-			{
-				applyChanges();
-			}
-			break;
-
 		}
 
 		updatePlot();
