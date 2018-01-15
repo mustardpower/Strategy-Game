@@ -7,7 +7,9 @@ namespace global_domination
 	Nation::Nation(std::string aName, double balance, int population, std::map<TradeResource, int> resources, std::vector<TradeDeal> trade_deals, double area)
 	{
 		area_ = area;
+		average_salary_ = 27000;
 		balance_ = balance;
+		employment_rate_ = 1.0;
 		name_ = aName;
 		population_ = population;
 		resources_ = resources;
@@ -48,12 +50,10 @@ namespace global_domination
 	double Nation::calculateMonthlyIncome()
 	{
 		double income = 0.0;
-		const int NUMBER_OF_MONTHS = 12;
 
-		for (std::vector<TradeDeal>::iterator deal = trade_deals_.begin(); deal != trade_deals_.end(); deal++)
-		{
-			income += deal->getValuePerAnnum() / NUMBER_OF_MONTHS;
-		}
+		income += monthlyIncomeFromTradeDeals();
+		income += monthlyIncomeFromTax();
+		
 		return income;
 	}
 
@@ -184,6 +184,26 @@ namespace global_domination
 				}
 			}
 		}
+	}
+
+	double Nation::monthlyIncomeFromTax() const
+	{
+		const int kNumberOfMonths = 12;
+		double average_monthly_salary_ = average_salary_ / kNumberOfMonths;
+		return tax_rate_ * average_salary_ * population_ * employment_rate_;
+	}
+
+	double Nation::monthlyIncomeFromTradeDeals() const
+	{
+		const int NUMBER_OF_MONTHS = 12;
+		double income = 0.0;
+
+		for (std::vector<TradeDeal>::const_iterator deal = trade_deals_.begin(); deal != trade_deals_.end(); deal++)
+		{
+			income += deal->getValuePerAnnum() / NUMBER_OF_MONTHS;
+		}
+
+		return income;
 	}
 
 	void Nation::recieveTradeOffer(TradeDeal prospective_deal)

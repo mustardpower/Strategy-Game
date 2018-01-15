@@ -37,6 +37,8 @@ namespace global_domination
 		std::map<TradeResource, int> getTradeResources() const;
 		double globalAreaPercentageControlled() const;
 		void makeTradeDeals();
+		double monthlyIncomeFromTradeDeals() const;
+		double monthlyIncomeFromTax() const;
 		void recieveTradeOffer(TradeDeal prospective_deal);
 		std::string reportGlobalPercentageArea() const;
 		std::string reportRelationshipWithNation(Nation& another) const;
@@ -50,7 +52,9 @@ namespace global_domination
 		bool operator == (const Nation& another);
 	private:
 		double area_;
+		double average_salary_;
 		double balance_;
+		double employment_rate_;
 		FinanceHistory finance_history_;
 		std::string name_;
 		std::map<Nation*, double> nation_friendships;

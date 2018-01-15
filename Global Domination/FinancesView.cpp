@@ -15,9 +15,7 @@ namespace global_domination
 
 	FinancesView::~FinancesView()
 	{
-		std::shared_ptr<SDLDropDownPlusMinusPane> tax_dropdown_list = std::dynamic_pointer_cast<SDLDropDownPlusMinusPane>(getChildControl(FINANCES_TAX_DROPDOWN_LIST));
-		const double tax_rate = std::stod(tax_dropdown_list->getText());
-		nation_->setTaxRate(tax_rate);
+		applyChanges();
 	}
 
 	void FinancesView::addFinancesPlot()
@@ -81,6 +79,13 @@ namespace global_domination
 		addChildControl(tax_drop_down_list);
 	}
 
+	void FinancesView::applyChanges()
+	{
+		std::shared_ptr<SDLDropDownPlusMinusPane> tax_dropdown_list = std::dynamic_pointer_cast<SDLDropDownPlusMinusPane>(getChildControl(FINANCES_TAX_DROPDOWN_LIST));
+		const double tax_rate = std::stod(tax_dropdown_list->getText());
+		nation_->setTaxRate(tax_rate);
+	}
+
 	void FinancesView::initialize()
 	{
 		addFinancesPlot();
@@ -125,6 +130,11 @@ namespace global_domination
 			case TYPES::ACTION_LIST::SHOW_TURNOVER:
 			{
 				current_plot_ = Turnover;
+			}
+			break;
+			case TYPES::ACTION_LIST::NEXT_TURN:
+			{
+				applyChanges();
 			}
 			break;
 

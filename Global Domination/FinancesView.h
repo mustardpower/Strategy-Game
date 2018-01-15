@@ -19,6 +19,7 @@ namespace global_domination
 		void addFinancesPlot();
 		void addFinancesTabs();
 		void addTaxDropDownList();
+		void applyChanges();
 		void initialize();
 		void respondToAction(Sint32 action);
 		void updatePlot();
