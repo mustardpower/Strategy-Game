@@ -84,6 +84,10 @@ namespace global_domination
 		return area_;
 	}
 
+	std::vector<double> Nation::getMonthlyBalanceHistory(int number_of_months)
+	{
+		return finance_history_.getMonthlyBalanceHistory(number_of_months);
+	}
 	std::vector<double> Nation::getMonthlyProfits(int number_of_months)
 	{
 		return finance_history_.getMonthlyProfits(number_of_months);
@@ -266,6 +270,7 @@ namespace global_domination
 		double monthly_profit = calculateMonthlyProfit();
 		finance_history_.addMonthlyProfit(monthly_profit);
 		balance_ += monthly_profit;
+		finance_history_.addMonthlyBalance(balance_);
 	}
 
 	void Nation::updatePopulation()

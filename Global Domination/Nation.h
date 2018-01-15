@@ -24,6 +24,7 @@ namespace global_domination
 		double getBalance() const;
 		double getBalancePerCapita() const;
 		double getLandArea() const;
+		std::vector<double> getMonthlyBalanceHistory(int number_of_months);
 		std::vector<double> getMonthlyProfits(int number_of_months);
 		std::string getName() const;
 		unsigned int getNumberOfDeathsInTurn() const;

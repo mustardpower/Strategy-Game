@@ -150,6 +150,14 @@ namespace global_domination
 				finances_plot->setDataPoints(columns, monthly_profits);
 			}
 			break;
+			case Balance:
+			{
+				const int kNumberOfMonths = 12;
+				std::vector<double> balance_history = nation_->getMonthlyBalanceHistory(kNumberOfMonths);
+				assert(balance_history.size() <= kNumberOfMonths);
+				finances_plot->setDataPoints(columns, balance_history);
+			}
+			break;
 			default:
 			{
 				finances_plot->setDataPoints(columns, std::vector<double>());
