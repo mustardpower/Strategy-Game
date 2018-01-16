@@ -7,6 +7,16 @@ namespace global_domination
 		monthly_profits_.push_back(monthly_profit);
 	}
 
+	void FinanceHistory::addMonthlyTaxIncome(double monthly_income)
+	{
+		monthly_tax_income_.push_back(monthly_income);
+	}
+
+	void FinanceHistory::addMonthlyTradeDealsIncome(double monthly_income)
+	{
+		monthly_tradedeals_income_.push_back(monthly_income);
+	}
+
 	void FinanceHistory::addMonthlyTurnover(double monthly_turnover)
 	{
 		monthly_turnover_.push_back(monthly_turnover);
@@ -67,6 +77,38 @@ namespace global_domination
 		}
 		
 		std::vector<double>::const_iterator last = monthly_profits_.end();
+		return std::vector<double>(first, last);
+	}
+
+	std::vector<double> FinanceHistory::getMonthlyTaxIncome(int number_of_months)
+	{
+		std::vector<double>::const_iterator first;
+		if (monthly_tax_income_.size() < number_of_months)
+		{
+			first = monthly_tax_income_.begin();
+		}
+		else
+		{
+			first = monthly_tax_income_.end() - number_of_months;
+		}
+
+		std::vector<double>::const_iterator last = monthly_tax_income_.end();
+		return std::vector<double>(first, last);
+	}
+
+	std::vector<double> FinanceHistory::getMonthlyTradeDealsIncome(int number_of_months)
+	{
+		std::vector<double>::const_iterator first;
+		if (monthly_tradedeals_income_.size() < number_of_months)
+		{
+			first = monthly_tradedeals_income_.begin();
+		}
+		else
+		{
+			first = monthly_tradedeals_income_.end() - number_of_months;
+		}
+
+		std::vector<double>::const_iterator last = monthly_tradedeals_income_.end();
 		return std::vector<double>(first, last);
 	}
 

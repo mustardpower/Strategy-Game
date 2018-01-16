@@ -166,6 +166,22 @@ namespace global_domination
 				finances_plot->setDataPoints(columns, monthly_profits);
 			}
 			break;
+			case TaxIncome:
+			{
+				const int kNumberOfMonths = 12;
+				std::vector<double> monthly_tax_income = nation_->getMonthlyTaxIncomeHistory(kNumberOfMonths);
+				assert(monthly_tax_income.size() <= kNumberOfMonths);
+				finances_plot->setDataPoints(columns, monthly_tax_income);
+			}
+			break;
+			case TradeDealIncome:
+			{
+				const int kNumberOfMonths = 12;
+				std::vector<double> monthly_tradedeals_income = nation_->getMonthlyTradeDealsIncomeHistory(kNumberOfMonths);
+				assert(monthly_tradedeals_income.size() <= kNumberOfMonths);
+				finances_plot->setDataPoints(columns, monthly_tradedeals_income);
+			}
+			break;
 			case Turnover:
 			{
 				const int kNumberOfMonths = 12;

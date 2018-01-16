@@ -27,6 +27,8 @@ namespace global_domination
 		std::vector<double> getMonthlyBalanceHistory(int number_of_months);
 		std::vector<double> getMonthlyExpenditureHistory(int number_of_months);
 		std::vector<double> getMonthlyProfitsHistory(int number_of_months);
+		std::vector<double> getMonthlyTaxIncomeHistory(int number_of_months);
+		std::vector<double> getMonthlyTradeDealsIncomeHistory(int number_of_months);
 		std::vector<double> getMonthlyTurnoverHistory(int number_of_months);
 		std::string getName() const;
 		unsigned int getNumberOfDeathsInTurn() const;

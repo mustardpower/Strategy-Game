@@ -99,6 +99,16 @@ namespace global_domination
 		return finance_history_.getMonthlyProfits(number_of_months);
 	}
 
+	std::vector<double> Nation::getMonthlyTaxIncomeHistory(int number_of_months)
+	{
+		return finance_history_.getMonthlyTaxIncome(number_of_months);
+	}
+
+	std::vector<double> Nation::getMonthlyTradeDealsIncomeHistory(int number_of_months)
+	{
+		return finance_history_.getMonthlyTradeDealsIncome(number_of_months);
+	}
+
 	std::vector<double> Nation::getMonthlyTurnoverHistory(int number_of_months)
 	{
 		return finance_history_.getMonthlyTurnover(number_of_months);
@@ -282,6 +292,8 @@ namespace global_domination
 		finance_history_.addMonthlyExpenditure(calculateMonthlyExpenses());
 		finance_history_.addMonthlyTurnover(calculateMonthlyIncome());
 		finance_history_.addMonthlyProfit(monthly_profit);
+		finance_history_.addMonthlyTaxIncome(monthlyIncomeFromTax());
+		finance_history_.addMonthlyTradeDealsIncome(monthlyIncomeFromTradeDeals());
 		balance_ += monthly_profit;
 		finance_history_.addMonthlyBalance(balance_);
 	}
