@@ -8,6 +8,7 @@ namespace global_domination
 {
 	TradeDeal::TradeDeal(std::string trader, TradeResource resource, int quantity)
 	{
+		is_expired_ = false;
 		payee_ = trader;
 		resource_ = resource;
 		quantity_ = quantity;
@@ -19,6 +20,11 @@ namespace global_domination
 		time->tm_year = 120;
 		expiry_date_ = mktime(time);
 		delete time;
+	}
+
+	time_t TradeDeal::getExpiryDate() const
+	{
+		return expiry_date_;
 	}
 
 	std::string TradeDeal::getPayee() const
@@ -34,6 +40,11 @@ namespace global_domination
 	double TradeDeal::getValuePerAnnum() const
 	{
 		return quantity_ * resource_.getUnitPrice();
+	}
+
+	bool TradeDeal::isExpired() const
+	{
+		return is_expired_;
 	}
 
 	std::string TradeDeal::reportExpiryDate() const
@@ -57,6 +68,11 @@ namespace global_domination
 	std::string TradeDeal::reportValuePerAnnum() const
 	{
 		return std::to_string(getValuePerAnnum());
+	}
+
+	void TradeDeal::setExpired()
+	{
+		is_expired_ = true;
 	}
 
 	bool TradeDeal::operator<(const TradeDeal & another) const

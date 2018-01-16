@@ -32,7 +32,7 @@ namespace global_domination {
 		void updateNations();
 	private:
 		unsigned int current_turn_;
-		time_t date;
+		time_t date_;
 		Nation* selected_nation_;
 		std::vector<Nation> nations_;
 		std::vector<Message> inbox_messages_;

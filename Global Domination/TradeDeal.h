@@ -10,19 +10,23 @@ namespace global_domination
 	public:
 		TradeDeal() {}
 		TradeDeal(std::string trader, TradeResource resource, int quantity);
+		time_t getExpiryDate() const;
 		std::string getPayee() const;
 		TradeResource getResource() const;
 		double getValuePerAnnum() const;
+		bool isExpired() const;
 		std::string reportExpiryDate() const;
 		std::string reportString() const;
 		std::string reportTotalValue() const;
 		std::string reportValuePerAnnum() const;
+		void setExpired();
 		bool operator<(const TradeDeal & another) const;
 		bool operator==(const TradeDeal& another) const;
 		bool operator!=(const TradeDeal& another) const;
 
 	private:
 		time_t expiry_date_;
+		bool is_expired_;
 		std::string payee_;
 		int quantity_;
 		TradeResource resource_;

@@ -45,14 +45,16 @@ namespace global_domination
 		double monthlyIncomeFromTradeDeals() const;
 		double monthlyIncomeFromTax() const;
 		void recieveTradeOffer(TradeDeal prospective_deal);
+		void removeExpiredTradeDeals(const time_t &current_date);
 		std::string reportGlobalPercentageArea() const;
 		std::string reportRelationshipWithNation(Nation& another) const;
 		std::string reportString() const;
 		void setRelationship(Nation* nation, double relationship_score);
 		void setTaxRate(double tax_rate);
-		void update();
+		void update(const time_t &current_date);
 		void updateFinances();
 		void updatePopulation();
+		void updateTradeDeals(const time_t &current_date);
 
 		bool operator == (const Nation& another);
 	private:

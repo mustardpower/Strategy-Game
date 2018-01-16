@@ -14,7 +14,7 @@ namespace global_domination {
 		time->tm_mon = 0;
 		time->tm_mday = 1;
 		time->tm_year = 118;
-		date = mktime(time);
+		date_ = mktime(time);
 		delete time;
 		current_turn_ = 0;
 
@@ -29,7 +29,7 @@ namespace global_domination {
 	std::string GameModel::getDateString()
 	{
 		std::stringstream ss;
-		ss << std::put_time(localtime(&date), "%d %b %Y");
+		ss << std::put_time(localtime(&date_), "%d %b %Y");
 		return ss.str();
 	}
 
@@ -68,9 +68,9 @@ namespace global_domination {
 
 	void GameModel::nextTurn()
 	{
-		struct tm* time = localtime(&date);
+		struct tm* time = localtime(&date_);
 		time->tm_mon += 1;
-		date = mktime(time);
+		date_ = mktime(time);
 
 		Message turn_summary_message("Progress report", getSummaryReport());
 		pushMessage(turn_summary_message);
@@ -162,7 +162,7 @@ namespace global_domination {
 	{
 		for (std::vector<Nation>::iterator nation = nations_.begin(); nation != nations_.end(); nation++)
 		{
-			nation->update();
+			nation->update(date_);
 		}
 	}
 }

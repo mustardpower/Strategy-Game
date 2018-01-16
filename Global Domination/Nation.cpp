@@ -239,6 +239,27 @@ namespace global_domination
 		};
 	}
 
+	void Nation::removeExpiredTradeDeals(const time_t &current_date)
+	{
+		for (std::vector<TradeDeal>::iterator offer = trade_deals_.begin(); offer != trade_deals_.end(); offer++)
+		{
+			if (offer->getExpiryDate() < current_date)
+			{
+				offer->setExpired();
+			}
+		}
+
+		std::vector<TradeDeal>::iterator expired_deals = std::remove_if(
+			trade_deals_.begin(), 
+			trade_deals_.end(),
+			[](TradeDeal deal) { return deal.isExpired(); });
+
+		if (expired_deals != trade_deals_.end())
+		{
+			trade_deals_.erase(expired_deals, trade_deals_.end());
+		}
+	}
+
 	std::string Nation::reportGlobalPercentageArea() const
 	{
 		return std::to_string(globalAreaPercentageControlled());
@@ -279,10 +300,10 @@ namespace global_domination
 	}
 
 
-	void Nation::update()
+	void Nation::update(const time_t &current_date)
 	{
 		updateFinances();
-		makeTradeDeals();
+		updateTradeDeals(current_date);
 		updatePopulation();
 	}
 
@@ -301,6 +322,12 @@ namespace global_domination
 	void Nation::updatePopulation()
 	{
 		population_+= getNumberOfDeathsInTurn() + getNumberOfBirthsInTurn();
+	}
+
+	void Nation::updateTradeDeals(const time_t &current_date)
+	{
+		makeTradeDeals();
+		removeExpiredTradeDeals(current_date);
 	}
 
 	bool Nation::operator==(const Nation & another)
