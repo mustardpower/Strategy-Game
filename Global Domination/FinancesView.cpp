@@ -11,6 +11,7 @@ namespace global_domination
 	FinancesView::FinancesView(std::shared_ptr<GameModel> the_model, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
 	{
 		nation_ = the_model->getSelectedNation();
+		current_plot_ = Turnover;
 	}
 
 	FinancesView::~FinancesView()
