@@ -42,12 +42,12 @@ namespace global_domination
 		return allies;
 	}
 
-	double Nation::calculateMonthlyExpenses()
+	double Nation::calculateMonthlyExpenses() const
 	{
 		return 0.0;
 	}
 
-	double Nation::calculateMonthlyIncome()
+	double Nation::calculateMonthlyIncome() const
 	{
 		double income = 0.0;
 
@@ -57,7 +57,7 @@ namespace global_domination
 		return income;
 	}
 
-	double Nation::calculateMonthlyProfit()
+	double Nation::calculateMonthlyProfit() const
 	{
 		return calculateMonthlyIncome() - calculateMonthlyExpenses();
 	}
@@ -88,9 +88,20 @@ namespace global_domination
 	{
 		return finance_history_.getMonthlyBalanceHistory(number_of_months);
 	}
-	std::vector<double> Nation::getMonthlyProfits(int number_of_months)
+
+	std::vector<double> Nation::getMonthlyExpenditureHistory(int number_of_months)
+	{
+		return finance_history_.getMonthlyExpenditure(number_of_months);
+	}
+
+	std::vector<double> Nation::getMonthlyProfitsHistory(int number_of_months)
 	{
 		return finance_history_.getMonthlyProfits(number_of_months);
+	}
+
+	std::vector<double> Nation::getMonthlyTurnoverHistory(int number_of_months)
+	{
+		return finance_history_.getMonthlyTurnover(number_of_months);
 	}
 
 	std::string Nation::getName() const
@@ -268,6 +279,8 @@ namespace global_domination
 	void Nation::updateFinances()
 	{
 		double monthly_profit = calculateMonthlyProfit();
+		finance_history_.addMonthlyExpenditure(calculateMonthlyExpenses());
+		finance_history_.addMonthlyTurnover(calculateMonthlyIncome());
 		finance_history_.addMonthlyProfit(monthly_profit);
 		balance_ += monthly_profit;
 		finance_history_.addMonthlyBalance(balance_);

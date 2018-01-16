@@ -142,20 +142,36 @@ namespace global_domination
 		std::shared_ptr<SDLGraphPane> finances_plot = std::dynamic_pointer_cast<SDLGraphPane>(getChildControl(FINANCES_PLOT));
 		switch (current_plot_)
 		{
-			case Profit:
-			{
-				const int kNumberOfMonths = 12;
-				std::vector<double> monthly_profits = nation_->getMonthlyProfits(kNumberOfMonths);
-				assert(monthly_profits.size() <= kNumberOfMonths);
-				finances_plot->setDataPoints(columns, monthly_profits);
-			}
-			break;
 			case Balance:
 			{
 				const int kNumberOfMonths = 12;
 				std::vector<double> balance_history = nation_->getMonthlyBalanceHistory(kNumberOfMonths);
 				assert(balance_history.size() <= kNumberOfMonths);
 				finances_plot->setDataPoints(columns, balance_history);
+			}
+			break;
+			case Expenditure:
+			{
+				const int kNumberOfMonths = 12;
+				std::vector<double> monthly_expenses = nation_->getMonthlyExpenditureHistory(kNumberOfMonths);
+				assert(monthly_expenses.size() <= kNumberOfMonths);
+				finances_plot->setDataPoints(columns, monthly_expenses);
+			}
+			break;
+			case Profit:
+			{
+				const int kNumberOfMonths = 12;
+				std::vector<double> monthly_profits = nation_->getMonthlyProfitsHistory(kNumberOfMonths);
+				assert(monthly_profits.size() <= kNumberOfMonths);
+				finances_plot->setDataPoints(columns, monthly_profits);
+			}
+			break;
+			case Turnover:
+			{
+				const int kNumberOfMonths = 12;
+				std::vector<double> turnover_history = nation_->getMonthlyTurnoverHistory(kNumberOfMonths);
+				assert(turnover_history.size() <= kNumberOfMonths);
+				finances_plot->setDataPoints(columns, turnover_history);
 			}
 			break;
 			default:
