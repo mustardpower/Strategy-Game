@@ -106,6 +106,24 @@ namespace global_domination
 		}
 	}
 
+	void SDLGraphPane::getAxisRangeY(double &original_range_lower_y, double& original_range_upper_y)
+	{
+		original_range_lower_y = minYValue();
+		original_range_upper_y = maxYValue();
+
+		if (original_range_lower_y == original_range_upper_y)
+		{
+			original_range_lower_y = original_range_lower_y * 0.5;
+			original_range_upper_y = original_range_upper_y * 1.5;
+		}
+
+		if ((std::abs(original_range_lower_y) < 1.0e-6) && (std::abs(original_range_upper_y) < 1.0e-6))
+		{
+			original_range_lower_y = -1.0;
+			original_range_upper_y = 1.0;
+		}
+	}
+
 	std::vector<double> SDLGraphPane::getMappedXValues()
 	{
 		std::vector<double> x_values_mapped;
@@ -146,15 +164,9 @@ namespace global_domination
 
 	double SDLGraphPane::mapDataPointY(double unmapped_value_y)
 	{
-		double original_range_lower_y = minYValue();
-		double original_range_upper_y = maxYValue();
+		double original_range_lower_y, original_range_upper_y;
 
-		if (original_range_lower_y == original_range_upper_y)
-		{
-			original_range_lower_y = original_range_lower_y * 0.5;
-			original_range_upper_y = original_range_upper_y * 1.5;
-		}
-
+		getAxisRangeY(original_range_lower_y, original_range_upper_y);
 		return (unmapped_value_y - original_range_lower_y) / (original_range_upper_y - original_range_lower_y) * (yAxisEndPoint().y - yAxisStartPoint().y) + yAxisStartPoint().y;
 	}
 
@@ -202,15 +214,8 @@ namespace global_domination
 
 	double SDLGraphPane::unmapDataPointY(double mapped_value_y)
 	{
-		double original_range_lower_y = minYValue();
-		double original_range_upper_y = maxYValue();
-
-		if (original_range_lower_y == original_range_upper_y)
-		{
-			original_range_lower_y = original_range_lower_y * 0.5;
-			original_range_upper_y = original_range_upper_y * 1.5;
-		}
-
+		double original_range_lower_y, original_range_upper_y;
+		getAxisRangeY(original_range_lower_y, original_range_upper_y);
 		double result_rev = mapped_value_y - yAxisStartPoint().y;
 		result_rev = result_rev / (yAxisEndPoint().y - yAxisStartPoint().y);
 		result_rev = result_rev * (original_range_upper_y - original_range_lower_y);

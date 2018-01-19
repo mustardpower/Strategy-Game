@@ -25,6 +25,7 @@ namespace global_domination
 			void drawDataPoints(SDL_Renderer* renderer);
 			void drawXAxisLabels(SDL_Renderer* renderer);
 			void drawYAxisLabels(SDL_Renderer* renderer);
+			void getAxisRangeY(double &original_range_lower_y, double &original_range_upper_y);
 			std::vector<double> getMappedXValues();
 			std::vector<double> getMappedYValues();
 			bool handleClick(int mouse_x, int mouse_y);
