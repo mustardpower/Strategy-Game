@@ -52,7 +52,7 @@ namespace global_domination
 		void setRelationship(Nation* nation, double relationship_score);
 		void setTaxRate(double tax_rate);
 		void update(const time_t &current_date);
-		void updateFinances();
+		void updateFinances(const time_t &current_date);
 		void updatePopulation();
 		void updateTradeDeals(const time_t &current_date);
 

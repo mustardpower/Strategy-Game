@@ -4,15 +4,23 @@
 
 namespace global_domination
 {
+	struct MonthlyFinanceHistory
+	{
+		MonthlyFinanceHistory(time_t date, double balance, double expenditure, double tax_income, double trade_income, double profit, double turnover);
+
+		time_t date_;
+		double balance_;
+		double expenditure_;
+		double tax_income_;
+		double trade_income_;
+		double profit_;
+		double turnover_;
+	};
+
 	class FinanceHistory
 	{
 	public:
-		void addMonthlyBalance(double monthly_balance);
-		void addMonthlyExpenditure(double monthly_expenditure);
-		void addMonthlyProfit(double monthly_profit);
-		void addMonthlyTaxIncome(double monthly_income);
-		void addMonthlyTradeDealsIncome(double monthly_income);
-		void addMonthlyTurnover(double monthly_turnover);
+		void addMonthlyHistory(MonthlyFinanceHistory history_point);
 		std::vector<double> getMonthlyBalanceHistory(int number_of_months);
 		std::vector<double> getMonthlyExpenditure(int number_of_months);
 		std::vector<double> getMonthlyProfits(int number_of_months);
@@ -20,11 +28,6 @@ namespace global_domination
 		std::vector<double> getMonthlyTradeDealsIncome(int number_of_months);
 		std::vector<double> getMonthlyTurnover(int number_of_months);
 	private:
-		std::vector<double> monthly_balance_;
-		std::vector<double> monthly_expenditure_;
-		std::vector<double> monthly_tax_income_;
-		std::vector<double> monthly_tradedeals_income_;
-		std::vector<double> monthly_profits_;
-		std::vector<double> monthly_turnover_;
+		std::vector<MonthlyFinanceHistory> monthly_history_;
 	};
 }

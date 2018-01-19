@@ -302,21 +302,27 @@ namespace global_domination
 
 	void Nation::update(const time_t &current_date)
 	{
-		updateFinances();
+		updateFinances(current_date);
 		updateTradeDeals(current_date);
 		updatePopulation();
 	}
 
-	void Nation::updateFinances()
+	void Nation::updateFinances(const time_t& current_date)
 	{
 		double monthly_profit = calculateMonthlyProfit();
-		finance_history_.addMonthlyExpenditure(calculateMonthlyExpenses());
-		finance_history_.addMonthlyTurnover(calculateMonthlyIncome());
-		finance_history_.addMonthlyProfit(monthly_profit);
-		finance_history_.addMonthlyTaxIncome(monthlyIncomeFromTax());
-		finance_history_.addMonthlyTradeDealsIncome(monthlyIncomeFromTradeDeals());
 		balance_ += monthly_profit;
-		finance_history_.addMonthlyBalance(balance_);
+
+		MonthlyFinanceHistory monthly_history(
+			current_date,
+			balance_,
+			calculateMonthlyExpenses(),
+			monthlyIncomeFromTax(),
+			monthlyIncomeFromTradeDeals(),
+			monthly_profit,
+			calculateMonthlyIncome()
+		);
+
+		finance_history_.addMonthlyHistory(monthly_history);
 	}
 
 	void Nation::updatePopulation()
