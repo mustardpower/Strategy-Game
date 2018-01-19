@@ -18,7 +18,8 @@ namespace global_domination {
 		std::string getDateString();
 		Nation* getNation(std::string name);
 		std::vector<Nation> getNations();
-		Nation* getSelectedNation();
+		std::vector<std::string> getPreviousMonthNames(int number_of_months) const;
+		Nation* getSelectedNation() const;
 		std::string getSelectedNationName();
 		std::string getSummaryReport();
 		std::vector<Message> getInboxMessages();

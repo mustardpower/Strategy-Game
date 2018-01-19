@@ -57,7 +57,26 @@ namespace global_domination {
 		return nations_;
 	}
 
-	Nation* GameModel::getSelectedNation()
+	std::vector<std::string> GameModel::getPreviousMonthNames(int number_of_months) const
+	{
+		std::vector<std::string> month_names;
+		struct tm* time = localtime(&date_);
+		time->tm_mon -= number_of_months;
+		time_t date;
+
+		for (int i = 0; i < number_of_months; i++)
+		{
+			date = mktime(time);
+			std::stringstream ss;
+			ss << std::put_time(localtime(&date), "%m/%Y");
+			month_names.push_back(ss.str());
+			time->tm_mon++;
+		}
+
+		return month_names;
+	}
+
+	Nation* GameModel::getSelectedNation() const
 	{
 		return selected_nation_;
 	}

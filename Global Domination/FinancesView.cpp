@@ -7,9 +7,9 @@
 
 namespace global_domination
 {
-	FinancesView::FinancesView(std::shared_ptr<GameModel> the_model, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
+	FinancesView::FinancesView(const GameModel& the_model, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area), game_model_(the_model)
 	{
-		nation_ = the_model->getSelectedNation();
+		nation_ = the_model.getSelectedNation();
 		current_plot_ = Turnover;
 	}
 
@@ -57,8 +57,6 @@ namespace global_domination
 		std::shared_ptr<SDLGraphPane> finances_plot = std::make_shared<SDLGraphPane>(parent_, graph_plot_client_area);
 		finances_plot->setFontSize(10);
 		finances_plot->setId(FINANCES_PLOT);
-		std::vector<std::string> month_names{ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec" };
-		finances_plot->setAxisLabelsX(month_names);
 		addChildControl(finances_plot);
 	}
 
@@ -156,11 +154,13 @@ namespace global_domination
 	{
 		std::vector<double> columns{ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
 		std::shared_ptr<SDLGraphPane> finances_plot = std::dynamic_pointer_cast<SDLGraphPane>(getChildControl(FINANCES_PLOT));
+		const int kNumberOfMonths = 12;
+		finances_plot->setAxisLabelsX(game_model_.getPreviousMonthNames(kNumberOfMonths));
+
 		switch (current_plot_)
 		{
 			case Balance:
 			{
-				const int kNumberOfMonths = 12;
 				std::vector<double> balance_history = nation_->getMonthlyBalanceHistory(kNumberOfMonths);
 				assert(balance_history.size() <= kNumberOfMonths);
 				finances_plot->setDataPoints(columns, balance_history);
@@ -168,7 +168,6 @@ namespace global_domination
 			break;
 			case Expenditure:
 			{
-				const int kNumberOfMonths = 12;
 				std::vector<double> monthly_expenses = nation_->getMonthlyExpenditureHistory(kNumberOfMonths);
 				assert(monthly_expenses.size() <= kNumberOfMonths);
 				finances_plot->setDataPoints(columns, monthly_expenses);
@@ -176,7 +175,6 @@ namespace global_domination
 			break;
 			case Profit:
 			{
-				const int kNumberOfMonths = 12;
 				std::vector<double> monthly_profits = nation_->getMonthlyProfitsHistory(kNumberOfMonths);
 				assert(monthly_profits.size() <= kNumberOfMonths);
 				finances_plot->setDataPoints(columns, monthly_profits);
@@ -184,7 +182,6 @@ namespace global_domination
 			break;
 			case TaxIncome:
 			{
-				const int kNumberOfMonths = 12;
 				std::vector<double> monthly_tax_income = nation_->getMonthlyTaxIncomeHistory(kNumberOfMonths);
 				assert(monthly_tax_income.size() <= kNumberOfMonths);
 				finances_plot->setDataPoints(columns, monthly_tax_income);
@@ -192,7 +189,6 @@ namespace global_domination
 			break;
 			case TradeDealIncome:
 			{
-				const int kNumberOfMonths = 12;
 				std::vector<double> monthly_tradedeals_income = nation_->getMonthlyTradeDealsIncomeHistory(kNumberOfMonths);
 				assert(monthly_tradedeals_income.size() <= kNumberOfMonths);
 				finances_plot->setDataPoints(columns, monthly_tradedeals_income);
@@ -200,7 +196,6 @@ namespace global_domination
 			break;
 			case Turnover:
 			{
-				const int kNumberOfMonths = 12;
 				std::vector<double> turnover_history = nation_->getMonthlyTurnoverHistory(kNumberOfMonths);
 				assert(turnover_history.size() <= kNumberOfMonths);
 				finances_plot->setDataPoints(columns, turnover_history);

@@ -16,7 +16,7 @@ namespace global_domination
 	class FinancesView : public SDLCompositePane
 	{
 	public:
-		FinancesView::FinancesView(std::shared_ptr<GameModel>, SDL_Window * parent, SDL_Rect client_area);
+		FinancesView::FinancesView(const GameModel& game_model, SDL_Window * parent, SDL_Rect client_area);
 		virtual ~FinancesView();
 		void addExpenditureTab(std::shared_ptr<SDLTabControl> finance_tabs);
 		void addIncomeTab(std::shared_ptr<SDLTabControl> finance_tabs);
@@ -30,6 +30,7 @@ namespace global_domination
 		void respondToAction(Sint32 action);
 		void updatePlot();
 	private:
+		const GameModel& game_model_;
 		Nation* nation_;
 		PlotType current_plot_;
 	};

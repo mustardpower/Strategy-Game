@@ -118,7 +118,7 @@ namespace global_domination
 			break;
 			case TYPES::ACTION_LIST::CHANGEVIEW_FINANCES:
 			{
-				switchActiveControl(std::make_unique<FinancesView>(game_model_, window_, getClientArea()));
+				switchActiveControl(std::make_unique<FinancesView>(*game_model_, window_, getClientArea()));
 			}
 			break;
 			case TYPES::ACTION_LIST::CHANGEVIEW_RELATIONS:
