@@ -6,6 +6,7 @@ namespace global_domination
 {
 	struct MonthlyFinanceHistory
 	{
+		MonthlyFinanceHistory() {};
 		MonthlyFinanceHistory(time_t date, double balance, double expenditure, double tax_income, double trade_income, double profit, double turnover);
 
 		time_t date_;
