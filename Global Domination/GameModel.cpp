@@ -24,6 +24,7 @@ namespace global_domination {
 
 	GameModel::~GameModel()
 	{
+		selected_nation_ = nullptr;
 	}
 
 	std::string GameModel::getDateString()

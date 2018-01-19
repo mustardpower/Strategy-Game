@@ -71,6 +71,11 @@ namespace global_domination
 		return nullptr;
 	}
 
+	SDL_Rect SDLControl::getClientArea() const
+	{
+		return client_area_;
+	}
+
 	unsigned int SDLControl::getId()
 	{
 		return id_;

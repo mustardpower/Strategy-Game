@@ -4,7 +4,6 @@
 #include "SDLDropDownPlusMinusPane.h"
 #include "SDLGraphPane.h"
 #include "SDLStaticText.h"
-#include "SDLTabControl.h"
 
 namespace global_domination
 {
@@ -17,6 +16,39 @@ namespace global_domination
 	FinancesView::~FinancesView()
 	{
 		applyChanges();
+	}
+
+	void FinancesView::addExpenditureTab(std::shared_ptr<SDLTabControl> finance_tabs)
+	{
+		std::shared_ptr<SDLDataGrid<Nation, 5, 5>> expenses_data_grid = std::make_shared<SDLDataGrid<Nation, 5, 5>>(parent_, finance_tabs->getClientArea(), getGridHeaders());
+		expenses_data_grid->setFontSize(10);
+		expenses_data_grid->showSliderBar(false);
+		expenses_data_grid->setId(FINANCES_EXPENSES_DATA_GRID);
+		finance_tabs->addTab("Expenses", expenses_data_grid);
+	}
+
+	void FinancesView::addIncomeTab(std::shared_ptr<SDLTabControl> finance_tabs)
+	{
+		std::shared_ptr<SDLDataGrid<Nation, 5, 5>> income_data_grid = std::make_shared<SDLDataGrid<Nation, 5, 5>>(parent_, finance_tabs->getClientArea(), getGridHeaders());
+		income_data_grid->setFontSize(10);
+		income_data_grid->showSliderBar(false);
+		income_data_grid->setId(FINANCES_INCOME_DATA_GRID);
+		income_data_grid->addItem("Trade Deals", 0, 0, TYPES::ACTION_LIST::SHOW_TRADEDEAL_INCOME);
+		income_data_grid->addItem("Taxes", 0, 0, TYPES::ACTION_LIST::SHOW_TAX_INCOME);
+		finance_tabs->addTab("Income", income_data_grid);
+	}
+
+	void FinancesView::addSummaryTab(std::shared_ptr<SDLTabControl> finance_tabs)
+	{
+		std::shared_ptr<SDLDataGrid<Nation, 5, 5>> summary_data_grid = std::make_shared<SDLDataGrid<Nation, 5, 5>>(parent_, finance_tabs->getClientArea(), getGridHeaders());
+		summary_data_grid->setFontSize(10);
+		summary_data_grid->showSliderBar(false);
+		summary_data_grid->setId(FINANCES_EXPENSES_DATA_GRID);
+		summary_data_grid->addItem("Turnover", 0, 0, TYPES::ACTION_LIST::SHOW_TURNOVER);
+		summary_data_grid->addItem("Expenditure", 0, 0, TYPES::ACTION_LIST::SHOW_EXPENDITURE);
+		summary_data_grid->addItem("Profit/Loss", 0, 0, TYPES::ACTION_LIST::SHOW_PROFIT);
+		summary_data_grid->addItem("Balance", 0, 0, TYPES::ACTION_LIST::SHOW_BALANCE);
+		finance_tabs->addTab("Summary", summary_data_grid);
 	}
 
 	void FinancesView::addFinancesPlot()
@@ -32,37 +64,12 @@ namespace global_domination
 
 	void FinancesView::addFinancesTabs()
 	{
-		SDL_Rect data_grid_client_area{ (int)(client_area_.w * 0.02), (int)(client_area_.h * 0.75), (int)(client_area_.w * 0.75), (int)(client_area_.h * 0.2) };
-		std::array<std::string, 5> header_names{ "Item", "This Month", "Last Month", "This Year", "Last Year" };
-		std::shared_ptr<SDLDataGrid<Nation, 5, 5>> income_data_grid = std::make_shared<SDLDataGrid<Nation, 5, 5>>(parent_, data_grid_client_area, header_names);
-		income_data_grid->setFontSize(10);
-		income_data_grid->showSliderBar(false);
-		income_data_grid->setId(FINANCES_INCOME_DATA_GRID);
-		income_data_grid->addItem("Trade Deals", 0, 0, TYPES::ACTION_LIST::SHOW_TRADEDEAL_INCOME);
-		income_data_grid->addItem("Taxes", 0, 0, TYPES::ACTION_LIST::SHOW_TAX_INCOME);
-
-		std::array<std::string, 5> expenditure_header_names{ "Item", "This Month", "Last Month", "This Year", "Last Year" };
-
-		std::shared_ptr<SDLDataGrid<Nation, 5, 5>> summary_data_grid = std::make_shared<SDLDataGrid<Nation, 5, 5>>(parent_, data_grid_client_area, header_names);
-		summary_data_grid->setFontSize(10);
-		summary_data_grid->showSliderBar(false);
-		summary_data_grid->setId(FINANCES_EXPENSES_DATA_GRID);
-		summary_data_grid->addItem("Turnover", 0, 0, TYPES::ACTION_LIST::SHOW_TURNOVER);
-		summary_data_grid->addItem("Expenditure", 0, 0, TYPES::ACTION_LIST::SHOW_EXPENDITURE);
-		summary_data_grid->addItem("Profit/Loss", 0, 0, TYPES::ACTION_LIST::SHOW_PROFIT);
-		summary_data_grid->addItem("Balance", 0, 0, TYPES::ACTION_LIST::SHOW_BALANCE);
-
-		std::shared_ptr<SDLDataGrid<Nation, 5, 5>> expenses_data_grid = std::make_shared<SDLDataGrid<Nation, 5, 5>>(parent_, data_grid_client_area, header_names);
-		expenses_data_grid->setFontSize(10);
-		expenses_data_grid->showSliderBar(false);
-		expenses_data_grid->setId(FINANCES_EXPENSES_DATA_GRID);
-
 		SDL_Rect tab_control_client_area{ (int)(client_area_.w * 0.02), (int)(client_area_.h * 0.75), (int)(client_area_.w * 0.75), (int)(client_area_.h * 0.2) };
 		std::shared_ptr<SDLTabControl> finance_tabs = std::make_shared<SDLTabControl>(parent_, tab_control_client_area);
 		finance_tabs->setFontSize(16);
-		finance_tabs->addTab("Summary", summary_data_grid);
-		finance_tabs->addTab("Expenses", expenses_data_grid);
-		finance_tabs->addTab("Income", income_data_grid);
+		addSummaryTab(finance_tabs);
+		addExpenditureTab(finance_tabs);
+		addIncomeTab(finance_tabs);
 		addChildControl(finance_tabs);
 	}
 
@@ -84,7 +91,15 @@ namespace global_domination
 	{
 		std::shared_ptr<SDLDropDownPlusMinusPane> tax_dropdown_list = std::dynamic_pointer_cast<SDLDropDownPlusMinusPane>(getChildControl(FINANCES_TAX_DROPDOWN_LIST));
 		const double tax_rate = std::stod(tax_dropdown_list->getText());
-		nation_->setTaxRate(tax_rate);
+		if (nation_)
+		{
+			nation_->setTaxRate(tax_rate);
+		}
+	}
+
+	std::array<std::string, 5> FinancesView::getGridHeaders()
+	{
+		return std::array<std::string, 5> { "Item", "This Month", "Last Month", "This Year", "Last Year" };
 	}
 
 	void FinancesView::initialize()

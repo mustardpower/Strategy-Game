@@ -17,6 +17,7 @@ namespace global_domination
 		bool containsPoint(int x, int y);
 		bool containsPoint(SDL_Rect aRect, int x, int y);
 		std::shared_ptr<SDLControl> getChildControl(ControlID id);
+		SDL_Rect getClientArea() const;
 		unsigned int getId();
 		SDL_Color getBackgroundColor();
 		SDL_Color getTextColor();
