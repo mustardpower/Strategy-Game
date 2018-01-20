@@ -1,6 +1,9 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "FinanceHistory.h"
 
 #include <assert.h>
+#include <time.h>
 
 namespace global_domination
 {
@@ -148,12 +151,51 @@ namespace global_domination
 
 	double FinanceHistory::getTradeIncomeLastYear() const
 	{
-		return 0.0;
+		double trade_income = 0.0;
+
+		// get last item in monthly_history
+		if (monthly_history_.empty()) { return trade_income; }
+		time_t last_months_date = (monthly_history_.end() - 1)->date_;
+		int year_index = localtime(&last_months_date)->tm_year;
+
+		// go through any entries with same year and sum the trade income
+		for (std::vector<MonthlyFinanceHistory>::const_iterator month = monthly_history_.begin(); month != monthly_history_.end(); month++)
+		{
+			if (localtime(&month->date_)->tm_year == year_index - 1)
+			{
+				trade_income += month->trade_income_;
+			}
+		}
+
+
+		return trade_income;
 	}
 
 	double FinanceHistory::getTradeIncomeThisYear() const
 	{
-		return 0.0;
+		double trade_income = 0.0;
+
+		// get last item in monthly_history
+		if (monthly_history_.empty()) { return trade_income; }
+		time_t last_months_date = (monthly_history_.end() - 1)->date_;
+
+		// look at the year
+		int last_month_index = localtime(&last_months_date)->tm_mon;
+		if (last_month_index == 12) { return trade_income; }
+
+		int year_index = localtime(&last_months_date)->tm_year;
+
+		// go through any entries with same year and sum the trade income
+		for (std::vector<MonthlyFinanceHistory>::const_iterator month = monthly_history_.begin(); month != monthly_history_.end(); month++)
+		{
+			if (localtime(&month->date_)->tm_year == year_index)
+			{
+				trade_income += month->trade_income_;
+			}
+		}
+		
+
+		return trade_income;
 	}
 	
 	MonthlyFinanceHistory::MonthlyFinanceHistory(time_t date, double balance, double expenditure, double tax_income, double trade_income, double profit, double turnover)
