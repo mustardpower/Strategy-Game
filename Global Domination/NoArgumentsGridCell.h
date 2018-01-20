@@ -5,37 +5,32 @@
 namespace global_domination
 {
 	template <class T>
-	class NoArgumentsGridCell : public DataGridCell<T>
+	class NoArgumentsGridCell : public DataGridCell
 	{
 	public:
 		NoArgumentsGridCell() {};
-		NoArgumentsGridCell(std::shared_ptr<Action> an_action, T menu_item_data, std::function<std::string(const T&)> selector) : DataGridCell(an_action, menu_item_data)
+		NoArgumentsGridCell(std::shared_ptr<Action> an_action, T menu_item_data, std::function<std::string(const T&)> selector) : DataGridCell(an_action)
 		{
 			selector_ = selector;
 		}
 
-		void setString(std::string reported_string);
+		T* getData();
 		std::string reportString() const;
 
 	private:
+		T data_;
 		std::function<std::string(const T&)> selector_;
-		std::string string_override_;
 	};
-	
+
 	template<class T>
-	inline void NoArgumentsGridCell<T>::setString(std::string reported_string)
+	inline T * NoArgumentsGridCell<T>::getData()
 	{
-		string_override_ = reported_string;
+		return &data_;
 	}
 
 	template<class T>
 	inline std::string NoArgumentsGridCell<T>::reportString() const
 	{
-		if (!string_override_.empty())
-		{
-			return string_override_;
-		}
-
 		return selector_(data_);
 	}
 }

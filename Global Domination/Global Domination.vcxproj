@@ -196,6 +196,7 @@
     <ClInclude Include="SDLTabControl.h" />
     <ClInclude Include="SDL_TextRenderer.h" />
     <ClInclude Include="StackGridItem.h" />
+    <ClInclude Include="StringDataCell.h" />
     <ClInclude Include="TradeDeal.h" />
     <ClInclude Include="TradeDealsView.h" />
     <ClInclude Include="TradeOffersView.h" />

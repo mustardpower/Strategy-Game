@@ -8,6 +8,7 @@
 #include "ColorPreferences.h"
 #include "DataGridCell.h"
 #include "NoArgumentsGridCell.h"
+#include "StringDataCell.h"
 #include "SDL_TextRenderer.h"
 
 namespace global_domination
@@ -19,7 +20,7 @@ namespace global_domination
 		SDLDataGrid(SDL_Window* parent, SDL_Rect client_area, std::array<std::string, C> header_names_);
 		~SDLDataGrid();
 		void addItem(std::string item_string, int location_x, int location_y, TYPES::ACTION_LIST action);
-		void addItem(std::shared_ptr<DataGridCell<T>> item, int location_x, int location_y);
+		void addItem(std::shared_ptr<DataGridCell> item, int location_x, int location_y);
 		SDL_Rect cellClientArea(int column, int row);
 		int cellHeight();
 		int cellWidth();
@@ -45,7 +46,7 @@ namespace global_domination
 	private:
 		SDL_Rect client_area_;
 		std::array<std::string, C> header_names_;
-		std::array<std::vector<std::shared_ptr<DataGridCell<T>>>, C> items_;
+		std::array<std::vector<std::shared_ptr<DataGridCell>>, C> items_;
 		unsigned int selected_index_;
 		bool show_slider_bar_;
 		unsigned int top_visible_index_;
@@ -67,7 +68,7 @@ namespace global_domination
 	}
 
 	template <class T, int C, int R>
-	inline void SDLDataGrid<T, C, R>::addItem(std::shared_ptr<DataGridCell<T>> item, int location_x, int location_y)
+	inline void SDLDataGrid<T, C, R>::addItem(std::shared_ptr<DataGridCell> item, int location_x, int location_y)
 	{
 		items_[location_x].push_back(item);
 	}
@@ -75,7 +76,7 @@ namespace global_domination
 	template <class T, int C, int R>
 	inline void SDLDataGrid<T, C, R>::addItem(std::string item_string, int column, int row, TYPES::ACTION_LIST action_type)
 	{
-		std::shared_ptr<NoArgumentsGridCell<T>> item = std::make_shared<NoArgumentsGridCell<T>>();
+		std::shared_ptr<StringDataCell> item = std::make_shared<StringDataCell>();
 		std::shared_ptr<Action> action = std::make_shared<Action>(action_type);
 		item->setAction(action);
 		item->setString(item_string);
@@ -249,7 +250,7 @@ namespace global_domination
 				const unsigned int item_index = grid_row + top_visible_index_;
 				if (item_index < items_[column].size())
 				{
-					std::shared_ptr<DataGridCell<T>> item = items_[column][item_index];
+					std::shared_ptr<DataGridCell> item = items_[column][item_index];
 					if (item)
 					{
 						renderCell(renderer, column, grid_row);

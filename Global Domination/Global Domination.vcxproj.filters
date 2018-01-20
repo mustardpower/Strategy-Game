@@ -25,6 +25,9 @@
     <Filter Include="Source Files\Views">
       <UniqueIdentifier>{9965327f-e1fe-4d6a-a6af-7f0ceddc8835}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\SDLControls\SDLDataGrid">
+      <UniqueIdentifier>{50869f5d-0ea1-453e-88ce-e7a278529ba8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -230,18 +233,6 @@
     <ClInclude Include="SDLProgressBar.h">
       <Filter>Header Files\SDLControls</Filter>
     </ClInclude>
-    <ClInclude Include="SDLDataGrid.h">
-      <Filter>Header Files\SDLControls</Filter>
-    </ClInclude>
-    <ClInclude Include="DataGridCell.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NoArgumentsGridCell.h">
-      <Filter>Header Files\SDLControls</Filter>
-    </ClInclude>
-    <ClInclude Include="OneArgumentGridCell.h">
-      <Filter>Header Files\SDLControls</Filter>
-    </ClInclude>
     <ClInclude Include="SDLGraphPane.h">
       <Filter>Header Files\SDLControls</Filter>
     </ClInclude>
@@ -259,6 +250,21 @@
     </ClInclude>
     <ClInclude Include="SDLDropDownPlusMinusPane.h">
       <Filter>Header Files\SDLControls</Filter>
+    </ClInclude>
+    <ClInclude Include="NoArgumentsGridCell.h">
+      <Filter>Header Files\SDLControls\SDLDataGrid</Filter>
+    </ClInclude>
+    <ClInclude Include="OneArgumentGridCell.h">
+      <Filter>Header Files\SDLControls\SDLDataGrid</Filter>
+    </ClInclude>
+    <ClInclude Include="SDLDataGrid.h">
+      <Filter>Header Files\SDLControls\SDLDataGrid</Filter>
+    </ClInclude>
+    <ClInclude Include="DataGridCell.h">
+      <Filter>Header Files\SDLControls\SDLDataGrid</Filter>
+    </ClInclude>
+    <ClInclude Include="StringDataCell.h">
+      <Filter>Header Files\SDLControls\SDLDataGrid</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
