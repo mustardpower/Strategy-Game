@@ -298,6 +298,11 @@ namespace global_domination
 		return std::to_string(globalAreaPercentageControlled());
 	}
 
+	std::string Nation::reportBalance() const
+	{
+		return std::to_string(balance_);
+	}
+
 	std::string Nation::reportExpenditureThisMonth() const
 	{
 		return std::to_string(calculateMonthlyExpenses());

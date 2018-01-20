@@ -110,6 +110,10 @@ namespace global_domination
 
 		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_42 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportProfitLastYear);
 		summary_data_grid->addItem(cell_42, 4, 1);
+
+		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_13 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportBalance);
+		summary_data_grid->addItem(cell_13, 1, 1);
+
 	}
 
 	void FinancesView::addFinancesPlot()
