@@ -143,6 +143,47 @@ namespace global_domination
 		assert(turnover_history.size() == number_of_months);
 		return turnover_history;
 	}
+	double FinanceHistory::getExpenditureLastMonth() const
+	{
+		if (monthly_history_.empty()) { return 0.0; }
+		return (monthly_history_.end() - 1)->expenditure_;
+	}
+	double FinanceHistory::getExpenditureThisYear() const
+	{
+		double expenditure = 0.0;
+
+		if (monthly_history_.empty()) { return expenditure; }
+		time_t last_months_date = (monthly_history_.end() - 1)->date_;
+		int year_index = localtime(&last_months_date)->tm_year;
+
+		for (std::vector<MonthlyFinanceHistory>::const_iterator month = monthly_history_.begin(); month != monthly_history_.end(); month++)
+		{
+			if (localtime(&month->date_)->tm_year == year_index)
+			{
+				expenditure += month->expenditure_;
+			}
+		}
+
+		return expenditure;
+	}
+	double FinanceHistory::getExpenditureLastYear() const
+	{
+		double expenditure = 0.0;
+
+		if (monthly_history_.empty()) { return expenditure; }
+		time_t last_months_date = (monthly_history_.end() - 1)->date_;
+		int year_index = localtime(&last_months_date)->tm_year;
+
+		for (std::vector<MonthlyFinanceHistory>::const_iterator month = monthly_history_.begin(); month != monthly_history_.end(); month++)
+		{
+			if (localtime(&month->date_)->tm_year == year_index - 1)
+			{
+				expenditure += month->expenditure_;
+			}
+		}
+
+		return expenditure;
+	}
 	double FinanceHistory::getIncomeLastMonth() const
 	{
 		if (monthly_history_.empty()) { return 0.0; }
