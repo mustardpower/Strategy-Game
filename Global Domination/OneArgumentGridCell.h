@@ -9,22 +9,22 @@ namespace global_domination
 	{
 	public:
 		OneArgumentGridCell() {};
-		OneArgumentGridCell(std::shared_ptr<Action> an_action, T menu_item_data, Arg selector_argument, std::function<std::string(const T&, Arg)> selector) : DataGridCell(an_action), selector_argument_(selector_argument)
+		OneArgumentGridCell(std::shared_ptr<Action> an_action, const T& cell_data, Arg selector_argument, std::function<std::string(const T&, Arg)> selector) : DataGridCell(an_action), data_(cell_data), selector_argument_(selector_argument)
 		{
 			selector_ = selector;
 		}
 
-		T* getData();
+		const T& getData();
 		std::string reportString() const;
 
 	private:
-		T data_;
+		const T& data_;
 		std::function<std::string(const T&, Arg)> selector_;
 		Arg selector_argument_;
 	};
 
 	template<class T, class Arg>
-	inline T * OneArgumentGridCell<T, Arg>::getData()
+	inline const T& OneArgumentGridCell<T, Arg>::getData()
 	{
 		return &data_;
 	}

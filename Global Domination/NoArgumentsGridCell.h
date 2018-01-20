@@ -9,23 +9,23 @@ namespace global_domination
 	{
 	public:
 		NoArgumentsGridCell() {};
-		NoArgumentsGridCell(std::shared_ptr<Action> an_action, T menu_item_data, std::function<std::string(const T&)> selector) : DataGridCell(an_action)
+		NoArgumentsGridCell(std::shared_ptr<Action> an_action, const T& cell_data, std::function<std::string(const T&)> selector) : DataGridCell(an_action), data_(cell_data)
 		{
 			selector_ = selector;
 		}
 
-		T* getData();
+		const T& getData();
 		std::string reportString() const;
 
 	private:
-		T data_;
+		const T& data_;
 		std::function<std::string(const T&)> selector_;
 	};
 
 	template<class T>
-	inline T * NoArgumentsGridCell<T>::getData()
+	inline const T& NoArgumentsGridCell<T>::getData()
 	{
-		return &data_;
+		return data_;
 	}
 
 	template<class T>

@@ -39,7 +39,7 @@ namespace global_domination {
 		return inbox_messages_;
 	}
 
-	Nation * GameModel::getNation(std::string name)
+	Nation* GameModel::getNation(std::string name)
 	{
 		for (std::vector<Nation>::iterator nation = nations_.begin(); nation != nations_.end(); nation++)
 		{
@@ -52,9 +52,14 @@ namespace global_domination {
 		return nullptr;
 	}
 
-	std::vector<Nation> GameModel::getNations()
+	std::vector<Nation*> GameModel::getNations()
 	{
-		return nations_;
+		std::vector<Nation*> actual_nations;
+		for (std::vector<Nation>::iterator nation = nations_.begin(); nation != nations_.end(); nation++) 
+		{
+			actual_nations.push_back(&(*nation));
+		}
+		return actual_nations;
 	}
 
 	std::vector<std::string> GameModel::getPreviousMonthNames(int number_of_months) const
