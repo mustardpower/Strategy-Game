@@ -288,6 +288,26 @@ namespace global_domination
 		return name_;
 	}
 
+	std::string Nation::reportTaxIncomeLastMonth() const
+	{
+		return std::to_string(finance_history_.getTaxIncomeLastMonth());
+	}
+
+	std::string Nation::reportTaxIncomeThisMonth() const
+	{
+		return std::to_string(monthlyIncomeFromTax());
+	}
+
+	std::string Nation::reportTaxIncomeLastYear() const
+	{
+		return std::to_string(finance_history_.getTaxIncomeLastYear());
+	}
+
+	std::string Nation::reportTaxIncomeThisYear() const
+	{
+		return std::to_string(finance_history_.getTaxIncomeThisYear());
+	}
+
 	std::string Nation::reportTradeIncomeLastMonth() const
 	{
 		return std::to_string(finance_history_.getTradeIncomeLastMonth());

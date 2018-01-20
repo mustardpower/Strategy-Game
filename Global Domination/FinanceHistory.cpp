@@ -143,6 +143,55 @@ namespace global_domination
 		assert(turnover_history.size() == number_of_months);
 		return turnover_history;
 	}
+	double FinanceHistory::getTaxIncomeLastMonth() const
+	{
+		if (monthly_history_.empty()) { return 0.0; }
+		return (monthly_history_.end() - 1)->tax_income_;
+	}
+	double FinanceHistory::getTaxIncomeLastYear() const
+	{
+		double tax_income = 0.0;
+
+		if (monthly_history_.empty()) { return tax_income; }
+		time_t last_months_date = (monthly_history_.end() - 1)->date_;
+		int year_index = localtime(&last_months_date)->tm_year;
+
+		for (std::vector<MonthlyFinanceHistory>::const_iterator month = monthly_history_.begin(); month != monthly_history_.end(); month++)
+		{
+			if (localtime(&month->date_)->tm_year == year_index - 1)
+			{
+				tax_income += month->tax_income_;
+			}
+		}
+
+		return tax_income;
+	}
+	double FinanceHistory::getTaxIncomeThisYear() const
+	{
+		double tax_income = 0.0;
+
+		// get last item in monthly_history
+		if (monthly_history_.empty()) { return tax_income; }
+		time_t last_months_date = (monthly_history_.end() - 1)->date_;
+
+		// look at the year
+		int last_month_index = localtime(&last_months_date)->tm_mon;
+		if (last_month_index == 12) { return tax_income; }
+
+		int year_index = localtime(&last_months_date)->tm_year;
+
+		// go through any entries with same year and sum the trade income
+		for (std::vector<MonthlyFinanceHistory>::const_iterator month = monthly_history_.begin(); month != monthly_history_.end(); month++)
+		{
+			if (localtime(&month->date_)->tm_year == year_index)
+			{
+				tax_income += month->tax_income_;
+			}
+		}
+
+
+		return tax_income;
+	}
 	double FinanceHistory::getTradeIncomeLastMonth() const
 	{
 		if (monthly_history_.empty()) { return 0.0; }
@@ -166,7 +215,6 @@ namespace global_domination
 				trade_income += month->trade_income_;
 			}
 		}
-
 
 		return trade_income;
 	}

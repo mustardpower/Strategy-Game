@@ -28,6 +28,9 @@ namespace global_domination
 		std::vector<double> getMonthlyTaxIncome(int number_of_months);
 		std::vector<double> getMonthlyTradeDealsIncome(int number_of_months);
 		std::vector<double> getMonthlyTurnover(int number_of_months);
+		double getTaxIncomeLastMonth() const;
+		double getTaxIncomeLastYear() const;
+		double getTaxIncomeThisYear() const;
 		double getTradeIncomeLastMonth() const;
 		double getTradeIncomeLastYear() const;
 		double getTradeIncomeThisYear() const;

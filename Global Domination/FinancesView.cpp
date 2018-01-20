@@ -48,6 +48,18 @@ namespace global_domination
 		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_40 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportTradeIncomeLastYear);
 		income_data_grid->addItem(cell_40, 4, 0);
 
+		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_11 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportTaxIncomeThisMonth);
+		income_data_grid->addItem(cell_11, 1, 1);
+
+		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_21 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportTaxIncomeLastMonth);
+		income_data_grid->addItem(cell_21, 2, 0);
+
+		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_31 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportTaxIncomeThisYear);
+		income_data_grid->addItem(cell_31, 3, 0);
+
+		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_41 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportTaxIncomeLastYear);
+		income_data_grid->addItem(cell_41, 4, 0);
+
 		finance_tabs->addTab("Income", income_data_grid);
 	}
 

@@ -49,6 +49,10 @@ namespace global_domination
 		std::string reportGlobalPercentageArea() const;
 		std::string reportRelationshipWithNation(Nation& another) const;
 		std::string reportString() const;
+		std::string reportTaxIncomeLastMonth() const;
+		std::string reportTaxIncomeThisMonth() const;
+		std::string reportTaxIncomeLastYear() const;
+		std::string reportTaxIncomeThisYear() const;
 		std::string reportTradeIncomeLastMonth() const;
 		std::string reportTradeIncomeThisMonth() const;
 		std::string reportTradeIncomeLastYear() const;
