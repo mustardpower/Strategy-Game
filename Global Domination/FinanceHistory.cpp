@@ -225,6 +225,47 @@ namespace global_domination
 
 		return income;
 	}
+	double FinanceHistory::getProfitLastMonth() const
+	{
+		if (monthly_history_.empty()) { return 0.0; }
+		return (monthly_history_.end() - 1)->profit_;
+	}
+	double FinanceHistory::getProfitThisYear() const
+	{
+		double profit = 0.0;
+
+		if (monthly_history_.empty()) { return profit; }
+		time_t last_months_date = (monthly_history_.end() - 1)->date_;
+		int year_index = localtime(&last_months_date)->tm_year;
+
+		for (std::vector<MonthlyFinanceHistory>::const_iterator month = monthly_history_.begin(); month != monthly_history_.end(); month++)
+		{
+			if (localtime(&month->date_)->tm_year == year_index)
+			{
+				profit += month->profit_;
+			}
+		}
+
+		return profit;
+	}
+	double FinanceHistory::getProfitLastYear() const
+	{
+		double profit = 0.0;
+
+		if (monthly_history_.empty()) { return profit; }
+		time_t last_months_date = (monthly_history_.end() - 1)->date_;
+		int year_index = localtime(&last_months_date)->tm_year;
+
+		for (std::vector<MonthlyFinanceHistory>::const_iterator month = monthly_history_.begin(); month != monthly_history_.end(); month++)
+		{
+			if (localtime(&month->date_)->tm_year == year_index - 1)
+			{
+				profit += month->profit_;
+			}
+		}
+
+		return profit;
+	}
 	double FinanceHistory::getTaxIncomeLastMonth() const
 	{
 		if (monthly_history_.empty()) { return 0.0; }

@@ -338,6 +338,26 @@ namespace global_domination
 		return std::to_string(finance_history_.getIncomeLastYear());
 	}
 
+	std::string Nation::reportProfitLastMonth() const
+	{
+		return std::to_string(finance_history_.getProfitLastMonth());
+	}
+
+	std::string Nation::reportProfitThisMonth() const
+	{
+		return std::to_string(calculateMonthlyProfit());
+	}
+
+	std::string Nation::reportProfitLastYear() const
+	{
+		return std::to_string(finance_history_.getProfitLastYear());
+	}
+
+	std::string Nation::reportProfitThisYear() const
+	{
+		return std::to_string(finance_history_.getProfitThisYear());
+	}
+
 	std::string Nation::reportRelationshipWithNation(Nation& another) const
 	{
 		if (nation_friendships.find(&another) != nation_friendships.end())

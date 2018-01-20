@@ -98,6 +98,18 @@ namespace global_domination
 
 		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_41 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportExpenditureLastYear);
 		summary_data_grid->addItem(cell_41, 4, 1);
+
+		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_12 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportProfitThisMonth);
+		summary_data_grid->addItem(cell_12, 1, 1);
+
+		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_22 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportProfitLastMonth);
+		summary_data_grid->addItem(cell_22, 2, 1);
+
+		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_32 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportProfitThisYear);
+		summary_data_grid->addItem(cell_32, 3, 1);
+
+		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_42 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportProfitLastYear);
+		summary_data_grid->addItem(cell_42, 4, 1);
 	}
 
 	void FinancesView::addFinancesPlot()

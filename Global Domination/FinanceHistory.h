@@ -34,6 +34,9 @@ namespace global_domination
 		double getIncomeLastMonth() const;
 		double getIncomeThisYear() const;
 		double getIncomeLastYear() const;
+		double getProfitLastMonth() const;
+		double getProfitThisYear() const;
+		double getProfitLastYear() const;
 		double getTaxIncomeLastMonth() const;
 		double getTaxIncomeLastYear() const;
 		double getTaxIncomeThisYear() const;
