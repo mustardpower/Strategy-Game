@@ -15,6 +15,7 @@ namespace global_domination
 		Nation() {};
 		Nation(std::string a_name, double bank_balance, int population, std::map<TradeResource, int> resources, std::vector<TradeDeal> trade_deals, double area);
 		void acceptTradeOffer(TradeDeal trade_deal);
+		void activateNewTradeDeals();
 		void declineTradeOffer(TradeDeal trade_deal);
 		std::vector<Nation*> alliedNations();
 		double calculateMonthlyExpenses() const;
@@ -36,8 +37,8 @@ namespace global_domination
 		int getPopulation() const;
 		double getTaxRate() const;
 		std::map<TradeResource, int> getTradeableResources();
-		std::vector<TradeDeal> getTradeDeals() const;
-		std::vector<TradeDeal> getTradeDealsForResource(TradeResource resource);
+		std::vector<TradeDeal> getActiveTradeDeals() const;
+		std::vector<TradeDeal> getActiveTradeDealsForResource(TradeResource resource);
 		std::vector<TradeDeal> getTradeOffersForResource(TradeResource resource);
 		std::map<TradeResource, int> getTradeResources() const;
 		double globalAreaPercentageControlled() const;
@@ -45,6 +46,7 @@ namespace global_domination
 		double monthlyIncomeFromTradeDeals() const;
 		double monthlyIncomeFromTax() const;
 		void recieveTradeOffer(TradeDeal prospective_deal);
+		void removeCancelledTradeDeals();
 		void removeExpiredTradeDeals(const time_t &current_date);
 		std::string reportGlobalPercentageArea() const;
 		std::string reportRelationshipWithNation(Nation& another) const;

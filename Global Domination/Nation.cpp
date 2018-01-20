@@ -23,6 +23,14 @@ namespace global_domination
 		trade_deals_.push_back(trade_deal);
 	}
 
+	void Nation::activateNewTradeDeals()
+	{
+		for (std::vector<TradeDeal>::iterator deal = trade_deals_.begin(); deal != trade_deals_.end(); deal++)
+		{
+			deal->activate();
+		}
+	}
+
 	void Nation::declineTradeOffer(TradeDeal trade_deal)
 	{
 		trade_offers_.erase(trade_deal);
@@ -65,7 +73,7 @@ namespace global_domination
 	void Nation::cancelTradeDeal(TradeDeal trade_deal)
 	{
 		std::vector<TradeDeal>::iterator matching_deal = std::find(trade_deals_.begin(), trade_deals_.end(), trade_deal);
-		trade_deals_.erase(matching_deal);
+		matching_deal->cancel();
 	}
 
 	double Nation::getBalance() const
@@ -144,17 +152,26 @@ namespace global_domination
 		return resources_;
 	}
 
-	std::vector<TradeDeal> Nation::getTradeDeals() const
+	std::vector<TradeDeal> Nation::getActiveTradeDeals() const
 	{
-		return trade_deals_;
+		std::vector<TradeDeal> active_deals;
+		for (std::vector<TradeDeal>::const_iterator deal = trade_deals_.begin(); deal != trade_deals_.end(); deal++)
+		{
+			if (deal->isActive())
+			{
+				active_deals.push_back(*deal);
+			}
+		}
+
+		return active_deals;
 	}
 
-	std::vector<TradeDeal> Nation::getTradeDealsForResource(TradeResource resource)
+	std::vector<TradeDeal> Nation::getActiveTradeDealsForResource(TradeResource resource)
 	{
 		std::vector<TradeDeal> matching_deals;
 		for (std::vector<TradeDeal>::iterator deal = trade_deals_.begin(); deal != trade_deals_.end(); deal++)
 		{
-			if (deal->getResource() == resource)
+			if (deal->isActive() && (deal->getResource() == resource))
 			{
 				matching_deals.push_back(*deal);
 			}
@@ -225,7 +242,10 @@ namespace global_domination
 
 		for (std::vector<TradeDeal>::const_iterator deal = trade_deals_.begin(); deal != trade_deals_.end(); deal++)
 		{
-			income += deal->getValuePerAnnum() / NUMBER_OF_MONTHS;
+			if (deal->isActive())
+			{
+				income += deal->getValuePerAnnum() / NUMBER_OF_MONTHS;
+			}
 		}
 
 		return income;
@@ -237,6 +257,19 @@ namespace global_domination
 		{
 			trade_offers_.emplace(prospective_deal);
 		};
+	}
+
+	void Nation::removeCancelledTradeDeals()
+	{
+		std::vector<TradeDeal>::iterator cancelled_deals = std::remove_if(
+			trade_deals_.begin(),
+			trade_deals_.end(),
+			[](TradeDeal deal) { return deal.isCancelled(); });
+
+		if (cancelled_deals != trade_deals_.end())
+		{
+			trade_deals_.erase(cancelled_deals, trade_deals_.end());
+		}
 	}
 
 	void Nation::removeExpiredTradeDeals(const time_t &current_date)
@@ -373,6 +406,8 @@ namespace global_domination
 	void Nation::updateTradeDeals(const time_t &current_date)
 	{
 		makeTradeDeals();
+		activateNewTradeDeals();
+		removeCancelledTradeDeals();
 		removeExpiredTradeDeals(current_date);
 	}
 

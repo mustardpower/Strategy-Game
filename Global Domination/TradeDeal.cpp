@@ -8,6 +8,8 @@ namespace global_domination
 {
 	TradeDeal::TradeDeal(std::string trader, TradeResource resource, int quantity)
 	{
+		is_active_ = false;
+		is_cancelled_ = false;
 		is_expired_ = false;
 		payee_ = trader;
 		resource_ = resource;
@@ -20,6 +22,16 @@ namespace global_domination
 		time->tm_year = 120;
 		expiry_date_ = mktime(time);
 		delete time;
+	}
+
+	void TradeDeal::activate()
+	{
+		is_active_ = true;
+	}
+
+	void TradeDeal::cancel()
+	{
+		is_cancelled_ = true;
 	}
 
 	time_t TradeDeal::getExpiryDate() const
@@ -40,6 +52,16 @@ namespace global_domination
 	double TradeDeal::getValuePerAnnum() const
 	{
 		return quantity_ * resource_.getUnitPrice();
+	}
+
+	bool TradeDeal::isActive() const
+	{
+		return is_active_;
+	}
+
+	bool TradeDeal::isCancelled() const
+	{
+		return is_cancelled_;
 	}
 
 	bool TradeDeal::isExpired() const

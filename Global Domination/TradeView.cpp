@@ -194,7 +194,7 @@ namespace global_domination
 		TradeResource* trade_resource = getSelectedTradeResource();
 		std::shared_ptr<SDLListBox<TradeDeal>> trade_deal_list = std::dynamic_pointer_cast<SDLListBox<TradeDeal>>(getChildControl(TRADE_DEAL_LIST));
 		trade_deal_list->clearItems();
-		std::vector<TradeDeal> trade_deals_for_resource = nation_->getTradeDealsForResource(*trade_resource);
+		std::vector<TradeDeal> trade_deals_for_resource = nation_->getActiveTradeDealsForResource(*trade_resource);
 		for (std::vector<TradeDeal>::const_iterator deal = trade_deals_for_resource.cbegin(); deal != trade_deals_for_resource.end(); deal++)
 		{
 			trade_deal_list->addItem(ListItem<TradeDeal>(deal->reportString(), getTradeDealSelectionAction(), *deal));
