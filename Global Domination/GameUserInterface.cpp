@@ -84,16 +84,17 @@ namespace global_domination
 
 	void GameUserInterface::respondToAction(Sint32 action)
 	{
-
-		if (active_control_ && action == TYPES::ACTION_LIST::NEXT_TURN)
-		{
-			active_control_->applyChanges();
-		}
-
+		//First let the model update with values stored from the current turn
 		game_model_->respondToAction(action);
 
 		if(active_control_)
 		{
+			// now apply anything changed in the active view so it is taken account for in the next turn
+			if (action == TYPES::ACTION_LIST::NEXT_TURN)
+			{
+				active_control_->applyChanges();
+			}
+
 			toolbar_->respondToAction(action);
 			active_control_->respondToAction(action);
 		}

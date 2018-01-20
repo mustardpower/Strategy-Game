@@ -49,6 +49,10 @@ namespace global_domination
 		void removeCancelledTradeDeals();
 		void removeExpiredTradeDeals(const time_t &current_date);
 		std::string reportGlobalPercentageArea() const;
+		std::string reportIncomeThisMonth() const;
+		std::string reportIncomeLastMonth() const;
+		std::string reportIncomeThisYear() const;
+		std::string reportIncomeLastYear() const;
 		std::string reportRelationshipWithNation(Nation& another) const;
 		std::string reportString() const;
 		std::string reportTaxIncomeLastMonth() const;

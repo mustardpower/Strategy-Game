@@ -74,6 +74,18 @@ namespace global_domination
 		summary_data_grid->addItem("Profit/Loss", 0, 0, TYPES::ACTION_LIST::SHOW_PROFIT);
 		summary_data_grid->addItem("Balance", 0, 0, TYPES::ACTION_LIST::SHOW_BALANCE);
 		finance_tabs->addTab("Summary", summary_data_grid);
+
+		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_10 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportIncomeThisMonth);
+		summary_data_grid->addItem(cell_10, 1, 0);
+
+		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_20 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportIncomeLastMonth);
+		summary_data_grid->addItem(cell_20, 2, 0);
+
+		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_30 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportIncomeThisYear);
+		summary_data_grid->addItem(cell_30, 3, 0);
+
+		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_40 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportIncomeLastYear);
+		summary_data_grid->addItem(cell_40, 4, 0);
 	}
 
 	void FinancesView::addFinancesPlot()
