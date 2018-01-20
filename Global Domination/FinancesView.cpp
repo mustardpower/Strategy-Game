@@ -42,6 +42,12 @@ namespace global_domination
 		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_20 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportTradeIncomeLastMonth);
 		income_data_grid->addItem(cell_20, 2, 0);
 
+		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_30 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportTradeIncomeThisYear);
+		income_data_grid->addItem(cell_30, 3, 0);
+
+		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_40 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportTradeIncomeLastYear);
+		income_data_grid->addItem(cell_40, 4, 0);
+
 		finance_tabs->addTab("Income", income_data_grid);
 	}
 

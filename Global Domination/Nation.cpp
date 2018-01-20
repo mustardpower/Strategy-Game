@@ -298,6 +298,16 @@ namespace global_domination
 		return std::to_string(monthlyIncomeFromTradeDeals());
 	}
 
+	std::string Nation::reportTradeIncomeLastYear() const
+	{
+		return std::to_string(finance_history_.getTradeIncomeLastYear());
+	}
+
+	std::string Nation::reportTradeIncomeThisYear() const
+	{
+		return std::to_string(finance_history_.getTradeIncomeThisYear());
+	}
+
 	void Nation::setRelationship(Nation* nation, double relationship_score)
 	{
 		std::pair<Nation*, double> relationship(nation, relationship_score);

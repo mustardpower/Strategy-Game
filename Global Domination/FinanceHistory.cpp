@@ -145,6 +145,16 @@ namespace global_domination
 		if (monthly_history_.empty()) { return 0.0; }
 		return (monthly_history_.end() - 1)->trade_income_;
 	}
+
+	double FinanceHistory::getTradeIncomeLastYear() const
+	{
+		return 0.0;
+	}
+
+	double FinanceHistory::getTradeIncomeThisYear() const
+	{
+		return 0.0;
+	}
 	
 	MonthlyFinanceHistory::MonthlyFinanceHistory(time_t date, double balance, double expenditure, double tax_income, double trade_income, double profit, double turnover)
 	{

@@ -51,6 +51,8 @@ namespace global_domination
 		std::string reportString() const;
 		std::string reportTradeIncomeLastMonth() const;
 		std::string reportTradeIncomeThisMonth() const;
+		std::string reportTradeIncomeLastYear() const;
+		std::string reportTradeIncomeThisYear() const;
 		void setRelationship(Nation* nation, double relationship_score);
 		void setTaxRate(double tax_rate);
 		void update(const time_t &current_date);
