@@ -35,6 +35,13 @@ namespace global_domination
 		income_data_grid->setId(FINANCES_INCOME_DATA_GRID);
 		income_data_grid->addItem("Trade Deals", 0, 0, TYPES::ACTION_LIST::SHOW_TRADEDEAL_INCOME);
 		income_data_grid->addItem("Taxes", 0, 0, TYPES::ACTION_LIST::SHOW_TAX_INCOME);
+
+		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_10 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportTradeIncomeThisMonth);
+		income_data_grid->addItem(cell_10, 1, 0);
+
+		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_20 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportTradeIncomeLastMonth);
+		income_data_grid->addItem(cell_20, 2, 0);
+
 		finance_tabs->addTab("Income", income_data_grid);
 	}
 

@@ -68,9 +68,9 @@ namespace global_domination
 	}
 
 	template <class T, int C, int R>
-	inline void SDLDataGrid<T, C, R>::addItem(std::shared_ptr<DataGridCell> item, int location_x, int location_y)
+	inline void SDLDataGrid<T, C, R>::addItem(std::shared_ptr<DataGridCell> item, int column, int row)
 	{
-		items_[location_x].push_back(item);
+		items_[column].push_back(item);
 	}
 
 	template <class T, int C, int R>

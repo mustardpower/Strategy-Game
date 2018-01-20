@@ -140,6 +140,12 @@ namespace global_domination
 		assert(turnover_history.size() == number_of_months);
 		return turnover_history;
 	}
+	double FinanceHistory::getTradeIncomeLastMonth() const
+	{
+		if (monthly_history_.empty()) { return 0.0; }
+		return (monthly_history_.end() - 1)->trade_income_;
+	}
+	
 	MonthlyFinanceHistory::MonthlyFinanceHistory(time_t date, double balance, double expenditure, double tax_income, double trade_income, double profit, double turnover)
 	{
 		date_ = date;
