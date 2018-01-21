@@ -303,6 +303,11 @@ namespace global_domination
 		return reportMoney(balance_);
 	}
 
+	std::string Nation::reportBalancePerCapita() const
+	{
+		return reportMoney(getBalancePerCapita());
+	}
+
 	std::string Nation::reportExpenditureThisMonth() const
 	{
 		return reportMoney(calculateMonthlyExpenses());
