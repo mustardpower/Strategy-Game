@@ -20,7 +20,7 @@ namespace global_domination
 
 	void FinancesView::addExpenditureTab(std::shared_ptr<SDLTabControl> finance_tabs)
 	{
-		std::shared_ptr<SDLDataGrid<Nation, 5, 5>> expenses_data_grid = std::make_shared<SDLDataGrid<Nation, 5, 5>>(parent_, finance_tabs->getClientArea(), getGridHeaders());
+		std::shared_ptr<SDLDataGrid<Nation, 5, 4>> expenses_data_grid = std::make_shared<SDLDataGrid<Nation, 5, 4>>(parent_, finance_tabs->getClientArea(), getGridHeaders());
 		expenses_data_grid->setFontSize(10);
 		expenses_data_grid->showSliderBar(false);
 		expenses_data_grid->setId(FINANCES_EXPENSES_DATA_GRID);
@@ -29,7 +29,7 @@ namespace global_domination
 
 	void FinancesView::addIncomeTab(std::shared_ptr<SDLTabControl> finance_tabs)
 	{
-		std::shared_ptr<SDLDataGrid<Nation, 5, 5>> income_data_grid = std::make_shared<SDLDataGrid<Nation, 5, 5>>(parent_, finance_tabs->getClientArea(), getGridHeaders());
+		std::shared_ptr<SDLDataGrid<Nation, 5, 4>> income_data_grid = std::make_shared<SDLDataGrid<Nation, 5, 4>>(parent_, finance_tabs->getClientArea(), getGridHeaders());
 		income_data_grid->setFontSize(10);
 		income_data_grid->showSliderBar(false);
 		income_data_grid->setId(FINANCES_INCOME_DATA_GRID);
@@ -65,7 +65,7 @@ namespace global_domination
 
 	void FinancesView::addSummaryTab(std::shared_ptr<SDLTabControl> finance_tabs)
 	{
-		std::shared_ptr<SDLDataGrid<Nation, 5, 5>> summary_data_grid = std::make_shared<SDLDataGrid<Nation, 5, 5>>(parent_, finance_tabs->getClientArea(), getGridHeaders());
+		std::shared_ptr<SDLDataGrid<Nation, 5, 4>> summary_data_grid = std::make_shared<SDLDataGrid<Nation, 5, 4>>(parent_, finance_tabs->getClientArea(), getGridHeaders());
 		summary_data_grid->setFontSize(10);
 		summary_data_grid->showSliderBar(false);
 		summary_data_grid->setId(FINANCES_EXPENSES_DATA_GRID);
