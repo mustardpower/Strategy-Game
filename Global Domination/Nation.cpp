@@ -300,67 +300,67 @@ namespace global_domination
 
 	std::string Nation::reportBalance() const
 	{
-		return std::to_string(balance_);
+		return reportMoney(balance_);
 	}
 
 	std::string Nation::reportExpenditureThisMonth() const
 	{
-		return std::to_string(calculateMonthlyExpenses());
+		return reportMoney(calculateMonthlyExpenses());
 	}
 
 	std::string Nation::reportExpenditureLastMonth() const
 	{
-		return std::to_string(finance_history_.getExpenditureLastMonth());
+		return reportMoney(finance_history_.getExpenditureLastMonth());
 	}
 
 	std::string Nation::reportExpenditureThisYear() const
 	{
-		return std::to_string(finance_history_.getExpenditureThisYear());
+		return reportMoney(finance_history_.getExpenditureThisYear());
 	}
 
 	std::string Nation::reportExpenditureLastYear() const
 	{
-		return std::to_string(finance_history_.getExpenditureLastYear());
+		return reportMoney(finance_history_.getExpenditureLastYear());
 	}
 
 	std::string Nation::reportIncomeThisMonth() const
 	{
-		return std::to_string(calculateMonthlyIncome());
+		return reportMoney(calculateMonthlyIncome());
 	}
 
 	std::string Nation::reportIncomeLastMonth() const
 	{
-		return std::to_string(finance_history_.getIncomeLastMonth());
+		return reportMoney(finance_history_.getIncomeLastMonth());
 	}
 
 	std::string Nation::reportIncomeThisYear() const
 	{
-		return std::to_string(finance_history_.getIncomeThisYear());
+		return reportMoney(finance_history_.getIncomeThisYear());
 	}
 
 	std::string Nation::reportIncomeLastYear() const
 	{
-		return std::to_string(finance_history_.getIncomeLastYear());
+		return reportMoney(finance_history_.getIncomeLastYear());
 	}
 
 	std::string Nation::reportProfitLastMonth() const
 	{
-		return std::to_string(finance_history_.getProfitLastMonth());
+		return reportMoney(finance_history_.getProfitLastMonth());
 	}
 
 	std::string Nation::reportProfitThisMonth() const
 	{
-		return std::to_string(calculateMonthlyProfit());
+		return reportMoney(calculateMonthlyProfit());
 	}
 
 	std::string Nation::reportProfitLastYear() const
 	{
-		return std::to_string(finance_history_.getProfitLastYear());
+		return reportMoney(finance_history_.getProfitLastYear());
 	}
 
 	std::string Nation::reportProfitThisYear() const
 	{
-		return std::to_string(finance_history_.getProfitThisYear());
+		return reportMoney(finance_history_.getProfitThisYear());
 	}
 
 	std::string Nation::reportRelationshipWithNation(Nation& another) const
@@ -481,5 +481,34 @@ namespace global_domination
 		return name_ == another.name_;
 	}
 
+
+	std::string reportMoney(double value)
+	{
+		std::stringstream ss;
+		ss.imbue(std::locale(""));
+
+		if ((value > 1.0e6) && (value < 1.0e9))
+		{
+			double reported_balance = value / 1.0e4;
+			ss << std::showbase << std::put_money(reported_balance) << " million";
+		}
+		else if ((value > 1.0e9) && (value < 1.0e12))
+		{
+			double reported_balance = value / 1.0e7;
+			ss << std::showbase << std::put_money(reported_balance) << " billion";
+		}
+		else if (value > 1.0e12)
+		{
+			double reported_balance = value / 1.0e10;
+			ss << std::showbase << std::put_money(reported_balance) << " trillion";
+		}
+		else
+		{
+			value *= 1.0e2;
+			ss << std::showbase << std::put_money(value);
+		}
+
+		return ss.str();
+	}
 
 }

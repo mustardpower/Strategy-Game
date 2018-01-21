@@ -79,6 +79,8 @@ namespace global_domination
 		void updatePopulation();
 		void updateTradeDeals(const time_t &current_date);
 
+		friend std::string reportMoney(double value);
+
 		bool operator == (const Nation& another);
 	private:
 		double area_;
