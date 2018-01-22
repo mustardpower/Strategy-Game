@@ -393,42 +393,42 @@ namespace global_domination
 
 	std::string Nation::reportTaxIncomeLastMonth() const
 	{
-		return std::to_string(finance_history_.getTaxIncomeLastMonth());
+		return reportMoney(finance_history_.getTaxIncomeLastMonth());
 	}
 
 	std::string Nation::reportTaxIncomeThisMonth() const
 	{
-		return std::to_string(monthlyIncomeFromTax());
+		return reportMoney(monthlyIncomeFromTax());
 	}
 
 	std::string Nation::reportTaxIncomeLastYear() const
 	{
-		return std::to_string(finance_history_.getTaxIncomeLastYear());
+		return reportMoney(finance_history_.getTaxIncomeLastYear());
 	}
 
 	std::string Nation::reportTaxIncomeThisYear() const
 	{
-		return std::to_string(finance_history_.getTaxIncomeThisYear());
+		return reportMoney(finance_history_.getTaxIncomeThisYear());
 	}
 
 	std::string Nation::reportTradeIncomeLastMonth() const
 	{
-		return std::to_string(finance_history_.getTradeIncomeLastMonth());
+		return reportMoney(finance_history_.getTradeIncomeLastMonth());
 	}
 
 	std::string Nation::reportTradeIncomeThisMonth() const
 	{
-		return std::to_string(monthlyIncomeFromTradeDeals());
+		return reportMoney(monthlyIncomeFromTradeDeals());
 	}
 
 	std::string Nation::reportTradeIncomeLastYear() const
 	{
-		return std::to_string(finance_history_.getTradeIncomeLastYear());
+		return reportMoney(finance_history_.getTradeIncomeLastYear());
 	}
 
 	std::string Nation::reportTradeIncomeThisYear() const
 	{
-		return std::to_string(finance_history_.getTradeIncomeThisYear());
+		return reportMoney(finance_history_.getTradeIncomeThisYear());
 	}
 
 	void Nation::setRelationship(Nation* nation, double relationship_score)
