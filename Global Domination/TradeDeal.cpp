@@ -84,12 +84,12 @@ namespace global_domination
 	std::string TradeDeal::reportTotalValue() const
 	{
 		double total_value = 0.0;
-		return std::to_string(total_value);
+		return reportMoney(total_value);
 	}
 
 	std::string TradeDeal::reportValuePerAnnum() const
 	{
-		return std::to_string(getValuePerAnnum());
+		return reportMoney(getValuePerAnnum());
 	}
 
 	void TradeDeal::setExpired()
