@@ -26,7 +26,7 @@ namespace global_domination {
 		void nextTurn();
 		void pushMessage(Message new_message);
 		void respondToAction(Sint32 action);
-		void setNations(std::vector<Nation> nations);
+		void setNations(std::vector<Nation*> nations);
 		void setNationalRelationships();
 		void setRelationshipsFromJSON(nlohmann::json& j, Nation& nation);
 		void setSelectedNation(Nation* selected_nation);
@@ -35,7 +35,7 @@ namespace global_domination {
 		unsigned int current_turn_;
 		time_t date_;
 		Nation* selected_nation_;
-		std::vector<Nation> nations_;
+		std::vector<Nation*> nations_;
 		std::vector<Message> inbox_messages_;
 	};
 }

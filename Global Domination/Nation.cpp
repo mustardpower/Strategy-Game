@@ -17,6 +17,10 @@ namespace global_domination
 		trade_deals_ = trade_deals;
 	}
 
+	Nation::~Nation()
+	{
+	}
+
 	void Nation::acceptTradeOffer(TradeDeal trade_deal)
 	{
 		trade_offers_.erase(trade_deal);

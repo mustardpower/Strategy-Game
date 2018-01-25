@@ -129,6 +129,9 @@
     <ClCompile Include="SDLDropDownList.cpp">
       <Filter>Source Files\SDLControls</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerNation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -265,6 +268,9 @@
     </ClInclude>
     <ClInclude Include="StringDataCell.h">
       <Filter>Header Files\SDLControls\SDLDataGrid</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerNation.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

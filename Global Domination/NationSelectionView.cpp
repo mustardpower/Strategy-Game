@@ -19,7 +19,14 @@ namespace global_domination
 		NationFactory nationFactory;
 		nationFactory.createNations("nations.json");
 		nations_ = nationFactory.getNations();
-		the_model->setNations(nations_);
+
+		std::vector<Nation*> nation_ptrs;
+		for (std::vector<Nation>::iterator nation = nations_.begin(); nation != nations_.end(); nation++)
+		{
+			nation_ptrs.push_back(new Nation(*nation));
+		}
+
+		the_model->setNations(nation_ptrs);
 		the_model->setNationalRelationships();
 	}
 

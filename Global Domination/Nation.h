@@ -14,6 +14,7 @@ namespace global_domination
 	public:
 		Nation() {};
 		Nation(std::string a_name, double bank_balance, int population, std::map<TradeResource, int> resources, std::vector<TradeDeal> trade_deals, double area);
+		virtual ~Nation();
 		void acceptTradeOffer(TradeDeal trade_deal);
 		void activateNewTradeDeals();
 		void declineTradeOffer(TradeDeal trade_deal);
@@ -47,7 +48,7 @@ namespace global_domination
 		double monthlyIncomeFromTax() const;
 		void recieveTradeOffer(TradeDeal prospective_deal);
 		void removeCancelledTradeDeals();
-		void removeExpiredTradeDeals(const time_t &current_date);
+		virtual void removeExpiredTradeDeals(const time_t &current_date);
 		std::string reportGlobalPercentageArea() const;
 		std::string reportBalance() const;
 		std::string reportBalancePerCapita() const;
@@ -83,6 +84,8 @@ namespace global_domination
 		friend std::string reportMoney(double value);
 
 		bool operator == (const Nation& another);
+	protected:
+		std::vector<TradeDeal> trade_deals_;
 	private:
 		double area_;
 		double average_salary_;
@@ -95,6 +98,14 @@ namespace global_domination
 		std::map<TradeResource, int> resources_;
 		double tax_rate_;
 		std::set<TradeDeal> trade_offers_;
-		std::vector<TradeDeal> trade_deals_;
+	};
+
+	struct nation_deleter
+	{
+		void operator()(Nation*& nation) // important to take pointer by reference!
+		{
+			delete nation;
+			nation = NULL;
+		}
 	};
 }

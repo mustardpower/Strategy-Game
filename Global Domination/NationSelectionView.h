@@ -2,10 +2,11 @@
 #include "SDLCompositePane.h"
 
 #include "GameModel.h"
-#include "Nation.h"
 
 namespace global_domination
 {
+	class Nation;
+
 	class NationSelectionView : public SDLCompositePane
 	{
 	public:

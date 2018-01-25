@@ -6,6 +6,8 @@
 #include <iomanip>
 #include <sstream>
 
+#include "PlayerNation.h"
+
 namespace global_domination {
 	
 	GameModel::GameModel()
@@ -41,11 +43,11 @@ namespace global_domination {
 
 	Nation* GameModel::getNation(std::string name)
 	{
-		for (std::vector<Nation>::iterator nation = nations_.begin(); nation != nations_.end(); nation++)
+		for (std::vector<Nation*>::iterator nation = nations_.begin(); nation != nations_.end(); nation++)
 		{
-			if (nation->getName() == name)
+			if ((*nation)->getName() == name)
 			{
-				return &(*nation);
+				return *nation;
 			}
 		}
 
@@ -54,12 +56,7 @@ namespace global_domination {
 
 	std::vector<Nation*> GameModel::getNations()
 	{
-		std::vector<Nation*> actual_nations;
-		for (std::vector<Nation>::iterator nation = nations_.begin(); nation != nations_.end(); nation++) 
-		{
-			actual_nations.push_back(&(*nation));
-		}
-		return actual_nations;
+		return nations_;
 	}
 
 	std::vector<std::string> GameModel::getPreviousMonthNames(int number_of_months) const
@@ -122,7 +119,7 @@ namespace global_domination {
 		}
 	}
 
-	void GameModel::setNations(std::vector<Nation> nations)
+	void GameModel::setNations(std::vector<Nation*> nations)
 	{
 		nations_ = nations;
 	}
@@ -180,14 +177,20 @@ namespace global_domination {
 
 	void GameModel::setSelectedNation(Nation* selected_nation)
 	{
-		selected_nation_ = selected_nation;
+		// create a PlayerNation object from the selected nation
+		if (selected_nation_) { delete selected_nation_; }
+		selected_nation_ = new PlayerNation(*selected_nation, inbox_messages_);
+
+		std::vector<Nation*>::iterator nation = std::find(nations_.begin(), nations_.end(), selected_nation);
+		nations_.erase(nation);
+		nations_.push_back(selected_nation_);
 	}
 
 	void GameModel::updateNations()
 	{
-		for (std::vector<Nation>::iterator nation = nations_.begin(); nation != nations_.end(); nation++)
+		for (std::vector<Nation*>::iterator nation = nations_.begin(); nation != nations_.end(); nation++)
 		{
-			nation->update(date_);
+			(*nation)->update(date_);
 		}
 	}
 }
