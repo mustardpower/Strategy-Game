@@ -66,7 +66,7 @@ namespace global_domination
 			if (!font) { return; }
 
 			SDL_Rect text_location = text_renderer::getCenteredTextLocation(client_area_, button_text_, font_size_);
-			text_renderer::renderText(parent_, button_text_, text_location, getTextColor(), getBackgroundColor(), font_size_);
+			text_renderer::renderText(parent_, button_text_, text_location, getTextColor(), font_size_);
 		}
 	}
 

@@ -277,7 +277,7 @@ namespace global_domination
 
 		std::string text = items_[column][item_index]->reportString();
 		SDL_Rect text_location = text_renderer::getCenteredTextLocation(cellClientArea(column, grid_row), text, font_size_);
-		global_domination::text_renderer::renderText(parent_, text, text_location, ColorPreferences::getPrimaryTextColor(), SDL_Color{ 0,0,0,0xFF }, 15);
+		global_domination::text_renderer::renderText(parent_, text, text_location, ColorPreferences::getPrimaryTextColor(), 15);
 	}
 
 	template<class T, int C, int R>
@@ -289,7 +289,7 @@ namespace global_domination
 			SDL_RenderFillRect(renderer, &headerClientArea(column));
 			SDL_Color text_color = ColorPreferences::getPrimaryTextColor();
 			SDL_Rect text_location = text_renderer::getCenteredTextLocation(headerClientArea(column), header_names_[column], font_size_);
-			global_domination::text_renderer::renderText(parent_, header_names_[column], text_location, text_color, SDL_Color{ 0,0,0,0xFF }, 15);
+			global_domination::text_renderer::renderText(parent_, header_names_[column], text_location, text_color, 15);
 		}
 	}
 

@@ -31,6 +31,7 @@ namespace global_domination
 		void render(SDL_Renderer* renderer);
 		void selectCurrentItem();
 		T* selectedItem();
+		void showReadStatus(bool show);
 		SDL_Rect sliderBarClientArea();
 		SDL_Rect sliderBarDownArrowClientArea();
 		SDL_Rect sliderBarUpArrowClientArea();
@@ -39,6 +40,7 @@ namespace global_domination
 		SDL_Rect client_area_;
 		std::vector<ListItem<T>> items_;
 		unsigned int selected_item_index_;
+		bool show_read_status_;
 		unsigned int top_visible_index_;
 		const int kItemHeight;
 		// Number of visible items depends on the font size 
@@ -53,6 +55,7 @@ namespace global_domination
 		client_area_ = client_area;
 		selected_item_index_ = 0;
 		top_visible_index_ = 0;
+		show_read_status_ = false;
 	}
 
 	template <typename T>
@@ -77,8 +80,7 @@ namespace global_domination
 	inline void SDLListBox<T>::drawMessages(SDL_Renderer* renderer)
 	{
 		unsigned int index = 0;
-		SDL_Color text_color;
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
+		SDL_Color text_color, background_color;
 
 		for (std::vector<ListItem<T>>::const_iterator item = items_.cbegin(); item != items_.cend(); item++)
 		{
@@ -93,8 +95,22 @@ namespace global_domination
 					text_color = ColorPreferences::getPrimaryTextColor();
 				}
 
+				if (item->isUnread() && show_read_status_)
+				{
+					background_color = SDL_Color{ 30,30,30,0xFF };
+				}
+				else
+				{
+					background_color = SDL_Color{ 0,0,0,0xFF };
+				}
+
+				SDL_SetRenderDrawColor(renderer, background_color.r, background_color.g, background_color.b, 0xFF);
+				SDL_Rect cell_area = SDL_Rect{ client_area_.x, client_area_.y + (kItemHeight * (int)(index - top_visible_index_)), client_area_.w - sliderBarClientArea().w, client_area_.h / kNumberOfVisibleItems };
+				SDL_RenderFillRect(renderer, &cell_area);
+
 				SDL_Rect text_location = textLocationForIndex(index);
-				global_domination::text_renderer::renderText(parent_, item->reportString(), text_location, text_color, SDL_Color{ 0,0,0,0xFF }, 15);
+				SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
+				global_domination::text_renderer::renderText(parent_, item->reportString(), text_location, text_color, 15);
 			}
 			index++;
 		}
@@ -169,6 +185,7 @@ namespace global_domination
 			if (containsPoint(textLocationForIndex(i), x, y))
 			{
 				selected_item_index_ = i;
+				items_.at(i).markAsRead();
 				items_.at(i).invokeAction();
 				return true;
 			}
@@ -241,7 +258,14 @@ namespace global_domination
 	{
 		if (!items_.size()) { return nullptr; }
 		if (items_.size() <= selected_item_index_) { selected_item_index_ = 0; }
+		items_.at(selected_item_index_).markAsRead();
 		return items_.at(selected_item_index_).getData();
+	}
+
+	template<class T>
+	inline void SDLListBox<T>::showReadStatus(bool show)
+	{
+		show_read_status_ = show;
 	}
 
 	template<class T>

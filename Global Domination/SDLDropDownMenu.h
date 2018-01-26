@@ -129,7 +129,7 @@ namespace global_domination
 			{
 				text_color = getMenuItemTextColor(index);
 				SDL_Rect text_location = textLocationForIndex(index);
-				global_domination::text_renderer::renderText(parent_, item->reportString(), text_location, text_color, ColorPreferences::getPrimaryBackgroundColor(), 30);
+				global_domination::text_renderer::renderText(parent_, item->reportString(), text_location, text_color, 30);
 				index++;
 			}
 		}

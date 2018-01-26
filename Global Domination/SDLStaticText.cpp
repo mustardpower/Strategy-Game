@@ -19,7 +19,7 @@ namespace global_domination
 	void SDLStaticText::render(SDL_Renderer * renderer)
 	{
 		SDL_Rect textLocationTitle = { kPosX, kPosY, 0, 0 };
-		text_renderer::renderText(parent_, text_, textLocationTitle, getTextColor(), getBackgroundColor(), font_size_);
+		text_renderer::renderText(parent_, text_, textLocationTitle, getTextColor(), font_size_);
 	}
 	void SDLStaticText::setText(std::string text)
 	{

@@ -20,7 +20,7 @@ namespace global_domination
 			SDL_RenderFillRect(renderer, &item_client_area);
 
 			SDL_Rect text_location = text_renderer::getCenteredTextLocation(item_client_area, selected_text_, font_size_);
-			text_renderer::renderText(parent_, items_.at(i), text_location, ColorPreferences::getPrimaryTextColor(), ColorPreferences::getPrimaryBackgroundColor(), font_size_);
+			text_renderer::renderText(parent_, items_.at(i), text_location, ColorPreferences::getPrimaryTextColor(), font_size_);
 		}
 
 		SDL_Rect expanded_client_area{ client_area_.x, client_area_.y + client_area_.h, client_area_.w, client_area_.h * items_.size() };
@@ -70,7 +70,7 @@ namespace global_domination
 		if (!items_.empty())
 		{
 			SDL_Rect text_location = text_renderer::getCenteredTextLocation(client_area_, selected_text_, font_size_);
-			text_renderer::renderText(parent_, selected_text_, text_location, ColorPreferences::getPrimaryTextColor(), ColorPreferences::getPrimaryBackgroundColor(), font_size_);
+			text_renderer::renderText(parent_, selected_text_, text_location, ColorPreferences::getPrimaryTextColor(), font_size_);
 
 			if (is_expanded_)
 			{

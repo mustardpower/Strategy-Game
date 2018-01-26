@@ -129,7 +129,7 @@ namespace global_domination
 				}
 
 				SDL_Rect text_location = SDL_Rect{ client_area_.x + ((int)i * width_per_item) + (int)(0.5 * width_per_item), client_area_.y + ((int)j * height_per_item) + (int)(0.5 * height_per_item), w, h };
-				global_domination::text_renderer::renderText(parent_, item.reportString(), text_location, text_color, SDL_Color{ 0,0,0,0xFF }, 15);
+				global_domination::text_renderer::renderText(parent_, item.reportString(), text_location, text_color, 15);
 			}
 		}
 	}

@@ -17,6 +17,7 @@ namespace global_domination {
 		SDL_Rect list_box_client_area{ (int)(client_area_.w * 0.05), (int)(client_area_.h * 0.15), (int)(client_area_.w * 0.25), (int)(client_area_.h * 0.8) };
 		std::shared_ptr<SDLListBox<Message>> message_list = std::make_shared<SDLListBox<Message>>(parent_, list_box_client_area);
 		message_list->setId(INBOX_LIST);
+		message_list->showReadStatus(true);
 		addChildControl(message_list);
 
 		addLabel("", (int)(client_area_.w * 0.6), (int)(client_area_.h * 0.3), SELECTED_MESSAGE_TITLE_LABEL);

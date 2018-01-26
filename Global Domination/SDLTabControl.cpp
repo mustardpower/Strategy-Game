@@ -40,7 +40,7 @@ namespace global_domination
 
 			SDL_Rect tab_string_location(tab_name_location);
 			tab_string_location.x = tab_name_location.x + w * percentage_margin;
-			text_renderer::renderText(parent_, tab_name, tab_string_location, getTextColor(), getBackgroundColor(), font_size_);
+			text_renderer::renderText(parent_, tab_name, tab_string_location, getTextColor(), font_size_);
 
 			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 			SDL_RenderDrawRect(renderer, &tab_name_location);

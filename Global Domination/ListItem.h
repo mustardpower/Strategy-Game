@@ -17,6 +17,8 @@ namespace global_domination
 		T* getData();
 		std::shared_ptr<SDL_Rect> getTextLocation();
 		void invokeAction() const;
+		bool isUnread() const;
+		void markAsRead();
 		std::string reportString() const;
 		void setTextLocation(SDL_Rect text_location);
 
@@ -25,10 +27,12 @@ namespace global_domination
 			text_ = some_text;
 			action_ = an_action;
 			data_ = menu_item_data;
+			read_ = false;
 		}
 
 	private:
 		std::shared_ptr<Action> action_;
+		bool read_;
 		std::string text_;
 		SDL_Color text_color_;
 		std::shared_ptr<SDL_Rect> text_location_;
@@ -51,6 +55,18 @@ namespace global_domination
 	void ListItem<T>::invokeAction() const
 	{
 		action_->execute();
+	}
+
+	template<class T>
+	inline bool ListItem<T>::isUnread() const
+	{
+		return !read_;
+	}
+
+	template<class T>
+	inline void ListItem<T>::markAsRead()
+	{
+		read_ = true;
 	}
 
 	template<class T>

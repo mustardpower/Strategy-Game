@@ -45,7 +45,7 @@ namespace global_domination
 			}
 		}
 
-		void renderText(SDL_Window* window, std::string text, SDL_Rect text_location, SDL_Color foreground_color, SDL_Color background_color, int font_size)
+		void renderText(SDL_Window* window, std::string text, SDL_Rect text_location, SDL_Color foreground_color, int font_size)
 		{
 			const int kWrapLength = 200;
 			SDL_Surface* text_surface = TTF_RenderText_Blended_Wrapped(getFont(font_size), text.c_str(), foreground_color, kWrapLength);

@@ -72,7 +72,7 @@ namespace global_domination
 			int quarter_text_width = (int)(text_width / 4.0);
 			SDL_RenderDrawLine(renderer, marker_x, xAxisStartPoint().y, marker_x, xAxisStartPoint().y + (axisOverlap() / 2));
 			SDL_Rect label_location = { marker_x - quarter_text_width, xAxisStartPoint().y + (2 * (axisOverlap() / 2)) , 0, 0 };
-			text_renderer::renderText(parent_, axis_labels_x_.at(label_index), label_location, getTextColor(), getBackgroundColor(), font_size_);
+			text_renderer::renderText(parent_, axis_labels_x_.at(label_index), label_location, getTextColor(), font_size_);
 			marker_x += interval_x;
 		}
 	}
@@ -101,7 +101,7 @@ namespace global_domination
 				text_height
 			};
 
-			text_renderer::renderText(parent_, std::to_string(unmapDataPointY(marker_y)), label_location, getTextColor(), getBackgroundColor(), font_size_);
+			text_renderer::renderText(parent_, std::to_string(unmapDataPointY(marker_y)), label_location, getTextColor(), font_size_);
 			marker_y += interval_y;
 		}
 	}
