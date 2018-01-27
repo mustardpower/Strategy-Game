@@ -13,6 +13,8 @@ namespace global_domination
 		NationSelectionView::NationSelectionView(std::shared_ptr<GameModel> the_model, SDL_Window * parent, SDL_Rect client_area);
 		virtual ~NationSelectionView();
 		Nation* getSelectedNation();
+		void addGameTurnsDropDownList();
+		int getSelectedNumberOfTurns();
 		void initialize();
 		void onKeyDown();
 		void onKeyUp();

@@ -28,12 +28,14 @@ namespace global_domination {
 		void respondToAction(Sint32 action);
 		void setNations(std::vector<Nation*> nations);
 		void setNationalRelationships();
+		void setNumberOfTurns(int number_of_turns);
 		void setRelationshipsFromJSON(nlohmann::json& j, Nation& nation);
 		void setSelectedNation(Nation* selected_nation);
 		void updateNations();
 	private:
 		unsigned int current_turn_;
 		time_t date_;
+		unsigned int max_number_of_turns_;
 		Nation* selected_nation_;
 		std::vector<Nation*> nations_;
 		std::vector<Message> inbox_messages_;

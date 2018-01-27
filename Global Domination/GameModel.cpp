@@ -99,7 +99,15 @@ namespace global_domination {
 
 		current_turn_++;
 
-		updateNations();
+		if (current_turn_ > max_number_of_turns_)
+		{
+			Message end_of_game_message("The end is here!", "You have won");
+			pushMessage(end_of_game_message);
+		}
+		else
+		{
+			updateNations();
+		}
 	}
 
 	void GameModel::pushMessage(Message new_message)
@@ -144,6 +152,11 @@ namespace global_domination {
 
 			i.close();
 		}
+	}
+
+	void GameModel::setNumberOfTurns(int number_of_turns)
+	{
+		max_number_of_turns_ = number_of_turns;
 	}
 
 	void GameModel::setRelationshipsFromJSON(nlohmann::json& j, Nation& nation)

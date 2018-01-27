@@ -6,6 +6,7 @@
 #include "ControlResources.h"
 #include "Game.h"
 #include "SDLButton.h"
+#include "SDLDropDownList.h"
 #include "SDLListBox.h"
 #include "SDLStaticText.h"
 
@@ -42,6 +43,26 @@ namespace global_domination
 		
 	}
 
+	int NationSelectionView::getSelectedNumberOfTurns()
+	{
+		std::shared_ptr<SDLDropDownList> game_turns_dropdown = std::dynamic_pointer_cast<SDLDropDownList>(getChildControl(GAME_TURNS_DROPDOWN_LIST));
+		return stoi(game_turns_dropdown->getText());
+
+	}
+
+	void NationSelectionView::addGameTurnsDropDownList()
+	{
+		addLabel("Game turns:", (int)(client_area_.w * 0.7), (int)(client_area_.h * 0.14), NATION_SELECTION_GAMETURNS_LABEL, 16);
+		SDL_Rect tax_dropdown_client_area{ (int)(client_area_.w * 0.81), (int)(client_area_.h * 0.13), (int)(client_area_.w * 0.18), (int)(client_area_.h * 0.04) };
+		std::shared_ptr<SDLDropDownList> game_turns_drop_down_list = std::make_shared<SDLDropDownList>(parent_, tax_dropdown_client_area);
+		game_turns_drop_down_list->setFontSize(16);
+		std::vector<std::string> items{ "100", "200", "300", "400" };
+		game_turns_drop_down_list->setItems(items);
+		game_turns_drop_down_list->setId(GAME_TURNS_DROPDOWN_LIST);
+		game_turns_drop_down_list->setText(items.at(0));
+		addChildControl(game_turns_drop_down_list);
+	}
+
 	void NationSelectionView::initialize()
 	{
 		addLabel("Select a nation:", (int)(client_area_.w * 0.15), (int)(client_area_.h * 0.25), NATION_SELECTION_PROMPT_LABEL);
@@ -75,6 +96,8 @@ namespace global_domination
 
 		addChildControl(nation_selection_menu);
 
+		addGameTurnsDropDownList();
+
 		updateSelectedNationDetails();
 	}
 
@@ -99,6 +122,9 @@ namespace global_domination
 			{
 				Nation* selected_nation = getSelectedNation();
 				game_model_->setSelectedNation(selected_nation);
+
+				const int kNumberOfTurns = getSelectedNumberOfTurns();
+				game_model_->setNumberOfTurns(kNumberOfTurns);
 
 				Message welcome_message("Welcome to " + selected_nation->getName(), "You have arrived in " + selected_nation->getName() + ". Please wipe your feet and make our country glorious.");
 				game_model_->pushMessage(welcome_message);
