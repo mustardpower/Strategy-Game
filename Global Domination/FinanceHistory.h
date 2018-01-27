@@ -22,12 +22,12 @@ namespace global_domination
 	{
 	public:
 		void addMonthlyHistory(MonthlyFinanceHistory history_point);
-		std::vector<double> getMonthlyBalanceHistory(int number_of_months);
-		std::vector<double> getMonthlyExpenditure(int number_of_months);
-		std::vector<double> getMonthlyProfits(int number_of_months);
-		std::vector<double> getMonthlyTaxIncome(int number_of_months);
-		std::vector<double> getMonthlyTradeDealsIncome(int number_of_months);
-		std::vector<double> getMonthlyTurnover(int number_of_months);
+		std::vector<double> getMonthlyBalanceHistory(unsigned int number_of_months);
+		std::vector<double> getMonthlyExpenditure(unsigned int number_of_months);
+		std::vector<double> getMonthlyProfits(unsigned int number_of_months);
+		std::vector<double> getMonthlyTaxIncome(unsigned int number_of_months);
+		std::vector<double> getMonthlyTradeDealsIncome(unsigned int number_of_months);
+		std::vector<double> getMonthlyTurnover(unsigned int number_of_months);
 		double getExpenditureLastMonth() const;
 		double getExpenditureThisYear() const;
 		double getExpenditureLastYear() const;

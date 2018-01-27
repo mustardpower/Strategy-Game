@@ -192,6 +192,7 @@
     <ClInclude Include="SDLGraphPane.h" />
     <ClInclude Include="SDLListBox.h" />
     <ClInclude Include="SDLMenu.h" />
+    <ClInclude Include="SDLMessageBox.h" />
     <ClInclude Include="SDLProgressBar.h" />
     <ClInclude Include="SDLStackGrid.h" />
     <ClInclude Include="SDLStaticText.h" />

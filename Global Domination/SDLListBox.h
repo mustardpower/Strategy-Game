@@ -20,32 +20,37 @@ namespace global_domination
 		int getSelectedIndex() const;
 		void addItem(ListItem<T> menu_item);
 		void clearItems();
-		void drawMessages(SDL_Renderer* renderer);
+		virtual void drawMessages(SDL_Renderer* renderer);
 		void drawSliderBar(SDL_Renderer* renderer);
 		void drawSliderBarUpArrow(SDL_Renderer* renderer);
 		void drawSliderBarDownArrow(SDL_Renderer* renderer);
 		bool handleClick(int x, int y);
+		virtual bool handleClickOnItems(int x, int y);
 		bool isEmpty();
+		virtual int mapItemIndexToLocationIndex(int item_index);
 		void nextItem();
 		void previousItem();
 		void render(SDL_Renderer* renderer);
 		void selectCurrentItem();
 		T* selectedItem();
-		void showReadStatus(bool show);
 		SDL_Rect sliderBarClientArea();
 		SDL_Rect sliderBarDownArrowClientArea();
 		SDL_Rect sliderBarUpArrowClientArea();
 		SDL_Rect textLocationForIndex(const unsigned int item_index);
-	private:
+	protected:
+
 		SDL_Rect client_area_;
 		std::vector<ListItem<T>> items_;
 		unsigned int selected_item_index_;
-		bool show_read_status_;
 		unsigned int top_visible_index_;
+
 		const int kItemHeight;
 		// Number of visible items depends on the font size 
 		//so I'm not sure how to dynamically calculate this value
 		const int kNumberOfVisibleItems = 10;
+
+	private:
+		
 	};
 
 	template <typename T>
@@ -55,7 +60,6 @@ namespace global_domination
 		client_area_ = client_area;
 		selected_item_index_ = 0;
 		top_visible_index_ = 0;
-		show_read_status_ = false;
 	}
 
 	template <typename T>
@@ -80,7 +84,7 @@ namespace global_domination
 	inline void SDLListBox<T>::drawMessages(SDL_Renderer* renderer)
 	{
 		unsigned int index = 0;
-		SDL_Color text_color, background_color;
+		SDL_Color text_color;
 
 		for (std::vector<ListItem<T>>::const_iterator item = items_.cbegin(); item != items_.cend(); item++)
 		{
@@ -94,19 +98,6 @@ namespace global_domination
 				{
 					text_color = ColorPreferences::getPrimaryTextColor();
 				}
-
-				if (item->isUnread() && show_read_status_)
-				{
-					background_color = SDL_Color{ 30,30,30,0xFF };
-				}
-				else
-				{
-					background_color = SDL_Color{ 0,0,0,0xFF };
-				}
-
-				SDL_SetRenderDrawColor(renderer, background_color.r, background_color.g, background_color.b, 0xFF);
-				SDL_Rect cell_area = SDL_Rect{ client_area_.x, client_area_.y + (kItemHeight * (int)(index - top_visible_index_)), client_area_.w - sliderBarClientArea().w, client_area_.h / kNumberOfVisibleItems };
-				SDL_RenderFillRect(renderer, &cell_area);
 
 				SDL_Rect text_location = textLocationForIndex(index);
 				SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
@@ -180,16 +171,7 @@ namespace global_domination
 			return false;
 		}
 
-		for (unsigned int i = 0; i < items_.size(); i++)
-		{
-			if (containsPoint(textLocationForIndex(i), x, y))
-			{
-				selected_item_index_ = i;
-				items_.at(i).markAsRead();
-				items_.at(i).invokeAction();
-				return true;
-			}
-		}
+		if (handleClickOnItems(x, y)) { return true; }
 
 		if (containsPoint(sliderBarUpArrowClientArea(), x, y))
 		{
@@ -213,9 +195,32 @@ namespace global_domination
 	}
 
 	template<class T>
+	inline bool SDLListBox<T>::handleClickOnItems(int x, int y)
+	{
+		for (unsigned int i = 0; i < items_.size(); i++)
+		{
+			if (containsPoint(textLocationForIndex(i), x, y))
+			{
+				selected_item_index_ = i;
+				items_.at(i).markAsRead();
+				items_.at(i).invokeAction();
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	template<class T>
 	inline bool SDLListBox<T>::isEmpty()
 	{
 		return items_.empty();
+	}
+
+	template<class T>
+	inline int SDLListBox<T>::mapItemIndexToLocationIndex(int item_index)
+	{
+		return item_index;
 	}
 
 	template <typename T>
@@ -258,14 +263,9 @@ namespace global_domination
 	{
 		if (!items_.size()) { return nullptr; }
 		if (items_.size() <= selected_item_index_) { selected_item_index_ = 0; }
-		items_.at(selected_item_index_).markAsRead();
-		return items_.at(selected_item_index_).getData();
-	}
-
-	template<class T>
-	inline void SDLListBox<T>::showReadStatus(bool show)
-	{
-		show_read_status_ = show;
+		const int location_index = mapItemIndexToLocationIndex(selected_item_index_);
+		items_.at(location_index).markAsRead();
+		return items_.at(location_index).getData();
 	}
 
 	template<class T>
@@ -300,7 +300,8 @@ namespace global_domination
 		int w = 0;
 		int h = 0;
 		text_renderer::getTextDimensions(list_item.reportString(), w, h);
-		SDL_Rect text_location = SDL_Rect{ client_area_.x, client_area_.y + (kItemHeight * (int)(menu_item_index - top_visible_index_)), w, h };
+		const int location_index = menu_item_index - top_visible_index_;
+		SDL_Rect text_location = SDL_Rect{ client_area_.x, client_area_.y + (kItemHeight * location_index), w, h };
 		list_item.setTextLocation(text_location);
 		return text_location;
 	}

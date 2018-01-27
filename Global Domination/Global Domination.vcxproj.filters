@@ -272,5 +272,8 @@
     <ClInclude Include="PlayerNation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SDLMessageBox.h">
+      <Filter>Header Files\SDLControls</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

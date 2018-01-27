@@ -50,7 +50,7 @@ namespace global_domination
 
 	bool SDLTabControl::handleClick(int mouse_x, int mouse_y)
 	{
-		for (int idx = 0; idx < tab_names_.size(); idx++)
+		for (size_t idx = 0; idx < tab_names_.size(); idx++)
 		{
 			if (containsPoint(tabHeaderLocation(idx), mouse_x, mouse_y))
 			{

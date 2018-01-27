@@ -12,7 +12,7 @@ namespace global_domination
 
 	void SDLDropDownList::drawExpandedItems(SDL_Renderer* renderer)
 	{
-		for (int i = 0; i < items_.size(); i++)
+		for (size_t i = 0; i < items_.size(); i++)
 		{
 			SDL_Rect item_client_area{ client_area_.x, client_area_.y + ((i + 1) * client_area_.h), client_area_.w, client_area_.h };
 
@@ -43,7 +43,7 @@ namespace global_domination
 
 		if (is_expanded_)
 		{
-			for (int i = 0; i < items_.size(); i++)
+			for (size_t i = 0; i < items_.size(); i++)
 			{
 				SDL_Rect item_client_area{ client_area_.x, client_area_.y + ((i + 1) * client_area_.h), client_area_.w, client_area_.h };
 				if (containsPoint(item_client_area, mouse_x, mouse_y))

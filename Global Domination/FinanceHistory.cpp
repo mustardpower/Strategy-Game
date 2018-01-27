@@ -12,11 +12,11 @@ namespace global_domination
 		monthly_history_.push_back(history_point);
 	}
 
-	std::vector<double> FinanceHistory::getMonthlyBalanceHistory(int number_of_months)
+	std::vector<double> FinanceHistory::getMonthlyBalanceHistory(unsigned int number_of_months)
 	{
 		std::vector<double> balance_history;
 		double balance = 0.0;
-		for (int i = 0; i < number_of_months; i++)
+		for (size_t i = 0; i < number_of_months; i++)
 		{
 			if (monthly_history_.size() < number_of_months - i)
 			{
@@ -34,11 +34,11 @@ namespace global_domination
 		return balance_history;
 	}
 
-	std::vector<double> FinanceHistory::getMonthlyExpenditure(int number_of_months)
+	std::vector<double> FinanceHistory::getMonthlyExpenditure(unsigned int number_of_months)
 	{
 		std::vector<double> expenditure_history;
 		double balance = 0.0;
-		for (int i = 0; i < number_of_months; i++)
+		for (size_t i = 0; i < number_of_months; i++)
 		{
 			if (monthly_history_.size() < number_of_months - i)
 			{
@@ -56,11 +56,11 @@ namespace global_domination
 		return expenditure_history;
 	}
 
-	std::vector<double> FinanceHistory::getMonthlyProfits(int number_of_months)
+	std::vector<double> FinanceHistory::getMonthlyProfits(unsigned int number_of_months)
 	{
 		std::vector<double> profit_history;
 		double balance = 0.0;
-		for (int i = 0; i < number_of_months; i++)
+		for (size_t i = 0; i < number_of_months; i++)
 		{
 			if (monthly_history_.size() < number_of_months - i)
 			{
@@ -78,11 +78,11 @@ namespace global_domination
 		return profit_history;
 	}
 
-	std::vector<double> FinanceHistory::getMonthlyTaxIncome(int number_of_months)
+	std::vector<double> FinanceHistory::getMonthlyTaxIncome(unsigned int number_of_months)
 	{
 		std::vector<double> tax_income_history;
 		double balance = 0.0;
-		for (int i = 0; i < number_of_months; i++)
+		for (size_t i = 0; i < number_of_months; i++)
 		{
 			if (monthly_history_.size() < number_of_months - i)
 			{
@@ -100,11 +100,11 @@ namespace global_domination
 		return tax_income_history;
 	}
 
-	std::vector<double> FinanceHistory::getMonthlyTradeDealsIncome(int number_of_months)
+	std::vector<double> FinanceHistory::getMonthlyTradeDealsIncome(unsigned int number_of_months)
 	{
 		std::vector<double> trade_income_history;
 		double balance = 0.0;
-		for (int i = 0; i < number_of_months; i++)
+		for (size_t i = 0; i < number_of_months; i++)
 		{
 			if (monthly_history_.size() < number_of_months - i)
 			{
@@ -122,11 +122,11 @@ namespace global_domination
 		return trade_income_history;
 	}
 
-	std::vector<double> FinanceHistory::getMonthlyTurnover(int number_of_months)
+	std::vector<double> FinanceHistory::getMonthlyTurnover(unsigned int number_of_months)
 	{
 		std::vector<double> turnover_history;
 		double balance = 0.0;
-		for (int i = 0; i < number_of_months; i++)
+		for (size_t i = 0; i < number_of_months; i++)
 		{
 			if (monthly_history_.size() < number_of_months - i)
 			{

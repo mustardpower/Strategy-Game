@@ -2,7 +2,7 @@
 
 #include "ControlResources.h"
 #include "Game.h"
-#include "SDLListBox.h"
+#include "SDLMessageBox.h"
 #include "SDLStaticText.h"
 
 namespace global_domination {
@@ -15,7 +15,7 @@ namespace global_domination {
 	void InboxView::initialize()
 	{
 		SDL_Rect list_box_client_area{ (int)(client_area_.w * 0.05), (int)(client_area_.h * 0.15), (int)(client_area_.w * 0.25), (int)(client_area_.h * 0.8) };
-		std::shared_ptr<SDLListBox<Message>> message_list = std::make_shared<SDLListBox<Message>>(parent_, list_box_client_area);
+		std::shared_ptr<SDLMessageBox<Message>> message_list = std::make_shared<SDLMessageBox<Message>>(parent_, list_box_client_area);
 		message_list->setId(INBOX_LIST);
 		message_list->showReadStatus(true);
 		addChildControl(message_list);
@@ -50,7 +50,7 @@ namespace global_domination {
 		if (messages.empty()) { return; }
 
 		std::shared_ptr<Action> messageSelectionAction = std::make_shared<Action>(TYPES::ACTION_LIST::SELECTING_MESSAGE);
-		std::shared_ptr<SDLListBox<Message>> message_list = std::dynamic_pointer_cast<SDLListBox<Message>>(getChildControl(INBOX_LIST));
+		std::shared_ptr<SDLMessageBox<Message>> message_list = std::dynamic_pointer_cast<SDLMessageBox<Message>>(getChildControl(INBOX_LIST));
 		
 		message_list->clearItems();
 
@@ -64,7 +64,7 @@ namespace global_domination {
 
 	void InboxView::updateSelectedMessageText()
 	{
-		std::shared_ptr<SDLListBox<Message>> message_list = std::dynamic_pointer_cast<SDLListBox<Message>>(getChildControl(INBOX_LIST));
+		std::shared_ptr<SDLMessageBox<Message>> message_list = std::dynamic_pointer_cast<SDLMessageBox<Message>>(getChildControl(INBOX_LIST));
 		Message* selected_message = message_list->selectedItem();
 		if (selected_message)
 		{
