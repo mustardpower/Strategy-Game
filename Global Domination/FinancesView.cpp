@@ -75,43 +75,47 @@ namespace global_domination
 		summary_data_grid->addItem("Balance", 0, 0, TYPES::ACTION_LIST::SHOW_BALANCE);
 		finance_tabs->addTab("Summary", summary_data_grid);
 
-		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_10 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportIncomeThisMonth);
+		using ActionPtr = std::shared_ptr<Action>;
+		using NationCell = NoArgumentsGridCell<Nation>;
+		using NationCellPtr = std::shared_ptr<NationCell>;
+
+		NationCellPtr cell_10 = std::make_shared<NationCell>(ActionPtr(), *nation_, &Nation::reportIncomeThisMonth);
 		summary_data_grid->addItem(cell_10, 1, 0);
 
-		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_20 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportIncomeLastMonth);
+		NationCellPtr cell_20 = std::make_shared<NationCell>(ActionPtr(), *nation_, &Nation::reportIncomeLastMonth);
 		summary_data_grid->addItem(cell_20, 2, 0);
 
-		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_30 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportIncomeThisYear);
+		NationCellPtr cell_30 = std::make_shared<NationCell>(ActionPtr(), *nation_, &Nation::reportIncomeThisYear);
 		summary_data_grid->addItem(cell_30, 3, 0);
 
-		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_40 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportIncomeLastYear);
+		NationCellPtr cell_40 = std::make_shared<NationCell>(ActionPtr(), *nation_, &Nation::reportIncomeLastYear);
 		summary_data_grid->addItem(cell_40, 4, 0);
 
-		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_11 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportExpenditureThisMonth);
+		NationCellPtr cell_11 = std::make_shared<NationCell>(ActionPtr(), *nation_, &Nation::reportExpenditureThisMonth);
 		summary_data_grid->addItem(cell_11, 1, 1);
 
-		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_21 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportExpenditureLastMonth);
+		NationCellPtr cell_21 = std::make_shared<NationCell>(ActionPtr(), *nation_, &Nation::reportExpenditureLastMonth);
 		summary_data_grid->addItem(cell_21, 2, 1);
 
-		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_31 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportExpenditureThisYear);
+		NationCellPtr cell_31 = std::make_shared<NationCell>(ActionPtr(), *nation_, &Nation::reportExpenditureThisYear);
 		summary_data_grid->addItem(cell_31, 3, 1);
 
-		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_41 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportExpenditureLastYear);
+		NationCellPtr cell_41 = std::make_shared<NationCell>(ActionPtr(), *nation_, &Nation::reportExpenditureLastYear);
 		summary_data_grid->addItem(cell_41, 4, 1);
 
-		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_12 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportProfitThisMonth);
+		NationCellPtr cell_12 = std::make_shared<NationCell>(ActionPtr(), *nation_, &Nation::reportProfitThisMonth);
 		summary_data_grid->addItem(cell_12, 1, 1);
 
-		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_22 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportProfitLastMonth);
+		NationCellPtr cell_22 = std::make_shared<NationCell>(ActionPtr(), *nation_, &Nation::reportProfitLastMonth);
 		summary_data_grid->addItem(cell_22, 2, 1);
 
-		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_32 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportProfitThisYear);
+		NationCellPtr cell_32 = std::make_shared<NationCell>(ActionPtr(), *nation_, &Nation::reportProfitThisYear);
 		summary_data_grid->addItem(cell_32, 3, 1);
 
-		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_42 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportProfitLastYear);
+		NationCellPtr cell_42 = std::make_shared<NationCell>(ActionPtr(), *nation_, &Nation::reportProfitLastYear);
 		summary_data_grid->addItem(cell_42, 4, 1);
 
-		std::shared_ptr<NoArgumentsGridCell<Nation>> cell_13 = std::make_shared<NoArgumentsGridCell<Nation>>(std::shared_ptr<Action>(), *nation_, &Nation::reportBalance);
+		NationCellPtr cell_13 = std::make_shared<NationCell>(ActionPtr(), *nation_, &Nation::reportBalance);
 		summary_data_grid->addItem(cell_13, 1, 1);
 
 	}

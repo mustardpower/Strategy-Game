@@ -111,12 +111,6 @@
     <ClCompile Include="SDLButtonGroup.cpp">
       <Filter>Source Files\SDLControls</Filter>
     </ClCompile>
-    <ClCompile Include="SDLGraphPane.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SDLTabControl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="FinanceHistory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -134,6 +128,12 @@
     </ClCompile>
     <ClCompile Include="EndOfGameView.cpp">
       <Filter>Source Files\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="SDLGraphPane.cpp">
+      <Filter>Source Files\SDLControls</Filter>
+    </ClCompile>
+    <ClCompile Include="SDLTabControl.cpp">
+      <Filter>Source Files\SDLControls</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
