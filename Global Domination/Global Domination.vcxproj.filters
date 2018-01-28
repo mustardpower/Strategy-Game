@@ -132,6 +132,9 @@
     <ClCompile Include="PlayerNation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EndOfGameView.cpp">
+      <Filter>Source Files\Views</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -274,6 +277,9 @@
     </ClInclude>
     <ClInclude Include="SDLMessageBox.h">
       <Filter>Header Files\SDLControls</Filter>
+    </ClInclude>
+    <ClInclude Include="EndOfGameView.h">
+      <Filter>Header Files\Views</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

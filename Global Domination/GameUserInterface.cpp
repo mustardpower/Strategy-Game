@@ -2,6 +2,7 @@
 #include "SDL_ttf.h"
 
 #include "FinancesView.h"
+#include "EndOfGameView.h"
 #include "InboxView.h"
 #include "MainMenuView.h"
 #include "NationSelectionView.h"
@@ -135,6 +136,11 @@ namespace global_domination
 			case TYPES::ACTION_LIST::CHANGEVIEW_WORLD:
 			{
 				switchActiveControl(std::make_unique<WorldView>(game_model_, window_, getClientArea()));
+			}
+			break;
+			case TYPES::ACTION_LIST::CHANGEVIEW_ENDOFGAME:
+			{
+				switchActiveControl(std::make_unique<EndOfGameView>(*game_model_, window_, getClientArea()));
 			}
 			break;
 		}

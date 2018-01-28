@@ -23,6 +23,7 @@ namespace global_domination {
 		std::string getSelectedNationName();
 		std::string getSummaryReport();
 		std::vector<Message> getInboxMessages();
+		bool isGameFinished() const;
 		void nextTurn();
 		void pushMessage(Message new_message);
 		void respondToAction(Sint32 action);
@@ -35,6 +36,7 @@ namespace global_domination {
 	private:
 		unsigned int current_turn_;
 		time_t date_;
+		bool game_finished_;
 		unsigned int max_number_of_turns_;
 		Nation* selected_nation_;
 		std::vector<Nation*> nations_;

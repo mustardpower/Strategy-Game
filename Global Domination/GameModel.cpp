@@ -20,6 +20,7 @@ namespace global_domination {
 		delete time;
 		current_turn_ = 0;
 
+		game_finished_ = false;
 		selected_nation_ = nullptr;
 
 	}
@@ -39,6 +40,11 @@ namespace global_domination {
 	std::vector<Message> GameModel::getInboxMessages()
 	{
 		return inbox_messages_;
+	}
+
+	bool GameModel::isGameFinished() const
+	{
+		return game_finished_;
 	}
 
 	Nation* GameModel::getNation(std::string name)
@@ -101,6 +107,7 @@ namespace global_domination {
 
 		if (current_turn_ > max_number_of_turns_)
 		{
+			game_finished_ = true;
 			Message end_of_game_message("The end is here!", "You have won");
 			pushMessage(end_of_game_message);
 		}

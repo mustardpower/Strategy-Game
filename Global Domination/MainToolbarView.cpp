@@ -69,6 +69,11 @@ namespace global_domination
 		{
 			case TYPES::ACTION_LIST::NEXT_TURN:
 			{
+				if(game_model_->isGameFinished())
+				{
+					Action end_game_action(TYPES::ACTION_LIST::CHANGEVIEW_ENDOFGAME);
+					end_game_action.execute();
+				}
 				setLabelText(TOOLBAR_DATE_LABEL, game_model_->getDateString());
 			}
 			break;
