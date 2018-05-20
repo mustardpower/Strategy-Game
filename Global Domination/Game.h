@@ -1,7 +1,5 @@
 #pragma once
 
-#include <memory>
-
 #include "GameModel.h"
 #include "GameUserInterface.h"
 
@@ -18,7 +16,7 @@ namespace global_domination {
 		void runGameLoop();
 
 	private:
-		std::unique_ptr<GameUserInterface> ui_;
+		GameUserInterface ui_;
 		GameModel game_model_;
 	};
 

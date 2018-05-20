@@ -10,9 +10,8 @@
 
 namespace global_domination {
 
-	Game::Game()
+	Game::Game() : ui_(game_model_)
 	{
-		ui_ = std::make_unique<GameUserInterface>(game_model_);
 	}
 
 	Game::~Game()
@@ -26,8 +25,8 @@ namespace global_domination {
 
 	void Game::initialize()
 	{
-		ui_->initialize(game_model_);
-		ui_->respondToAction(TYPES::ACTION_LIST::CHANGEVIEW_MENU);
+		ui_.initialize(game_model_);
+		ui_.respondToAction(TYPES::ACTION_LIST::CHANGEVIEW_MENU);
 	}
 
 	void Game::relayAction(TYPES::ACTION_LIST action)
@@ -40,15 +39,15 @@ namespace global_domination {
 		}
 
 		game_model_.respondToAction(action);
-		ui_->respondToAction(action);
+		ui_.respondToAction(action);
 	}
 
 	void Game::runGameLoop()
 	{
-		while (!ui_->isQuiting())
+		while (!ui_.isQuiting())
 		{
-			ui_->update();
-			ui_->render();
+			ui_.update();
+			ui_.render();
 		}
 	}
 }
