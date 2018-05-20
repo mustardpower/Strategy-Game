@@ -7,9 +7,8 @@
 
 namespace global_domination
 {
-	TradeDealsView::TradeDealsView(std::shared_ptr<GameModel> the_model, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
+	TradeDealsView::TradeDealsView(GameModel& the_model, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area), game_model_(the_model)
 	{
-		game_model_ = the_model;
 		initialize();
 	}
 

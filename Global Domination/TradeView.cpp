@@ -15,10 +15,9 @@
 
 namespace global_domination
 {
-	TradeView::TradeView(std::shared_ptr<GameModel> the_model, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
+	TradeView::TradeView(GameModel& the_model, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area), game_model_(the_model)
 	{
-		game_model_ = the_model;
-		nation_ = game_model_->getSelectedNation();
+		nation_ = game_model_.getSelectedNation();
 	}
 
 	TradeView::~TradeView()

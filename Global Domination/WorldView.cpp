@@ -8,9 +8,8 @@
 
 namespace global_domination
 {
-	WorldView::WorldView(std::shared_ptr<GameModel> the_model, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
+	WorldView::WorldView(GameModel& the_model, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area), game_model_(the_model)
 	{
-		game_model_ = the_model;
 	}
 
 	WorldView::~WorldView()
@@ -30,7 +29,7 @@ namespace global_domination
 		std::array<std::string, kNumberOfGridColumns> header_names{ "Nation", "Area Controlled (%)" };
 		std::shared_ptr<SDLDataGrid<Nation, kNumberOfGridColumns, kNumberOfGridRows>> data_grid = std::make_shared<SDLDataGrid<Nation, kNumberOfGridColumns, kNumberOfGridRows>>(parent_, relationship_list_area, header_names);
 
-		std::vector<Nation*> nations = game_model_->getNations();
+		std::vector<Nation*> nations = game_model_.getNations();
 		std::shared_ptr<Action> null_action = std::make_shared<Action>(TYPES::ACTION_LIST::UNINITIALIZED);
 
 		int row = 0;
@@ -45,7 +44,7 @@ namespace global_domination
 				}
 				if (col == 1)
 				{
-					Nation* selected_nation = game_model_->getSelectedNation();
+					Nation* selected_nation = game_model_.getSelectedNation();
 					std::shared_ptr<NoArgumentsGridCell<Nation>> grid_cell = std::make_shared<NoArgumentsGridCell<Nation>>(null_action, **nation, &Nation::reportGlobalPercentageArea);
 					data_grid->addItem(grid_cell, col, row);
 				}

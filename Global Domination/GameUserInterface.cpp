@@ -13,7 +13,7 @@
 namespace global_domination
 {
 
-	GameUserInterface::GameUserInterface()
+	GameUserInterface::GameUserInterface(GameModel& game_model) : game_model_(game_model)
 	{
 		is_quiting_ = false;
 	}
@@ -25,7 +25,7 @@ namespace global_domination
 		return client_area;
 	}
 
-	void GameUserInterface::initialize(std::shared_ptr<GameModel> the_model)
+	void GameUserInterface::initialize(GameModel& the_model)
 	{
 		game_model_ = the_model;
 
@@ -86,7 +86,7 @@ namespace global_domination
 	void GameUserInterface::respondToAction(Sint32 action)
 	{
 		//First let the model update with values stored from the current turn
-		game_model_->respondToAction(action);
+		game_model_.respondToAction(action);
 
 		if(active_control_)
 		{
@@ -120,7 +120,7 @@ namespace global_domination
 			break;
 			case TYPES::ACTION_LIST::CHANGEVIEW_FINANCES:
 			{
-				switchActiveControl(std::make_unique<FinancesView>(*game_model_, window_, getClientArea()));
+				switchActiveControl(std::make_unique<FinancesView>(game_model_, window_, getClientArea()));
 			}
 			break;
 			case TYPES::ACTION_LIST::CHANGEVIEW_RELATIONS:
@@ -140,7 +140,7 @@ namespace global_domination
 			break;
 			case TYPES::ACTION_LIST::CHANGEVIEW_ENDOFGAME:
 			{
-				switchActiveControl(std::make_unique<EndOfGameView>(*game_model_, window_, getClientArea()));
+				switchActiveControl(std::make_unique<EndOfGameView>(game_model_, window_, getClientArea()));
 			}
 			break;
 		}

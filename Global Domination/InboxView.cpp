@@ -7,9 +7,8 @@
 
 namespace global_domination {
 
-	InboxView::InboxView(std::shared_ptr<GameModel> the_model, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
+	InboxView::InboxView(GameModel& the_model, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area), game_model_(the_model)
 	{
-		game_model_ = the_model;
 	}
 
 	void InboxView::initialize()
@@ -46,7 +45,7 @@ namespace global_domination {
 
 	void InboxView::updateMessageList()
 	{
-		std::vector<Message> messages = game_model_->getInboxMessages();
+		std::vector<Message> messages = game_model_.getInboxMessages();
 		if (messages.empty()) { return; }
 
 		std::shared_ptr<Action> messageSelectionAction = std::make_shared<Action>(TYPES::ACTION_LIST::SELECTING_MESSAGE);

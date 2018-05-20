@@ -12,14 +12,14 @@ namespace global_domination {
 	public:
 		Game();
 		~Game();
-		std::shared_ptr<GameModel> getGameModel();
+		GameModel& getGameModel();
 		void initialize();
 		void relayAction(TYPES::ACTION_LIST action);
 		void runGameLoop();
 
 	private:
 		std::unique_ptr<GameUserInterface> ui_;
-		std::shared_ptr<GameModel> game_model_;
+		GameModel game_model_;
 	};
 
 }

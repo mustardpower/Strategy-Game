@@ -6,10 +6,9 @@
 
 namespace global_domination
 {
-	TradeOffersView::TradeOffersView(std::shared_ptr<GameModel> the_model, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
+	TradeOffersView::TradeOffersView(GameModel& the_model, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area), game_model_(the_model)
 	{
-		game_model_ = the_model;
-		nation_ = the_model->getSelectedNation();
+		nation_ = game_model_.getSelectedNation();
 
 		initialize();
 	}

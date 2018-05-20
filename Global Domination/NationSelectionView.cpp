@@ -14,9 +14,8 @@
 
 namespace global_domination
 {
-	NationSelectionView::NationSelectionView(std::shared_ptr<GameModel> the_model, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area)
+	NationSelectionView::NationSelectionView(GameModel& the_model, SDL_Window * parent, SDL_Rect client_area) : SDLCompositePane(parent, client_area), game_model_(the_model)
 	{
-		game_model_ = the_model;
 		NationFactory nationFactory;
 		nationFactory.createNations("nations.json");
 		nations_ = nationFactory.getNations();
@@ -27,8 +26,8 @@ namespace global_domination
 			nation_ptrs.push_back(new Nation(*nation));
 		}
 
-		the_model->setNations(nation_ptrs);
-		the_model->setNationalRelationships();
+		game_model_.setNations(nation_ptrs);
+		game_model_.setNationalRelationships();
 	}
 
 	NationSelectionView::~NationSelectionView()
@@ -39,7 +38,7 @@ namespace global_domination
 	{
 		std::shared_ptr<SDLListBox<Nation>> nation_selection_menu = std::dynamic_pointer_cast<SDLListBox<Nation>>(getChildControl(NATION_SELECTION_MENU));
 		std::string nation_name = nation_selection_menu->selectedItem()->getName();
-		return game_model_->getNation(nation_name);
+		return game_model_.getNation(nation_name);
 		
 	}
 
@@ -121,16 +120,16 @@ namespace global_domination
 			case TYPES::ACTION_LIST::CHANGEVIEW_INBOX:
 			{
 				Nation* selected_nation = getSelectedNation();
-				game_model_->setSelectedNation(selected_nation);
+				game_model_.setSelectedNation(selected_nation);
 
 				const int kNumberOfTurns = getSelectedNumberOfTurns();
-				game_model_->setNumberOfTurns(kNumberOfTurns);
+				game_model_.setNumberOfTurns(kNumberOfTurns);
 
 				Message welcome_message("Welcome to " + selected_nation->getName(), "You have arrived in " + selected_nation->getName() + ". Please wipe your feet and make our country glorious.");
-				game_model_->pushMessage(welcome_message);
+				game_model_.pushMessage(welcome_message);
 
 				Message aMessage("Assistant Report", "I am your assistant. Have a look at these reports I have compiled for you.");
-				game_model_->pushMessage(aMessage);
+				game_model_.pushMessage(aMessage);
 			}
 			break;
 			case TYPES::ACTION_LIST::SELECTING_NATION:

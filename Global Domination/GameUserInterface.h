@@ -13,9 +13,9 @@ namespace global_domination {
 	class GameUserInterface
 	{
 	public:
-		GameUserInterface();
+		GameUserInterface(GameModel& game_model);
 		SDL_Rect getClientArea() const;
-		void initialize(std::shared_ptr<GameModel> game_model);
+		void initialize(GameModel& game_model);
 		bool isQuiting();
 		void render();
 		void respondToAction(Sint32 action);
@@ -24,7 +24,7 @@ namespace global_domination {
 		void update();
 	private:
 		std::shared_ptr<SDLCompositePane> active_control_;
-		std::shared_ptr<GameModel> game_model_;
+		GameModel& game_model_;
 		bool is_quiting_;
 		SDL_Renderer *renderer_;
 		std::unique_ptr<MainToolbarView> toolbar_;

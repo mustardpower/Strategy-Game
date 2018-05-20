@@ -12,21 +12,20 @@ namespace global_domination {
 
 	Game::Game()
 	{
-		ui_ = std::make_unique<GameUserInterface>();
+		ui_ = std::make_unique<GameUserInterface>(game_model_);
 	}
 
 	Game::~Game()
 	{
 	}
 
-	std::shared_ptr<GameModel> Game::getGameModel()
+	GameModel& Game::getGameModel()
 	{
 		return game_model_;
 	}
 
 	void Game::initialize()
 	{
-		game_model_ = std::make_shared<GameModel>();
 		ui_->initialize(game_model_);
 		ui_->respondToAction(TYPES::ACTION_LIST::CHANGEVIEW_MENU);
 	}
@@ -40,7 +39,7 @@ namespace global_domination {
 			SDL_PushEvent(&quit_event);
 		}
 
-		game_model_->respondToAction(action);
+		game_model_.respondToAction(action);
 		ui_->respondToAction(action);
 	}
 

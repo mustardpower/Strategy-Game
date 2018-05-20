@@ -10,7 +10,7 @@ namespace global_domination
 	class NationSelectionView : public SDLCompositePane
 	{
 	public:
-		NationSelectionView::NationSelectionView(std::shared_ptr<GameModel> the_model, SDL_Window * parent, SDL_Rect client_area);
+		NationSelectionView::NationSelectionView(GameModel& the_model, SDL_Window * parent, SDL_Rect client_area);
 		virtual ~NationSelectionView();
 		Nation* getSelectedNation();
 		void addGameTurnsDropDownList();
@@ -21,7 +21,7 @@ namespace global_domination
 		void respondToAction(Sint32 action);
 		void updateSelectedNationDetails();
 	private:
-		std::shared_ptr<GameModel> game_model_;
+		GameModel& game_model_;
 		std::vector<Nation> nations_;
 	};
 }

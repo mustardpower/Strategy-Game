@@ -10,14 +10,14 @@ namespace global_domination
 	class TradeOffersView : public SDLCompositePane
 	{
 	public:
-		TradeOffersView(std::shared_ptr<GameModel> the_model, SDL_Window * parent, SDL_Rect client_area);
+		TradeOffersView(GameModel& the_model, SDL_Window * parent, SDL_Rect client_area);
 		TradeDeal* getSelectedTradeOffer();
 		void initialize();
 		void respondToAction(Sint32 action);
 		void updateGui();
 		
 	private:
-		std::shared_ptr<GameModel> game_model_;
+		GameModel& game_model_;
 		Nation* nation_;
 	};
 }

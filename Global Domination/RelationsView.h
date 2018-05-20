@@ -8,11 +8,11 @@ namespace global_domination
 	class RelationsView : public SDLCompositePane
 	{
 	public:
-		RelationsView::RelationsView(std::shared_ptr<GameModel> game_model, SDL_Window * parent, SDL_Rect client_area);
+		RelationsView::RelationsView(GameModel& game_model, SDL_Window * parent, SDL_Rect client_area);
 		virtual ~RelationsView();
 		void initialize();
 		void respondToAction(Sint32 action);
 	private:
-		std::shared_ptr<GameModel> game_model_;
+		GameModel& game_model_;
 	};
 }

@@ -9,7 +9,7 @@ namespace global_domination
 	class TradeView : public SDLCompositePane
 	{
 	public:
-		TradeView::TradeView(std::shared_ptr<GameModel> the_model, SDL_Window * parent, SDL_Rect client_area);
+		TradeView::TradeView(GameModel& the_model, SDL_Window * parent, SDL_Rect client_area);
 		virtual ~TradeView();
 		void acceptTradeOffer();
 		void cancelTradeDeal();
@@ -27,6 +27,6 @@ namespace global_domination
 		void updateForSelectedTradeDeal();
 	private:
 		Nation* nation_;
-		std::shared_ptr<GameModel> game_model_;
+		GameModel& game_model_;
 	};
 }
