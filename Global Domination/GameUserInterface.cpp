@@ -109,38 +109,38 @@ namespace global_domination
 			break;
 			case TYPES::ACTION_LIST::CHANGEVIEW_NATIONSELECTION:
 			{
-				switchActiveControl(std::make_unique<NationSelectionView>(game_model_, window_, getClientArea()));
+				switchView<NationSelectionView>();
 			}
 			break;
 			case TYPES::ACTION_LIST::CHANGEVIEW_INBOX:
 			{
 				toolbar_->setVisibility(true);
-				switchActiveControl(std::make_unique<InboxView>(game_model_, window_, getClientArea()));
+				switchView<InboxView>();
 			}
 			break;
 			case TYPES::ACTION_LIST::CHANGEVIEW_FINANCES:
 			{
-				switchActiveControl(std::make_unique<FinancesView>(game_model_, window_, getClientArea()));
+				switchView<FinancesView>();
 			}
 			break;
 			case TYPES::ACTION_LIST::CHANGEVIEW_RELATIONS:
 			{
-				switchActiveControl(std::make_unique<RelationsView>(game_model_, window_, getClientArea()));
+				switchView<RelationsView>();
 			}
 			break;
 			case TYPES::ACTION_LIST::CHANGEVIEW_TRADE:
 			{
-				switchActiveControl(std::make_unique<TradeView>(game_model_, window_, getClientArea()));
+				switchView<TradeView>();
 			}
 			break;
 			case TYPES::ACTION_LIST::CHANGEVIEW_WORLD:
 			{
-				switchActiveControl(std::make_unique<WorldView>(game_model_, window_, getClientArea()));
+				switchView<WorldView>();
 			}
 			break;
 			case TYPES::ACTION_LIST::CHANGEVIEW_ENDOFGAME:
 			{
-				switchActiveControl(std::make_unique<EndOfGameView>(game_model_, window_, getClientArea()));
+				switchView<EndOfGameView>();
 			}
 			break;
 		}
